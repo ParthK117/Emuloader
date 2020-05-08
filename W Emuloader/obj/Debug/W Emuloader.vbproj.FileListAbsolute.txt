@@ -1,0 +1,14 @@
+C:\Users\Parth\source\repos\W Emuloader\W Emuloader\bin\Debug\W Emuloader.exe.config
+C:\Users\Parth\source\repos\W Emuloader\W Emuloader\bin\Debug\W Emuloader.exe
+C:\Users\Parth\source\repos\W Emuloader\W Emuloader\bin\Debug\W Emuloader.pdb
+C:\Users\Parth\source\repos\W Emuloader\W Emuloader\bin\Debug\W Emuloader.xml
+C:\Users\Parth\source\repos\W Emuloader\W Emuloader\obj\Debug\W Emuloader.vbprojAssemblyReference.cache
+C:\Users\Parth\source\repos\W Emuloader\W Emuloader\obj\Debug\W_Emuloader.main.resources
+C:\Users\Parth\source\repos\W Emuloader\W Emuloader\obj\Debug\W_Emuloader.Resources.resources
+C:\Users\Parth\source\repos\W Emuloader\W Emuloader\obj\Debug\W Emuloader.vbproj.GenerateResource.cache
+C:\Users\Parth\source\repos\W Emuloader\W Emuloader\obj\Debug\W Emuloader.vbproj.CoreCompileInputs.cache
+C:\Users\Parth\source\repos\W Emuloader\W Emuloader\obj\Debug\W Emuloader.exe
+C:\Users\Parth\source\repos\W Emuloader\W Emuloader\obj\Debug\W Emuloader.xml
+C:\Users\Parth\source\repos\W Emuloader\W Emuloader\obj\Debug\W Emuloader.pdb
+C:\Users\Parth\source\repos\W Emuloader\W Emuloader\obj\Debug\W_Emuloader.newemulator.resources
+C:\Users\Parth\source\repos\W Emuloader\W Emuloader\obj\Debug\W_Emuloader.downloadqueue.resources
