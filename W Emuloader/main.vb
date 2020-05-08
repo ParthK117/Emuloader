@@ -662,7 +662,13 @@ Public Class main
             For Each f In rom_directory.GetFiles
                 If f.ToString.Contains("sav") Then
 
-                ElseIf f.ToString.Contains("gba") Then
+                ElseIf f.ToString.Contains(".gba") Then
+                    listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString, "GBA", System.IO.Path.GetFullPath(f.FullName)}))
+
+                ElseIf f.ToString.Contains(".gbc") Then
+                    listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString, "GBC", System.IO.Path.GetFullPath(f.FullName)}))
+
+                ElseIf f.ToString.Contains(".gb") = True And f.ToString.Contains(".gbc") = False And f.ToString.Contains(".gba") = False Then
                     listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString, "GBA", System.IO.Path.GetFullPath(f.FullName)}))
                 End If
 
@@ -671,9 +677,13 @@ Public Class main
             For Each x In customromlist
                 Dim custom_directory As New DirectoryInfo(x)
                 For Each f In custom_directory.GetFiles
-                    If f.ToString.Contains("gba") Then
-
+                    If f.ToString.Contains(".gba") Then
                         listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString, "GBA", System.IO.Path.GetFullPath(f.FullName)}))
+                    ElseIf f.ToString.Contains(".gbc") Then
+                        listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString, "GBC", System.IO.Path.GetFullPath(f.FullName)}))
+
+                    ElseIf f.ToString.Contains(".gb") = True And f.ToString.Contains(".gbc") = False And f.ToString.Contains(".gba") = False Then
+                        listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString, "GB", System.IO.Path.GetFullPath(f.FullName)}))
                     End If
 
                 Next
@@ -688,7 +698,7 @@ Public Class main
             Dim rom_directory As New DirectoryInfo(".\roms\3DS\")
             For Each f In rom_directory.GetFiles
                 If f.ToString.Contains("XT") Then
-                ElseIf f.ToString.Contains("3ds") Then
+                ElseIf f.ToString.Contains(".3ds") Then
                     listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString, "3DS", System.IO.Path.GetFullPath(f.FullName)}))
                 End If
 
@@ -697,7 +707,7 @@ Public Class main
             For Each x In customromlist
                 Dim custom_directory As New DirectoryInfo(x)
                 For Each f In custom_directory.GetFiles
-                    If f.ToString.Contains("3ds") Then
+                    If f.ToString.Contains(".3ds") Then
 
                         listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString, "3DS", System.IO.Path.GetFullPath(f.FullName)}))
                     End If
@@ -711,7 +721,7 @@ Public Class main
             Dim rom_directory As New DirectoryInfo(".\roms\NDS\")
             For Each f In rom_directory.GetFiles
                 If f.ToString.Contains("XT") Then
-                ElseIf f.ToString.Contains("nds") Then
+                ElseIf f.ToString.Contains(".nds") Then
                     listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString, "NDS", System.IO.Path.GetFullPath(f.FullName)}))
                 End If
 
@@ -720,7 +730,7 @@ Public Class main
             For Each x In customromlist
                 Dim custom_directory As New DirectoryInfo(x)
                 For Each f In custom_directory.GetFiles
-                    If f.ToString.Contains("nds") Then
+                    If f.ToString.Contains(".nds") Then
 
                         listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString, "NDS", System.IO.Path.GetFullPath(f.FullName)}))
                     End If
@@ -788,9 +798,10 @@ Public Class main
 
             If File.Exists(".\custom.eldr") = False Then
                 System.IO.File.Create(".\custom.eldr").Dispose()
+                My.Computer.FileSystem.WriteAllText(".\custom.eldr", folderPath, True)
             End If
 
-            My.Computer.FileSystem.WriteAllText(".\custom.eldr", folderPath, True)
+            My.Computer.FileSystem.WriteAllText(".\custom.eldr", vbNewLine & folderPath, True)
 
 
 
@@ -805,9 +816,10 @@ Public Class main
     End Sub
 
     Private Sub checkbox_filepath_CheckedChanged(sender As Object, e As EventArgs) Handles checkbox_filepath.CheckedChanged
-        If checkbox_filepath.Enabled = True Then
+        If checkbox_filepath.Checked = True Then
             listbox_installedroms.Columns.Item(2).Width = 200
-        Else
+        End If
+        If checkbox_filepath.Checked = False Then
             listbox_installedroms.Columns.Item(2).Width = 0
         End If
     End Sub

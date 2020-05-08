@@ -64,10 +64,12 @@ Partial Class main
         Me.btn_exit = New System.Windows.Forms.Panel()
         Me.btn_about = New System.Windows.Forms.PictureBox()
         Me.panel_play = New System.Windows.Forms.Panel()
+        Me.checkbox_filepath = New System.Windows.Forms.CheckBox()
         Me.btn_import_roms = New System.Windows.Forms.PictureBox()
         Me.listbox_installedroms = New System.Windows.Forms.ListView()
         Me.installed_name = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.installed_platform = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.installed_directory = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.lbl_play = New System.Windows.Forms.Label()
         Me.panel_browse = New System.Windows.Forms.Panel()
         Me.listbox_availableroms = New System.Windows.Forms.ListView()
@@ -79,8 +81,6 @@ Partial Class main
         Me.btn_import = New System.Windows.Forms.PictureBox()
         Me.lbl_browse = New System.Windows.Forms.Label()
         Me.import_list = New System.Windows.Forms.OpenFileDialog()
-        Me.installed_directory = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.checkbox_filepath = New System.Windows.Forms.CheckBox()
         CType(Me.image_logo, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panel_left.SuspendLayout()
         CType(Me.picturebox_tungsten, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -564,6 +564,17 @@ Partial Class main
         Me.panel_play.Size = New System.Drawing.Size(1100, 860)
         Me.panel_play.TabIndex = 4
         '
+        'checkbox_filepath
+        '
+        Me.checkbox_filepath.AutoSize = True
+        Me.checkbox_filepath.Font = New System.Drawing.Font("Gotham Bold", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.checkbox_filepath.Location = New System.Drawing.Point(40, 85)
+        Me.checkbox_filepath.Name = "checkbox_filepath"
+        Me.checkbox_filepath.Size = New System.Drawing.Size(167, 22)
+        Me.checkbox_filepath.TabIndex = 10
+        Me.checkbox_filepath.Text = "Show full file path"
+        Me.checkbox_filepath.UseVisualStyleBackColor = True
+        '
         'btn_import_roms
         '
         Me.btn_import_roms.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
@@ -600,6 +611,11 @@ Partial Class main
         '
         Me.installed_platform.Text = "Platform"
         Me.installed_platform.Width = 120
+        '
+        'installed_directory
+        '
+        Me.installed_directory.Text = ""
+        Me.installed_directory.Width = 0
         '
         'lbl_play
         '
@@ -690,23 +706,6 @@ Partial Class main
         'import_list
         '
         Me.import_list.FileName = "Roms here"
-        '
-        'installed_directory
-        '
-        Me.installed_directory.Text = ""
-        Me.installed_directory.Width = 0
-        '
-        'checkbox_filepath
-        '
-        Me.checkbox_filepath.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.checkbox_filepath.AutoSize = True
-        Me.checkbox_filepath.Font = New System.Drawing.Font("Gotham Bold", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.checkbox_filepath.Location = New System.Drawing.Point(40, 85)
-        Me.checkbox_filepath.Name = "checkbox_filepath"
-        Me.checkbox_filepath.Size = New System.Drawing.Size(167, 22)
-        Me.checkbox_filepath.TabIndex = 10
-        Me.checkbox_filepath.Text = "Show full file path"
-        Me.checkbox_filepath.UseVisualStyleBackColor = True
         '
         'main
         '
