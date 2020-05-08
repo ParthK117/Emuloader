@@ -25,8 +25,14 @@ Public Class downloadqueue
         Dim platform_id As String
         If listbox_queue.Items(0).SubItems(2).Text = "GBA" Then
             platform_id = ".gba"
+            If Directory.Exists(".\roms\GBA") = False Then
+                Directory.CreateDirectory(".\roms\GBA")
+            End If
         ElseIf listbox_queue.Items(0).SubItems(2).Text = "3DS" Then
             platform_id = ".3ds"
+            If Directory.Exists(".\roms\3DS") = False Then
+                Directory.CreateDirectory(".\roms\3DS")
+            End If
         End If
 
         Dim arguments As String()

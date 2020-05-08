@@ -25,6 +25,12 @@ Partial Class main
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(main))
         Me.image_logo = New System.Windows.Forms.PictureBox()
         Me.panel_left = New System.Windows.Forms.Panel()
+        Me.emu_nine = New System.Windows.Forms.Label()
+        Me.emu_eight = New System.Windows.Forms.Label()
+        Me.emu_seven = New System.Windows.Forms.Label()
+        Me.emu_six = New System.Windows.Forms.Label()
+        Me.emu_five = New System.Windows.Forms.Label()
+        Me.emu_four = New System.Windows.Forms.Label()
         Me.picturebox_tungsten = New System.Windows.Forms.PictureBox()
         Me.lbl_licensing = New System.Windows.Forms.Label()
         Me.lbl_patreon = New System.Windows.Forms.Label()
@@ -72,12 +78,6 @@ Partial Class main
         Me.btn_import = New System.Windows.Forms.PictureBox()
         Me.lbl_browse = New System.Windows.Forms.Label()
         Me.import_list = New System.Windows.Forms.OpenFileDialog()
-        Me.emu_six = New System.Windows.Forms.Label()
-        Me.emu_five = New System.Windows.Forms.Label()
-        Me.emu_four = New System.Windows.Forms.Label()
-        Me.emu_nine = New System.Windows.Forms.Label()
-        Me.emu_eight = New System.Windows.Forms.Label()
-        Me.emu_seven = New System.Windows.Forms.Label()
         CType(Me.image_logo, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panel_left.SuspendLayout()
         CType(Me.picturebox_tungsten, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -134,6 +134,78 @@ Partial Class main
         Me.panel_left.Name = "panel_left"
         Me.panel_left.Size = New System.Drawing.Size(250, 860)
         Me.panel_left.TabIndex = 2
+        '
+        'emu_nine
+        '
+        Me.emu_nine.AutoSize = True
+        Me.emu_nine.Font = New System.Drawing.Font("Gotham Bold", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.emu_nine.ForeColor = System.Drawing.SystemColors.ActiveCaption
+        Me.emu_nine.Location = New System.Drawing.Point(22, 520)
+        Me.emu_nine.Name = "emu_nine"
+        Me.emu_nine.Size = New System.Drawing.Size(202, 29)
+        Me.emu_nine.TabIndex = 19
+        Me.emu_nine.Text = "Emulator Name"
+        Me.emu_nine.Visible = False
+        '
+        'emu_eight
+        '
+        Me.emu_eight.AutoSize = True
+        Me.emu_eight.Font = New System.Drawing.Font("Gotham Bold", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.emu_eight.ForeColor = System.Drawing.SystemColors.ActiveCaption
+        Me.emu_eight.Location = New System.Drawing.Point(22, 480)
+        Me.emu_eight.Name = "emu_eight"
+        Me.emu_eight.Size = New System.Drawing.Size(202, 29)
+        Me.emu_eight.TabIndex = 18
+        Me.emu_eight.Text = "Emulator Name"
+        Me.emu_eight.Visible = False
+        '
+        'emu_seven
+        '
+        Me.emu_seven.AutoSize = True
+        Me.emu_seven.Font = New System.Drawing.Font("Gotham Bold", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.emu_seven.ForeColor = System.Drawing.SystemColors.ActiveCaption
+        Me.emu_seven.Location = New System.Drawing.Point(22, 440)
+        Me.emu_seven.Name = "emu_seven"
+        Me.emu_seven.Size = New System.Drawing.Size(202, 29)
+        Me.emu_seven.TabIndex = 17
+        Me.emu_seven.Text = "Emulator Name"
+        Me.emu_seven.Visible = False
+        '
+        'emu_six
+        '
+        Me.emu_six.AutoSize = True
+        Me.emu_six.Font = New System.Drawing.Font("Gotham Bold", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.emu_six.ForeColor = System.Drawing.SystemColors.ActiveCaption
+        Me.emu_six.Location = New System.Drawing.Point(21, 400)
+        Me.emu_six.Name = "emu_six"
+        Me.emu_six.Size = New System.Drawing.Size(202, 29)
+        Me.emu_six.TabIndex = 16
+        Me.emu_six.Text = "Emulator Name"
+        Me.emu_six.Visible = False
+        '
+        'emu_five
+        '
+        Me.emu_five.AutoSize = True
+        Me.emu_five.Font = New System.Drawing.Font("Gotham Bold", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.emu_five.ForeColor = System.Drawing.SystemColors.ActiveCaption
+        Me.emu_five.Location = New System.Drawing.Point(21, 360)
+        Me.emu_five.Name = "emu_five"
+        Me.emu_five.Size = New System.Drawing.Size(202, 29)
+        Me.emu_five.TabIndex = 15
+        Me.emu_five.Text = "Emulator Name"
+        Me.emu_five.Visible = False
+        '
+        'emu_four
+        '
+        Me.emu_four.AutoSize = True
+        Me.emu_four.Font = New System.Drawing.Font("Gotham Bold", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.emu_four.ForeColor = System.Drawing.SystemColors.ActiveCaption
+        Me.emu_four.Location = New System.Drawing.Point(21, 320)
+        Me.emu_four.Name = "emu_four"
+        Me.emu_four.Size = New System.Drawing.Size(202, 29)
+        Me.emu_four.TabIndex = 14
+        Me.emu_four.Text = "Emulator Name"
+        Me.emu_four.Visible = False
         '
         'picturebox_tungsten
         '
@@ -602,78 +674,6 @@ Partial Class main
         'import_list
         '
         Me.import_list.FileName = "Roms here"
-        '
-        'emu_six
-        '
-        Me.emu_six.AutoSize = True
-        Me.emu_six.Font = New System.Drawing.Font("Gotham Bold", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.emu_six.ForeColor = System.Drawing.SystemColors.ActiveCaption
-        Me.emu_six.Location = New System.Drawing.Point(21, 400)
-        Me.emu_six.Name = "emu_six"
-        Me.emu_six.Size = New System.Drawing.Size(202, 29)
-        Me.emu_six.TabIndex = 16
-        Me.emu_six.Text = "Emulator Name"
-        Me.emu_six.Visible = False
-        '
-        'emu_five
-        '
-        Me.emu_five.AutoSize = True
-        Me.emu_five.Font = New System.Drawing.Font("Gotham Bold", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.emu_five.ForeColor = System.Drawing.SystemColors.ActiveCaption
-        Me.emu_five.Location = New System.Drawing.Point(21, 360)
-        Me.emu_five.Name = "emu_five"
-        Me.emu_five.Size = New System.Drawing.Size(202, 29)
-        Me.emu_five.TabIndex = 15
-        Me.emu_five.Text = "Emulator Name"
-        Me.emu_five.Visible = False
-        '
-        'emu_four
-        '
-        Me.emu_four.AutoSize = True
-        Me.emu_four.Font = New System.Drawing.Font("Gotham Bold", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.emu_four.ForeColor = System.Drawing.SystemColors.ActiveCaption
-        Me.emu_four.Location = New System.Drawing.Point(21, 320)
-        Me.emu_four.Name = "emu_four"
-        Me.emu_four.Size = New System.Drawing.Size(202, 29)
-        Me.emu_four.TabIndex = 14
-        Me.emu_four.Text = "Emulator Name"
-        Me.emu_four.Visible = False
-        '
-        'emu_nine
-        '
-        Me.emu_nine.AutoSize = True
-        Me.emu_nine.Font = New System.Drawing.Font("Gotham Bold", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.emu_nine.ForeColor = System.Drawing.SystemColors.ActiveCaption
-        Me.emu_nine.Location = New System.Drawing.Point(22, 520)
-        Me.emu_nine.Name = "emu_nine"
-        Me.emu_nine.Size = New System.Drawing.Size(202, 29)
-        Me.emu_nine.TabIndex = 19
-        Me.emu_nine.Text = "Emulator Name"
-        Me.emu_nine.Visible = False
-        '
-        'emu_eight
-        '
-        Me.emu_eight.AutoSize = True
-        Me.emu_eight.Font = New System.Drawing.Font("Gotham Bold", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.emu_eight.ForeColor = System.Drawing.SystemColors.ActiveCaption
-        Me.emu_eight.Location = New System.Drawing.Point(22, 480)
-        Me.emu_eight.Name = "emu_eight"
-        Me.emu_eight.Size = New System.Drawing.Size(202, 29)
-        Me.emu_eight.TabIndex = 18
-        Me.emu_eight.Text = "Emulator Name"
-        Me.emu_eight.Visible = False
-        '
-        'emu_seven
-        '
-        Me.emu_seven.AutoSize = True
-        Me.emu_seven.Font = New System.Drawing.Font("Gotham Bold", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.emu_seven.ForeColor = System.Drawing.SystemColors.ActiveCaption
-        Me.emu_seven.Location = New System.Drawing.Point(22, 440)
-        Me.emu_seven.Name = "emu_seven"
-        Me.emu_seven.Size = New System.Drawing.Size(202, 29)
-        Me.emu_seven.TabIndex = 17
-        Me.emu_seven.Text = "Emulator Name"
-        Me.emu_seven.Visible = False
         '
         'main
         '

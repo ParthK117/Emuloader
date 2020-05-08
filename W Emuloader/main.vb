@@ -24,7 +24,6 @@ Public Class main
     Private Sub main_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12
-
         panel_play.SendToBack()
         Call loadfonts()
         Call loadconfig()
@@ -520,7 +519,7 @@ Public Class main
                 Else
                     file_source = "Other"
                 End If
-                listbox_availableroms.Items.Add(New ListViewItem(New String() {x_split(0), x_split(1), x_split(2), file_source}))
+                listbox_availableroms.Items.Add(New ListViewItem(New String() {x_split(0), x_split(1), x_split(2), file_source, x_split(3)}))
             Next
             listbox_availableroms.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent)
             listbox_availableroms.AutoResizeColumn(2, ColumnHeaderAutoResizeStyle.HeaderSize)
@@ -569,6 +568,10 @@ Public Class main
     End Sub
 
     Private Sub load_roms_list()
+        If Directory.Exists(".\lists\") = False Then
+            Directory.CreateDirectory(".\lists")
+
+        End If
         Dim list_directory As New DirectoryInfo(".\lists\")
         For Each f In list_directory.GetFiles()
             Dim imported_list_downloads As String() = File.ReadAllLines(".\lists\" & f.ToString)
@@ -628,6 +631,9 @@ Public Class main
         listbox_installedroms.Items.Clear()
 
         If currenttab_metadata(1) = "GBA" Then
+            If Directory.Exists(".\roms\GBA") = False Then
+                Directory.CreateDirectory(".\roms\GBA")
+            End If
             Dim rom_directory As New DirectoryInfo(".\roms\GBA\")
             For Each f In rom_directory.GetFiles
                 If f.ToString.Contains("sav") Then
@@ -637,6 +643,9 @@ Public Class main
 
             Next
         ElseIf currenttab_metadata(1) = "3DS" Then
+            If Directory.Exists(".\roms\3DS") = False Then
+                Directory.CreateDirectory(".\roms\3DS")
+            End If
             Dim rom_directory As New DirectoryInfo(".\roms\3DS\")
             For Each f In rom_directory.GetFiles
                 If f.ToString.Contains("XT") Then
@@ -646,7 +655,12 @@ Public Class main
 
             Next
         End If
-        listbox_installedroms.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent)
+        If listbox_installedroms.Items.Count = 0 Then
+            listbox_installedroms.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize)
+        Else
+            listbox_installedroms.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent)
+        End If
+
         listbox_installedroms.AutoResizeColumn(1, ColumnHeaderAutoResizeStyle.HeaderSize)
 
     End Sub
