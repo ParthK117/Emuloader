@@ -33,6 +33,11 @@ Public Class downloadqueue
             If Directory.Exists(".\roms\3DS") = False Then
                 Directory.CreateDirectory(".\roms\3DS")
             End If
+        ElseIf listbox_queue.Items(0).SubItems(2).Text = "NDS" Then
+            platform_id = ".nds"
+            If Directory.Exists(".\roms\NDS") = False Then
+                Directory.CreateDirectory(".\roms\NDS")
+            End If
         End If
 
         Dim arguments As String()

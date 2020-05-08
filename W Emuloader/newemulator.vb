@@ -15,6 +15,10 @@ Public Class newemulator
             citra_3ds.RunWorkerAsync()
             main.lbl_status.Text = "Installing Citra"
             Call center_status_lbl()
+        ElseIf ListBox1.SelectedItem = "DeSmuME (NDS)" Then
+            desmume.RunWorkerAsync()
+            main.lbl_status.Text = "Installing DeSmuME"
+            Call center_status_lbl()
         End If
     End Sub
 
@@ -153,6 +157,67 @@ Public Class newemulator
     End Sub
 
     Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles TextBox1.TextChanged
+
+    End Sub
+
+    Private Sub desmume_RunWorkerCompleted(sender As Object, e As EventArgs) Handles desmume.RunWorkerCompleted
+        main.lbl_status.Text = "Installed DeSmuME"
+        Call center_status_lbl()
+        Call main.loadconfig()
+    End Sub
+
+    Private Sub desmume_DoWork(sender As Object, e As DoWorkEventArgs) Handles desmume.DoWork
+        Dim timestamp As String = Date.Now.ToString("HH-mm-ss-dd-MM-yyyy")
+
+
+        My.Computer.FileSystem.CreateDirectory(".\DESMUME-" & timestamp)
+
+
+
+        Using desmume_x = New WebClient()
+            Call center_status_lbl()
+            Try
+                desmume_x.DownloadFile("https://drive.google.com/uc?export=download&id=1d4qdS0_Qzv2aub0FkZ_zGzJgnIK_8Set", ".\DESMUME-" & timestamp & "\desmume-0.9.11-win64.zip")
+                desmume_x.Dispose()
+            Catch ex As Exception
+                desmume_x.Dispose()
+                MessageBox.Show("Can't find Download, exiting.")
+            End Try
+        End Using
+
+        If File.Exists(".\DESMUME-" & timestamp & "\desmume-0.9.11-win64.zip") Then
+            Dim zipfilepath As String = ".\DESMUME-" & timestamp & "\desmume-0.9.11-win64.zip"
+            Dim extractto As String = ".\DESMUME-" & timestamp & "\"
+            ZipFile.ExtractToDirectory(zipfilepath, extractto)
+
+        End If
+
+
+        'save to settings
+        If System.IO.File.Exists(".\installed.eldr") = False Then
+            System.IO.File.Create(".\installed.eldr").Dispose()
+            Dim installed_emus As String
+            installed_emus = "DESMUME-" & timestamp
+            My.Computer.FileSystem.WriteAllText(".\installed.eldr", installed_emus, True)
+        Else
+            Dim installed_emus As String = File.ReadAllText(".\installed.eldr")
+            installed_emus = installed_emus & vbNewLine & "DESMUME-" & timestamp
+            My.Computer.FileSystem.WriteAllText(".\installed.eldr", installed_emus, False)
+        End If
+
+
+        Dim datestamp As String = Date.Now.ToString("dd/MM/yyyy")
+        Dim metadata As String = "DeSmuME" & vbNewLine & "NDS" & vbNewLine & datestamp & vbNewLine & "desmume-0.9.11-win64\DeSmuME_0.9.11_x64.exe" & vbNewLine & "DESMUME-" & timestamp
+        System.IO.File.Create(".\DESMUME-" & timestamp & "\desmume.eldr").Dispose()
+        My.Computer.FileSystem.WriteAllText(".\DESMUME-" & timestamp & "\desmume.eldr", metadata, True)
+
+
+
+
+        If Directory.Exists(".\roms\NDS") = False Then
+            My.Computer.FileSystem.CreateDirectory(".\roms\NDS")
+        End If
+
 
     End Sub
 End Class

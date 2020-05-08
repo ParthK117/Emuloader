@@ -28,12 +28,13 @@ Partial Class newemulator
         Me.Label1 = New System.Windows.Forms.Label()
         Me.visual_boy = New System.ComponentModel.BackgroundWorker()
         Me.citra_3ds = New System.ComponentModel.BackgroundWorker()
+        Me.desmume = New System.ComponentModel.BackgroundWorker()
         Me.SuspendLayout()
         '
         'ListBox1
         '
         Me.ListBox1.FormattingEnabled = True
-        Me.ListBox1.Items.AddRange(New Object() {"Visual Boy Advance-M (GBA)", "Citra (3DS)"})
+        Me.ListBox1.Items.AddRange(New Object() {"Visual Boy Advance-M (GBA)", "Citra (3DS)", "DeSmuME (NDS)"})
         Me.ListBox1.Location = New System.Drawing.Point(21, 61)
         Me.ListBox1.Name = "ListBox1"
         Me.ListBox1.Size = New System.Drawing.Size(276, 251)
@@ -75,6 +76,11 @@ Partial Class newemulator
         Me.citra_3ds.WorkerReportsProgress = True
         Me.citra_3ds.WorkerSupportsCancellation = True
         '
+        'desmume
+        '
+        Me.desmume.WorkerReportsProgress = True
+        Me.desmume.WorkerSupportsCancellation = True
+        '
         'newemulator
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -97,4 +103,5 @@ Partial Class newemulator
     Friend WithEvents Label1 As Label
     Friend WithEvents visual_boy As System.ComponentModel.BackgroundWorker
     Friend WithEvents citra_3ds As System.ComponentModel.BackgroundWorker
+    Friend WithEvents desmume As System.ComponentModel.BackgroundWorker
 End Class

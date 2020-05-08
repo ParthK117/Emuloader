@@ -224,6 +224,17 @@ Public Class main
                     emutabs_metadata(index) = currentmetadata
 
                 End If
+                If x.Contains("DESMUME") Then
+
+                    emutabs(index).Text = "DeSmuME"
+                    emutabs(index).Visible = True
+
+
+                    currentmetadata = File.ReadAllLines(".\" & x & "\desmume.eldr")
+                    emutabs_metadata(index) = currentmetadata
+
+                End If
+
                 index = index + 1
                 Next
 
@@ -449,7 +460,7 @@ Public Class main
 
     Private Sub btn_play_MouseDown(sender As Object, e As MouseEventArgs) Handles btn_play.MouseDown
         btn_play.BackgroundImage = System.Drawing.Image.FromFile(".\resources\playclick.png")
-        MessageBox.Show(currenttab_metadata(0))
+
 
 
 
@@ -458,7 +469,7 @@ Public Class main
 
 
         p.FileName = (".\" & currenttab_metadata(4) & "\" & currenttab_metadata(3))
-        MessageBox.Show(p.FileName)
+
         If currenttab_metadata(1) = "GBA" Then
 
             Dim rom_path As String = System.IO.Path.GetFullPath(".\roms\GBA\" & listbox_installedroms.FocusedItem.SubItems(0).Text)
@@ -468,9 +479,15 @@ Public Class main
 
             Dim rom_path As String = System.IO.Path.GetFullPath(".\roms\3DS\" & listbox_installedroms.FocusedItem.SubItems(0).Text)
             p.Arguments = ("""" & rom_path & """")
+        ElseIf currenttab_metadata(1) = "NDS" Then
+
+
+            Dim rom_path As String = System.IO.Path.GetFullPath(".\roms\NDS\" & listbox_installedroms.FocusedItem.SubItems(0).Text)
+            p.Arguments = ("""" & rom_path & """")
         End If
 
-        MessageBox.Show(p.Arguments)
+
+
 
         If checkbox_fullscreen.Checked = True Then
             p.WindowStyle = ProcessWindowStyle.Maximized
@@ -637,7 +654,8 @@ Public Class main
             Dim rom_directory As New DirectoryInfo(".\roms\GBA\")
             For Each f In rom_directory.GetFiles
                 If f.ToString.Contains("sav") Then
-                Else
+
+                ElseIf f.ToString.Contains("gba") Then
                     listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString, "GBA"}))
                 End If
 
@@ -649,8 +667,20 @@ Public Class main
             Dim rom_directory As New DirectoryInfo(".\roms\3DS\")
             For Each f In rom_directory.GetFiles
                 If f.ToString.Contains("XT") Then
-                Else
+                ElseIf f.ToString.Contains("3ds") Then
                     listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString, "3DS"}))
+                End If
+
+            Next
+        ElseIf currenttab_metadata(1) = "NDS" Then
+            If Directory.Exists(".\roms\NDS") = False Then
+                Directory.CreateDirectory(".\roms\NDS")
+            End If
+            Dim rom_directory As New DirectoryInfo(".\roms\NDS\")
+            For Each f In rom_directory.GetFiles
+                If f.ToString.Contains("XT") Then
+                ElseIf f.ToString.Contains("nds") Then
+                    listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString, "NDS"}))
                 End If
 
             Next
