@@ -64,6 +64,7 @@ Partial Class main
         Me.btn_exit = New System.Windows.Forms.Panel()
         Me.btn_about = New System.Windows.Forms.PictureBox()
         Me.panel_play = New System.Windows.Forms.Panel()
+        Me.btn_import_roms = New System.Windows.Forms.PictureBox()
         Me.listbox_installedroms = New System.Windows.Forms.ListView()
         Me.installed_name = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.installed_platform = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
@@ -78,6 +79,8 @@ Partial Class main
         Me.btn_import = New System.Windows.Forms.PictureBox()
         Me.lbl_browse = New System.Windows.Forms.Label()
         Me.import_list = New System.Windows.Forms.OpenFileDialog()
+        Me.installed_directory = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.checkbox_filepath = New System.Windows.Forms.CheckBox()
         CType(Me.image_logo, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panel_left.SuspendLayout()
         CType(Me.picturebox_tungsten, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -91,6 +94,7 @@ Partial Class main
         Me.paneL_menubar.SuspendLayout()
         CType(Me.btn_about, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panel_play.SuspendLayout()
+        CType(Me.btn_import_roms, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panel_browse.SuspendLayout()
         CType(Me.btn_import, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -551,6 +555,8 @@ Partial Class main
         Me.panel_play.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.panel_play.Controls.Add(Me.checkbox_filepath)
+        Me.panel_play.Controls.Add(Me.btn_import_roms)
         Me.panel_play.Controls.Add(Me.listbox_installedroms)
         Me.panel_play.Controls.Add(Me.lbl_play)
         Me.panel_play.Location = New System.Drawing.Point(250, 40)
@@ -558,13 +564,23 @@ Partial Class main
         Me.panel_play.Size = New System.Drawing.Size(1100, 860)
         Me.panel_play.TabIndex = 4
         '
+        'btn_import_roms
+        '
+        Me.btn_import_roms.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btn_import_roms.BackgroundImage = CType(resources.GetObject("btn_import_roms.BackgroundImage"), System.Drawing.Image)
+        Me.btn_import_roms.Location = New System.Drawing.Point(956, 6)
+        Me.btn_import_roms.Name = "btn_import_roms"
+        Me.btn_import_roms.Size = New System.Drawing.Size(139, 36)
+        Me.btn_import_roms.TabIndex = 5
+        Me.btn_import_roms.TabStop = False
+        '
         'listbox_installedroms
         '
         Me.listbox_installedroms.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.listbox_installedroms.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.listbox_installedroms.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.installed_name, Me.installed_platform})
+        Me.listbox_installedroms.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.installed_name, Me.installed_platform, Me.installed_directory})
         Me.listbox_installedroms.Font = New System.Drawing.Font("Gotham Bold", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.listbox_installedroms.ForeColor = System.Drawing.Color.Black
         Me.listbox_installedroms.HideSelection = False
@@ -675,6 +691,23 @@ Partial Class main
         '
         Me.import_list.FileName = "Roms here"
         '
+        'installed_directory
+        '
+        Me.installed_directory.Text = ""
+        Me.installed_directory.Width = 0
+        '
+        'checkbox_filepath
+        '
+        Me.checkbox_filepath.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.checkbox_filepath.AutoSize = True
+        Me.checkbox_filepath.Font = New System.Drawing.Font("Gotham Bold", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.checkbox_filepath.Location = New System.Drawing.Point(40, 85)
+        Me.checkbox_filepath.Name = "checkbox_filepath"
+        Me.checkbox_filepath.Size = New System.Drawing.Size(167, 22)
+        Me.checkbox_filepath.TabIndex = 10
+        Me.checkbox_filepath.Text = "Show full file path"
+        Me.checkbox_filepath.UseVisualStyleBackColor = True
+        '
         'main
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -709,6 +742,7 @@ Partial Class main
         CType(Me.btn_about, System.ComponentModel.ISupportInitialize).EndInit()
         Me.panel_play.ResumeLayout(False)
         Me.panel_play.PerformLayout()
+        CType(Me.btn_import_roms, System.ComponentModel.ISupportInitialize).EndInit()
         Me.panel_browse.ResumeLayout(False)
         Me.panel_browse.PerformLayout()
         CType(Me.btn_import, System.ComponentModel.ISupportInitialize).EndInit()
@@ -770,4 +804,7 @@ Partial Class main
     Friend WithEvents emu_six As Label
     Friend WithEvents emu_five As Label
     Friend WithEvents emu_four As Label
+    Friend WithEvents btn_import_roms As PictureBox
+    Friend WithEvents installed_directory As ColumnHeader
+    Friend WithEvents checkbox_filepath As CheckBox
 End Class

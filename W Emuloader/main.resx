@@ -282,6 +282,33 @@
         AAAAAElFTkSuQmCC
 </value>
   </data>
+  <data name="btn_import_roms.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAAIsAAAAkCAYAAAC5U8nEAAAABGdBTUEAALGPC/xhBQAABPNJREFUeF7t
+        nL9OG1kYxWmQFpR0YB4gSYUEaF8B8QZAVrTQ8gpIUK0pqHcTeAJqJBqEKJCSKgs9/bLbktUmzeT+rDnR
+        8fCNMfKY4Pge6cjM/T/fOXPvnfGYiYyMjIzmMTk52RcvLi5eJL5N/CPxQ+Jt4v+JRebIEL3QDf3QET1f
+        FEUx0Q9DYzhTY68T35+dnd3t7+8X6+vrxeLiYtFqtYrp6ekilckcEaIXuqEfOqInuqIvOkcGcYYGgany
+        L4m/n5ycfNna2ipmZmbCAWSONmdnZwv0ReekdxvdI6PAOqO8Svy0t7dXzM3NhZ1k/lxEZ/RG98RwlomM
+        8uv5+fnfq6urYaOZPzfRHf3xQU+z4KhU8J/l5eWwoczxIPrjg+oM40aZSvxrbW0tbCBzvIgPkh+u8EVk
+        ljZrllfIHG+We5h2l1lSwqu0G/6aN7OZTm6z8UXyR2c5klneb25uhhUyx5v4IvnjsGOW9MdLHszk5yiZ
+        EfFF+eDuJWZ5y5O8qOAgFLa3t8P850TGKET5zgh3d3fF6elpMT8/f688bV9eXpYli+Lm5qY4OjoKywnV
+        /IODgzKnO570R7/0D+raHpT4A59glnfDuAMSxsEswvX1dVfZ4+PjMuc+ENbN5WNAfOXxKTMAjydtRGja
+        MOWd0TvM8mFpaSksNAgFPzmBk9GJEuCNjY3vgb29ve1cSarjQSSdwMEoIDs7O532BK5o2la+t0U6fXma
+        UBXdKfh5+ZW/srLSSfN2faykS3zO2dMdqsOnQ/0yfkHGIs/bbIr4A59gln+HsV8RdHKeVoVfOYBj1akG
+        0c3ggcEoAmUwAqAtGcbbUp+k+RVK3V4BF/y8onQtPVFbMlfdefrY+FvHQO27WTCUz1JNE3/gE8zyZWpq
+        Kiw0CAUPqhBdNZy8B0D1PIgYwut5sBVQtQ0lGJ8ce1uawQiyp6tuHQU/L59ZJJrg5ZyC8n0MHhfgx96e
+        XzgA0zMW5TdF/IFPfohZogA9pky1nJvMy1Tr+rHaj8r1Yi/4LCJ4P05B+dUxaGbEAFF5ESNV9y5+wTRB
+        N8uTL0N1Aeq3TLVcXRmlawZ6qBzw9Ih1qAqkWY27FU+HDy1Dfswnx4KOq2RGoy/g7TZBX4aefIOrNAUE
+        9FOmugwB1XvsMqQyUXqv9V/Q+LQU8OnlfA/lY6JeNNZobL6kCOqXMTKj0IbGG5mwCfoG98lunQWlRQES
+        ojLA12mf9n3fQBA1NRO46A5F9SD5jqrwTkHjQ6hIfKgrPYKWF7FubKJQFxdHdRyD0m+dn+yhnBCdcD9l
+        CALCwCggXM2+fjOj6E4IRv2JGK9X26Kg8UGfRbw/5bnBGV+0Ce01Nih4v/ztD+XY5zRtFOgP5Z714/6H
+        gpg5XOKL5I/P+ERfJB4+1y8Ss1l+LLu+SEwJmOU1X0W3Wq2wQuZ4Ej+Uryi8+W4WmBLyy0+ZXSxfftrH
+        KFWz8Frl1TDujDJHj+UdEK9VTt8zC0wZ+YXtzIdf2BZTgfxTkDFm3z8FEXFU4tXu7m7+kdmYkM0seqM7
+        +leNUmsWmCrw89U2u2Fun57rc5jMwYiu6Fve9Tz+56vOVPlNIj+M/9xutzsbn4WFhc5vZIfxbXXm8Ihe
+        6IZ+6IieSdf/kr6H6BwZxBkaJGJqjH+58Vvin4kfE9kA4UamrszRIHqhG/qhI3r2/y83MjIyMhrGxMQ3
+        p7vr1BzWNiIAAAAASUVORK5CYII=
+</value>
+  </data>
   <data name="btn_import.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAGQAAAAkCAYAAAB/up84AAAABGdBTUEAALGPC/xhBQAAAu9JREFUaEPt

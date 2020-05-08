@@ -192,6 +192,7 @@ Public Class main
         lbl_twitter.Font = gothamfont11
         lbl_patreon.Font = gothamfont11
         checkbox_fullscreen.Font = gothamfont11
+        checkbox_filepath.Font = gothamfont11
     End Sub
     Public Sub loadconfig()
 
@@ -472,17 +473,17 @@ Public Class main
 
         If currenttab_metadata(1) = "GBA" Then
 
-            Dim rom_path As String = System.IO.Path.GetFullPath(".\roms\GBA\" & listbox_installedroms.FocusedItem.SubItems(0).Text)
+            Dim rom_path As String = System.IO.Path.GetFullPath(listbox_installedroms.FocusedItem.SubItems(2).Text)
             p.Arguments = ("""" & rom_path & """")
         ElseIf currenttab_metadata(1) = "3DS" Then
 
 
-            Dim rom_path As String = System.IO.Path.GetFullPath(".\roms\3DS\" & listbox_installedroms.FocusedItem.SubItems(0).Text)
+            Dim rom_path As String = System.IO.Path.GetFullPath(listbox_installedroms.FocusedItem.SubItems(2).Text)
             p.Arguments = ("""" & rom_path & """")
         ElseIf currenttab_metadata(1) = "NDS" Then
 
 
-            Dim rom_path As String = System.IO.Path.GetFullPath(".\roms\NDS\" & listbox_installedroms.FocusedItem.SubItems(0).Text)
+            Dim rom_path As String = System.IO.Path.GetFullPath(listbox_installedroms.FocusedItem.SubItems(2).Text)
             p.Arguments = ("""" & rom_path & """")
         End If
 
@@ -549,6 +550,7 @@ Public Class main
 
 
             System.IO.File.Copy(import_list.FileName, ".\lists\" & System.IO.Path.GetFileName(import_list.FileName))
+        ElseIf Windows.Forms.DialogResult.Cancel Then
         Else
             MessageBox.Show("List already imported")
         End If
@@ -646,6 +648,11 @@ Public Class main
 
     Public Sub load_installed_roms()
         listbox_installedroms.Items.Clear()
+        If File.Exists(".\custom.eldr") = False Then
+            System.IO.File.Create(".\custom.eldr").Dispose()
+        End If
+
+        Dim customromlist As String() = File.ReadAllLines(".\custom.eldr")
 
         If currenttab_metadata(1) = "GBA" Then
             If Directory.Exists(".\roms\GBA") = False Then
@@ -656,10 +663,24 @@ Public Class main
                 If f.ToString.Contains("sav") Then
 
                 ElseIf f.ToString.Contains("gba") Then
-                    listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString, "GBA"}))
+                    listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString, "GBA", System.IO.Path.GetFullPath(f.FullName)}))
                 End If
 
             Next
+
+            For Each x In customromlist
+                Dim custom_directory As New DirectoryInfo(x)
+                For Each f In custom_directory.GetFiles
+                    If f.ToString.Contains("gba") Then
+
+                        listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString, "GBA", System.IO.Path.GetFullPath(f.FullName)}))
+                    End If
+
+                Next
+            Next
+
+
+
         ElseIf currenttab_metadata(1) = "3DS" Then
             If Directory.Exists(".\roms\3DS") = False Then
                 Directory.CreateDirectory(".\roms\3DS")
@@ -668,9 +689,20 @@ Public Class main
             For Each f In rom_directory.GetFiles
                 If f.ToString.Contains("XT") Then
                 ElseIf f.ToString.Contains("3ds") Then
-                    listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString, "3DS"}))
+                    listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString, "3DS", System.IO.Path.GetFullPath(f.FullName)}))
                 End If
 
+            Next
+
+            For Each x In customromlist
+                Dim custom_directory As New DirectoryInfo(x)
+                For Each f In custom_directory.GetFiles
+                    If f.ToString.Contains("3ds") Then
+
+                        listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString, "3DS", System.IO.Path.GetFullPath(f.FullName)}))
+                    End If
+
+                Next
             Next
         ElseIf currenttab_metadata(1) = "NDS" Then
             If Directory.Exists(".\roms\NDS") = False Then
@@ -680,17 +712,32 @@ Public Class main
             For Each f In rom_directory.GetFiles
                 If f.ToString.Contains("XT") Then
                 ElseIf f.ToString.Contains("nds") Then
-                    listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString, "NDS"}))
+                    listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString, "NDS", System.IO.Path.GetFullPath(f.FullName)}))
                 End If
 
             Next
+
+            For Each x In customromlist
+                Dim custom_directory As New DirectoryInfo(x)
+                For Each f In custom_directory.GetFiles
+                    If f.ToString.Contains("nds") Then
+
+                        listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString, "NDS", System.IO.Path.GetFullPath(f.FullName)}))
+                    End If
+
+                Next
+            Next
         End If
+
+
+
         If listbox_installedroms.Items.Count = 0 Then
             listbox_installedroms.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize)
+
         Else
             listbox_installedroms.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent)
         End If
-
+        listbox_installedroms.Columns.Item(2).Width = 0
         listbox_installedroms.AutoResizeColumn(1, ColumnHeaderAutoResizeStyle.HeaderSize)
 
     End Sub
@@ -712,6 +759,56 @@ Public Class main
 
             Me.WindowState = FormWindowState.Normal
             lbl_status.Location = New Point((panel_top.Width - lbl_status.Width) \ 2, (panel_top.Height - lbl_status.Height) \ 2)
+        End If
+    End Sub
+
+
+
+    Private Sub btn_import_roms_MouseEnter(sender As Object, e As EventArgs) Handles btn_import_roms.MouseEnter
+        btn_import_roms.BackgroundImage = System.Drawing.Image.FromFile(".\resources\importromswhite.png")
+    End Sub
+
+    Private Sub btn_import_roms_MouseLeave(sender As Object, e As EventArgs) Handles btn_import_roms.MouseLeave
+        btn_import_roms.BackgroundImage = System.Drawing.Image.FromFile(".\resources\importromsblack.png")
+    End Sub
+
+    Private Sub btn_import_roms_MouseDown(sender As Object, e As MouseEventArgs) Handles btn_import_roms.MouseDown
+        btn_import_roms.BackgroundImage = System.Drawing.Image.FromFile(".\resources\importromsclick.png")
+
+        Dim folderBrowser As New OpenFileDialog()
+
+        folderBrowser.ValidateNames = False
+        folderBrowser.CheckFileExists = False
+        folderBrowser.CheckPathExists = True
+        folderBrowser.FileName = "This folder."
+        If folderBrowser.ShowDialog() = DialogResult.OK Then
+
+            Dim folderPath As String = Path.GetDirectoryName(folderBrowser.FileName)
+
+
+            If File.Exists(".\custom.eldr") = False Then
+                System.IO.File.Create(".\custom.eldr").Dispose()
+            End If
+
+            My.Computer.FileSystem.WriteAllText(".\custom.eldr", folderPath, True)
+
+
+
+
+            Call load_installed_roms()
+        End If
+
+    End Sub
+
+    Private Sub btn_import_roms_MouseUp(sender As Object, e As MouseEventArgs) Handles btn_import_roms.MouseUp
+        btn_import_roms.BackgroundImage = System.Drawing.Image.FromFile(".\resources\importromswhite.png")
+    End Sub
+
+    Private Sub checkbox_filepath_CheckedChanged(sender As Object, e As EventArgs) Handles checkbox_filepath.CheckedChanged
+        If checkbox_filepath.Enabled = True Then
+            listbox_installedroms.Columns.Item(2).Width = 200
+        Else
+            listbox_installedroms.Columns.Item(2).Width = 0
         End If
     End Sub
 End Class
