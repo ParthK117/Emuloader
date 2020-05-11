@@ -245,6 +245,16 @@ Public Class main
                     emutabs_metadata(index) = currentmetadata
 
                 End If
+                If x.Contains("PPSSPP") Then
+
+                    emutabs(index).Text = "PPSSPP"
+                    emutabs(index).Visible = True
+
+
+                    currentmetadata = File.ReadAllLines(".\" & x & "\ppsspp.eldr")
+                    emutabs_metadata(index) = currentmetadata
+
+                End If
                 index = index + 1
                 Next
 
@@ -495,6 +505,11 @@ Public Class main
             Dim rom_path As String = System.IO.Path.GetFullPath(listbox_installedroms.FocusedItem.SubItems(2).Text)
             p.Arguments = ("""" & rom_path & """")
         ElseIf currenttab_metadata(1) = "N64" Then
+
+
+            Dim rom_path As String = System.IO.Path.GetFullPath(listbox_installedroms.FocusedItem.SubItems(2).Text)
+            p.Arguments = ("""" & rom_path & """")
+        ElseIf currenttab_metadata(1) = "PSP" Then
 
 
             Dim rom_path As String = System.IO.Path.GetFullPath(listbox_installedroms.FocusedItem.SubItems(2).Text)
@@ -774,6 +789,29 @@ Public Class main
 
                 Next
             Next
+        ElseIf currenttab_metadata(1) = "PSP" Then
+            If Directory.Exists(".\roms\PSP") = False Then
+                Directory.CreateDirectory(".\roms\PSP")
+            End If
+            Dim rom_directory As New DirectoryInfo(".\roms\PSP\")
+            For Each f In rom_directory.GetFiles
+                If f.ToString.Contains("XT") Then
+                ElseIf f.ToString.Contains(".iso") Then
+                    listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString, "PSP", System.IO.Path.GetFullPath(f.FullName)}))
+                End If
+
+            Next
+
+            For Each x In customromlist
+                Dim custom_directory As New DirectoryInfo(x)
+                For Each f In custom_directory.GetFiles
+                    If f.ToString.Contains(".iso") Or f.ToString.Contains(".cso") Then
+
+                        listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString, "PSP", System.IO.Path.GetFullPath(f.FullName)}))
+                    End If
+
+                Next
+            Next
         End If
 
 
@@ -833,12 +871,16 @@ Public Class main
             Dim folderPath As String = Path.GetDirectoryName(folderBrowser.FileName)
 
 
-            If File.Exists(".\custom.eldr") = False Then
+            If File.Exists(".\custom.eldr") And (New FileInfo(".\custom.eldr").Length > 0) Then
+
+                My.Computer.FileSystem.WriteAllText(".\custom.eldr", vbNewLine & folderPath, True)
+
+            Else
                 System.IO.File.Create(".\custom.eldr").Dispose()
-                My.Computer.FileSystem.WriteAllText(".\custom.eldr", folderPath, True)
+                My.Computer.FileSystem.WriteAllText(".\custom.eldr", folderPath, False)
             End If
 
-            My.Computer.FileSystem.WriteAllText(".\custom.eldr", vbNewLine & folderPath, True)
+
 
 
 

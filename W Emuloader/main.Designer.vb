@@ -596,6 +596,7 @@ Partial Class main
         Me.listbox_installedroms.ForeColor = System.Drawing.Color.Black
         Me.listbox_installedroms.HideSelection = False
         Me.listbox_installedroms.Location = New System.Drawing.Point(40, 120)
+        Me.listbox_installedroms.MultiSelect = False
         Me.listbox_installedroms.Name = "listbox_installedroms"
         Me.listbox_installedroms.Size = New System.Drawing.Size(1055, 735)
         Me.listbox_installedroms.TabIndex = 4

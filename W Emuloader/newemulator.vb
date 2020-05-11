@@ -23,7 +23,12 @@ Public Class newemulator
             project64.RunWorkerAsync()
             main.lbl_status.Text = "Installing Project64"
             Call center_status_lbl()
+        ElseIf ListBox1.SelectedItem = "PPSSPP (PSP)" Then
+            ppsspp.RunWorkerAsync()
+            main.lbl_status.Text = "Installing PPSSPP"
+            Call center_status_lbl()
         End If
+
     End Sub
 
 
@@ -283,6 +288,66 @@ Public Class newemulator
 
         If Directory.Exists(".\roms\N64") = False Then
             My.Computer.FileSystem.CreateDirectory(".\roms\N64")
+        End If
+    End Sub
+
+    Private Sub ppsspp_RunWorkerCompleted(sender As Object, e As EventArgs) Handles ppsspp.RunWorkerCompleted
+        main.lbl_status.Text = "Installed PPSSPP"
+        Call center_status_lbl()
+        Call main.loadconfig()
+    End Sub
+
+    Private Sub ppsspp_DoWork(sender As Object, e As DoWorkEventArgs) Handles ppsspp.DoWork
+        Dim timestamp As String = Date.Now.ToString("HH-mm-ss-dd-MM-yyyy")
+
+
+        My.Computer.FileSystem.CreateDirectory(".\PPSSPP-" & timestamp)
+
+
+
+        Using ppsspp_X = New WebClient()
+
+            Call center_status_lbl()
+            Try
+                ppsspp_X.DownloadFile("https://www.ppsspp.org/files/1_9_3/ppsspp_win.zip", ".\PPSSPP-" & timestamp & "\ppsspp_win.zip")
+                ppsspp_X.Dispose()
+            Catch ex As Exception
+                ppsspp_X.Dispose()
+                MessageBox.Show("Can't find Download, exiting.")
+            End Try
+        End Using
+
+        If File.Exists(".\PPSSPP-" & timestamp & "\ppsspp_win.zip") Then
+            Dim zipfilepath As String = ".\PPSSPP-" & timestamp & "\ppsspp_win.zip"
+            Dim extractto As String = ".\PPSSPP-" & timestamp & "\ppsspp_win\"
+            ZipFile.ExtractToDirectory(zipfilepath, extractto)
+
+        End If
+
+
+        'save to settings
+        If System.IO.File.Exists(".\installed.eldr") = False Then
+            System.IO.File.Create(".\installed.eldr").Dispose()
+            Dim installed_emus As String
+            installed_emus = "PPSSPP-" & timestamp
+            My.Computer.FileSystem.WriteAllText(".\installed.eldr", installed_emus, True)
+        Else
+            Dim installed_emus As String = File.ReadAllText(".\installed.eldr")
+            installed_emus = installed_emus & vbNewLine & "PPSSPP-" & timestamp
+            My.Computer.FileSystem.WriteAllText(".\installed.eldr", installed_emus, False)
+        End If
+
+
+        Dim datestamp As String = Date.Now.ToString("dd/MM/yyyy")
+        Dim metadata As String = "Project64" & vbNewLine & "PSP" & vbNewLine & datestamp & vbNewLine & "ppsspp_win\PPSSPPWindows64.exe" & vbNewLine & "PPSSPP-" & timestamp
+        System.IO.File.Create(".\PPSSPP-" & timestamp & "\ppsspp.eldr").Dispose()
+        My.Computer.FileSystem.WriteAllText(".\PPSSPP-" & timestamp & "\ppsspp.eldr", metadata, True)
+
+
+
+
+        If Directory.Exists(".\roms\PSP") = False Then
+            My.Computer.FileSystem.CreateDirectory(".\roms\PSP")
         End If
     End Sub
 End Class

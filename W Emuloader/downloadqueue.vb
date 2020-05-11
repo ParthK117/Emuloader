@@ -39,9 +39,14 @@ Public Class downloadqueue
                 Directory.CreateDirectory(".\roms\NDS")
             End If
         ElseIf listbox_queue.Items(0).SubItems(2).Text = "N64" Then
-            platform_id = ".Z64"
+            platform_id = ".z64"
             If Directory.Exists(".\roms\N64") = False Then
                 Directory.CreateDirectory(".\roms\N64")
+            End If
+        ElseIf listbox_queue.Items(0).SubItems(2).Text = "PSP" Then
+            platform_id = ".iso"
+            If Directory.Exists(".\roms\PSP") = False Then
+                Directory.CreateDirectory(".\roms\PSP")
             End If
         End If
 
