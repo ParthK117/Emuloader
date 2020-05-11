@@ -38,6 +38,11 @@ Public Class downloadqueue
             If Directory.Exists(".\roms\NDS") = False Then
                 Directory.CreateDirectory(".\roms\NDS")
             End If
+        ElseIf listbox_queue.Items(0).SubItems(2).Text = "N64" Then
+            platform_id = ".Z64"
+            If Directory.Exists(".\roms\N64") = False Then
+                Directory.CreateDirectory(".\roms\N64")
+            End If
         End If
 
         Dim arguments As String()
@@ -45,9 +50,8 @@ Public Class downloadqueue
         main.lbl_status.Text = "Downloading " & listbox_queue.Items(0).SubItems(0).Text
         main.lbl_status.Location = New Point((main.panel_top.Width - main.lbl_status.Width) \ 2, (main.panel_top.Height - main.lbl_status.Height) \ 2)
 
-
         Dim corrected_name As String
-        corrected_name = listbox_queue.Items(0).SubItems(0).Text.Replace(" ", "$")
+        corrected_name = listbox_queue.Items(0).SubItems(0).Text.Replace(":", "$").Replace(" ", "$")
         arguments = {corrected_name & platform_id, listbox_queue.Items(0).SubItems(2).Text, listbox_queue.Items(0).SubItems(4).Text}
 
 
@@ -68,15 +72,49 @@ Public Class downloadqueue
     Private Sub downloader_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles downloader.DoWork
         ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12
         Dim arguments As String() = (e.Argument)
+        Dim iszip = False
+
+
 
         Using downloader_client = New WebClient()
             Try
                 downloader_client.DownloadFile(arguments(2), ".\roms\" & arguments(1) & "\" & arguments(0).Replace("$", " "))
                 downloader_client.Dispose()
 
+
+
+                Try
+
+
+                    Using zipFile2 = ZipFile.OpenRead(".\roms\" & arguments(1) & "\" & arguments(0).Replace("$", " "))
+                        Dim entries = zipFile2.Entries
+                        iszip = True
+
+                    End Using
+
+
+
+
+                    If iszip = True Then
+                        'unzip file
+                        My.Computer.FileSystem.RenameFile(".\roms\" & arguments(1) & "\" & arguments(0).Replace("$", " "), "temp.zip")
+                        ZipFile.ExtractToDirectory(".\roms\" & arguments(1) & "\temp.zip", ".\roms\" & arguments(1) & "\")
+                        My.Computer.FileSystem.DeleteFile(".\roms\" & arguments(1) & "\temp.zip")
+                    End If
+
+
+
+                Catch __unusedInvalidDataException1__ As InvalidDataException
+
+                End Try
+
+
+
+
             Catch ex As Exception
                 downloader_client.Dispose()
-                MessageBox.Show("Faulty download link")
+                MessageBox.Show("Error downloading")
+
 
             End Try
         End Using

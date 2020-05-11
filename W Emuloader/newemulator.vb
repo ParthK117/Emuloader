@@ -19,6 +19,10 @@ Public Class newemulator
             desmume.RunWorkerAsync()
             main.lbl_status.Text = "Installing DeSmuME"
             Call center_status_lbl()
+        ElseIf ListBox1.SelectedItem = "Project64 (N64)" Then
+            project64.RunWorkerAsync()
+            main.lbl_status.Text = "Installing Project64"
+            Call center_status_lbl()
         End If
     End Sub
 
@@ -175,6 +179,7 @@ Public Class newemulator
 
 
         Using desmume_x = New WebClient()
+
             Call center_status_lbl()
             Try
                 desmume_x.DownloadFile("https://drive.google.com/uc?export=download&id=1d4qdS0_Qzv2aub0FkZ_zGzJgnIK_8Set", ".\DESMUME-" & timestamp & "\desmume-0.9.11-win64.zip")
@@ -219,5 +224,65 @@ Public Class newemulator
         End If
 
 
+    End Sub
+
+    Private Sub project64_RunWorkerCompleted(sender As Object, e As EventArgs) Handles project64.RunWorkerCompleted
+        main.lbl_status.Text = "Installed Project64"
+        Call center_status_lbl()
+        Call main.loadconfig()
+    End Sub
+
+    Private Sub project64_DoWork(sender As Object, e As DoWorkEventArgs) Handles project64.DoWork
+        Dim timestamp As String = Date.Now.ToString("HH-mm-ss-dd-MM-yyyy")
+
+
+        My.Computer.FileSystem.CreateDirectory(".\PROJECT64-" & timestamp)
+
+
+
+        Using project64_x = New WebClient()
+
+            Call center_status_lbl()
+            Try
+                project64_x.DownloadFile("https://drive.google.com/uc?export=download&id=1-zZooDk0ukUSIvEV79twB9FRLrk7ONVr", ".\PROJECT64-" & timestamp & "\Project64 2.3.2 Portable.zip")
+                project64_x.Dispose()
+            Catch ex As Exception
+                project64_x.Dispose()
+                MessageBox.Show("Can't find Download, exiting.")
+            End Try
+        End Using
+
+        If File.Exists(".\PROJECT64-" & timestamp & "\Project64 2.3.2 Portable.zip") Then
+            Dim zipfilepath As String = ".\PROJECT64-" & timestamp & "\Project64 2.3.2 Portable.zip"
+            Dim extractto As String = ".\PROJECT64-" & timestamp & "\"
+            ZipFile.ExtractToDirectory(zipfilepath, extractto)
+
+        End If
+
+
+        'save to settings
+        If System.IO.File.Exists(".\installed.eldr") = False Then
+            System.IO.File.Create(".\installed.eldr").Dispose()
+            Dim installed_emus As String
+            installed_emus = "PROJECT64-" & timestamp
+            My.Computer.FileSystem.WriteAllText(".\installed.eldr", installed_emus, True)
+        Else
+            Dim installed_emus As String = File.ReadAllText(".\installed.eldr")
+            installed_emus = installed_emus & vbNewLine & "PROJECT64-" & timestamp
+            My.Computer.FileSystem.WriteAllText(".\installed.eldr", installed_emus, False)
+        End If
+
+
+        Dim datestamp As String = Date.Now.ToString("dd/MM/yyyy")
+        Dim metadata As String = "Project64" & vbNewLine & "N64" & vbNewLine & datestamp & vbNewLine & "Project64 2.3.2 FULL\Project64.exe" & vbNewLine & "PROJECT64-" & timestamp
+        System.IO.File.Create(".\PROJECT64-" & timestamp & "\project64.eldr").Dispose()
+        My.Computer.FileSystem.WriteAllText(".\PROJECT64-" & timestamp & "\project64.eldr", metadata, True)
+
+
+
+
+        If Directory.Exists(".\roms\N64") = False Then
+            My.Computer.FileSystem.CreateDirectory(".\roms\N64")
+        End If
     End Sub
 End Class

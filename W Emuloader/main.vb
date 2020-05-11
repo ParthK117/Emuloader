@@ -235,7 +235,16 @@ Public Class main
                     emutabs_metadata(index) = currentmetadata
 
                 End If
+                If x.Contains("PROJECT64") Then
 
+                    emutabs(index).Text = "Project64"
+                    emutabs(index).Visible = True
+
+
+                    currentmetadata = File.ReadAllLines(".\" & x & "\project64.eldr")
+                    emutabs_metadata(index) = currentmetadata
+
+                End If
                 index = index + 1
                 Next
 
@@ -481,6 +490,11 @@ Public Class main
             Dim rom_path As String = System.IO.Path.GetFullPath(listbox_installedroms.FocusedItem.SubItems(2).Text)
             p.Arguments = ("""" & rom_path & """")
         ElseIf currenttab_metadata(1) = "NDS" Then
+
+
+            Dim rom_path As String = System.IO.Path.GetFullPath(listbox_installedroms.FocusedItem.SubItems(2).Text)
+            p.Arguments = ("""" & rom_path & """")
+        ElseIf currenttab_metadata(1) = "N64" Then
 
 
             Dim rom_path As String = System.IO.Path.GetFullPath(listbox_installedroms.FocusedItem.SubItems(2).Text)
@@ -737,6 +751,29 @@ Public Class main
 
                 Next
             Next
+        ElseIf currenttab_metadata(1) = "N64" Then
+            If Directory.Exists(".\roms\N64") = False Then
+                Directory.CreateDirectory(".\roms\N64")
+            End If
+            Dim rom_directory As New DirectoryInfo(".\roms\N64\")
+            For Each f In rom_directory.GetFiles
+                If f.ToString.Contains("XT") Then
+                ElseIf f.ToString.Contains(".z64") Then
+                    listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString, "N64", System.IO.Path.GetFullPath(f.FullName)}))
+                End If
+
+            Next
+
+            For Each x In customromlist
+                Dim custom_directory As New DirectoryInfo(x)
+                For Each f In custom_directory.GetFiles
+                    If f.ToString.Contains(".z64") Then
+
+                        listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString, "N64", System.IO.Path.GetFullPath(f.FullName)}))
+                    End If
+
+                Next
+            Next
         End If
 
 
@@ -802,6 +839,9 @@ Public Class main
             End If
 
             My.Computer.FileSystem.WriteAllText(".\custom.eldr", vbNewLine & folderPath, True)
+
+
+
 
 
 
