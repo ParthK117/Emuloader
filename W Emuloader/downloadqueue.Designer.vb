@@ -22,6 +22,7 @@ Partial Class downloadqueue
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(downloadqueue))
         Me.listbox_queue = New System.Windows.Forms.ListView()
         Me.column_name = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.column_size = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
@@ -40,7 +41,7 @@ Partial Class downloadqueue
         Me.listbox_queue.HideSelection = False
         Me.listbox_queue.Location = New System.Drawing.Point(0, 0)
         Me.listbox_queue.Name = "listbox_queue"
-        Me.listbox_queue.Size = New System.Drawing.Size(800, 379)
+        Me.listbox_queue.Size = New System.Drawing.Size(800, 482)
         Me.listbox_queue.TabIndex = 4
         Me.listbox_queue.UseCompatibleStateImageBehavior = False
         Me.listbox_queue.View = System.Windows.Forms.View.Details
@@ -80,11 +81,14 @@ Partial Class downloadqueue
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(800, 450)
+        Me.BackColor = System.Drawing.Color.White
+        Me.ClientSize = New System.Drawing.Size(800, 482)
+        Me.ControlBox = False
         Me.Controls.Add(Me.listbox_queue)
-        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "downloadqueue"
-        Me.Text = "downloadqueue"
+        Me.Text = "Download Queue"
         Me.ResumeLayout(False)
 
     End Sub

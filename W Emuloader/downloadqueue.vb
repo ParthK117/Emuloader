@@ -4,7 +4,7 @@ Imports System.IO.Compression
 Imports System.ComponentModel
 
 Public Class downloadqueue
-
+    Public Shared spartan As New System.Drawing.Text.PrivateFontCollection()
 
     Private Sub downloadqueue_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         listbox_queue.Items.Add(New ListViewItem(New String() {main.listbox_availableroms.FocusedItem.SubItems(0).Text,
@@ -14,6 +14,8 @@ Public Class downloadqueue
           main.listbox_availableroms.FocusedItem.SubItems(4).Text}))
         Call launch_downloader()
 
+        Dim spartanfont12 As New System.Drawing.Font(main.spartan.Families(0), 12)
+        listbox_queue.Font = spartanfont12
     End Sub
 
 
@@ -48,6 +50,11 @@ Public Class downloadqueue
             If Directory.Exists(".\roms\PSP") = False Then
                 Directory.CreateDirectory(".\roms\PSP")
             End If
+        ElseIf listbox_queue.Items(0).SubItems(2).Text = "WII" Then
+            platform_id = ".iso"
+            If Directory.Exists(".\roms\WII") = False Then
+                Directory.CreateDirectory(".\roms\WII")
+            End If
         End If
 
         Dim arguments As String()
@@ -66,10 +73,6 @@ Public Class downloadqueue
 
 
 
-    End Sub
-
-    Private Sub Label1_Click(sender As Object, e As EventArgs)
-        Call launch_downloader()
     End Sub
 
 

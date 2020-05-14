@@ -409,9 +409,9 @@ Partial Class main
         Me.lbl_rom_name.Location = New System.Drawing.Point(14, 1)
         Me.lbl_rom_name.MaximumSize = New System.Drawing.Size(200, 23)
         Me.lbl_rom_name.Name = "lbl_rom_name"
-        Me.lbl_rom_name.Size = New System.Drawing.Size(191, 23)
+        Me.lbl_rom_name.Size = New System.Drawing.Size(133, 23)
         Me.lbl_rom_name.TabIndex = 5
-        Me.lbl_rom_name.Text = "Software Version: 1.0.0"
+        Me.lbl_rom_name.Text = "Prerelease Build"
         '
         'checkbox_fullscreen
         '
@@ -549,6 +549,7 @@ Partial Class main
         Me.btn_about.Size = New System.Drawing.Size(100, 36)
         Me.btn_about.TabIndex = 1
         Me.btn_about.TabStop = False
+        Me.btn_about.Visible = False
         '
         'panel_play
         '
@@ -722,6 +723,7 @@ Partial Class main
         Me.Controls.Add(Me.panel_browse)
         Me.DoubleBuffered = True
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "main"
         Me.Text = "W Emuloader"
         CType(Me.image_logo, System.ComponentModel.ISupportInitialize).EndInit()

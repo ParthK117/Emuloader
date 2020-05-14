@@ -16,10 +16,11 @@ Public Class main
     Dim emu_nine_metadata As String()
     Dim emutabs_metadata = {emu_one_metadata, emu_two_metadata, emu_three_metadata, emu_four_metadata, emu_five_metadata, emu_six_metadata, emu_seven_metadata, emu_eight_metadata, emu_nine_metadata}
     Dim currenttab_metadata As String() = {"na", "na", "na", "na", "na"}
-    Dim gotham As New System.Drawing.Text.PrivateFontCollection()
+    Public Shared gotham As New System.Drawing.Text.PrivateFontCollection()
+    Public Shared spartan As New System.Drawing.Text.PrivateFontCollection()
 
     Dim labelgrey As Color
-
+    '0.1.0
 
     Private Sub main_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
@@ -157,6 +158,7 @@ Public Class main
     Private Sub loadfonts()
 
         gotham.AddFontFile(".\resources\gotham.otf")
+        spartan.AddFontFile(".\resources\spartanmb.otf")
         Dim gothamfont12 As New System.Drawing.Font(gotham.Families(0), 12)
         lbl_status.Font = gothamfont12
         lbl_library.Font = gothamfont12
@@ -164,8 +166,18 @@ Public Class main
 
         Dim gothamfont16 As New System.Drawing.Font(gotham.Families(0), 16)
         btn_browse.Font = gothamfont16
-        listbox_availableroms.Font = gothamfont16
-        listbox_installedroms.Font = gothamfont16
+
+
+        Dim spartanfont16 As New System.Drawing.Font(spartan.Families(0), 16)
+        listbox_availableroms.Font = spartanfont16
+        listbox_installedroms.Font = spartanfont16
+
+        Dim spartanfont14 As New System.Drawing.Font(spartan.Families(0), 14)
+        lbl_rom_name.Font = spartanfont14
+        lbl_rom_platform.Font = spartanfont14
+        lbl_name.Font = spartanfont14
+        lbl_platform.Font = spartanfont14
+        lbl_installedon.Font = spartanfont14
 
         Dim gothamfont18 As New System.Drawing.Font(gotham.Families(0), 18)
         emu_one.Font = gothamfont18
@@ -252,6 +264,16 @@ Public Class main
 
 
                     currentmetadata = File.ReadAllLines(".\" & x & "\ppsspp.eldr")
+                    emutabs_metadata(index) = currentmetadata
+
+                End If
+                If x.Contains("DOLPHIN") Then
+
+                    emutabs(index).Text = "Dolphin"
+                    emutabs(index).Visible = True
+
+
+                    currentmetadata = File.ReadAllLines(".\" & x & "\dolphin.eldr")
                     emutabs_metadata(index) = currentmetadata
 
                 End If
@@ -510,6 +532,11 @@ Public Class main
             Dim rom_path As String = System.IO.Path.GetFullPath(listbox_installedroms.FocusedItem.SubItems(2).Text)
             p.Arguments = ("""" & rom_path & """")
         ElseIf currenttab_metadata(1) = "PSP" Then
+
+
+            Dim rom_path As String = System.IO.Path.GetFullPath(listbox_installedroms.FocusedItem.SubItems(2).Text)
+            p.Arguments = ("""" & rom_path & """")
+        ElseIf currenttab_metadata(1) = "WII" Then
 
 
             Dim rom_path As String = System.IO.Path.GetFullPath(listbox_installedroms.FocusedItem.SubItems(2).Text)
@@ -808,6 +835,29 @@ Public Class main
                     If f.ToString.Contains(".iso") Or f.ToString.Contains(".cso") Then
 
                         listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString, "PSP", System.IO.Path.GetFullPath(f.FullName)}))
+                    End If
+
+                Next
+            Next
+        ElseIf currenttab_metadata(1) = "WII" Then
+            If Directory.Exists(".\roms\WII") = False Then
+                Directory.CreateDirectory(".\roms\WII")
+            End If
+            Dim rom_directory As New DirectoryInfo(".\roms\WII\")
+            For Each f In rom_directory.GetFiles
+                If f.ToString.Contains("XT") Then
+                ElseIf f.ToString.Contains(".iso") Then
+                    listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString, "WII", System.IO.Path.GetFullPath(f.FullName)}))
+                End If
+
+            Next
+
+            For Each x In customromlist
+                Dim custom_directory As New DirectoryInfo(x)
+                For Each f In custom_directory.GetFiles
+                    If f.ToString.Contains(".iso") Or f.ToString.Contains(".elf") Then
+
+                        listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString, "WII", System.IO.Path.GetFullPath(f.FullName)}))
                     End If
 
                 Next
