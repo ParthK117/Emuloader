@@ -955,4 +955,53 @@ Public Class main
             listbox_installedroms.Columns.Item(2).Width = 0
         End If
     End Sub
+
+
+
+    Private Sub listbox_installedroms_MouseDown(sender As Object, e As MouseEventArgs) Handles listbox_installedroms.MouseDown
+
+    End Sub
+
+    Private Sub listbox_installedroms_MouseUp(sender As Object, e As MouseEventArgs) Handles listbox_installedroms.MouseUp
+        If e.Button = MouseButtons.Right Then
+            If listbox_installedroms.SelectedItems.Count > 0 Then
+
+                panel_rom_rightclick.Visible = True
+
+                panel_rom_rightclick.Location = New Point((e.X + 40), (e.Y + 120))
+            End If
+        Else
+            panel_rom_rightclick.Visible = False
+        End If
+    End Sub
+
+    Private Sub btn_rom_rename_Click(sender As Object, e As EventArgs) Handles btn_rom_rename.Click
+
+    End Sub
+
+    Private Sub btn_rom_rename_MouseEnter(sender As Object, e As EventArgs) Handles btn_rom_rename.MouseEnter
+        btn_rom_rename.BackgroundImage = System.Drawing.Image.FromFile(".\resources\renameblack.png")
+    End Sub
+
+    Private Sub btn_rom_rename_MouseLeave(sender As Object, e As EventArgs) Handles btn_rom_rename.MouseLeave
+        btn_rom_rename.BackgroundImage = System.Drawing.Image.FromFile(".\resources\renamewhite.png")
+    End Sub
+
+    Private Sub btn_rom_delete_MouseEnter(sender As Object, e As EventArgs) Handles btn_rom_delete.MouseEnter
+        btn_rom_delete.BackgroundImage = System.Drawing.Image.FromFile(".\resources\deleteblack.png")
+    End Sub
+
+    Private Sub btn_rom_delete_MouseLeave(sender As Object, e As EventArgs) Handles btn_rom_delete.MouseLeave
+        btn_rom_delete.BackgroundImage = System.Drawing.Image.FromFile(".\resources\deletewhite.png")
+    End Sub
+
+    Private Sub btn_rom_delete_Click(sender As Object, e As EventArgs) Handles btn_rom_delete.Click
+
+        If File.Exists(listbox_installedroms.FocusedItem.SubItems(2).Text) Then
+
+            My.Computer.FileSystem.DeleteFile(listbox_installedroms.FocusedItem.SubItems(2).Text)
+            listbox_installedroms.FocusedItem.Remove()
+            panel_rom_rightclick.Visible = False
+        End If
+    End Sub
 End Class

@@ -64,6 +64,9 @@ Partial Class main
         Me.btn_exit = New System.Windows.Forms.Panel()
         Me.btn_about = New System.Windows.Forms.PictureBox()
         Me.panel_play = New System.Windows.Forms.Panel()
+        Me.panel_rom_rightclick = New System.Windows.Forms.Panel()
+        Me.btn_rom_delete = New System.Windows.Forms.PictureBox()
+        Me.btn_rom_rename = New System.Windows.Forms.PictureBox()
         Me.checkbox_filepath = New System.Windows.Forms.CheckBox()
         Me.btn_import_roms = New System.Windows.Forms.PictureBox()
         Me.listbox_installedroms = New System.Windows.Forms.ListView()
@@ -94,6 +97,9 @@ Partial Class main
         Me.paneL_menubar.SuspendLayout()
         CType(Me.btn_about, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panel_play.SuspendLayout()
+        Me.panel_rom_rightclick.SuspendLayout()
+        CType(Me.btn_rom_delete, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.btn_rom_rename, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btn_import_roms, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panel_browse.SuspendLayout()
         CType(Me.btn_import, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -556,6 +562,7 @@ Partial Class main
         Me.panel_play.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.panel_play.Controls.Add(Me.panel_rom_rightclick)
         Me.panel_play.Controls.Add(Me.checkbox_filepath)
         Me.panel_play.Controls.Add(Me.btn_import_roms)
         Me.panel_play.Controls.Add(Me.listbox_installedroms)
@@ -564,6 +571,35 @@ Partial Class main
         Me.panel_play.Name = "panel_play"
         Me.panel_play.Size = New System.Drawing.Size(1100, 860)
         Me.panel_play.TabIndex = 4
+        '
+        'panel_rom_rightclick
+        '
+        Me.panel_rom_rightclick.BackColor = System.Drawing.Color.White
+        Me.panel_rom_rightclick.Controls.Add(Me.btn_rom_delete)
+        Me.panel_rom_rightclick.Controls.Add(Me.btn_rom_rename)
+        Me.panel_rom_rightclick.Location = New System.Drawing.Point(611, 112)
+        Me.panel_rom_rightclick.Name = "panel_rom_rightclick"
+        Me.panel_rom_rightclick.Size = New System.Drawing.Size(125, 60)
+        Me.panel_rom_rightclick.TabIndex = 11
+        Me.panel_rom_rightclick.Visible = False
+        '
+        'btn_rom_delete
+        '
+        Me.btn_rom_delete.BackgroundImage = CType(resources.GetObject("btn_rom_delete.BackgroundImage"), System.Drawing.Image)
+        Me.btn_rom_delete.Location = New System.Drawing.Point(0, 30)
+        Me.btn_rom_delete.Name = "btn_rom_delete"
+        Me.btn_rom_delete.Size = New System.Drawing.Size(125, 30)
+        Me.btn_rom_delete.TabIndex = 1
+        Me.btn_rom_delete.TabStop = False
+        '
+        'btn_rom_rename
+        '
+        Me.btn_rom_rename.BackgroundImage = CType(resources.GetObject("btn_rom_rename.BackgroundImage"), System.Drawing.Image)
+        Me.btn_rom_rename.Location = New System.Drawing.Point(0, 0)
+        Me.btn_rom_rename.Name = "btn_rom_rename"
+        Me.btn_rom_rename.Size = New System.Drawing.Size(125, 30)
+        Me.btn_rom_rename.TabIndex = 0
+        Me.btn_rom_rename.TabStop = False
         '
         'checkbox_filepath
         '
@@ -744,6 +780,9 @@ Partial Class main
         CType(Me.btn_about, System.ComponentModel.ISupportInitialize).EndInit()
         Me.panel_play.ResumeLayout(False)
         Me.panel_play.PerformLayout()
+        Me.panel_rom_rightclick.ResumeLayout(False)
+        CType(Me.btn_rom_delete, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.btn_rom_rename, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btn_import_roms, System.ComponentModel.ISupportInitialize).EndInit()
         Me.panel_browse.ResumeLayout(False)
         Me.panel_browse.PerformLayout()
@@ -809,4 +848,7 @@ Partial Class main
     Friend WithEvents btn_import_roms As PictureBox
     Friend WithEvents installed_directory As ColumnHeader
     Friend WithEvents checkbox_filepath As CheckBox
+    Friend WithEvents panel_rom_rightclick As Panel
+    Friend WithEvents btn_rom_rename As PictureBox
+    Friend WithEvents btn_rom_delete As PictureBox
 End Class

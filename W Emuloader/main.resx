@@ -282,6 +282,38 @@
         AAAAAElFTkSuQmCC
 </value>
   </data>
+  <data name="btn_rom_delete.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAAH0AAAAeCAYAAAAB4BHRAAAABGdBTUEAALGPC/xhBQAAAhpJREFUaEPt
+        mOHNgkAMhp3GQZiCHZzBEdjACZzABRzAARyA//zn8yV9TXOBj6uGWNI+SSMc18L15XonhxdjWjg7jEkc
+        UvSApOgBSdEDkqIHJEUPSDjRm6aZBv18PqUlHi5FpzA0nJ/P5/HxeEiPz2HMvu+lJR6SA1+iU5g5g/jD
+        MEhPO4zzqei49zf394DkwKfoEAYJxu/lcnm3n04n6WlHx7YCH/rvGRmDX9E1KO+8dr1epdXGUuwaUvQN
+        YWLnhOGMPx6P0mLjv9hrpOgbwsTOCaMTX27s7vf7VPpxrW3b6QUp19+l2Gu+2O3jRaM/rFxmau7vAXn+
+        /YgOmPzb7SYt49h13dSGnT6OdfJ14udi1/iiP9th2FBCVFJ7fw/IGPYlOq9TdMwwnCPRGi4FEIHQl7Et
+        vvChv8YSwwMyhn2Xd86qstxjhrEv4TljW3yXRLfE8IA8035E5+zRGzmW+3LN1cYvcDxnbIvvkuiWGB6Q
+        Z9qH6JhJvKb/svELHsosfOaMlLEtvjimv8YSwwMyBr+io0TilzMctrR2YnOlgS/WU112dWxg8YUP/XGd
+        WGJ4QMbgU/Q5W/oMy3UVJRbHMJZbvctnHD37an0BZzX7EkuMX4Nnepkv0ZlYGs4h9tqMQcln8ulTrqWM
+        XbbX+AK04W8YxdUvYG2MX4Pne5kv0ZNtSdEDkqIHJEUPSIoekBQ9ICl6QN6ip0Wyw/gHczjswuegK4wA
+        AAAASUVORK5CYII=
+</value>
+  </data>
+  <data name="btn_rom_rename.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAAH0AAAAeCAYAAAAB4BHRAAAABGdBTUEAALGPC/xhBQAAApZJREFUaEPt
+        l+Gt6jAMRpmGQZiCHZiBEdiACZiABRiAARiA//zv4/TlICsquhekNleKj2SRuonj+muSsnoypHVnqyHp
+        hxS9Q1L0DknROyRF75AUvUNS9A5pIvpms3Hil2232+F4PA6Px6P0Suai1HxZ0RUa8RE7vgS0U/h5KbVu
+        I/r9fi+eYbher8N6vR79rPhkPkr924sOp9Np9LPak/ko9f8bol8ul9e9ZD5Kjf+G6Gzr+Dnna9gF8HN/
+        t9sN5/O53PnP7XYb77FLcFTQx1h1X2Duw+Ew9sdo46PNOOJBjEvbuFyTE/Cycs3xRJypbxL6xJxafrSS
+        w9Pai44w+i0mUJgotkJxTVuI5XiKT1+LjEXh6ev3A2b86DO3Oi5zOz+23+/HX2I4Hl+EPPEzjnYUv4Xw
+        zP20NqLHImsUIuLqrz/uFEoxozisKpnaPSw6vxadXwXEpkSPL45xMedjh9FnXI8s5oo4Pr64S1FybC86
+        q2BqG7ZPvSIssMVUHPpH3J4xII7XCitT936KW/vN1/G+YOQbiXMtTZm33fbuSsDiCoUoWG0W16IrDhap
+        /e/6SS3ab+OKPsfHPL1XG8+5JGXe6QLMhQ9rYfyrhsUVYWEpGO0ps2C0jRGp/d+udCzyzq/P8Z7/vND4
+        pmxpSo5tRQc/dhRY6rNbEJsxn4oO357pkXd+fY737K4/7piP/OttfwlKju1FB8VgdSgGfdwa8VM8XwT8
+        34geY2LGI75+c/skLuhzPPhcxKaNOc/Ud8zclByXFd0trz7LEFoB4srAz4qJ4rBKYmGJ5b3IOz9jiYHf
+        eMxDO+b2adx6vHCExZea56v7LAU5PG1Z0ZO2pOgdkqJ3SIreISl6h6ToHZKid8hL9LSebDX8AxPfX7OI
+        jNzwAAAAAElFTkSuQmCC
+</value>
+  </data>
   <data name="btn_import_roms.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAIsAAAAkCAYAAAC5U8nEAAAABGdBTUEAALGPC/xhBQAABPNJREFUeF7t
