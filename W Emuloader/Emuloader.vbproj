@@ -6,9 +6,9 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{989C0806-48FA-4815-B7D8-DB30612B8F87}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <StartupObject>W_Emuloader.My.MyApplication</StartupObject>
-    <RootNamespace>W_Emuloader</RootNamespace>
-    <AssemblyName>W Emuloader</AssemblyName>
+    <StartupObject>Emuloader.My.MyApplication</StartupObject>
+    <RootNamespace>Emuloader</RootNamespace>
+    <AssemblyName>Emuloader</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>WindowsForms</MyType>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
@@ -36,7 +36,7 @@
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\Debug\</OutputPath>
-    <DocumentationFile>W Emuloader.xml</DocumentationFile>
+    <DocumentationFile>Emuloader.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -46,7 +46,7 @@
     <DefineTrace>true</DefineTrace>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DocumentationFile>W Emuloader.xml</DocumentationFile>
+    <DocumentationFile>Emuloader.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup>

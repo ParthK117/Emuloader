@@ -725,7 +725,7 @@ Partial Class main
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "main"
-        Me.Text = "W Emuloader"
+        Me.Text = "Emuloader"
         CType(Me.image_logo, System.ComponentModel.ISupportInitialize).EndInit()
         Me.panel_left.ResumeLayout(False)
         Me.panel_left.PerformLayout()
