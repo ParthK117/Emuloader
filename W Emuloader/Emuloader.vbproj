@@ -127,6 +127,12 @@
     <Compile Include="newemulator.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="romproperties.Designer.vb">
+      <DependentUpon>romproperties.vb</DependentUpon>
+    </Compile>
+    <Compile Include="romproperties.vb">
+      <SubType>Form</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="downloadqueue.resx">
@@ -144,6 +150,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="newemulator.resx">
       <DependentUpon>newemulator.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="romproperties.resx">
+      <DependentUpon>romproperties.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

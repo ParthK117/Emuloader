@@ -146,6 +146,7 @@ Public Class main
     End Sub
 
     Private Sub btn_newemu_MouseDown(sender As Object, e As MouseEventArgs) Handles btn_newemu.MouseDown
+        GC.Collect()
         btn_newemu.BackgroundImage = System.Drawing.Image.FromFile(".\resources\newemuclick.png")
         newemulator.Show()
 
@@ -719,13 +720,13 @@ Public Class main
                 If f.ToString.Contains("sav") Then
 
                 ElseIf f.ToString.Contains(".gba") Then
-                    listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString, "GBA", System.IO.Path.GetFullPath(f.FullName)}))
+                    listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString.Replace(".gba", ""), "GBA", System.IO.Path.GetFullPath(f.FullName)}))
 
                 ElseIf f.ToString.Contains(".gbc") Then
-                    listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString, "GBC", System.IO.Path.GetFullPath(f.FullName)}))
+                    listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString.Replace(".gbc", ""), "GBC", System.IO.Path.GetFullPath(f.FullName)}))
 
                 ElseIf f.ToString.Contains(".gb") = True And f.ToString.Contains(".gbc") = False And f.ToString.Contains(".gba") = False Then
-                    listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString, "GBA", System.IO.Path.GetFullPath(f.FullName)}))
+                    listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString.Replace(".gb", ""), "GB", System.IO.Path.GetFullPath(f.FullName)}))
                 End If
 
             Next
@@ -734,12 +735,12 @@ Public Class main
                 Dim custom_directory As New DirectoryInfo(x)
                 For Each f In custom_directory.GetFiles
                     If f.ToString.Contains(".gba") Then
-                        listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString, "GBA", System.IO.Path.GetFullPath(f.FullName)}))
+                        listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString.Replace(".gba", ""), "GBA", System.IO.Path.GetFullPath(f.FullName)}))
                     ElseIf f.ToString.Contains(".gbc") Then
-                        listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString, "GBC", System.IO.Path.GetFullPath(f.FullName)}))
+                        listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString.Replace(".gbc", ""), "GBC", System.IO.Path.GetFullPath(f.FullName)}))
 
                     ElseIf f.ToString.Contains(".gb") = True And f.ToString.Contains(".gbc") = False And f.ToString.Contains(".gba") = False Then
-                        listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString, "GB", System.IO.Path.GetFullPath(f.FullName)}))
+                        listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString.Replace(".gb", ""), "GB", System.IO.Path.GetFullPath(f.FullName)}))
                     End If
 
                 Next
@@ -755,7 +756,7 @@ Public Class main
             For Each f In rom_directory.GetFiles
                 If f.ToString.Contains("XT") Then
                 ElseIf f.ToString.Contains(".3ds") Then
-                    listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString, "3DS", System.IO.Path.GetFullPath(f.FullName)}))
+                    listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString.Replace(".3ds", ""), "3DS", System.IO.Path.GetFullPath(f.FullName)}))
                 End If
 
             Next
@@ -765,7 +766,7 @@ Public Class main
                 For Each f In custom_directory.GetFiles
                     If f.ToString.Contains(".3ds") Then
 
-                        listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString, "3DS", System.IO.Path.GetFullPath(f.FullName)}))
+                        listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString.Replace(".3ds", ""), "3DS", System.IO.Path.GetFullPath(f.FullName)}))
                     End If
 
                 Next
@@ -778,7 +779,7 @@ Public Class main
             For Each f In rom_directory.GetFiles
                 If f.ToString.Contains("XT") Then
                 ElseIf f.ToString.Contains(".nds") Then
-                    listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString, "NDS", System.IO.Path.GetFullPath(f.FullName)}))
+                    listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString.Replace(".nds", ""), "NDS", System.IO.Path.GetFullPath(f.FullName)}))
                 End If
 
             Next
@@ -788,7 +789,7 @@ Public Class main
                 For Each f In custom_directory.GetFiles
                     If f.ToString.Contains(".nds") Then
 
-                        listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString, "NDS", System.IO.Path.GetFullPath(f.FullName)}))
+                        listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString.Replace(".nds", ""), "NDS", System.IO.Path.GetFullPath(f.FullName)}))
                     End If
 
                 Next
@@ -801,7 +802,7 @@ Public Class main
             For Each f In rom_directory.GetFiles
                 If f.ToString.Contains("XT") Then
                 ElseIf f.ToString.Contains(".z64") Then
-                    listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString, "N64", System.IO.Path.GetFullPath(f.FullName)}))
+                    listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString.Replace(".z64", ""), "N64", System.IO.Path.GetFullPath(f.FullName)}))
                 End If
 
             Next
@@ -811,7 +812,7 @@ Public Class main
                 For Each f In custom_directory.GetFiles
                     If f.ToString.Contains(".z64") Then
 
-                        listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString, "N64", System.IO.Path.GetFullPath(f.FullName)}))
+                        listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString.Replace(".z64", ""), "N64", System.IO.Path.GetFullPath(f.FullName)}))
                     End If
 
                 Next
@@ -824,7 +825,7 @@ Public Class main
             For Each f In rom_directory.GetFiles
                 If f.ToString.Contains("XT") Then
                 ElseIf f.ToString.Contains(".iso") Then
-                    listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString, "PSP", System.IO.Path.GetFullPath(f.FullName)}))
+                    listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString.Replace(".iso", ""), "PSP", System.IO.Path.GetFullPath(f.FullName)}))
                 End If
 
             Next
@@ -834,7 +835,7 @@ Public Class main
                 For Each f In custom_directory.GetFiles
                     If f.ToString.Contains(".iso") Or f.ToString.Contains(".cso") Then
 
-                        listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString, "PSP", System.IO.Path.GetFullPath(f.FullName)}))
+                        listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString.Replace(".iso", ""), "PSP", System.IO.Path.GetFullPath(f.FullName)}))
                     End If
 
                 Next
@@ -847,7 +848,7 @@ Public Class main
             For Each f In rom_directory.GetFiles
                 If f.ToString.Contains("XT") Then
                 ElseIf f.ToString.Contains(".iso") Then
-                    listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString, "WII", System.IO.Path.GetFullPath(f.FullName)}))
+                    listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString.Replace(".iso", ""), "WII", System.IO.Path.GetFullPath(f.FullName)}))
                 End If
 
             Next
@@ -857,7 +858,7 @@ Public Class main
                 For Each f In custom_directory.GetFiles
                     If f.ToString.Contains(".iso") Or f.ToString.Contains(".elf") Then
 
-                        listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString, "WII", System.IO.Path.GetFullPath(f.FullName)}))
+                        listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString.Replace(".iso", ""), "WII", System.IO.Path.GetFullPath(f.FullName)}))
                     End If
 
                 Next
@@ -976,7 +977,12 @@ Public Class main
     End Sub
 
     Private Sub btn_rom_rename_Click(sender As Object, e As EventArgs) Handles btn_rom_rename.Click
-
+        romproperties.Show()
+        Call romproperties.load_rom_properties()
+        panel_rom_rightclick.Visible = False
+        lbl_rom_name.Visible = False
+        romproperties.textbox_rom_name.Visible = True
+        romproperties.textbox_rom_name.Select()
     End Sub
 
     Private Sub btn_rom_rename_MouseEnter(sender As Object, e As EventArgs) Handles btn_rom_rename.MouseEnter
@@ -1003,5 +1009,19 @@ Public Class main
             listbox_installedroms.FocusedItem.Remove()
             panel_rom_rightclick.Visible = False
         End If
+    End Sub
+
+    Private Sub btn_rom_properties_Click(sender As Object, e As EventArgs) Handles btn_rom_properties.Click
+        romproperties.Show()
+        Call romproperties.load_rom_properties()
+        panel_rom_rightclick.Visible = False
+    End Sub
+
+    Private Sub btn_rom_properties_MouseEnter(sender As Object, e As EventArgs) Handles btn_rom_properties.MouseEnter
+        btn_rom_properties.BackgroundImage = System.Drawing.Image.FromFile(".\resources\propertiesblack.png")
+    End Sub
+
+    Private Sub btn_rom_properties_MouseLeave(sender As Object, e As EventArgs) Handles btn_rom_properties.MouseLeave
+        btn_rom_properties.BackgroundImage = System.Drawing.Image.FromFile(".\resources\propertieswhite.png")
     End Sub
 End Class

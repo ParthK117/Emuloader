@@ -65,6 +65,7 @@ Partial Class main
         Me.btn_about = New System.Windows.Forms.PictureBox()
         Me.panel_play = New System.Windows.Forms.Panel()
         Me.panel_rom_rightclick = New System.Windows.Forms.Panel()
+        Me.btn_rom_properties = New System.Windows.Forms.PictureBox()
         Me.btn_rom_delete = New System.Windows.Forms.PictureBox()
         Me.btn_rom_rename = New System.Windows.Forms.PictureBox()
         Me.checkbox_filepath = New System.Windows.Forms.CheckBox()
@@ -98,6 +99,7 @@ Partial Class main
         CType(Me.btn_about, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panel_play.SuspendLayout()
         Me.panel_rom_rightclick.SuspendLayout()
+        CType(Me.btn_rom_properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btn_rom_delete, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btn_rom_rename, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btn_import_roms, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -575,18 +577,28 @@ Partial Class main
         'panel_rom_rightclick
         '
         Me.panel_rom_rightclick.BackColor = System.Drawing.Color.White
+        Me.panel_rom_rightclick.Controls.Add(Me.btn_rom_properties)
         Me.panel_rom_rightclick.Controls.Add(Me.btn_rom_delete)
         Me.panel_rom_rightclick.Controls.Add(Me.btn_rom_rename)
         Me.panel_rom_rightclick.Location = New System.Drawing.Point(611, 112)
         Me.panel_rom_rightclick.Name = "panel_rom_rightclick"
-        Me.panel_rom_rightclick.Size = New System.Drawing.Size(125, 60)
+        Me.panel_rom_rightclick.Size = New System.Drawing.Size(125, 90)
         Me.panel_rom_rightclick.TabIndex = 11
         Me.panel_rom_rightclick.Visible = False
+        '
+        'btn_rom_properties
+        '
+        Me.btn_rom_properties.BackgroundImage = CType(resources.GetObject("btn_rom_properties.BackgroundImage"), System.Drawing.Image)
+        Me.btn_rom_properties.Location = New System.Drawing.Point(0, 0)
+        Me.btn_rom_properties.Name = "btn_rom_properties"
+        Me.btn_rom_properties.Size = New System.Drawing.Size(125, 30)
+        Me.btn_rom_properties.TabIndex = 2
+        Me.btn_rom_properties.TabStop = False
         '
         'btn_rom_delete
         '
         Me.btn_rom_delete.BackgroundImage = CType(resources.GetObject("btn_rom_delete.BackgroundImage"), System.Drawing.Image)
-        Me.btn_rom_delete.Location = New System.Drawing.Point(0, 30)
+        Me.btn_rom_delete.Location = New System.Drawing.Point(0, 60)
         Me.btn_rom_delete.Name = "btn_rom_delete"
         Me.btn_rom_delete.Size = New System.Drawing.Size(125, 30)
         Me.btn_rom_delete.TabIndex = 1
@@ -595,7 +607,7 @@ Partial Class main
         'btn_rom_rename
         '
         Me.btn_rom_rename.BackgroundImage = CType(resources.GetObject("btn_rom_rename.BackgroundImage"), System.Drawing.Image)
-        Me.btn_rom_rename.Location = New System.Drawing.Point(0, 0)
+        Me.btn_rom_rename.Location = New System.Drawing.Point(0, 30)
         Me.btn_rom_rename.Name = "btn_rom_rename"
         Me.btn_rom_rename.Size = New System.Drawing.Size(125, 30)
         Me.btn_rom_rename.TabIndex = 0
@@ -781,6 +793,7 @@ Partial Class main
         Me.panel_play.ResumeLayout(False)
         Me.panel_play.PerformLayout()
         Me.panel_rom_rightclick.ResumeLayout(False)
+        CType(Me.btn_rom_properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btn_rom_delete, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btn_rom_rename, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btn_import_roms, System.ComponentModel.ISupportInitialize).EndInit()
@@ -851,4 +864,5 @@ Partial Class main
     Friend WithEvents panel_rom_rightclick As Panel
     Friend WithEvents btn_rom_rename As PictureBox
     Friend WithEvents btn_rom_delete As PictureBox
+    Friend WithEvents btn_rom_properties As PictureBox
 End Class
