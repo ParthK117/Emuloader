@@ -70,8 +70,11 @@ Public Class main
 
         lbl_status.Location = New Point((panel_top.Width - lbl_status.Width) \ 2, (panel_top.Height - lbl_status.Height) \ 2)
         picturebox_tungsten.Location = New Point((panel_left.Width - picturebox_tungsten.Width) \ 2, 690)
+        picturebox_drag.Location = New Point((panel_drag_drop.Width - picturebox_drag.Width) \ 2, (panel_drag_drop.Height - picturebox_drag.Height) \ 2)
 
         Call load_roms_list()
+
+        Me.AllowDrop = True
     End Sub
 
     Private Sub panel_top_MouseDown(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles panel_top.MouseDown
@@ -306,7 +309,6 @@ Public Class main
         panel_rom_info.Visible = False
         tab_browse.Visible = False
         panel_play.BringToFront()
-
 
         lbl_name.Text = currenttab_metadata(0)
         lbl_installedon.Text = "Installed on " & currenttab_metadata(2)
@@ -647,12 +649,12 @@ Public Class main
 
     Private Sub listbox_availableroms_SelectedIndexChanged(sender As Object, e As EventArgs) Handles listbox_availableroms.SelectedIndexChanged
         lbl_rom_name.Text = listbox_availableroms.FocusedItem.SubItems(0).Text
-        lbl_rom_platform.Text = "Platform: " & listbox_availableroms.FocusedItem.SubItems(1).Text
+        lbl_rom_platform.Text = "Platform: " & listbox_availableroms.FocusedItem.SubItems(2).Text
     End Sub
 
     Private Sub listbox_search_SelectedIndexChanged(sender As Object, e As EventArgs) Handles listbox_search.SelectedIndexChanged
         lbl_rom_name.Text = listbox_search.FocusedItem.SubItems(0).Text
-        lbl_rom_platform.Text = "Platform: " & listbox_search.FocusedItem.SubItems(1).Text
+        lbl_rom_platform.Text = "Platform: " & listbox_search.FocusedItem.SubItems(2).Text
     End Sub
 
     Private Sub btn_browse_Click(sender As Object, e As EventArgs) Handles btn_browse.Click
@@ -662,7 +664,7 @@ Public Class main
         emu_two.ForeColor = labelgrey
         emu_three.ForeColor = labelgrey
         panel_rom_info.Visible = True
-
+        panel_rom_rightclick.Visible = False
     End Sub
 
     Private Sub load_roms_list()
@@ -783,6 +785,8 @@ listbox_search.FocusedItem.SubItems(4).Text}))
                 If f.ToString.Contains("XT") Then
                 ElseIf f.ToString.Contains(".gbc") Then
                     listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString.Replace(".gbc", ""), "GBC", System.IO.Path.GetFullPath(f.FullName)}))
+                ElseIf f.ToString.Contains(".gb") = True And f.ToString.Contains(".gbc") = False And f.ToString.Contains(".gba") = False Then
+                    listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString.Replace(".gb", ""), "GB", System.IO.Path.GetFullPath(f.FullName)}))
                 End If
 
             Next
@@ -1360,5 +1364,103 @@ listbox_search.FocusedItem.SubItems(4).Text}))
         listbox_search.Columns.Item(4).Width = 0
 
 
+    End Sub
+    Private Sub main_DragDrop(sender As System.Object, e As System.Windows.Forms.DragEventArgs) Handles Me.DragDrop
+        Dim files() As String = e.Data.GetData(DataFormats.FileDrop)
+        For Each drop_path In files
+
+
+            If File.Exists(drop_path.ToString) = True AndAlso drop_path.ToString.Contains(".eldr") Then
+
+
+                Dim imported_list_downloads As String() = File.ReadAllLines(drop_path.ToString)
+                Dim showsource As Boolean = False
+                Dim metadata As String()
+                If imported_list_downloads(0).Contains("#") Then
+                    metadata = Split(imported_list_downloads(0), "#")
+                    showsource = True
+                End If
+
+
+
+                For Each x In imported_list_downloads
+                    If Not x.Contains("#") Then
+                        Dim x_split As String() = Split(x, ",")
+                        '  listbox_availableroms.Items.Add(x_split(0))
+                        Dim file_source As String = x_split(3)
+                        If file_source.Contains("google") Then
+                            file_source = "Google Drive"
+                        ElseIf showsource = True Then
+                            file_source = metadata(0)
+                        Else
+                            file_source = "Other"
+                        End If
+                        listbox_availableroms.Items.Add(New ListViewItem(New String() {x_split(0), x_split(1), x_split(2), file_source, x_split(3)}))
+                    End If
+                Next
+                listbox_availableroms.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent)
+                listbox_availableroms.AutoResizeColumn(2, ColumnHeaderAutoResizeStyle.HeaderSize)
+                listbox_availableroms.Columns.Item(4).Width = 0
+                If Directory.Exists(".\lists\") Then
+                Else
+                    My.Computer.FileSystem.CreateDirectory(".\lists\")
+                End If
+
+
+
+                System.IO.File.Copy(drop_path.ToString, ".\lists\" & System.IO.Path.GetFileName(drop_path.ToString))
+
+
+
+            ElseIf File.Exists(drop_Path.ToString) = True AndAlso Not drop_Path.ToString.Contains(".eldr") Then
+                Dim folderPath As String = Path.GetDirectoryName(drop_path.ToString)
+
+
+                If File.Exists(".\custom.eldr") And (New FileInfo(".\custom.eldr").Length > 0) Then
+
+                    My.Computer.FileSystem.WriteAllText(".\custom.eldr", vbNewLine & folderPath, True)
+
+                Else
+                    System.IO.File.Create(".\custom.eldr").Dispose()
+                    My.Computer.FileSystem.WriteAllText(".\custom.eldr", folderPath, False)
+                End If
+
+
+
+
+
+
+
+
+
+                Call load_installed_roms()
+            Else
+                MessageBox.Show("Could not import")
+            End If
+
+
+
+
+        Next
+
+        Me.Opacity = 1
+        panel_drag_drop.Visible = False
+        panel_drag_drop.SendToBack()
+
+    End Sub
+
+    Private Sub main_DragEnter(sender As System.Object, e As System.Windows.Forms.DragEventArgs) Handles Me.DragEnter
+        If e.Data.GetDataPresent(DataFormats.FileDrop) Then
+            e.Effect = DragDropEffects.Copy
+        End If
+        Me.Opacity = 0.9
+        panel_drag_drop.Visible = True
+        panel_drag_drop.BringToFront()
+    End Sub
+
+    Private Sub main_DragLeave(sender As Object, e As EventArgs) Handles Me.DragLeave
+        Me.Opacity = 1
+        panel_drag_drop.Visible = False
+        panel_drag_drop.SendToBack()
     End Sub
 End Class
