@@ -105,8 +105,22 @@ Public Class downloadqueue
 
                     If iszip = True Then
                         'unzip file
+                        If File.Exists(".\roms\" & arguments(1) & "\temp.zip") Then
+                            My.Computer.FileSystem.DeleteFile(".\roms\" & arguments(1) & "\temp.zip")
+                        End If
                         My.Computer.FileSystem.RenameFile(".\roms\" & arguments(1) & "\" & arguments(0).Replace("$", " "), "temp.zip")
-                        ZipFile.ExtractToDirectory(".\roms\" & arguments(1) & "\temp.zip", ".\roms\" & arguments(1) & "\")
+
+                        '  ZipFile.ExtractToDirectory(".\roms\" & arguments(1) & "\temp.zip", ".\roms\" & arguments(1) & "\")
+
+                        Using zipfile3 = ZipFile.OpenRead(".\roms\" & arguments(1) & "\temp.zip")
+                            For Each entry As ZipArchiveEntry In zipfile3.Entries
+
+
+                                entry.ExtractToFile(Path.Combine(".\roms\" & arguments(1) & "\", entry.FullName), True)
+
+                            Next
+                        End Using
+
                         My.Computer.FileSystem.DeleteFile(".\roms\" & arguments(1) & "\temp.zip")
                     End If
 
@@ -114,6 +128,9 @@ Public Class downloadqueue
 
                 Catch __unusedInvalidDataException1__ As InvalidDataException
 
+                Catch ex As IOException
+
+                    MessageBox.Show("Error unzipping")
                 End Try
 
 
