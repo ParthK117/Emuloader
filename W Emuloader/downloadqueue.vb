@@ -7,11 +7,19 @@ Public Class downloadqueue
     Public Shared spartan As New System.Drawing.Text.PrivateFontCollection()
 
     Private Sub downloadqueue_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        listbox_queue.Items.Add(New ListViewItem(New String() {main.listbox_availableroms.FocusedItem.SubItems(0).Text,
-          main.listbox_availableroms.FocusedItem.SubItems(1).Text,
-          main.listbox_availableroms.FocusedItem.SubItems(2).Text,
-          main.listbox_availableroms.FocusedItem.SubItems(3).Text,
-          main.listbox_availableroms.FocusedItem.SubItems(4).Text}))
+        If main.panel_search.Visible = True Then
+            listbox_queue.Items.Add(New ListViewItem(New String() {main.listbox_search.FocusedItem.SubItems(0).Text,
+main.listbox_search.FocusedItem.SubItems(1).Text,
+main.listbox_search.FocusedItem.SubItems(2).Text,
+main.listbox_search.FocusedItem.SubItems(3).Text,
+main.listbox_search.FocusedItem.SubItems(4).Text}))
+        Else
+            listbox_queue.Items.Add(New ListViewItem(New String() {main.listbox_availableroms.FocusedItem.SubItems(0).Text,
+  main.listbox_availableroms.FocusedItem.SubItems(1).Text,
+  main.listbox_availableroms.FocusedItem.SubItems(2).Text,
+  main.listbox_availableroms.FocusedItem.SubItems(3).Text,
+  main.listbox_availableroms.FocusedItem.SubItems(4).Text}))
+        End If
         Call launch_downloader()
 
         Dim spartanfont12 As New System.Drawing.Font(main.spartan.Families(0), 12)
@@ -55,6 +63,16 @@ Public Class downloadqueue
             If Directory.Exists(".\roms\WII") = False Then
                 Directory.CreateDirectory(".\roms\WII")
             End If
+        ElseIf listbox_queue.Items(0).SubItems(2).Text = "GBC" Then
+            platform_id = ".gbc"
+            If Directory.Exists(".\roms\GBC") = False Then
+                Directory.CreateDirectory(".\roms\GBC")
+            End If
+        ElseIf listbox_queue.Items(0).SubItems(2).Text = "GB" Then
+            platform_id = ".gb"
+            If Directory.Exists(".\roms\GB") = False Then
+                Directory.CreateDirectory(".\roms\GB")
+            End If
         End If
 
         Dim arguments As String()
@@ -64,6 +82,11 @@ Public Class downloadqueue
 
         Dim corrected_name As String
         corrected_name = listbox_queue.Items(0).SubItems(0).Text.Replace(":", "$").Replace(" ", "$")
+
+        If Not listbox_queue.Items(0).SubItems(4).Text.Contains("http") Then
+            Dim b As Byte() = Convert.FromBase64String(listbox_queue.Items(0).SubItems(4).Text)
+            listbox_queue.Items(0).SubItems(4).Text = System.Text.Encoding.UTF8.GetString(b)
+        End If
         arguments = {corrected_name & platform_id, listbox_queue.Items(0).SubItems(2).Text, listbox_queue.Items(0).SubItems(4).Text}
 
 

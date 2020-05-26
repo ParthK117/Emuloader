@@ -43,7 +43,7 @@ Public Class main
 
 
         lbl_library.ForeColor = labelgrey
-
+        btn_search.ForeColor = labelgrey
         emu_one.ForeColor = labelgrey
         emu_two.ForeColor = labelgrey
         emu_three.ForeColor = labelgrey
@@ -53,6 +53,7 @@ Public Class main
         emu_seven.ForeColor = labelgrey
         emu_eight.ForeColor = labelgrey
         emu_nine.ForeColor = labelgrey
+
 
         lbl_information.ForeColor = labelgrey
         lbl_name.ForeColor = labelgrey
@@ -65,6 +66,7 @@ Public Class main
         lbl_licensing.ForeColor = labelgrey
         lbl_rom_name.ForeColor = labelgrey
         lbl_rom_platform.ForeColor = labelgrey
+        lbl_version.ForeColor = labelgrey
 
         lbl_status.Location = New Point((panel_top.Width - lbl_status.Width) \ 2, (panel_top.Height - lbl_status.Height) \ 2)
         picturebox_tungsten.Location = New Point((panel_left.Width - picturebox_tungsten.Width) \ 2, 690)
@@ -172,6 +174,7 @@ Public Class main
         Dim spartanfont16 As New System.Drawing.Font(spartan.Families(0), 16)
         listbox_availableroms.Font = spartanfont16
         listbox_installedroms.Font = spartanfont16
+        listbox_search.Font = spartanfont16
 
         Dim spartanfont14 As New System.Drawing.Font(spartan.Families(0), 14)
         lbl_rom_name.Font = spartanfont14
@@ -179,6 +182,7 @@ Public Class main
         lbl_name.Font = spartanfont14
         lbl_platform.Font = spartanfont14
         lbl_installedon.Font = spartanfont14
+        textbox_search.Font = spartanfont14
 
         Dim gothamfont18 As New System.Drawing.Font(gotham.Families(0), 18)
         emu_one.Font = gothamfont18
@@ -211,12 +215,12 @@ Public Class main
 
 
         If File.Exists(".\installed.eldr") = True Then
-                Dim installedeldr As String() = File.ReadAllLines(".\installed.eldr")
-                Dim index As Integer = 0
+            Dim installedeldr As String() = File.ReadAllLines(".\installed.eldr")
+            Dim index As Integer = 0
             Dim emutabs = {emu_one, emu_two, emu_three, emu_four, emu_five, emu_six, emu_seven, emu_eight, emu_nine}
 
             For Each x In installedeldr
-                    Dim currentmetadata As String()
+                Dim currentmetadata As String()
                 If x.Contains("VBAM") Then
 
                     emutabs(index).Text = "VBA-M"
@@ -279,10 +283,10 @@ Public Class main
 
                 End If
                 index = index + 1
-                Next
+            Next
 
 
-            End If
+        End If
 
     End Sub
 
@@ -585,16 +589,29 @@ Public Class main
 
 
             Dim imported_list_downloads As String() = File.ReadAllLines(import_list.FileName)
+            Dim showsource As Boolean = False
+            Dim metadata As String()
+            If imported_list_downloads(0).Contains("#") Then
+                metadata = Split(imported_list_downloads(0), "#")
+                showsource = True
+            End If
+
+
+
             For Each x In imported_list_downloads
-                Dim x_split As String() = Split(x, ",")
-                '  listbox_availableroms.Items.Add(x_split(0))
-                Dim file_source As String = x_split(3)
-                If file_source.Contains("google") Then
-                    file_source = "Google Drive"
-                Else
-                    file_source = "Other"
+                If Not x.Contains("#") Then
+                    Dim x_split As String() = Split(x, ",")
+                    '  listbox_availableroms.Items.Add(x_split(0))
+                    Dim file_source As String = x_split(3)
+                    If file_source.Contains("google") Then
+                        file_source = "Google Drive"
+                    ElseIf showsource = True Then
+                        file_source = metadata(0)
+                    Else
+                        file_source = "Other"
+                    End If
+                    listbox_availableroms.Items.Add(New ListViewItem(New String() {x_split(0), x_split(1), x_split(2), file_source, x_split(3)}))
                 End If
-                listbox_availableroms.Items.Add(New ListViewItem(New String() {x_split(0), x_split(1), x_split(2), file_source, x_split(3)}))
             Next
             listbox_availableroms.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent)
             listbox_availableroms.AutoResizeColumn(2, ColumnHeaderAutoResizeStyle.HeaderSize)
@@ -633,6 +650,11 @@ Public Class main
         lbl_rom_platform.Text = "Platform: " & listbox_availableroms.FocusedItem.SubItems(1).Text
     End Sub
 
+    Private Sub listbox_search_SelectedIndexChanged(sender As Object, e As EventArgs) Handles listbox_search.SelectedIndexChanged
+        lbl_rom_name.Text = listbox_search.FocusedItem.SubItems(0).Text
+        lbl_rom_platform.Text = "Platform: " & listbox_search.FocusedItem.SubItems(1).Text
+    End Sub
+
     Private Sub btn_browse_Click(sender As Object, e As EventArgs) Handles btn_browse.Click
         tab_browse.Visible = True
         panel_browse.BringToFront()
@@ -651,16 +673,29 @@ Public Class main
         Dim list_directory As New DirectoryInfo(".\lists\")
         For Each f In list_directory.GetFiles()
             Dim imported_list_downloads As String() = File.ReadAllLines(".\lists\" & f.ToString)
+            Dim showsource As Boolean = False
+            Dim metadata As String()
+            If imported_list_downloads(0).Contains("#") Then
+                metadata = Split(imported_list_downloads(0), "#")
+                showsource = True
+            End If
+
+
+
             For Each x In imported_list_downloads
-                Dim x_split As String() = Split(x, ",")
-                '  listbox_availableroms.Items.Add(x_split(0))
-                Dim file_source As String = x_split(3)
-                If file_source.Contains("google") Then
-                    file_source = "Google Drive"
-                Else
-                    file_source = "Other"
+                If Not x.Contains("#") Then
+                    Dim x_split As String() = Split(x, ",")
+                    '  listbox_availableroms.Items.Add(x_split(0))
+                    Dim file_source As String = x_split(3)
+                    If file_source.Contains("google") Then
+                        file_source = "Google Drive"
+                    ElseIf showsource = True Then
+                        file_source = metadata(0)
+                    Else
+                        file_source = "Other"
+                    End If
+                    listbox_availableroms.Items.Add(New ListViewItem(New String() {x_split(0), x_split(1), x_split(2), file_source, x_split(3)}))
                 End If
-                listbox_availableroms.Items.Add(New ListViewItem(New String() {x_split(0), x_split(1), x_split(2), file_source, x_split(3)}))
             Next
             listbox_availableroms.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent)
             listbox_availableroms.AutoResizeColumn(2, ColumnHeaderAutoResizeStyle.HeaderSize)
@@ -670,11 +705,20 @@ Public Class main
 
     Private Sub download_roms()
         If downloadqueue.Visible = True Then
-            downloadqueue.listbox_queue.Items.Add(New ListViewItem(New String() {listbox_availableroms.FocusedItem.SubItems(0).Text,
+            If panel_search.Visible = True Then
+                downloadqueue.listbox_queue.Items.Add(New ListViewItem(New String() {listbox_search.FocusedItem.SubItems(0).Text,
+listbox_search.FocusedItem.SubItems(1).Text,
+listbox_search.FocusedItem.SubItems(2).Text,
+listbox_search.FocusedItem.SubItems(3).Text,
+listbox_search.FocusedItem.SubItems(4).Text}))
+            Else
+                downloadqueue.listbox_queue.Items.Add(New ListViewItem(New String() {listbox_availableroms.FocusedItem.SubItems(0).Text,
   listbox_availableroms.FocusedItem.SubItems(1).Text,
   listbox_availableroms.FocusedItem.SubItems(2).Text,
   listbox_availableroms.FocusedItem.SubItems(3).Text,
   listbox_availableroms.FocusedItem.SubItems(4).Text}))
+            End If
+
         Else
             downloadqueue.Show()
         End If
@@ -726,6 +770,30 @@ Public Class main
                     listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString.Replace(".gbc", ""), "GBC", System.IO.Path.GetFullPath(f.FullName)}))
 
                 ElseIf f.ToString.Contains(".gb") = True And f.ToString.Contains(".gbc") = False And f.ToString.Contains(".gba") = False Then
+                    listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString.Replace(".gb", ""), "GB", System.IO.Path.GetFullPath(f.FullName)}))
+                End If
+
+            Next
+
+            If Directory.Exists(".\roms\GBC") = False Then
+                Directory.CreateDirectory(".\roms\GBC")
+            End If
+            Dim rom_directory2 As New DirectoryInfo(".\roms\GBC\")
+            For Each f In rom_directory2.GetFiles
+                If f.ToString.Contains("XT") Then
+                ElseIf f.ToString.Contains(".gbc") Then
+                    listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString.Replace(".gbc", ""), "GBC", System.IO.Path.GetFullPath(f.FullName)}))
+                End If
+
+            Next
+
+            If Directory.Exists(".\roms\GB") = False Then
+                Directory.CreateDirectory(".\roms\GB")
+            End If
+            Dim rom_directory3 As New DirectoryInfo(".\roms\GB\")
+            For Each f In rom_directory3.GetFiles
+                If f.ToString.Contains("XT") Then
+                ElseIf f.ToString.Contains(".gb") Then
                     listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString.Replace(".gb", ""), "GB", System.IO.Path.GetFullPath(f.FullName)}))
                 End If
 
@@ -1023,5 +1091,274 @@ Public Class main
 
     Private Sub btn_rom_properties_MouseLeave(sender As Object, e As EventArgs) Handles btn_rom_properties.MouseLeave
         btn_rom_properties.BackgroundImage = System.Drawing.Image.FromFile(".\resources\propertieswhite.png")
+    End Sub
+
+    Private Sub btn_search_Click(sender As Object, e As EventArgs) Handles btn_search.Click
+        btn_search.ForeColor = Color.Black
+        btn_all.ForeColor = labelgrey
+        tab_all.Visible = False
+        tab_search.Visible = True
+        panel_search.Visible = True
+    End Sub
+
+    Private Sub btn_all_Click(sender As Object, e As EventArgs) Handles btn_all.Click
+        btn_all.ForeColor = Color.Black
+        btn_search.ForeColor = labelgrey
+        tab_all.Visible = True
+        tab_search.Visible = False
+        panel_search.Visible = False
+    End Sub
+
+    Private Sub textbox_search_KeyDown(sender As Object, e As KeyEventArgs) Handles textbox_search.KeyDown
+        If e.KeyCode = Keys.Enter Then
+            listbox_search.Items.Clear()
+
+            For Each line In listbox_availableroms.Items
+                If line.Subitems(0).text.IndexOf(textbox_search.Text, 0, StringComparison.CurrentCultureIgnoreCase) > -1 Then
+                    Dim linestring As String() = {line.subitems(0).text, line.subitems(1).text, line.subitems(2).text, line.subitems(3).text, line.subitems(4).text}
+                    listbox_search.Items.Add(New ListViewItem(linestring))
+                End If
+            Next
+
+            listbox_search.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent)
+            listbox_search.AutoResizeColumn(2, ColumnHeaderAutoResizeStyle.HeaderSize)
+            listbox_search.Columns.Item(4).Width = 0
+        End If
+    End Sub
+
+    Private Sub textbox_search_Click(sender As Object, e As EventArgs) Handles textbox_search.Click
+        If textbox_search.Text = "Search" Then
+            textbox_search.Text = ""
+        End If
+    End Sub
+
+    Private Sub panel_top_DoubleClick(sender As Object, e As EventArgs) Handles panel_top.DoubleClick
+        If Me.WindowState = FormWindowState.Normal Then
+
+            Me.WindowState = FormWindowState.Maximized
+            lbl_status.Location = New Point((panel_top.Width - lbl_status.Width) \ 2, (panel_top.Height - lbl_status.Height) \ 2)
+        Else
+
+            Me.WindowState = FormWindowState.Normal
+            lbl_status.Location = New Point((panel_top.Width - lbl_status.Width) \ 2, (panel_top.Height - lbl_status.Height) \ 2)
+        End If
+    End Sub
+
+
+
+    Private Sub btn_search_gba_click(sender As Object, e As MouseEventArgs) Handles btn_search_gba.Click
+        textbox_search.Text = "Search"
+        listbox_search.Items.Clear()
+        btn_search_gba.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchgbawhite.png")
+        btn_search_wii.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchwiiblack.png")
+        btn_search_nds.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchndsblack.png")
+        btn_search_3ds.BackgroundImage = System.Drawing.Image.FromFile(".\resources\search3dsblack.png")
+        btn_search_psp.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchpspblack.png")
+        btn_search_n64.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchn64black.png")
+        btn_search_gbc.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchgbcblack.png")
+        btn_search_gb.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchgbblack.png")
+
+        For Each line In listbox_availableroms.Items
+            If line.subitems(2).text = "GBA" Then
+                Dim linestring As String() = {line.subitems(0).text, line.subitems(1).text, line.subitems(2).text, line.subitems(3).text, line.subitems(4).text}
+                listbox_search.Items.Add(New ListViewItem(linestring))
+            End If
+
+        Next
+
+        listbox_search.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent)
+        listbox_search.AutoResizeColumn(2, ColumnHeaderAutoResizeStyle.HeaderSize)
+        listbox_search.Columns.Item(4).Width = 0
+
+
+    End Sub
+
+    Private Sub btn_search_gbc_click(sender As Object, e As MouseEventArgs) Handles btn_search_gbc.Click
+        textbox_search.Text = "Search"
+        listbox_search.Items.Clear()
+        btn_search_gbc.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchgbcwhite.png")
+        btn_search_wii.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchwiiblack.png")
+        btn_search_nds.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchndsblack.png")
+        btn_search_3ds.BackgroundImage = System.Drawing.Image.FromFile(".\resources\search3dsblack.png")
+        btn_search_psp.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchpspblack.png")
+        btn_search_n64.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchn64black.png")
+        btn_search_gba.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchgbablack.png")
+        btn_search_gb.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchgbblack.png")
+
+        For Each line In listbox_availableroms.Items
+            If line.subitems(2).text = "GBC" Then
+                Dim linestring As String() = {line.subitems(0).text, line.subitems(1).text, line.subitems(2).text, line.subitems(3).text, line.subitems(4).text}
+                listbox_search.Items.Add(New ListViewItem(linestring))
+            End If
+
+        Next
+
+        listbox_search.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent)
+        listbox_search.AutoResizeColumn(2, ColumnHeaderAutoResizeStyle.HeaderSize)
+        listbox_search.Columns.Item(4).Width = 0
+
+
+    End Sub
+
+    Private Sub btn_search_gb_click(sender As Object, e As MouseEventArgs) Handles btn_search_gb.Click
+        textbox_search.Text = "Search"
+        listbox_search.Items.Clear()
+        btn_search_gb.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchgbwhite.png")
+        btn_search_wii.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchwiiblack.png")
+        btn_search_nds.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchndsblack.png")
+        btn_search_3ds.BackgroundImage = System.Drawing.Image.FromFile(".\resources\search3dsblack.png")
+        btn_search_psp.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchpspblack.png")
+        btn_search_n64.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchn64black.png")
+        btn_search_gbc.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchgbcblack.png")
+        btn_search_gba.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchgbablack.png")
+
+        For Each line In listbox_availableroms.Items
+            If line.subitems(2).text = "GB" Then
+                Dim linestring As String() = {line.subitems(0).text, line.subitems(1).text, line.subitems(2).text, line.subitems(3).text, line.subitems(4).text}
+                listbox_search.Items.Add(New ListViewItem(linestring))
+            End If
+
+        Next
+
+        listbox_search.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent)
+        listbox_search.AutoResizeColumn(2, ColumnHeaderAutoResizeStyle.HeaderSize)
+        listbox_search.Columns.Item(4).Width = 0
+
+
+    End Sub
+
+    Private Sub btn_search_wii_click(sender As Object, e As MouseEventArgs) Handles btn_search_wii.Click
+        textbox_search.Text = "Search"
+        listbox_search.Items.Clear()
+        btn_search_wii.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchwiiwhite.png")
+        btn_search_gba.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchgbablack.png")
+        btn_search_nds.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchndsblack.png")
+        btn_search_3ds.BackgroundImage = System.Drawing.Image.FromFile(".\resources\search3dsblack.png")
+        btn_search_psp.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchpspblack.png")
+        btn_search_n64.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchn64black.png")
+        btn_search_gbc.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchgbcblack.png")
+        btn_search_gb.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchgbblack.png")
+
+        For Each line In listbox_availableroms.Items
+            If line.subitems(2).text = "WII" Then
+                Dim linestring As String() = {line.subitems(0).text, line.subitems(1).text, line.subitems(2).text, line.subitems(3).text, line.subitems(4).text}
+                listbox_search.Items.Add(New ListViewItem(linestring))
+            End If
+
+        Next
+
+        listbox_search.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent)
+        listbox_search.AutoResizeColumn(2, ColumnHeaderAutoResizeStyle.HeaderSize)
+        listbox_search.Columns.Item(4).Width = 0
+
+
+    End Sub
+
+    Private Sub btn_search_nds_click(sender As Object, e As MouseEventArgs) Handles btn_search_nds.Click
+        textbox_search.Text = "Search"
+        listbox_search.Items.Clear()
+        btn_search_nds.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchndswhite.png")
+        btn_search_wii.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchwiiblack.png")
+        btn_search_gba.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchgbablack.png")
+        btn_search_3ds.BackgroundImage = System.Drawing.Image.FromFile(".\resources\search3dsblack.png")
+        btn_search_psp.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchpspblack.png")
+        btn_search_n64.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchn64black.png")
+        btn_search_gbc.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchgbcblack.png")
+        btn_search_gb.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchgbblack.png")
+
+        For Each line In listbox_availableroms.Items
+            If line.subitems(2).text = "NDS" Then
+                Dim linestring As String() = {line.subitems(0).text, line.subitems(1).text, line.subitems(2).text, line.subitems(3).text, line.subitems(4).text}
+                listbox_search.Items.Add(New ListViewItem(linestring))
+            End If
+
+        Next
+
+        listbox_search.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent)
+        listbox_search.AutoResizeColumn(2, ColumnHeaderAutoResizeStyle.HeaderSize)
+        listbox_search.Columns.Item(4).Width = 0
+
+
+    End Sub
+
+    Private Sub btn_search_3ds_click(sender As Object, e As MouseEventArgs) Handles btn_search_3ds.Click
+        textbox_search.Text = "Search"
+        listbox_search.Items.Clear()
+        btn_search_3ds.BackgroundImage = System.Drawing.Image.FromFile(".\resources\search3dswhite.png")
+        btn_search_wii.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchwiiblack.png")
+        btn_search_nds.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchndsblack.png")
+        btn_search_gba.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchgbablack.png")
+        btn_search_psp.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchpspblack.png")
+        btn_search_n64.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchn64black.png")
+        btn_search_gbc.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchgbcblack.png")
+        btn_search_gb.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchgbblack.png")
+
+        For Each line In listbox_availableroms.Items
+            If line.subitems(2).text = "3DS" Then
+                Dim linestring As String() = {line.subitems(0).text, line.subitems(1).text, line.subitems(2).text, line.subitems(3).text, line.subitems(4).text}
+                listbox_search.Items.Add(New ListViewItem(linestring))
+            End If
+
+        Next
+
+        listbox_search.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent)
+        listbox_search.AutoResizeColumn(2, ColumnHeaderAutoResizeStyle.HeaderSize)
+        listbox_search.Columns.Item(4).Width = 0
+
+
+    End Sub
+
+    Private Sub btn_search_n64_click(sender As Object, e As MouseEventArgs) Handles btn_search_n64.Click
+        textbox_search.Text = "Search"
+        listbox_search.Items.Clear()
+        btn_search_n64.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchn64white.png")
+        btn_search_wii.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchwiiblack.png")
+        btn_search_nds.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchndsblack.png")
+        btn_search_3ds.BackgroundImage = System.Drawing.Image.FromFile(".\resources\search3dsblack.png")
+        btn_search_psp.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchpspblack.png")
+        btn_search_gba.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchgbablack.png")
+        btn_search_gbc.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchgbcblack.png")
+        btn_search_gb.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchgbblack.png")
+
+        For Each line In listbox_availableroms.Items
+            If line.subitems(2).text = "N64" Then
+                Dim linestring As String() = {line.subitems(0).text, line.subitems(1).text, line.subitems(2).text, line.subitems(3).text, line.subitems(4).text}
+                listbox_search.Items.Add(New ListViewItem(linestring))
+            End If
+
+        Next
+
+        listbox_search.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent)
+        listbox_search.AutoResizeColumn(2, ColumnHeaderAutoResizeStyle.HeaderSize)
+        listbox_search.Columns.Item(4).Width = 0
+
+
+    End Sub
+
+    Private Sub btn_search_psp_click(sender As Object, e As MouseEventArgs) Handles btn_search_psp.Click
+        textbox_search.Text = "Search"
+        listbox_search.Items.Clear()
+        btn_search_psp.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchpspwhite.png")
+        btn_search_wii.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchwiiblack.png")
+        btn_search_nds.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchndsblack.png")
+        btn_search_3ds.BackgroundImage = System.Drawing.Image.FromFile(".\resources\search3dsblack.png")
+        btn_search_gba.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchgbablack.png")
+        btn_search_n64.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchn64black.png")
+        btn_search_gbc.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchgbcblack.png")
+        btn_search_gb.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchgbblack.png")
+
+        For Each line In listbox_availableroms.Items
+            If line.subitems(2).text = "PSP" Then
+                Dim linestring As String() = {line.subitems(0).text, line.subitems(1).text, line.subitems(2).text, line.subitems(3).text, line.subitems(4).text}
+                listbox_search.Items.Add(New ListViewItem(linestring))
+            End If
+
+        Next
+
+        listbox_search.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent)
+        listbox_search.AutoResizeColumn(2, ColumnHeaderAutoResizeStyle.HeaderSize)
+        listbox_search.Columns.Item(4).Width = 0
+
+
     End Sub
 End Class

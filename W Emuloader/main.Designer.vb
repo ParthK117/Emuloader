@@ -25,6 +25,7 @@ Partial Class main
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(main))
         Me.image_logo = New System.Windows.Forms.PictureBox()
         Me.panel_left = New System.Windows.Forms.Panel()
+        Me.lbl_version = New System.Windows.Forms.Label()
         Me.emu_nine = New System.Windows.Forms.Label()
         Me.emu_eight = New System.Windows.Forms.Label()
         Me.emu_seven = New System.Windows.Forms.Label()
@@ -76,6 +77,18 @@ Partial Class main
         Me.installed_directory = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.lbl_play = New System.Windows.Forms.Label()
         Me.panel_browse = New System.Windows.Forms.Panel()
+        Me.panel_search = New System.Windows.Forms.Panel()
+        Me.listbox_search = New System.Windows.Forms.ListView()
+        Me.search_name = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.search_size = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.search_platform = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.search_source = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.search_url = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.textbox_search = New System.Windows.Forms.TextBox()
+        Me.tab_search = New System.Windows.Forms.PictureBox()
+        Me.tab_all = New System.Windows.Forms.PictureBox()
+        Me.btn_search = New System.Windows.Forms.Label()
+        Me.btn_all = New System.Windows.Forms.Label()
         Me.listbox_availableroms = New System.Windows.Forms.ListView()
         Me.column_name = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.column_size = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
@@ -85,6 +98,14 @@ Partial Class main
         Me.btn_import = New System.Windows.Forms.PictureBox()
         Me.lbl_browse = New System.Windows.Forms.Label()
         Me.import_list = New System.Windows.Forms.OpenFileDialog()
+        Me.btn_search_gba = New System.Windows.Forms.PictureBox()
+        Me.btn_search_gbc = New System.Windows.Forms.PictureBox()
+        Me.btn_search_gb = New System.Windows.Forms.PictureBox()
+        Me.btn_search_3ds = New System.Windows.Forms.PictureBox()
+        Me.btn_search_nds = New System.Windows.Forms.PictureBox()
+        Me.btn_search_psp = New System.Windows.Forms.PictureBox()
+        Me.btn_search_wii = New System.Windows.Forms.PictureBox()
+        Me.btn_search_n64 = New System.Windows.Forms.PictureBox()
         CType(Me.image_logo, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panel_left.SuspendLayout()
         CType(Me.picturebox_tungsten, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -104,7 +125,18 @@ Partial Class main
         CType(Me.btn_rom_rename, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btn_import_roms, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panel_browse.SuspendLayout()
+        Me.panel_search.SuspendLayout()
+        CType(Me.tab_search, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.tab_all, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btn_import, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.btn_search_gba, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.btn_search_gbc, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.btn_search_gb, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.btn_search_3ds, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.btn_search_nds, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.btn_search_psp, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.btn_search_wii, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.btn_search_n64, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'image_logo
@@ -122,6 +154,7 @@ Partial Class main
         Me.panel_left.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.panel_left.BackColor = System.Drawing.Color.Gainsboro
+        Me.panel_left.Controls.Add(Me.lbl_version)
         Me.panel_left.Controls.Add(Me.emu_nine)
         Me.panel_left.Controls.Add(Me.emu_eight)
         Me.panel_left.Controls.Add(Me.emu_seven)
@@ -146,6 +179,18 @@ Partial Class main
         Me.panel_left.Name = "panel_left"
         Me.panel_left.Size = New System.Drawing.Size(250, 860)
         Me.panel_left.TabIndex = 2
+        '
+        'lbl_version
+        '
+        Me.lbl_version.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.lbl_version.AutoSize = True
+        Me.lbl_version.Font = New System.Drawing.Font("Calibri", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_version.Location = New System.Drawing.Point(130, 85)
+        Me.lbl_version.Name = "lbl_version"
+        Me.lbl_version.Size = New System.Drawing.Size(36, 13)
+        Me.lbl_version.TabIndex = 20
+        Me.lbl_version.Text = "v0.2.0"
         '
         'emu_nine
         '
@@ -682,6 +727,11 @@ Partial Class main
         Me.panel_browse.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.panel_browse.Controls.Add(Me.panel_search)
+        Me.panel_browse.Controls.Add(Me.tab_search)
+        Me.panel_browse.Controls.Add(Me.tab_all)
+        Me.panel_browse.Controls.Add(Me.btn_search)
+        Me.panel_browse.Controls.Add(Me.btn_all)
         Me.panel_browse.Controls.Add(Me.listbox_availableroms)
         Me.panel_browse.Controls.Add(Me.btn_import)
         Me.panel_browse.Controls.Add(Me.lbl_browse)
@@ -689,6 +739,122 @@ Partial Class main
         Me.panel_browse.Name = "panel_browse"
         Me.panel_browse.Size = New System.Drawing.Size(1100, 860)
         Me.panel_browse.TabIndex = 5
+        '
+        'panel_search
+        '
+        Me.panel_search.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.panel_search.Controls.Add(Me.btn_search_n64)
+        Me.panel_search.Controls.Add(Me.btn_search_wii)
+        Me.panel_search.Controls.Add(Me.btn_search_psp)
+        Me.panel_search.Controls.Add(Me.btn_search_nds)
+        Me.panel_search.Controls.Add(Me.btn_search_3ds)
+        Me.panel_search.Controls.Add(Me.btn_search_gb)
+        Me.panel_search.Controls.Add(Me.btn_search_gbc)
+        Me.panel_search.Controls.Add(Me.btn_search_gba)
+        Me.panel_search.Controls.Add(Me.listbox_search)
+        Me.panel_search.Controls.Add(Me.textbox_search)
+        Me.panel_search.Location = New System.Drawing.Point(0, 120)
+        Me.panel_search.Name = "panel_search"
+        Me.panel_search.Size = New System.Drawing.Size(1100, 740)
+        Me.panel_search.TabIndex = 22
+        Me.panel_search.Visible = False
+        '
+        'listbox_search
+        '
+        Me.listbox_search.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.listbox_search.BackColor = System.Drawing.Color.White
+        Me.listbox_search.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.listbox_search.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.search_name, Me.search_size, Me.search_platform, Me.search_source, Me.search_url})
+        Me.listbox_search.Font = New System.Drawing.Font("Gotham Bold", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.listbox_search.ForeColor = System.Drawing.Color.Black
+        Me.listbox_search.HideSelection = False
+        Me.listbox_search.Location = New System.Drawing.Point(38, 70)
+        Me.listbox_search.Name = "listbox_search"
+        Me.listbox_search.Size = New System.Drawing.Size(1057, 668)
+        Me.listbox_search.TabIndex = 4
+        Me.listbox_search.UseCompatibleStateImageBehavior = False
+        Me.listbox_search.View = System.Windows.Forms.View.Details
+        '
+        'search_name
+        '
+        Me.search_name.Text = "Name"
+        Me.search_name.Width = 120
+        '
+        'search_size
+        '
+        Me.search_size.Tag = ""
+        Me.search_size.Text = "Size"
+        Me.search_size.Width = 120
+        '
+        'search_platform
+        '
+        Me.search_platform.Text = "Platform"
+        Me.search_platform.Width = 120
+        '
+        'search_source
+        '
+        Me.search_source.Text = "Source"
+        Me.search_source.Width = 120
+        '
+        'search_url
+        '
+        Me.search_url.Text = ""
+        Me.search_url.Width = 0
+        '
+        'textbox_search
+        '
+        Me.textbox_search.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.textbox_search.BackColor = System.Drawing.Color.White
+        Me.textbox_search.Font = New System.Drawing.Font("Spartan MB", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.textbox_search.Location = New System.Drawing.Point(38, 0)
+        Me.textbox_search.Name = "textbox_search"
+        Me.textbox_search.Size = New System.Drawing.Size(1059, 30)
+        Me.textbox_search.TabIndex = 0
+        Me.textbox_search.Text = "Search"
+        '
+        'tab_search
+        '
+        Me.tab_search.BackColor = System.Drawing.Color.Black
+        Me.tab_search.Location = New System.Drawing.Point(104, 108)
+        Me.tab_search.Name = "tab_search"
+        Me.tab_search.Size = New System.Drawing.Size(60, 3)
+        Me.tab_search.TabIndex = 21
+        Me.tab_search.TabStop = False
+        Me.tab_search.Visible = False
+        '
+        'tab_all
+        '
+        Me.tab_all.BackColor = System.Drawing.Color.Black
+        Me.tab_all.Location = New System.Drawing.Point(47, 108)
+        Me.tab_all.Name = "tab_all"
+        Me.tab_all.Size = New System.Drawing.Size(25, 3)
+        Me.tab_all.TabIndex = 20
+        Me.tab_all.TabStop = False
+        '
+        'btn_search
+        '
+        Me.btn_search.AutoSize = True
+        Me.btn_search.Font = New System.Drawing.Font("Gotham Bold", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btn_search.Location = New System.Drawing.Point(91, 85)
+        Me.btn_search.Name = "btn_search"
+        Me.btn_search.Size = New System.Drawing.Size(92, 23)
+        Me.btn_search.TabIndex = 7
+        Me.btn_search.Text = "SEARCH"
+        '
+        'btn_all
+        '
+        Me.btn_all.AutoSize = True
+        Me.btn_all.Font = New System.Drawing.Font("Gotham Bold", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btn_all.Location = New System.Drawing.Point(36, 85)
+        Me.btn_all.Name = "btn_all"
+        Me.btn_all.Size = New System.Drawing.Size(49, 23)
+        Me.btn_all.TabIndex = 6
+        Me.btn_all.Text = "ALL"
         '
         'listbox_availableroms
         '
@@ -702,7 +868,7 @@ Partial Class main
         Me.listbox_availableroms.HideSelection = False
         Me.listbox_availableroms.Location = New System.Drawing.Point(40, 120)
         Me.listbox_availableroms.Name = "listbox_availableroms"
-        Me.listbox_availableroms.Size = New System.Drawing.Size(1055, 736)
+        Me.listbox_availableroms.Size = New System.Drawing.Size(1055, 735)
         Me.listbox_availableroms.TabIndex = 3
         Me.listbox_availableroms.UseCompatibleStateImageBehavior = False
         Me.listbox_availableroms.View = System.Windows.Forms.View.Details
@@ -757,6 +923,78 @@ Partial Class main
         '
         Me.import_list.FileName = "Roms here"
         '
+        'btn_search_gba
+        '
+        Me.btn_search_gba.BackgroundImage = CType(resources.GetObject("btn_search_gba.BackgroundImage"), System.Drawing.Image)
+        Me.btn_search_gba.Location = New System.Drawing.Point(38, 34)
+        Me.btn_search_gba.Name = "btn_search_gba"
+        Me.btn_search_gba.Size = New System.Drawing.Size(60, 30)
+        Me.btn_search_gba.TabIndex = 5
+        Me.btn_search_gba.TabStop = False
+        '
+        'btn_search_gbc
+        '
+        Me.btn_search_gbc.BackgroundImage = CType(resources.GetObject("btn_search_gbc.BackgroundImage"), System.Drawing.Image)
+        Me.btn_search_gbc.Location = New System.Drawing.Point(104, 34)
+        Me.btn_search_gbc.Name = "btn_search_gbc"
+        Me.btn_search_gbc.Size = New System.Drawing.Size(60, 30)
+        Me.btn_search_gbc.TabIndex = 6
+        Me.btn_search_gbc.TabStop = False
+        '
+        'btn_search_gb
+        '
+        Me.btn_search_gb.BackgroundImage = CType(resources.GetObject("btn_search_gb.BackgroundImage"), System.Drawing.Image)
+        Me.btn_search_gb.Location = New System.Drawing.Point(170, 34)
+        Me.btn_search_gb.Name = "btn_search_gb"
+        Me.btn_search_gb.Size = New System.Drawing.Size(60, 30)
+        Me.btn_search_gb.TabIndex = 7
+        Me.btn_search_gb.TabStop = False
+        '
+        'btn_search_3ds
+        '
+        Me.btn_search_3ds.BackgroundImage = CType(resources.GetObject("btn_search_3ds.BackgroundImage"), System.Drawing.Image)
+        Me.btn_search_3ds.Location = New System.Drawing.Point(236, 34)
+        Me.btn_search_3ds.Name = "btn_search_3ds"
+        Me.btn_search_3ds.Size = New System.Drawing.Size(60, 30)
+        Me.btn_search_3ds.TabIndex = 8
+        Me.btn_search_3ds.TabStop = False
+        '
+        'btn_search_nds
+        '
+        Me.btn_search_nds.BackgroundImage = CType(resources.GetObject("btn_search_nds.BackgroundImage"), System.Drawing.Image)
+        Me.btn_search_nds.Location = New System.Drawing.Point(302, 34)
+        Me.btn_search_nds.Name = "btn_search_nds"
+        Me.btn_search_nds.Size = New System.Drawing.Size(60, 30)
+        Me.btn_search_nds.TabIndex = 9
+        Me.btn_search_nds.TabStop = False
+        '
+        'btn_search_psp
+        '
+        Me.btn_search_psp.BackgroundImage = CType(resources.GetObject("btn_search_psp.BackgroundImage"), System.Drawing.Image)
+        Me.btn_search_psp.Location = New System.Drawing.Point(368, 34)
+        Me.btn_search_psp.Name = "btn_search_psp"
+        Me.btn_search_psp.Size = New System.Drawing.Size(60, 30)
+        Me.btn_search_psp.TabIndex = 10
+        Me.btn_search_psp.TabStop = False
+        '
+        'btn_search_wii
+        '
+        Me.btn_search_wii.BackgroundImage = CType(resources.GetObject("btn_search_wii.BackgroundImage"), System.Drawing.Image)
+        Me.btn_search_wii.Location = New System.Drawing.Point(434, 34)
+        Me.btn_search_wii.Name = "btn_search_wii"
+        Me.btn_search_wii.Size = New System.Drawing.Size(60, 30)
+        Me.btn_search_wii.TabIndex = 11
+        Me.btn_search_wii.TabStop = False
+        '
+        'btn_search_n64
+        '
+        Me.btn_search_n64.BackgroundImage = CType(resources.GetObject("btn_search_n64.BackgroundImage"), System.Drawing.Image)
+        Me.btn_search_n64.Location = New System.Drawing.Point(500, 34)
+        Me.btn_search_n64.Name = "btn_search_n64"
+        Me.btn_search_n64.Size = New System.Drawing.Size(60, 30)
+        Me.btn_search_n64.TabIndex = 12
+        Me.btn_search_n64.TabStop = False
+        '
         'main
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -767,8 +1005,8 @@ Partial Class main
         Me.Controls.Add(Me.panel_top)
         Me.Controls.Add(Me.panel_right)
         Me.Controls.Add(Me.panel_left)
-        Me.Controls.Add(Me.panel_play)
         Me.Controls.Add(Me.panel_browse)
+        Me.Controls.Add(Me.panel_play)
         Me.DoubleBuffered = True
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
@@ -799,7 +1037,19 @@ Partial Class main
         CType(Me.btn_import_roms, System.ComponentModel.ISupportInitialize).EndInit()
         Me.panel_browse.ResumeLayout(False)
         Me.panel_browse.PerformLayout()
+        Me.panel_search.ResumeLayout(False)
+        Me.panel_search.PerformLayout()
+        CType(Me.tab_search, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.tab_all, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btn_import, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.btn_search_gba, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.btn_search_gbc, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.btn_search_gb, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.btn_search_3ds, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.btn_search_nds, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.btn_search_psp, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.btn_search_wii, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.btn_search_n64, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -865,4 +1115,25 @@ Partial Class main
     Friend WithEvents btn_rom_rename As PictureBox
     Friend WithEvents btn_rom_delete As PictureBox
     Friend WithEvents btn_rom_properties As PictureBox
+    Friend WithEvents btn_search As Label
+    Friend WithEvents btn_all As Label
+    Friend WithEvents tab_search As PictureBox
+    Friend WithEvents tab_all As PictureBox
+    Friend WithEvents panel_search As Panel
+    Friend WithEvents textbox_search As TextBox
+    Friend WithEvents listbox_search As ListView
+    Friend WithEvents search_name As ColumnHeader
+    Friend WithEvents search_size As ColumnHeader
+    Friend WithEvents search_platform As ColumnHeader
+    Friend WithEvents search_source As ColumnHeader
+    Friend WithEvents search_url As ColumnHeader
+    Friend WithEvents lbl_version As Label
+    Friend WithEvents btn_search_3ds As PictureBox
+    Friend WithEvents btn_search_gb As PictureBox
+    Friend WithEvents btn_search_gbc As PictureBox
+    Friend WithEvents btn_search_gba As PictureBox
+    Friend WithEvents btn_search_nds As PictureBox
+    Friend WithEvents btn_search_n64 As PictureBox
+    Friend WithEvents btn_search_wii As PictureBox
+    Friend WithEvents btn_search_psp As PictureBox
 End Class
