@@ -57,7 +57,10 @@ Partial Class main
         Me.lbl_name = New System.Windows.Forms.Label()
         Me.panel_seperator = New System.Windows.Forms.Panel()
         Me.lbl_information = New System.Windows.Forms.Label()
+        Me.picturebox_boxart = New System.Windows.Forms.PictureBox()
         Me.panel_top = New System.Windows.Forms.Panel()
+        Me.picturebox_loading = New System.Windows.Forms.PictureBox()
+        Me.btn_expand = New System.Windows.Forms.PictureBox()
         Me.lbl_status = New System.Windows.Forms.Label()
         Me.paneL_menubar = New System.Windows.Forms.Panel()
         Me.btn_maximise = New System.Windows.Forms.Panel()
@@ -108,6 +111,8 @@ Partial Class main
         Me.import_list = New System.Windows.Forms.OpenFileDialog()
         Me.panel_drag_drop = New System.Windows.Forms.Panel()
         Me.picturebox_drag = New System.Windows.Forms.PictureBox()
+        Me.panel_blue_click = New System.Windows.Forms.Panel()
+        Me.thread_getboxart = New System.ComponentModel.BackgroundWorker()
         CType(Me.image_logo, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panel_left.SuspendLayout()
         CType(Me.picturebox_tungsten, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -117,7 +122,10 @@ Partial Class main
         Me.panel_rom_info.SuspendLayout()
         CType(Me.btn_queue, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btn_play, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.picturebox_boxart, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panel_top.SuspendLayout()
+        CType(Me.picturebox_loading, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.btn_expand, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.paneL_menubar.SuspendLayout()
         CType(Me.btn_about, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panel_play.SuspendLayout()
@@ -194,7 +202,7 @@ Partial Class main
         Me.lbl_version.Name = "lbl_version"
         Me.lbl_version.Size = New System.Drawing.Size(36, 13)
         Me.lbl_version.TabIndex = 20
-        Me.lbl_version.Text = "v0.2.0"
+        Me.lbl_version.Text = "v0.3.0"
         '
         'emu_nine
         '
@@ -422,6 +430,7 @@ Partial Class main
         Me.panel_right.Controls.Add(Me.lbl_name)
         Me.panel_right.Controls.Add(Me.panel_seperator)
         Me.panel_right.Controls.Add(Me.lbl_information)
+        Me.panel_right.Controls.Add(Me.picturebox_boxart)
         Me.panel_right.Location = New System.Drawing.Point(1350, 40)
         Me.panel_right.Name = "panel_right"
         Me.panel_right.Size = New System.Drawing.Size(250, 860)
@@ -539,11 +548,23 @@ Partial Class main
         Me.lbl_information.TabIndex = 0
         Me.lbl_information.Text = "INFORMATION"
         '
+        'picturebox_boxart
+        '
+        Me.picturebox_boxart.BackColor = System.Drawing.Color.Transparent
+        Me.picturebox_boxart.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.picturebox_boxart.Location = New System.Drawing.Point(10, 400)
+        Me.picturebox_boxart.Name = "picturebox_boxart"
+        Me.picturebox_boxart.Size = New System.Drawing.Size(229, 266)
+        Me.picturebox_boxart.TabIndex = 9
+        Me.picturebox_boxart.TabStop = False
+        '
         'panel_top
         '
         Me.panel_top.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.panel_top.BackColor = System.Drawing.Color.White
+        Me.panel_top.Controls.Add(Me.picturebox_loading)
+        Me.panel_top.Controls.Add(Me.btn_expand)
         Me.panel_top.Controls.Add(Me.lbl_status)
         Me.panel_top.Controls.Add(Me.paneL_menubar)
         Me.panel_top.Controls.Add(Me.btn_about)
@@ -551,6 +572,28 @@ Partial Class main
         Me.panel_top.Name = "panel_top"
         Me.panel_top.Size = New System.Drawing.Size(1600, 40)
         Me.panel_top.TabIndex = 3
+        '
+        'picturebox_loading
+        '
+        Me.picturebox_loading.BackColor = System.Drawing.Color.Transparent
+        Me.picturebox_loading.Image = CType(resources.GetObject("picturebox_loading.Image"), System.Drawing.Image)
+        Me.picturebox_loading.Location = New System.Drawing.Point(1534, 6)
+        Me.picturebox_loading.Name = "picturebox_loading"
+        Me.picturebox_loading.Size = New System.Drawing.Size(28, 31)
+        Me.picturebox_loading.TabIndex = 6
+        Me.picturebox_loading.TabStop = False
+        Me.picturebox_loading.Visible = False
+        '
+        'btn_expand
+        '
+        Me.btn_expand.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btn_expand.BackgroundImage = CType(resources.GetObject("btn_expand.BackgroundImage"), System.Drawing.Image)
+        Me.btn_expand.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
+        Me.btn_expand.Location = New System.Drawing.Point(1569, 10)
+        Me.btn_expand.Name = "btn_expand"
+        Me.btn_expand.Size = New System.Drawing.Size(20, 21)
+        Me.btn_expand.TabIndex = 5
+        Me.btn_expand.TabStop = False
         '
         'lbl_status
         '
@@ -601,7 +644,7 @@ Partial Class main
         '
         Me.btn_about.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btn_about.BackgroundImage = CType(resources.GetObject("btn_about.BackgroundImage"), System.Drawing.Image)
-        Me.btn_about.Location = New System.Drawing.Point(1497, 2)
+        Me.btn_about.Location = New System.Drawing.Point(1281, 1)
         Me.btn_about.Name = "btn_about"
         Me.btn_about.Size = New System.Drawing.Size(100, 36)
         Me.btn_about.TabIndex = 1
@@ -1020,6 +1063,18 @@ Partial Class main
         Me.picturebox_drag.TabIndex = 0
         Me.picturebox_drag.TabStop = False
         '
+        'panel_blue_click
+        '
+        Me.panel_blue_click.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.panel_blue_click.Location = New System.Drawing.Point(1460, 30)
+        Me.panel_blue_click.Name = "panel_blue_click"
+        Me.panel_blue_click.Size = New System.Drawing.Size(125, 30)
+        Me.panel_blue_click.TabIndex = 10
+        Me.panel_blue_click.Visible = False
+        '
+        'thread_getboxart
+        '
+        '
         'main
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1027,6 +1082,7 @@ Partial Class main
         Me.BackColor = System.Drawing.Color.White
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.ClientSize = New System.Drawing.Size(1600, 900)
+        Me.Controls.Add(Me.panel_blue_click)
         Me.Controls.Add(Me.panel_top)
         Me.Controls.Add(Me.panel_right)
         Me.Controls.Add(Me.panel_left)
@@ -1050,8 +1106,11 @@ Partial Class main
         Me.panel_rom_info.PerformLayout()
         CType(Me.btn_queue, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btn_play, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.picturebox_boxart, System.ComponentModel.ISupportInitialize).EndInit()
         Me.panel_top.ResumeLayout(False)
         Me.panel_top.PerformLayout()
+        CType(Me.picturebox_loading, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.btn_expand, System.ComponentModel.ISupportInitialize).EndInit()
         Me.paneL_menubar.ResumeLayout(False)
         CType(Me.btn_about, System.ComponentModel.ISupportInitialize).EndInit()
         Me.panel_play.ResumeLayout(False)
@@ -1115,16 +1174,12 @@ Partial Class main
     Friend WithEvents picturebox_tungsten As PictureBox
     Friend WithEvents btn_import As PictureBox
     Friend WithEvents import_list As OpenFileDialog
-    Friend WithEvents panel_rom_info As Panel
     Friend WithEvents listbox_availableroms As ListView
     Friend WithEvents column_name As ColumnHeader
     Friend WithEvents column_size As ColumnHeader
     Friend WithEvents column_source As ColumnHeader
     Friend WithEvents column_platform As ColumnHeader
-    Friend WithEvents lbl_rom_platform As Label
-    Friend WithEvents lbl_rom_name As Label
     Friend WithEvents column_url As ColumnHeader
-    Friend WithEvents btn_queue As PictureBox
     Friend WithEvents listbox_installedroms As ListView
     Friend WithEvents installed_name As ColumnHeader
     Friend WithEvents installed_platform As ColumnHeader
@@ -1166,4 +1221,13 @@ Partial Class main
     Friend WithEvents btn_search_psp As PictureBox
     Friend WithEvents panel_drag_drop As Panel
     Friend WithEvents picturebox_drag As PictureBox
+    Friend WithEvents btn_expand As PictureBox
+    Friend WithEvents panel_blue_click As Panel
+    Friend WithEvents picturebox_boxart As PictureBox
+    Friend WithEvents panel_rom_info As Panel
+    Friend WithEvents btn_queue As PictureBox
+    Friend WithEvents lbl_rom_platform As Label
+    Friend WithEvents lbl_rom_name As Label
+    Friend WithEvents thread_getboxart As System.ComponentModel.BackgroundWorker
+    Friend WithEvents picturebox_loading As PictureBox
 End Class

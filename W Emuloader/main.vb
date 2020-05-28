@@ -1,6 +1,8 @@
 ﻿Imports System.Net
 Imports System.IO
 Imports System.IO.Compression
+Imports System.ComponentModel
+
 Public Class main
     Dim drag As Boolean
     Dim mousex As Integer
@@ -15,7 +17,7 @@ Public Class main
     Dim emu_eight_metadata As String()
     Dim emu_nine_metadata As String()
     Dim emutabs_metadata = {emu_one_metadata, emu_two_metadata, emu_three_metadata, emu_four_metadata, emu_five_metadata, emu_six_metadata, emu_seven_metadata, emu_eight_metadata, emu_nine_metadata}
-    Dim currenttab_metadata As String() = {"na", "na", "na", "na", "na"}
+    Public Shared currenttab_metadata As String() = {"na", "na", "na", "na", "na"}
     Public Shared gotham As New System.Drawing.Text.PrivateFontCollection()
     Public Shared spartan As New System.Drawing.Text.PrivateFontCollection()
 
@@ -314,6 +316,8 @@ Public Class main
         lbl_installedon.Text = "Installed on " & currenttab_metadata(2)
         lbl_platform.Text = "Platform: " & currenttab_metadata(1)
         Call load_installed_roms()
+
+
     End Sub
 
     Private Sub emu_two_Click(sender As Object, e As EventArgs) Handles emu_two.Click
@@ -873,8 +877,8 @@ listbox_search.FocusedItem.SubItems(4).Text}))
             Dim rom_directory As New DirectoryInfo(".\roms\N64\")
             For Each f In rom_directory.GetFiles
                 If f.ToString.Contains("XT") Then
-                ElseIf f.ToString.Contains(".z64") Then
-                    listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString.Replace(".z64", ""), "N64", System.IO.Path.GetFullPath(f.FullName)}))
+                ElseIf f.ToString.Contains(".z64") Or f.ToString.Contains(".v64") Or f.ToString.Contains(".m64") Then
+                    listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString.Replace(".z64", "").Replace(".v64", "").Replace(".n64", ""), "N64", System.IO.Path.GetFullPath(f.FullName)}))
                 End If
 
             Next
@@ -882,9 +886,9 @@ listbox_search.FocusedItem.SubItems(4).Text}))
             For Each x In customromlist
                 Dim custom_directory As New DirectoryInfo(x)
                 For Each f In custom_directory.GetFiles
-                    If f.ToString.Contains(".z64") Then
+                    If f.ToString.Contains(".z64") Or f.ToString.Contains(".v64") Or f.ToString.Contains(".m64") Then
 
-                        listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString.Replace(".z64", ""), "N64", System.IO.Path.GetFullPath(f.FullName)}))
+                        listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString.Replace(".z64", "").Replace(".v64", "").Replace(".n64", ""), "N64", System.IO.Path.GetFullPath(f.FullName)}))
                     End If
 
                 Next
@@ -936,6 +940,10 @@ listbox_search.FocusedItem.SubItems(4).Text}))
                 Next
             Next
         End If
+
+        Call retrieveboxart()
+
+
 
 
 
@@ -1244,7 +1252,7 @@ listbox_search.FocusedItem.SubItems(4).Text}))
         btn_search_gb.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchgbblack.png")
 
         For Each line In listbox_availableroms.Items
-            If line.subitems(2).text = "WII" Then
+            If line.subitems(2).text = "WII" Or line.subitems(2).text = "GC" Then
                 Dim linestring As String() = {line.subitems(0).text, line.subitems(1).text, line.subitems(2).text, line.subitems(3).text, line.subitems(4).text}
                 listbox_search.Items.Add(New ListViewItem(linestring))
             End If
@@ -1412,7 +1420,7 @@ listbox_search.FocusedItem.SubItems(4).Text}))
 
 
 
-            ElseIf File.Exists(drop_Path.ToString) = True AndAlso Not drop_Path.ToString.Contains(".eldr") Then
+            ElseIf File.Exists(drop_path.ToString) = True AndAlso Not drop_path.ToString.Contains(".eldr") Then
                 Dim folderPath As String = Path.GetDirectoryName(drop_path.ToString)
 
 
@@ -1463,4 +1471,125 @@ listbox_search.FocusedItem.SubItems(4).Text}))
         panel_drag_drop.Visible = False
         panel_drag_drop.SendToBack()
     End Sub
+
+    Private Sub btn_expand_Click(sender As Object, e As EventArgs) Handles btn_expand.Click
+
+        If panel_blue_click.Visible = True Then
+            panel_blue_click.Visible = False
+        Else
+            panel_blue_click.Visible = True
+        End If
+
+
+    End Sub
+
+    Private Sub btn_expand_MouseEnter(sender As Object, e As EventArgs) Handles btn_expand.MouseEnter
+        btn_expand.BackgroundImage = System.Drawing.Image.FromFile(".\resources\blueclick.png")
+
+    End Sub
+
+    Private Sub btn_expand_MouseLeave(sender As Object, e As EventArgs) Handles btn_expand.MouseLeave
+        If panel_blue_click.Visible = False Then
+            btn_expand.BackgroundImage = System.Drawing.Image.FromFile(".\resources\blue.png")
+        End If
+
+    End Sub
+
+    Private Sub listbox_installedroms_SelectedIndexChanged(sender As Object, e As EventArgs) Handles listbox_installedroms.SelectedIndexChanged
+        If File.Exists(".\roms\" & currenttab_metadata(1) & "\metadata\boxartmatches.eldr") Then
+            Dim find_art As String() = File.ReadAllLines(".\roms\" & currenttab_metadata(1) & "\metadata\boxartmatches.eldr")
+            For Each x In find_art
+                Dim current_name As String() = x.Split("#")
+                If listbox_installedroms.FocusedItem IsNot Nothing = True Then
+                    If current_name(0).Contains(listbox_installedroms.FocusedItem.SubItems(0).Text) Then
+                        picturebox_boxart.BackgroundImage = System.Drawing.Image.FromFile(current_name(2))
+
+                    End If
+                End If
+            Next
+
+        End If
+    End Sub
+
+    Public Sub retrieveboxart()
+
+
+        If Directory.Exists(".\roms\" & currenttab_metadata(1) & "\metadata\") = False Then
+            Directory.CreateDirectory(".\roms\" & currenttab_metadata(1) & "\metadata\")
+        End If
+
+        If Directory.Exists(".\boxart") = False Then
+            Directory.CreateDirectory(".\boxart\")
+        End If
+
+        If File.Exists(".\roms\" & currenttab_metadata(1) & "\metadata\romnamelist.eldr") Then
+            My.Computer.FileSystem.DeleteFile(".\roms\" & currenttab_metadata(1) & "\metadata\romnamelist.eldr")
+        End If
+
+        System.IO.File.Create(".\roms\" & currenttab_metadata(1) & "\metadata\romnamelist.eldr").Dispose()
+        Dim romnamelist As New List(Of String)
+        For Each x In listbox_installedroms.Items
+            romnamelist.Add(x.subitems(0).text)
+        Next
+        File.WriteAllLines((".\roms\" & currenttab_metadata(1) & "\metadata\romnamelist.eldr"), romnamelist)
+
+
+
+        If File.Exists(".\roms\" & currenttab_metadata(1) & "\metadata\boxartmatches.eldr") Then
+            Dim boxartmatches As String = File.ReadAllText(".\roms\" & currenttab_metadata(1) & "\metadata\boxartmatches.eldr")
+
+            For Each x In listbox_installedroms.Items
+                If Not boxartmatches.Contains(x.subitems(0).text) Then
+                    lbl_status.Text = "Downloading Boxart"
+                    lbl_status.Location = New Point((panel_top.Width - lbl_status.Width) \ 2, (panel_top.Height - lbl_status.Height) \ 2)
+                    picturebox_loading.Visible = True
+                    If thread_getboxart.IsBusy = False Then
+
+                        Dim arguments As String()
+                        arguments = {currenttab_metadata(1)}
+
+                        thread_getboxart.RunWorkerAsync(arguments)
+
+                    End If
+                    Exit For
+                End If
+            Next
+        Else
+            lbl_status.Text = "Downloading Boxart"
+            picturebox_loading.Visible = True
+            lbl_status.Location = New Point((panel_top.Width - lbl_status.Width) \ 2, (panel_top.Height - lbl_status.Height) \ 2)
+
+            If thread_getboxart.IsBusy = False Then
+
+                Dim arguments As String()
+                arguments = {currenttab_metadata(1)}
+
+                thread_getboxart.RunWorkerAsync(arguments)
+            End If
+
+
+        End If
+    End Sub
+
+    Private Sub thread_getboxart_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles thread_getboxart.DoWork
+        Dim arguments As String() = (e.Argument)
+
+        Dim getart As Process
+        Dim p As New ProcessStartInfo
+        p.FileName = ".\getboxart.exe"
+
+        '   p.UseShellExecute = True
+        p.WindowStyle = ProcessWindowStyle.Hidden
+        p.WorkingDirectory = ".\modules\"
+        p.Arguments = (arguments(0) & " " & Chr(34) & Path.GetFullPath(".\boxart") & Chr(34) & " " & Chr(34) & Path.GetFullPath(".\roms\" & currenttab_metadata(1) & "\metadata\romnamelist.eldr") & Chr(34) & " " & Chr(34) & Path.GetFullPath(".\roms\" & currenttab_metadata(1) & "\metadata") & Chr(34))
+        getart = Process.Start(p)
+        getart.WaitForExit()
+    End Sub
+
+    Private Sub thread_getboxart_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles thread_getboxart.RunWorkerCompleted
+        lbl_status.Text = "Downloaded Boxart"
+        picturebox_loading.Visible = False
+        lbl_status.Location = New Point((panel_top.Width - lbl_status.Width) \ 2, (panel_top.Height - lbl_status.Height) \ 2)
+    End Sub
+
 End Class

@@ -86,6 +86,7 @@ Public Class newemulator
 
     Private Sub emulator_downloader_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles emulator_downloader.RunWorkerCompleted
         main.lbl_status.Text = "Installed " & arguments(5)
+        main.picturebox_loading.Visible = False
         Call center_status_lbl()
         Call main.loadconfig()
     End Sub
@@ -206,7 +207,7 @@ Public Class newemulator
             main.lbl_status.Text = "Installing Dolphin"
             Call center_status_lbl()
         End If
-
+        main.picturebox_loading.Visible = True
         MessageBox.Show(arguments(5) & " will be installed")
         Me.Close()
     End Sub
