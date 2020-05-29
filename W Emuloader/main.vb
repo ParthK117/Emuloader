@@ -7,75 +7,31 @@ Public Class main
     Dim drag As Boolean
     Dim mousex As Integer
     Dim mousey As Integer
-    Dim emu_one_metadata As String()
-    Dim emu_two_metadata As String()
-    Dim emu_three_metadata As String()
-    Dim emu_four_metadata As String()
-    Dim emu_five_metadata As String()
-    Dim emu_six_metadata As String()
-    Dim emu_seven_metadata As String()
-    Dim emu_eight_metadata As String()
-    Dim emu_nine_metadata As String()
-    Dim emutabs_metadata = {emu_one_metadata, emu_two_metadata, emu_three_metadata, emu_four_metadata, emu_five_metadata, emu_six_metadata, emu_seven_metadata, emu_eight_metadata, emu_nine_metadata}
+    Public Shared emu_one_metadata As String()
+    Public Shared emu_two_metadata As String()
+    Public Shared emu_three_metadata As String()
+    Public Shared emu_four_metadata As String()
+    Public Shared emu_five_metadata As String()
+    Public Shared emu_six_metadata As String()
+    Public Shared emu_seven_metadata As String()
+    Public Shared emu_eight_metadata As String()
+    Public Shared emu_nine_metadata As String()
+    Public Shared emutabs_metadata = {emu_one_metadata, emu_two_metadata, emu_three_metadata, emu_four_metadata, emu_five_metadata, emu_six_metadata, emu_seven_metadata, emu_eight_metadata, emu_nine_metadata}
     Public Shared currenttab_metadata As String() = {"na", "na", "na", "na", "na"}
     Public Shared gotham As New System.Drawing.Text.PrivateFontCollection()
     Public Shared spartan As New System.Drawing.Text.PrivateFontCollection()
-
-    Dim labelgrey As Color
+    Public Shared labelgrey As Color
     '0.1.0
 
     Private Sub main_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
         ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12
         panel_play.SendToBack()
-        Call loadfonts()
+        Call main_loadfonts()
         Call loadconfig()
-        Dim grey As Color
-        grey = Color.FromArgb(247, 249, 250)
 
-        Dim lightgrey As Color
-        lightgrey = Color.FromArgb(238, 238, 238)
-
-        labelgrey = Color.FromArgb(120, 127, 142)
-
-        panel_left.BackColor = grey
-        panel_right.BackColor = grey
-        panel_top.BackColor = lightgrey
-        panel_seperator.BackColor = lightgrey
-
-
-        lbl_library.ForeColor = labelgrey
-        btn_search.ForeColor = labelgrey
-        emu_one.ForeColor = labelgrey
-        emu_two.ForeColor = labelgrey
-        emu_three.ForeColor = labelgrey
-        emu_four.ForeColor = labelgrey
-        emu_five.ForeColor = labelgrey
-        emu_six.ForeColor = labelgrey
-        emu_seven.ForeColor = labelgrey
-        emu_eight.ForeColor = labelgrey
-        emu_nine.ForeColor = labelgrey
-
-
-        lbl_information.ForeColor = labelgrey
-        lbl_name.ForeColor = labelgrey
-        lbl_installedon.ForeColor = labelgrey
-        lbl_platform.ForeColor = labelgrey
-        lbl_github.ForeColor = labelgrey
-        lbl_about.ForeColor = labelgrey
-        lbl_twitter.ForeColor = labelgrey
-        lbl_patreon.ForeColor = labelgrey
-        lbl_licensing.ForeColor = labelgrey
-        lbl_rom_name.ForeColor = labelgrey
-        lbl_rom_platform.ForeColor = labelgrey
-        lbl_version.ForeColor = labelgrey
-
-        lbl_status.Location = New Point((panel_top.Width - lbl_status.Width) \ 2, (panel_top.Height - lbl_status.Height) \ 2)
-        picturebox_tungsten.Location = New Point((panel_left.Width - picturebox_tungsten.Width) \ 2, 690)
-        picturebox_drag.Location = New Point((panel_drag_drop.Width - picturebox_drag.Width) \ 2, (panel_drag_drop.Height - picturebox_drag.Height) \ 2)
+        Call main_loadcolours()
 
         Call load_roms_list()
-
         Me.AllowDrop = True
     End Sub
 
@@ -163,59 +119,6 @@ Public Class main
         btn_newemu.BackgroundImage = System.Drawing.Image.FromFile(".\resources\newemuwhite.png")
 
     End Sub
-    Private Sub loadfonts()
-
-        gotham.AddFontFile(".\resources\gotham.otf")
-        spartan.AddFontFile(".\resources\spartanmb.otf")
-        Dim gothamfont12 As New System.Drawing.Font(gotham.Families(0), 12)
-        lbl_status.Font = gothamfont12
-        lbl_library.Font = gothamfont12
-
-
-        Dim gothamfont16 As New System.Drawing.Font(gotham.Families(0), 16)
-        btn_browse.Font = gothamfont16
-
-
-        Dim spartanfont16 As New System.Drawing.Font(spartan.Families(0), 16)
-        listbox_availableroms.Font = spartanfont16
-        listbox_installedroms.Font = spartanfont16
-        listbox_search.Font = spartanfont16
-
-        Dim spartanfont14 As New System.Drawing.Font(spartan.Families(0), 14)
-        lbl_rom_name.Font = spartanfont14
-        lbl_rom_platform.Font = spartanfont14
-        lbl_name.Font = spartanfont14
-        lbl_platform.Font = spartanfont14
-        lbl_installedon.Font = spartanfont14
-        textbox_search.Font = spartanfont14
-
-        Dim gothamfont18 As New System.Drawing.Font(gotham.Families(0), 18)
-        emu_one.Font = gothamfont18
-        emu_two.Font = gothamfont18
-        emu_three.Font = gothamfont18
-        emu_four.Font = gothamfont18
-        emu_five.Font = gothamfont18
-        emu_six.Font = gothamfont18
-        emu_seven.Font = gothamfont18
-        emu_eight.Font = gothamfont18
-        emu_nine.Font = gothamfont18
-
-
-        Dim gothamfont10 As New System.Drawing.Font(gotham.Families(0), 10)
-        lbl_information.Font = gothamfont10
-
-        Dim gothamfont28 As New System.Drawing.Font(gotham.Families(0), 28)
-        lbl_play.Font = gothamfont28
-        lbl_browse.Font = gothamfont28
-
-        Dim gothamfont11 As New System.Drawing.Font(gotham.Families(0), 11)
-        lbl_about.Font = gothamfont11
-        lbl_github.Font = gothamfont11
-        lbl_twitter.Font = gothamfont11
-        lbl_patreon.Font = gothamfont11
-        checkbox_fullscreen.Font = gothamfont11
-        checkbox_filepath.Font = gothamfont11
-    End Sub
     Public Sub loadconfig()
 
 
@@ -296,26 +199,7 @@ Public Class main
     End Sub
 
     Private Sub emu_one_Click(sender As Object, e As EventArgs) Handles emu_one.Click
-        emu_one.ForeColor = Color.Black
-        emu_two.ForeColor = labelgrey
-        emu_three.ForeColor = labelgrey
-        emu_four.ForeColor = labelgrey
-        emu_five.ForeColor = labelgrey
-        emu_six.ForeColor = labelgrey
-        emu_seven.ForeColor = labelgrey
-        emu_eight.ForeColor = labelgrey
-        emu_nine.ForeColor = labelgrey
-
-
-        currenttab_metadata = emutabs_metadata(0)
-        panel_rom_info.Visible = False
-        tab_browse.Visible = False
-        panel_play.BringToFront()
-
-        lbl_name.Text = currenttab_metadata(0)
-        lbl_installedon.Text = "Installed on " & currenttab_metadata(2)
-        lbl_platform.Text = "Platform: " & currenttab_metadata(1)
-        Call load_installed_roms()
+        Call module_emutabs.emu_one()
 
 
     End Sub
@@ -598,6 +482,7 @@ Public Class main
             Dim showsource As Boolean = False
             Dim metadata As String()
             If imported_list_downloads(0).Contains("#") Then
+
                 metadata = Split(imported_list_downloads(0), "#")
                 showsource = True
             End If
@@ -712,22 +597,27 @@ Public Class main
     Private Sub download_roms()
         If downloadqueue.Visible = True Then
             If panel_search.Visible = True Then
-                downloadqueue.listbox_queue.Items.Add(New ListViewItem(New String() {listbox_search.FocusedItem.SubItems(0).Text,
-listbox_search.FocusedItem.SubItems(1).Text,
-listbox_search.FocusedItem.SubItems(2).Text,
-listbox_search.FocusedItem.SubItems(3).Text,
-listbox_search.FocusedItem.SubItems(4).Text}))
-            Else
-                downloadqueue.listbox_queue.Items.Add(New ListViewItem(New String() {listbox_availableroms.FocusedItem.SubItems(0).Text,
-  listbox_availableroms.FocusedItem.SubItems(1).Text,
-  listbox_availableroms.FocusedItem.SubItems(2).Text,
-  listbox_availableroms.FocusedItem.SubItems(3).Text,
-  listbox_availableroms.FocusedItem.SubItems(4).Text}))
-            End If
 
+                downloadqueue.listbox_queue.Items.Add(New ListViewItem(New String() {listbox_search.FocusedItem.SubItems(0).Text,
+    listbox_search.FocusedItem.SubItems(1).Text,
+    listbox_search.FocusedItem.SubItems(2).Text,
+    listbox_search.FocusedItem.SubItems(3).Text,
+    listbox_search.FocusedItem.SubItems(4).Text}))
+
+            Else
+
+
+                downloadqueue.listbox_queue.Items.Add(New ListViewItem(New String() {listbox_availableroms.FocusedItem.SubItems(0).Text,
+      listbox_availableroms.FocusedItem.SubItems(1).Text,
+      listbox_availableroms.FocusedItem.SubItems(2).Text,
+      listbox_availableroms.FocusedItem.SubItems(3).Text,
+      listbox_availableroms.FocusedItem.SubItems(4).Text}))
+            End If
         Else
             downloadqueue.Show()
         End If
+
+
 
 
 
@@ -1135,6 +1025,15 @@ listbox_search.FocusedItem.SubItems(4).Text}))
             listbox_search.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent)
             listbox_search.AutoResizeColumn(2, ColumnHeaderAutoResizeStyle.HeaderSize)
             listbox_search.Columns.Item(4).Width = 0
+
+            btn_search_3ds.BackgroundImage = System.Drawing.Image.FromFile(".\resources\search3dsblack.png")
+            btn_search_wii.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchwiiblack.png")
+            btn_search_nds.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchndsblack.png")
+            btn_search_gba.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchgbablack.png")
+            btn_search_psp.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchpspblack.png")
+            btn_search_n64.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchn64black.png")
+            btn_search_gbc.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchgbcblack.png")
+            btn_search_gb.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchgbblack.png")
         End If
     End Sub
 
@@ -1386,7 +1285,11 @@ listbox_search.FocusedItem.SubItems(4).Text}))
                 Dim metadata As String()
                 If imported_list_downloads(0).Contains("#") Then
                     metadata = Split(imported_list_downloads(0), "#")
+                    If metadata(2) = "verify" Then
+                        Process.Start(metadata(3))
+                    End If
                     showsource = True
+
                 End If
 
 
@@ -1502,7 +1405,7 @@ listbox_search.FocusedItem.SubItems(4).Text}))
                 Dim current_name As String() = x.Split("#")
                 If listbox_installedroms.FocusedItem IsNot Nothing = True Then
                     If current_name(0).Contains(listbox_installedroms.FocusedItem.SubItems(0).Text) Then
-                        picturebox_boxart.BackgroundImage = System.Drawing.Image.FromFile(current_name(2))
+                        picturebox_boxart.BackgroundImage = System.Drawing.Image.FromFile(current_name(1))
 
                     End If
                 End If
@@ -1591,5 +1494,4 @@ listbox_search.FocusedItem.SubItems(4).Text}))
         picturebox_loading.Visible = False
         lbl_status.Location = New Point((panel_top.Width - lbl_status.Width) \ 2, (panel_top.Height - lbl_status.Height) \ 2)
     End Sub
-
 End Class

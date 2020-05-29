@@ -5,7 +5,7 @@ Imports System.ComponentModel
 
 Public Class newemulator
     Dim arguments As String()
-    Dim list_of_emulators As String() = {"Visual Boy Advance-M (GBA)", "Citra (3DS)", "DeSmuME (NDS)", "Project64 (N64)", "PPSSPP (PSP)", "Dolphin (WII)"}
+    Dim list_of_emulators As String() = {"Visual Boy Advance-M (GBA)", "Citra (3DS)", "DeSmuME (NDS)", "Project64 (N64)", "PPSSPP (PSP)", "Dolphin (WII)", "Cemu (WIIU)"}
 
 
     Private Sub newemulator_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -153,6 +153,13 @@ Public Class newemulator
                 lbl_source.Text = "Source: Google Drive (Emuloader Repack)"
                 lbl_version_number.Text = "Version 5.0-11991"
                 picturebox_emulogo.BackgroundImage = New System.Drawing.Bitmap(".\resources\dolphin.png")
+            End If
+            If listbox_emulators.SelectedItem.ToString = "Cemu (WIIU)" Then
+                lbl_emulator_name.Text = "Cemu"
+                lbl_platform.Text = "Platform: Nintendo Wii U"
+                lbl_source.Text = "Source: cemu.info"
+                lbl_version_number.Text = "Version 1.19.0"
+                picturebox_emulogo.BackgroundImage = New System.Drawing.Bitmap(".\resources\cemu.png")
             End If
         End If
 

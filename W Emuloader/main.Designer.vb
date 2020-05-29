@@ -202,7 +202,7 @@ Partial Class main
         Me.lbl_version.Name = "lbl_version"
         Me.lbl_version.Size = New System.Drawing.Size(36, 13)
         Me.lbl_version.TabIndex = 20
-        Me.lbl_version.Text = "v0.3.0"
+        Me.lbl_version.Text = "v0.3.1"
         '
         'emu_nine
         '
@@ -550,6 +550,7 @@ Partial Class main
         '
         'picturebox_boxart
         '
+        Me.picturebox_boxart.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.picturebox_boxart.BackColor = System.Drawing.Color.Transparent
         Me.picturebox_boxart.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
         Me.picturebox_boxart.Location = New System.Drawing.Point(10, 400)
@@ -575,6 +576,7 @@ Partial Class main
         '
         'picturebox_loading
         '
+        Me.picturebox_loading.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.picturebox_loading.BackColor = System.Drawing.Color.Transparent
         Me.picturebox_loading.Image = CType(resources.GetObject("picturebox_loading.Image"), System.Drawing.Image)
         Me.picturebox_loading.Location = New System.Drawing.Point(1534, 6)

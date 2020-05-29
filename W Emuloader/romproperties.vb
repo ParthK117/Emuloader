@@ -39,7 +39,7 @@
         name_rom = main.listbox_installedroms.FocusedItem.SubItems(0).Text
         lbl_file_path.Text = main.listbox_installedroms.FocusedItem.SubItems(2).Text
         Me.Text = main.listbox_installedroms.FocusedItem.SubItems(0).Text & " Properties"
-
+        lbl_platform.Text = main.listbox_installedroms.FocusedItem.SubItems(1).Text
         lbl_rom_name.Text = name_rom
         textbox_rom_name.Text = name_rom
     End Sub
@@ -64,6 +64,7 @@
             main.listbox_installedroms.FocusedItem.SubItems(0).Text = textbox_rom_name.Text
             main.listbox_installedroms.FocusedItem.SubItems(2).Text = lbl_file_path.Text
             name_rom = main.listbox_installedroms.FocusedItem.SubItems(0).Text
+            Call main.retrieveboxart()
         End If
     End Sub
     Private Sub romproperties_Click(sender As Object, e As EventArgs) Handles Me.Click

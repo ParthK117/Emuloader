@@ -105,6 +105,8 @@
       <DependentUpon>main.vb</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="module_emutabs.vb" />
+    <Compile Include="module_loadfonts.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>

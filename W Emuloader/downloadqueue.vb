@@ -29,7 +29,7 @@ main.listbox_search.FocusedItem.SubItems(4).Text}))
 
 
     Public Sub launch_downloader()
-
+        main.picturebox_loading.Visible = True
 
 
         Dim platform_id As String
@@ -157,6 +157,20 @@ main.listbox_search.FocusedItem.SubItems(4).Text}))
                 End Try
 
 
+                If arguments(0).Contains(".7z") Or arguments(0).Contains(".rar") Then
+
+                    Dim un7z As Process
+                    Dim p As New ProcessStartInfo
+                    p.FileName = ".\7za.exe"
+
+                    '   p.UseShellExecute = True
+                    p.WindowStyle = ProcessWindowStyle.Hidden
+                    p.WorkingDirectory = ".\modules\7zip"
+                    p.Arguments = ("e" & " " & Chr(34) & ".\roms\" & arguments(1) & "\" & arguments(0).Replace("$", " ") & Chr(34) & " -o" & Chr(34) & ".\roms\" & arguments(1) & "\" & Chr(34))
+                    un7z = Process.Start(p)
+                    un7z.WaitForExit()
+                End If
+
 
 
             Catch ex As Exception
@@ -175,6 +189,7 @@ main.listbox_search.FocusedItem.SubItems(4).Text}))
         main.lbl_status.Location = New Point((main.panel_top.Width - main.lbl_status.Width) \ 2, (main.panel_top.Height - main.lbl_status.Height) \ 2)
         listbox_queue.Items(0).Remove()
         If listbox_queue.Items.Count = 0 Then
+            main.picturebox_loading.Visible = False
             Me.Close()
         Else
             Call launch_downloader()
