@@ -73,6 +73,16 @@ main.listbox_search.FocusedItem.SubItems(4).Text}))
             If Directory.Exists(".\roms\GB") = False Then
                 Directory.CreateDirectory(".\roms\GB")
             End If
+        ElseIf listbox_queue.Items(0).SubItems(2).Text = "PSX" Then
+            platform_id = ".iso"
+            If Directory.Exists(".\roms\PSX") = False Then
+                Directory.CreateDirectory(".\roms\PSX")
+            End If
+        ElseIf listbox_queue.Items(0).SubItems(2).Text = "PS2" Then
+            platform_id = ".iso"
+            If Directory.Exists(".\roms\PS2") = False Then
+                Directory.CreateDirectory(".\roms\PS2")
+            End If
         End If
 
         Dim arguments As String()
@@ -185,7 +195,7 @@ main.listbox_search.FocusedItem.SubItems(4).Text}))
 
     Private Sub downloader_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles downloader.RunWorkerCompleted
         main.lbl_status.Text = "Downloaded " & listbox_queue.Items(0).SubItems(0).Text
-        Call main.load_installed_roms()
+        Call load_installed_roms()
         main.lbl_status.Location = New Point((main.panel_top.Width - main.lbl_status.Width) \ 2, (main.panel_top.Height - main.lbl_status.Height) \ 2)
         listbox_queue.Items(0).Remove()
         If listbox_queue.Items.Count = 0 Then

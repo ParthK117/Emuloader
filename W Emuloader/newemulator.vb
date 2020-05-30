@@ -88,7 +88,7 @@ Public Class newemulator
         main.lbl_status.Text = "Installed " & arguments(5)
         main.picturebox_loading.Visible = False
         Call center_status_lbl()
-        Call main.loadconfig()
+        Call loadconfig()
     End Sub
 
     Private Sub textbox_search_TextChanged(sender As Object, e As EventArgs) Handles textbox_search.TextChanged
@@ -212,6 +212,12 @@ Public Class newemulator
 
             emulator_downloader.RunWorkerAsync(arguments)
             main.lbl_status.Text = "Installing Dolphin"
+            Call center_status_lbl()
+        ElseIf listbox_emulators.SelectedItem = "Cemu (WIIU)" Then
+            arguments = {"CEMU", "http://cemu.info/releases/cemu_1.19.1.zip", "cemu_1.19.1.zip", "WIIU", "\cemu_1.19.1\Cemu.exe", "Cemu", "cemu.eldr", "\"}
+
+            emulator_downloader.RunWorkerAsync(arguments)
+            main.lbl_status.Text = "Installing Cemu"
             Call center_status_lbl()
         End If
         main.picturebox_loading.Visible = True

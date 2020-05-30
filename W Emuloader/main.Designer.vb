@@ -113,6 +113,9 @@ Partial Class main
         Me.picturebox_drag = New System.Windows.Forms.PictureBox()
         Me.panel_blue_click = New System.Windows.Forms.Panel()
         Me.thread_getboxart = New System.ComponentModel.BackgroundWorker()
+        Me.btn_search_gc = New System.Windows.Forms.PictureBox()
+        Me.btn_search_wiiu = New System.Windows.Forms.PictureBox()
+        Me.btn_show_folders = New System.Windows.Forms.PictureBox()
         CType(Me.image_logo, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panel_left.SuspendLayout()
         CType(Me.picturebox_tungsten, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -149,6 +152,10 @@ Partial Class main
         CType(Me.btn_import, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panel_drag_drop.SuspendLayout()
         CType(Me.picturebox_drag, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.panel_blue_click.SuspendLayout()
+        CType(Me.btn_search_gc, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.btn_search_wiiu, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.btn_show_folders, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'image_logo
@@ -794,6 +801,8 @@ Partial Class main
         Me.panel_search.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.panel_search.Controls.Add(Me.btn_search_wiiu)
+        Me.panel_search.Controls.Add(Me.btn_search_gc)
         Me.panel_search.Controls.Add(Me.btn_search_n64)
         Me.panel_search.Controls.Add(Me.btn_search_wii)
         Me.panel_search.Controls.Add(Me.btn_search_psp)
@@ -1068,6 +1077,7 @@ Partial Class main
         'panel_blue_click
         '
         Me.panel_blue_click.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.panel_blue_click.Controls.Add(Me.btn_show_folders)
         Me.panel_blue_click.Location = New System.Drawing.Point(1460, 30)
         Me.panel_blue_click.Name = "panel_blue_click"
         Me.panel_blue_click.Size = New System.Drawing.Size(125, 30)
@@ -1076,6 +1086,33 @@ Partial Class main
         '
         'thread_getboxart
         '
+        '
+        'btn_search_gc
+        '
+        Me.btn_search_gc.BackgroundImage = CType(resources.GetObject("btn_search_gc.BackgroundImage"), System.Drawing.Image)
+        Me.btn_search_gc.Location = New System.Drawing.Point(566, 34)
+        Me.btn_search_gc.Name = "btn_search_gc"
+        Me.btn_search_gc.Size = New System.Drawing.Size(60, 30)
+        Me.btn_search_gc.TabIndex = 13
+        Me.btn_search_gc.TabStop = False
+        '
+        'btn_search_wiiu
+        '
+        Me.btn_search_wiiu.BackgroundImage = CType(resources.GetObject("btn_search_wiiu.BackgroundImage"), System.Drawing.Image)
+        Me.btn_search_wiiu.Location = New System.Drawing.Point(632, 34)
+        Me.btn_search_wiiu.Name = "btn_search_wiiu"
+        Me.btn_search_wiiu.Size = New System.Drawing.Size(60, 30)
+        Me.btn_search_wiiu.TabIndex = 14
+        Me.btn_search_wiiu.TabStop = False
+        '
+        'btn_show_folders
+        '
+        Me.btn_show_folders.BackgroundImage = CType(resources.GetObject("btn_show_folders.BackgroundImage"), System.Drawing.Image)
+        Me.btn_show_folders.Location = New System.Drawing.Point(0, 0)
+        Me.btn_show_folders.Name = "btn_show_folders"
+        Me.btn_show_folders.Size = New System.Drawing.Size(125, 30)
+        Me.btn_show_folders.TabIndex = 0
+        Me.btn_show_folders.TabStop = False
         '
         'main
         '
@@ -1139,6 +1176,10 @@ Partial Class main
         CType(Me.btn_import, System.ComponentModel.ISupportInitialize).EndInit()
         Me.panel_drag_drop.ResumeLayout(False)
         CType(Me.picturebox_drag, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.panel_blue_click.ResumeLayout(False)
+        CType(Me.btn_search_gc, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.btn_search_wiiu, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.btn_show_folders, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -1232,4 +1273,7 @@ Partial Class main
     Friend WithEvents lbl_rom_name As Label
     Friend WithEvents thread_getboxart As System.ComponentModel.BackgroundWorker
     Friend WithEvents picturebox_loading As PictureBox
+    Friend WithEvents btn_search_wiiu As PictureBox
+    Friend WithEvents btn_search_gc As PictureBox
+    Friend WithEvents btn_show_folders As PictureBox
 End Class

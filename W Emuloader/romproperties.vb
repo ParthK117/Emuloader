@@ -52,9 +52,16 @@
 
     Private Sub textbox_rom_name_KeyDown(sender As Object, e As KeyEventArgs) Handles textbox_rom_name.KeyDown
         If e.KeyCode = Keys.Enter Then
-            Dim x As String = System.IO.Path.GetFileName(main.listbox_installedroms.FocusedItem.SubItems(2).Text)
-            Dim x_split As String() = Split(x, ".")
-            My.Computer.FileSystem.RenameFile(main.listbox_installedroms.FocusedItem.SubItems(2).Text, textbox_rom_name.Text & "." & x_split(1))
+            If Not main.currenttab_metadata(1) = "WIIU" Then
+                Dim x As String = System.IO.Path.GetFileName(main.listbox_installedroms.FocusedItem.SubItems(2).Text)
+                Dim x_split As String() = Split(x, ".")
+                My.Computer.FileSystem.RenameFile(main.listbox_installedroms.FocusedItem.SubItems(2).Text, textbox_rom_name.Text & "." & x_split(1))
+            Else
+                MsgBox("Cannot rename WII-U game")
+                textbox_rom_name.Text = main.listbox_installedroms.FocusedItem.SubItems(0).Text
+            End If
+
+
             Me.Text = textbox_rom_name.Text & " Properties"
 
             lbl_rom_name.Text = textbox_rom_name.Text

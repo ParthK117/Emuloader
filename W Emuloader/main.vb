@@ -7,20 +7,12 @@ Public Class main
     Dim drag As Boolean
     Dim mousex As Integer
     Dim mousey As Integer
-    Public Shared emu_one_metadata As String()
-    Public Shared emu_two_metadata As String()
-    Public Shared emu_three_metadata As String()
-    Public Shared emu_four_metadata As String()
-    Public Shared emu_five_metadata As String()
-    Public Shared emu_six_metadata As String()
-    Public Shared emu_seven_metadata As String()
-    Public Shared emu_eight_metadata As String()
-    Public Shared emu_nine_metadata As String()
-    Public Shared emutabs_metadata = {emu_one_metadata, emu_two_metadata, emu_three_metadata, emu_four_metadata, emu_five_metadata, emu_six_metadata, emu_seven_metadata, emu_eight_metadata, emu_nine_metadata}
+
     Public Shared currenttab_metadata As String() = {"na", "na", "na", "na", "na"}
     Public Shared gotham As New System.Drawing.Text.PrivateFontCollection()
     Public Shared spartan As New System.Drawing.Text.PrivateFontCollection()
     Public Shared labelgrey As Color
+    Public Shared tab_index = 0
     '0.1.0
 
     Private Sub main_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -119,273 +111,60 @@ Public Class main
         btn_newemu.BackgroundImage = System.Drawing.Image.FromFile(".\resources\newemuwhite.png")
 
     End Sub
-    Public Sub loadconfig()
-
-
-        If File.Exists(".\installed.eldr") = True Then
-            Dim installedeldr As String() = File.ReadAllLines(".\installed.eldr")
-            Dim index As Integer = 0
-            Dim emutabs = {emu_one, emu_two, emu_three, emu_four, emu_five, emu_six, emu_seven, emu_eight, emu_nine}
-
-            For Each x In installedeldr
-                Dim currentmetadata As String()
-                If x.Contains("VBAM") Then
-
-                    emutabs(index).Text = "VBA-M"
-                    emutabs(index).Visible = True
-
-
-                    currentmetadata = File.ReadAllLines(".\" & x & "\vbam.eldr")
-                    emutabs_metadata(index) = currentmetadata
-
-                End If
-
-                If x.Contains("CITRA") Then
-
-                    emutabs(index).Text = "Citra"
-                    emutabs(index).Visible = True
-
-
-                    currentmetadata = File.ReadAllLines(".\" & x & "\citra.eldr")
-                    emutabs_metadata(index) = currentmetadata
-
-                End If
-                If x.Contains("DESMUME") Then
-
-                    emutabs(index).Text = "DeSmuME"
-                    emutabs(index).Visible = True
-
-
-                    currentmetadata = File.ReadAllLines(".\" & x & "\desmume.eldr")
-                    emutabs_metadata(index) = currentmetadata
-
-                End If
-                If x.Contains("PROJECT64") Then
-
-                    emutabs(index).Text = "Project64"
-                    emutabs(index).Visible = True
-
-
-                    currentmetadata = File.ReadAllLines(".\" & x & "\project64.eldr")
-                    emutabs_metadata(index) = currentmetadata
-
-                End If
-                If x.Contains("PPSSPP") Then
-
-                    emutabs(index).Text = "PPSSPP"
-                    emutabs(index).Visible = True
-
-
-                    currentmetadata = File.ReadAllLines(".\" & x & "\ppsspp.eldr")
-                    emutabs_metadata(index) = currentmetadata
-
-                End If
-                If x.Contains("DOLPHIN") Then
-
-                    emutabs(index).Text = "Dolphin"
-                    emutabs(index).Visible = True
-
-
-                    currentmetadata = File.ReadAllLines(".\" & x & "\dolphin.eldr")
-                    emutabs_metadata(index) = currentmetadata
-
-                End If
-                index = index + 1
-            Next
-
-
-        End If
-
-    End Sub
 
     Private Sub emu_one_Click(sender As Object, e As EventArgs) Handles emu_one.Click
-        Call module_emutabs.emu_one()
-
+        tab_index = 0
+        Call module_emutabs.load_emutab()
+        emu_one.ForeColor = Color.Black
 
     End Sub
 
     Private Sub emu_two_Click(sender As Object, e As EventArgs) Handles emu_two.Click
-        emu_one.ForeColor = labelgrey
+        tab_index = 1
+        Call module_emutabs.load_emutab()
         emu_two.ForeColor = Color.Black
-        emu_three.ForeColor = labelgrey
-        emu_four.ForeColor = labelgrey
-        emu_five.ForeColor = labelgrey
-        emu_six.ForeColor = labelgrey
-        emu_seven.ForeColor = labelgrey
-        emu_eight.ForeColor = labelgrey
-        emu_nine.ForeColor = labelgrey
-
-        currenttab_metadata = emutabs_metadata(1)
-        panel_rom_info.Visible = False
-        tab_browse.Visible = False
-        panel_play.BringToFront()
-
-
-        lbl_name.Text = currenttab_metadata(0)
-        lbl_installedon.Text = "Installed on " & currenttab_metadata(2)
-        lbl_platform.Text = "Platform: " & currenttab_metadata(1)
-        Call load_installed_roms()
     End Sub
 
     Private Sub emu_three_Click(sender As Object, e As EventArgs) Handles emu_three.Click
-        emu_one.ForeColor = labelgrey
-        emu_two.ForeColor = labelgrey
+        tab_index = 2
+        Call module_emutabs.load_emutab()
         emu_three.ForeColor = Color.Black
-        emu_four.ForeColor = labelgrey
-        emu_five.ForeColor = labelgrey
-        emu_six.ForeColor = labelgrey
-        emu_seven.ForeColor = labelgrey
-        emu_eight.ForeColor = labelgrey
-        emu_nine.ForeColor = labelgrey
-
-        currenttab_metadata = emutabs_metadata(2)
-        panel_rom_info.Visible = False
-        tab_browse.Visible = False
-        panel_play.BringToFront()
-
-
-        lbl_name.Text = currenttab_metadata(0)
-        lbl_installedon.Text = "Installed on " & currenttab_metadata(2)
-        lbl_platform.Text = "Platform: " & currenttab_metadata(1)
-        Call load_installed_roms()
     End Sub
 
     Private Sub emu_four_Click(sender As Object, e As EventArgs) Handles emu_four.Click
-        emu_one.ForeColor = labelgrey
-        emu_two.ForeColor = labelgrey
-        emu_three.ForeColor = labelgrey
+        tab_index = 3
+        Call module_emutabs.load_emutab()
         emu_four.ForeColor = Color.Black
-        emu_five.ForeColor = labelgrey
-        emu_six.ForeColor = labelgrey
-        emu_seven.ForeColor = labelgrey
-        emu_eight.ForeColor = labelgrey
-        emu_nine.ForeColor = labelgrey
-
-        currenttab_metadata = emutabs_metadata(3)
-        panel_rom_info.Visible = False
-        tab_browse.Visible = False
-        panel_play.BringToFront()
-
-
-        lbl_name.Text = currenttab_metadata(0)
-        lbl_installedon.Text = "Installed on " & currenttab_metadata(2)
-        lbl_platform.Text = "Platform: " & currenttab_metadata(1)
-        Call load_installed_roms()
     End Sub
 
     Private Sub emu_five_Click(sender As Object, e As EventArgs) Handles emu_five.Click
-        emu_one.ForeColor = labelgrey
-        emu_two.ForeColor = labelgrey
-        emu_three.ForeColor = labelgrey
-        emu_four.ForeColor = labelgrey
+        tab_index = 4
+        Call module_emutabs.load_emutab()
         emu_five.ForeColor = Color.Black
-        emu_six.ForeColor = labelgrey
-        emu_seven.ForeColor = labelgrey
-        emu_eight.ForeColor = labelgrey
-        emu_nine.ForeColor = labelgrey
-
-        currenttab_metadata = emutabs_metadata(4)
-        panel_rom_info.Visible = False
-        tab_browse.Visible = False
-        panel_play.BringToFront()
-
-
-        lbl_name.Text = currenttab_metadata(0)
-        lbl_installedon.Text = "Installed on " & currenttab_metadata(2)
-        lbl_platform.Text = "Platform: " & currenttab_metadata(1)
-        Call load_installed_roms()
     End Sub
 
     Private Sub emu_six_Click(sender As Object, e As EventArgs) Handles emu_six.Click
-        emu_one.ForeColor = labelgrey
-        emu_two.ForeColor = labelgrey
-        emu_three.ForeColor = labelgrey
-        emu_four.ForeColor = labelgrey
-        emu_five.ForeColor = labelgrey
+        tab_index = 5
+        Call module_emutabs.load_emutab()
         emu_six.ForeColor = Color.Black
-        emu_seven.ForeColor = labelgrey
-        emu_eight.ForeColor = labelgrey
-        emu_nine.ForeColor = labelgrey
-
-        currenttab_metadata = emutabs_metadata(5)
-        panel_rom_info.Visible = False
-        tab_browse.Visible = False
-        panel_play.BringToFront()
-
-
-        lbl_name.Text = currenttab_metadata(0)
-        lbl_installedon.Text = "Installed on " & currenttab_metadata(2)
-        lbl_platform.Text = "Platform: " & currenttab_metadata(1)
-        Call load_installed_roms()
     End Sub
 
     Private Sub emu_seven_Click(sender As Object, e As EventArgs) Handles emu_seven.Click
-        emu_one.ForeColor = labelgrey
-        emu_two.ForeColor = labelgrey
-        emu_three.ForeColor = labelgrey
-        emu_four.ForeColor = labelgrey
-        emu_five.ForeColor = labelgrey
-        emu_six.ForeColor = labelgrey
+        tab_index = 6
+        Call module_emutabs.load_emutab()
         emu_seven.ForeColor = Color.Black
-        emu_eight.ForeColor = labelgrey
-        emu_nine.ForeColor = labelgrey
-
-        currenttab_metadata = emutabs_metadata(6)
-        panel_rom_info.Visible = False
-        tab_browse.Visible = False
-        panel_play.BringToFront()
-
-
-        lbl_name.Text = currenttab_metadata(0)
-        lbl_installedon.Text = "Installed on " & currenttab_metadata(2)
-        lbl_platform.Text = "Platform: " & currenttab_metadata(1)
-        Call load_installed_roms()
     End Sub
 
     Private Sub emu_eight_Click(sender As Object, e As EventArgs) Handles emu_eight.Click
-        emu_one.ForeColor = labelgrey
-        emu_two.ForeColor = labelgrey
-        emu_three.ForeColor = labelgrey
-        emu_four.ForeColor = labelgrey
-        emu_five.ForeColor = labelgrey
-        emu_six.ForeColor = labelgrey
-        emu_seven.ForeColor = labelgrey
+        tab_index = 7
+        Call module_emutabs.load_emutab()
         emu_eight.ForeColor = Color.Black
-        emu_nine.ForeColor = labelgrey
-
-        currenttab_metadata = emutabs_metadata(7)
-        panel_rom_info.Visible = False
-        tab_browse.Visible = False
-        panel_play.BringToFront()
-
-
-        lbl_name.Text = currenttab_metadata(0)
-        lbl_installedon.Text = "Installed on " & currenttab_metadata(2)
-        lbl_platform.Text = "Platform: " & currenttab_metadata(1)
-        Call load_installed_roms()
     End Sub
 
     Private Sub emu_nine_Click(sender As Object, e As EventArgs) Handles emu_nine.Click
-        emu_one.ForeColor = labelgrey
-        emu_two.ForeColor = labelgrey
-        emu_three.ForeColor = labelgrey
-        emu_four.ForeColor = labelgrey
-        emu_five.ForeColor = labelgrey
-        emu_six.ForeColor = labelgrey
-        emu_seven.ForeColor = labelgrey
-        emu_eight.ForeColor = labelgrey
+        tab_index = 8
+        Call module_emutabs.load_emutab()
         emu_nine.ForeColor = Color.Black
-
-        currenttab_metadata = emutabs_metadata(8)
-        panel_rom_info.Visible = False
-        tab_browse.Visible = False
-        panel_play.BringToFront()
-
-
-        lbl_name.Text = currenttab_metadata(0)
-        lbl_installedon.Text = "Installed on " & currenttab_metadata(2)
-        lbl_platform.Text = "Platform: " & currenttab_metadata(1)
-        Call load_installed_roms()
     End Sub
     Private Sub btn_play_MouseEnter(sender As Object, e As EventArgs) Handles btn_play.MouseEnter
         btn_play.BackgroundImage = System.Drawing.Image.FromFile(".\resources\playwhite.png")
@@ -436,6 +215,11 @@ Public Class main
 
             Dim rom_path As String = System.IO.Path.GetFullPath(listbox_installedroms.FocusedItem.SubItems(2).Text)
             p.Arguments = ("""" & rom_path & """")
+        ElseIf currenttab_metadata(1) = "WIIU" Then
+
+
+            Dim rom_path As String = System.IO.Path.GetFullPath(listbox_installedroms.FocusedItem.SubItems(2).Text)
+            p.Arguments = ("-g" & """" & rom_path & """")
         End If
 
 
@@ -484,6 +268,9 @@ Public Class main
             If imported_list_downloads(0).Contains("#") Then
 
                 metadata = Split(imported_list_downloads(0), "#")
+                If metadata(2) = "verify" Then
+                    Process.Start(metadata(3))
+                End If
                 showsource = True
             End If
 
@@ -568,6 +355,7 @@ Public Class main
             Dim metadata As String()
             If imported_list_downloads(0).Contains("#") Then
                 metadata = Split(imported_list_downloads(0), "#")
+
                 showsource = True
             End If
 
@@ -643,210 +431,6 @@ Public Class main
         btn_queue.BackgroundImage = System.Drawing.Image.FromFile(".\resources\queuewhite.png")
     End Sub
 
-    Public Sub load_installed_roms()
-        listbox_installedroms.Items.Clear()
-        If File.Exists(".\custom.eldr") = False Then
-            System.IO.File.Create(".\custom.eldr").Dispose()
-        End If
-
-        Dim customromlist As String() = File.ReadAllLines(".\custom.eldr")
-
-        If currenttab_metadata(1) = "GBA" Then
-            If Directory.Exists(".\roms\GBA") = False Then
-                Directory.CreateDirectory(".\roms\GBA")
-            End If
-            Dim rom_directory As New DirectoryInfo(".\roms\GBA\")
-            For Each f In rom_directory.GetFiles
-                If f.ToString.Contains("sav") Then
-
-                ElseIf f.ToString.Contains(".gba") Then
-                    listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString.Replace(".gba", ""), "GBA", System.IO.Path.GetFullPath(f.FullName)}))
-
-                ElseIf f.ToString.Contains(".gbc") Then
-                    listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString.Replace(".gbc", ""), "GBC", System.IO.Path.GetFullPath(f.FullName)}))
-
-                ElseIf f.ToString.Contains(".gb") = True And f.ToString.Contains(".gbc") = False And f.ToString.Contains(".gba") = False Then
-                    listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString.Replace(".gb", ""), "GB", System.IO.Path.GetFullPath(f.FullName)}))
-                End If
-
-            Next
-
-            If Directory.Exists(".\roms\GBC") = False Then
-                Directory.CreateDirectory(".\roms\GBC")
-            End If
-            Dim rom_directory2 As New DirectoryInfo(".\roms\GBC\")
-            For Each f In rom_directory2.GetFiles
-                If f.ToString.Contains("XT") Then
-                ElseIf f.ToString.Contains(".gbc") Then
-                    listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString.Replace(".gbc", ""), "GBC", System.IO.Path.GetFullPath(f.FullName)}))
-                ElseIf f.ToString.Contains(".gb") = True And f.ToString.Contains(".gbc") = False And f.ToString.Contains(".gba") = False Then
-                    listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString.Replace(".gb", ""), "GB", System.IO.Path.GetFullPath(f.FullName)}))
-                End If
-
-            Next
-
-            If Directory.Exists(".\roms\GB") = False Then
-                Directory.CreateDirectory(".\roms\GB")
-            End If
-            Dim rom_directory3 As New DirectoryInfo(".\roms\GB\")
-            For Each f In rom_directory3.GetFiles
-                If f.ToString.Contains("XT") Then
-                ElseIf f.ToString.Contains(".gb") Then
-                    listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString.Replace(".gb", ""), "GB", System.IO.Path.GetFullPath(f.FullName)}))
-                End If
-
-            Next
-
-            For Each x In customromlist
-                Dim custom_directory As New DirectoryInfo(x)
-                For Each f In custom_directory.GetFiles
-                    If f.ToString.Contains(".gba") Then
-                        listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString.Replace(".gba", ""), "GBA", System.IO.Path.GetFullPath(f.FullName)}))
-                    ElseIf f.ToString.Contains(".gbc") Then
-                        listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString.Replace(".gbc", ""), "GBC", System.IO.Path.GetFullPath(f.FullName)}))
-
-                    ElseIf f.ToString.Contains(".gb") = True And f.ToString.Contains(".gbc") = False And f.ToString.Contains(".gba") = False Then
-                        listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString.Replace(".gb", ""), "GB", System.IO.Path.GetFullPath(f.FullName)}))
-                    End If
-
-                Next
-            Next
-
-
-
-        ElseIf currenttab_metadata(1) = "3DS" Then
-            If Directory.Exists(".\roms\3DS") = False Then
-                Directory.CreateDirectory(".\roms\3DS")
-            End If
-            Dim rom_directory As New DirectoryInfo(".\roms\3DS\")
-            For Each f In rom_directory.GetFiles
-                If f.ToString.Contains("XT") Then
-                ElseIf f.ToString.Contains(".3ds") Then
-                    listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString.Replace(".3ds", ""), "3DS", System.IO.Path.GetFullPath(f.FullName)}))
-                End If
-
-            Next
-
-            For Each x In customromlist
-                Dim custom_directory As New DirectoryInfo(x)
-                For Each f In custom_directory.GetFiles
-                    If f.ToString.Contains(".3ds") Then
-
-                        listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString.Replace(".3ds", ""), "3DS", System.IO.Path.GetFullPath(f.FullName)}))
-                    End If
-
-                Next
-            Next
-        ElseIf currenttab_metadata(1) = "NDS" Then
-            If Directory.Exists(".\roms\NDS") = False Then
-                Directory.CreateDirectory(".\roms\NDS")
-            End If
-            Dim rom_directory As New DirectoryInfo(".\roms\NDS\")
-            For Each f In rom_directory.GetFiles
-                If f.ToString.Contains("XT") Then
-                ElseIf f.ToString.Contains(".nds") Then
-                    listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString.Replace(".nds", ""), "NDS", System.IO.Path.GetFullPath(f.FullName)}))
-                End If
-
-            Next
-
-            For Each x In customromlist
-                Dim custom_directory As New DirectoryInfo(x)
-                For Each f In custom_directory.GetFiles
-                    If f.ToString.Contains(".nds") Then
-
-                        listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString.Replace(".nds", ""), "NDS", System.IO.Path.GetFullPath(f.FullName)}))
-                    End If
-
-                Next
-            Next
-        ElseIf currenttab_metadata(1) = "N64" Then
-            If Directory.Exists(".\roms\N64") = False Then
-                Directory.CreateDirectory(".\roms\N64")
-            End If
-            Dim rom_directory As New DirectoryInfo(".\roms\N64\")
-            For Each f In rom_directory.GetFiles
-                If f.ToString.Contains("XT") Then
-                ElseIf f.ToString.Contains(".z64") Or f.ToString.Contains(".v64") Or f.ToString.Contains(".m64") Then
-                    listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString.Replace(".z64", "").Replace(".v64", "").Replace(".n64", ""), "N64", System.IO.Path.GetFullPath(f.FullName)}))
-                End If
-
-            Next
-
-            For Each x In customromlist
-                Dim custom_directory As New DirectoryInfo(x)
-                For Each f In custom_directory.GetFiles
-                    If f.ToString.Contains(".z64") Or f.ToString.Contains(".v64") Or f.ToString.Contains(".m64") Then
-
-                        listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString.Replace(".z64", "").Replace(".v64", "").Replace(".n64", ""), "N64", System.IO.Path.GetFullPath(f.FullName)}))
-                    End If
-
-                Next
-            Next
-        ElseIf currenttab_metadata(1) = "PSP" Then
-            If Directory.Exists(".\roms\PSP") = False Then
-                Directory.CreateDirectory(".\roms\PSP")
-            End If
-            Dim rom_directory As New DirectoryInfo(".\roms\PSP\")
-            For Each f In rom_directory.GetFiles
-                If f.ToString.Contains("XT") Then
-                ElseIf f.ToString.Contains(".iso") Then
-                    listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString.Replace(".iso", ""), "PSP", System.IO.Path.GetFullPath(f.FullName)}))
-                End If
-
-            Next
-
-            For Each x In customromlist
-                Dim custom_directory As New DirectoryInfo(x)
-                For Each f In custom_directory.GetFiles
-                    If f.ToString.Contains(".iso") Or f.ToString.Contains(".cso") Then
-
-                        listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString.Replace(".iso", ""), "PSP", System.IO.Path.GetFullPath(f.FullName)}))
-                    End If
-
-                Next
-            Next
-        ElseIf currenttab_metadata(1) = "WII" Then
-            If Directory.Exists(".\roms\WII") = False Then
-                Directory.CreateDirectory(".\roms\WII")
-            End If
-            Dim rom_directory As New DirectoryInfo(".\roms\WII\")
-            For Each f In rom_directory.GetFiles
-                If f.ToString.Contains("XT") Then
-                ElseIf f.ToString.Contains(".iso") Then
-                    listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString.Replace(".iso", ""), "WII", System.IO.Path.GetFullPath(f.FullName)}))
-                End If
-
-            Next
-
-            For Each x In customromlist
-                Dim custom_directory As New DirectoryInfo(x)
-                For Each f In custom_directory.GetFiles
-                    If f.ToString.Contains(".iso") Or f.ToString.Contains(".elf") Then
-
-                        listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString.Replace(".iso", ""), "WII", System.IO.Path.GetFullPath(f.FullName)}))
-                    End If
-
-                Next
-            Next
-        End If
-
-        Call retrieveboxart()
-
-
-
-
-
-        If listbox_installedroms.Items.Count = 0 Then
-            listbox_installedroms.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize)
-
-        Else
-            listbox_installedroms.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent)
-        End If
-        listbox_installedroms.Columns.Item(2).Width = 0
-        listbox_installedroms.AutoResizeColumn(1, ColumnHeaderAutoResizeStyle.HeaderSize)
-
-    End Sub
 
     Private Sub btn_exit_MouseDown(sender As Object, e As MouseEventArgs) Handles btn_exit.MouseDown
         Application.Exit()
@@ -1058,218 +642,60 @@ Public Class main
 
 
     Private Sub btn_search_gba_click(sender As Object, e As MouseEventArgs) Handles btn_search_gba.Click
-        textbox_search.Text = "Search"
-        listbox_search.Items.Clear()
+        emu_tab_metadata_list.tag_index = "GBA"
+        Call module_emutabs.button_tags()
         btn_search_gba.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchgbawhite.png")
-        btn_search_wii.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchwiiblack.png")
-        btn_search_nds.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchndsblack.png")
-        btn_search_3ds.BackgroundImage = System.Drawing.Image.FromFile(".\resources\search3dsblack.png")
-        btn_search_psp.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchpspblack.png")
-        btn_search_n64.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchn64black.png")
-        btn_search_gbc.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchgbcblack.png")
-        btn_search_gb.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchgbblack.png")
-
-        For Each line In listbox_availableroms.Items
-            If line.subitems(2).text = "GBA" Then
-                Dim linestring As String() = {line.subitems(0).text, line.subitems(1).text, line.subitems(2).text, line.subitems(3).text, line.subitems(4).text}
-                listbox_search.Items.Add(New ListViewItem(linestring))
-            End If
-
-        Next
-
-        listbox_search.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent)
-        listbox_search.AutoResizeColumn(2, ColumnHeaderAutoResizeStyle.HeaderSize)
-        listbox_search.Columns.Item(4).Width = 0
 
 
     End Sub
 
     Private Sub btn_search_gbc_click(sender As Object, e As MouseEventArgs) Handles btn_search_gbc.Click
-        textbox_search.Text = "Search"
-        listbox_search.Items.Clear()
+        emu_tab_metadata_list.tag_index = "GBC"
+        Call module_emutabs.button_tags()
         btn_search_gbc.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchgbcwhite.png")
-        btn_search_wii.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchwiiblack.png")
-        btn_search_nds.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchndsblack.png")
-        btn_search_3ds.BackgroundImage = System.Drawing.Image.FromFile(".\resources\search3dsblack.png")
-        btn_search_psp.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchpspblack.png")
-        btn_search_n64.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchn64black.png")
-        btn_search_gba.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchgbablack.png")
-        btn_search_gb.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchgbblack.png")
-
-        For Each line In listbox_availableroms.Items
-            If line.subitems(2).text = "GBC" Then
-                Dim linestring As String() = {line.subitems(0).text, line.subitems(1).text, line.subitems(2).text, line.subitems(3).text, line.subitems(4).text}
-                listbox_search.Items.Add(New ListViewItem(linestring))
-            End If
-
-        Next
-
-        listbox_search.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent)
-        listbox_search.AutoResizeColumn(2, ColumnHeaderAutoResizeStyle.HeaderSize)
-        listbox_search.Columns.Item(4).Width = 0
 
 
     End Sub
 
     Private Sub btn_search_gb_click(sender As Object, e As MouseEventArgs) Handles btn_search_gb.Click
-        textbox_search.Text = "Search"
-        listbox_search.Items.Clear()
+        emu_tab_metadata_list.tag_index = "GB"
+        Call module_emutabs.button_tags()
         btn_search_gb.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchgbwhite.png")
-        btn_search_wii.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchwiiblack.png")
-        btn_search_nds.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchndsblack.png")
-        btn_search_3ds.BackgroundImage = System.Drawing.Image.FromFile(".\resources\search3dsblack.png")
-        btn_search_psp.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchpspblack.png")
-        btn_search_n64.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchn64black.png")
-        btn_search_gbc.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchgbcblack.png")
-        btn_search_gba.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchgbablack.png")
-
-        For Each line In listbox_availableroms.Items
-            If line.subitems(2).text = "GB" Then
-                Dim linestring As String() = {line.subitems(0).text, line.subitems(1).text, line.subitems(2).text, line.subitems(3).text, line.subitems(4).text}
-                listbox_search.Items.Add(New ListViewItem(linestring))
-            End If
-
-        Next
-
-        listbox_search.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent)
-        listbox_search.AutoResizeColumn(2, ColumnHeaderAutoResizeStyle.HeaderSize)
-        listbox_search.Columns.Item(4).Width = 0
-
 
     End Sub
 
     Private Sub btn_search_wii_click(sender As Object, e As MouseEventArgs) Handles btn_search_wii.Click
-        textbox_search.Text = "Search"
-        listbox_search.Items.Clear()
+        emu_tab_metadata_list.tag_index = "WII"
+        Call module_emutabs.button_tags()
         btn_search_wii.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchwiiwhite.png")
-        btn_search_gba.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchgbablack.png")
-        btn_search_nds.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchndsblack.png")
-        btn_search_3ds.BackgroundImage = System.Drawing.Image.FromFile(".\resources\search3dsblack.png")
-        btn_search_psp.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchpspblack.png")
-        btn_search_n64.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchn64black.png")
-        btn_search_gbc.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchgbcblack.png")
-        btn_search_gb.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchgbblack.png")
-
-        For Each line In listbox_availableroms.Items
-            If line.subitems(2).text = "WII" Or line.subitems(2).text = "GC" Then
-                Dim linestring As String() = {line.subitems(0).text, line.subitems(1).text, line.subitems(2).text, line.subitems(3).text, line.subitems(4).text}
-                listbox_search.Items.Add(New ListViewItem(linestring))
-            End If
-
-        Next
-
-        listbox_search.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent)
-        listbox_search.AutoResizeColumn(2, ColumnHeaderAutoResizeStyle.HeaderSize)
-        listbox_search.Columns.Item(4).Width = 0
-
 
     End Sub
 
     Private Sub btn_search_nds_click(sender As Object, e As MouseEventArgs) Handles btn_search_nds.Click
-        textbox_search.Text = "Search"
-        listbox_search.Items.Clear()
+        emu_tab_metadata_list.tag_index = "NDS"
+        Call module_emutabs.button_tags()
         btn_search_nds.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchndswhite.png")
-        btn_search_wii.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchwiiblack.png")
-        btn_search_gba.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchgbablack.png")
-        btn_search_3ds.BackgroundImage = System.Drawing.Image.FromFile(".\resources\search3dsblack.png")
-        btn_search_psp.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchpspblack.png")
-        btn_search_n64.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchn64black.png")
-        btn_search_gbc.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchgbcblack.png")
-        btn_search_gb.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchgbblack.png")
-
-        For Each line In listbox_availableroms.Items
-            If line.subitems(2).text = "NDS" Then
-                Dim linestring As String() = {line.subitems(0).text, line.subitems(1).text, line.subitems(2).text, line.subitems(3).text, line.subitems(4).text}
-                listbox_search.Items.Add(New ListViewItem(linestring))
-            End If
-
-        Next
-
-        listbox_search.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent)
-        listbox_search.AutoResizeColumn(2, ColumnHeaderAutoResizeStyle.HeaderSize)
-        listbox_search.Columns.Item(4).Width = 0
 
 
     End Sub
 
     Private Sub btn_search_3ds_click(sender As Object, e As MouseEventArgs) Handles btn_search_3ds.Click
-        textbox_search.Text = "Search"
-        listbox_search.Items.Clear()
+        emu_tab_metadata_list.tag_index = "3DS"
+        Call module_emutabs.button_tags()
         btn_search_3ds.BackgroundImage = System.Drawing.Image.FromFile(".\resources\search3dswhite.png")
-        btn_search_wii.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchwiiblack.png")
-        btn_search_nds.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchndsblack.png")
-        btn_search_gba.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchgbablack.png")
-        btn_search_psp.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchpspblack.png")
-        btn_search_n64.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchn64black.png")
-        btn_search_gbc.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchgbcblack.png")
-        btn_search_gb.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchgbblack.png")
-
-        For Each line In listbox_availableroms.Items
-            If line.subitems(2).text = "3DS" Then
-                Dim linestring As String() = {line.subitems(0).text, line.subitems(1).text, line.subitems(2).text, line.subitems(3).text, line.subitems(4).text}
-                listbox_search.Items.Add(New ListViewItem(linestring))
-            End If
-
-        Next
-
-        listbox_search.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent)
-        listbox_search.AutoResizeColumn(2, ColumnHeaderAutoResizeStyle.HeaderSize)
-        listbox_search.Columns.Item(4).Width = 0
-
-
     End Sub
 
     Private Sub btn_search_n64_click(sender As Object, e As MouseEventArgs) Handles btn_search_n64.Click
-        textbox_search.Text = "Search"
-        listbox_search.Items.Clear()
+        emu_tab_metadata_list.tag_index = "N64"
+        Call module_emutabs.button_tags()
         btn_search_n64.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchn64white.png")
-        btn_search_wii.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchwiiblack.png")
-        btn_search_nds.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchndsblack.png")
-        btn_search_3ds.BackgroundImage = System.Drawing.Image.FromFile(".\resources\search3dsblack.png")
-        btn_search_psp.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchpspblack.png")
-        btn_search_gba.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchgbablack.png")
-        btn_search_gbc.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchgbcblack.png")
-        btn_search_gb.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchgbblack.png")
-
-        For Each line In listbox_availableroms.Items
-            If line.subitems(2).text = "N64" Then
-                Dim linestring As String() = {line.subitems(0).text, line.subitems(1).text, line.subitems(2).text, line.subitems(3).text, line.subitems(4).text}
-                listbox_search.Items.Add(New ListViewItem(linestring))
-            End If
-
-        Next
-
-        listbox_search.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent)
-        listbox_search.AutoResizeColumn(2, ColumnHeaderAutoResizeStyle.HeaderSize)
-        listbox_search.Columns.Item(4).Width = 0
-
 
     End Sub
 
     Private Sub btn_search_psp_click(sender As Object, e As MouseEventArgs) Handles btn_search_psp.Click
-        textbox_search.Text = "Search"
-        listbox_search.Items.Clear()
+        emu_tab_metadata_list.tag_index = "PSP"
+        Call module_emutabs.button_tags()
         btn_search_psp.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchpspwhite.png")
-        btn_search_wii.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchwiiblack.png")
-        btn_search_nds.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchndsblack.png")
-        btn_search_3ds.BackgroundImage = System.Drawing.Image.FromFile(".\resources\search3dsblack.png")
-        btn_search_gba.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchgbablack.png")
-        btn_search_n64.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchn64black.png")
-        btn_search_gbc.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchgbcblack.png")
-        btn_search_gb.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchgbblack.png")
-
-        For Each line In listbox_availableroms.Items
-            If line.subitems(2).text = "PSP" Then
-                Dim linestring As String() = {line.subitems(0).text, line.subitems(1).text, line.subitems(2).text, line.subitems(3).text, line.subitems(4).text}
-                listbox_search.Items.Add(New ListViewItem(linestring))
-            End If
-
-        Next
-
-        listbox_search.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent)
-        listbox_search.AutoResizeColumn(2, ColumnHeaderAutoResizeStyle.HeaderSize)
-        listbox_search.Columns.Item(4).Width = 0
-
 
     End Sub
     Private Sub main_DragDrop(sender As System.Object, e As System.Windows.Forms.DragEventArgs) Handles Me.DragDrop
@@ -1493,5 +919,33 @@ Public Class main
         lbl_status.Text = "Downloaded Boxart"
         picturebox_loading.Visible = False
         lbl_status.Location = New Point((panel_top.Width - lbl_status.Width) \ 2, (panel_top.Height - lbl_status.Height) \ 2)
+    End Sub
+
+    Private Sub btn_search_gc_Click(sender As Object, e As EventArgs) Handles btn_search_gc.Click
+        emu_tab_metadata_list.tag_index = "GC"
+        Call module_emutabs.button_tags()
+        btn_search_gba.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchgcwhite.png")
+
+    End Sub
+
+    Private Sub btn_search_wiiu_Click(sender As Object, e As EventArgs) Handles btn_search_wiiu.Click
+        emu_tab_metadata_list.tag_index = "WIIU"
+        Call module_emutabs.button_tags()
+        btn_search_gba.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchwiiuwhite.png")
+
+    End Sub
+
+    Private Sub btn_show_folders_Click(sender As Object, e As EventArgs) Handles btn_show_folders.Click
+        Process.Start(".\roms")
+        panel_blue_click.Visible = False
+        btn_expand.BackgroundImage = System.Drawing.Image.FromFile(".\resources\blue.png")
+    End Sub
+
+    Private Sub btn_show_folders_MouseEnter(sender As Object, e As EventArgs) Handles btn_show_folders.MouseEnter
+        btn_show_folders.BackgroundImage = System.Drawing.Image.FromFile(".\resources\foldersblack.png")
+    End Sub
+
+    Private Sub btn_show_folders_MouseLeave(sender As Object, e As EventArgs) Handles btn_show_folders.MouseLeave
+        btn_show_folders.BackgroundImage = System.Drawing.Image.FromFile(".\resources\folderswhite.png")
     End Sub
 End Class
