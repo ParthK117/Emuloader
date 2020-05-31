@@ -171,12 +171,12 @@ main.listbox_search.FocusedItem.SubItems(4).Text}))
 
                     Dim un7z As Process
                     Dim p As New ProcessStartInfo
-                    p.FileName = ".\7z.exe"
+                    p.FileName = ".\7za.exe"
 
                     '   p.UseShellExecute = True
                     p.WindowStyle = ProcessWindowStyle.Hidden
                     p.WorkingDirectory = ".\modules\7zip"
-                    p.Arguments = ("e" & " " & Chr(34) & System.IO.Path.GetFullPath(".\roms\" & arguments(1) & "\" & arguments(0).Replace("$", " ")) & Chr(34) & " -o" & Chr(34) & System.IO.Path.GetFullPath(".\roms\" & arguments(1) & "\") & Chr(34))
+                    p.Arguments = ("e" & " " & Chr(34) & ".\roms\" & arguments(1) & "\" & arguments(0).Replace("$", " ") & Chr(34) & " -o" & Chr(34) & ".\roms\" & arguments(1) & "\" & Chr(34))
                     un7z = Process.Start(p)
                     un7z.WaitForExit()
                 End If

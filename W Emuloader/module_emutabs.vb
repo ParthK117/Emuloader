@@ -11,7 +11,6 @@
         Public Shared emu_nine_metadata As String()
         Public Shared emutabs_metadata = {emu_one_metadata, emu_two_metadata, emu_three_metadata, emu_four_metadata, emu_five_metadata, emu_six_metadata, emu_seven_metadata, emu_eight_metadata, emu_nine_metadata}
         Public Shared tag_index As String = ""
-
     End Class
 
     Public Sub load_emutab()
@@ -50,8 +49,6 @@
         main.btn_search_gb.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchgbblack.png")
         main.btn_search_wiiu.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchwiiublack.png")
         main.btn_search_gc.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchgcblack.png")
-        main.btn_search_ps1.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchps1black.png")
-        main.btn_search_ps2.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchps2black.png")
 
         For Each line In main.listbox_availableroms.Items
             If line.subitems(2).text = emu_tab_metadata_list.tag_index Then

@@ -70,8 +70,6 @@
         main.lbl_platform.Font = spartanfont14
         main.lbl_installedon.Font = spartanfont14
         main.textbox_search.Font = spartanfont14
-        settings.load_boxart_on_startup.Font = spartanfont14
-        settings.load_skin.Font = spartanfont14
 
         Dim gothamfont18 As New System.Drawing.Font(main.gotham.Families(0), 18)
         main.emu_one.Font = gothamfont18

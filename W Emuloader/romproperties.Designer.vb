@@ -31,8 +31,6 @@ Partial Class romproperties
         Me.lbl_platform_identifier = New System.Windows.Forms.Label()
         Me.lbl_platform = New System.Windows.Forms.Label()
         Me.textbox_rom_name = New System.Windows.Forms.TextBox()
-        Me.picturebox_boxart = New System.Windows.Forms.PictureBox()
-        CType(Me.picturebox_boxart, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'lbl_properties
@@ -113,22 +111,12 @@ Partial Class romproperties
         Me.textbox_rom_name.TabIndex = 9
         Me.textbox_rom_name.Visible = False
         '
-        'picturebox_boxart
-        '
-        Me.picturebox_boxart.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.picturebox_boxart.Location = New System.Drawing.Point(113, 348)
-        Me.picturebox_boxart.Name = "picturebox_boxart"
-        Me.picturebox_boxart.Size = New System.Drawing.Size(372, 340)
-        Me.picturebox_boxart.TabIndex = 10
-        Me.picturebox_boxart.TabStop = False
-        '
         'romproperties
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.White
         Me.ClientSize = New System.Drawing.Size(600, 700)
-        Me.Controls.Add(Me.picturebox_boxart)
         Me.Controls.Add(Me.textbox_rom_name)
         Me.Controls.Add(Me.lbl_platform_identifier)
         Me.Controls.Add(Me.lbl_platform)
@@ -144,7 +132,6 @@ Partial Class romproperties
         Me.Name = "romproperties"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Properties"
-        CType(Me.picturebox_boxart, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -158,5 +145,4 @@ Partial Class romproperties
     Friend WithEvents lbl_platform_identifier As Label
     Friend WithEvents lbl_platform As Label
     Friend WithEvents textbox_rom_name As TextBox
-    Friend WithEvents picturebox_boxart As PictureBox
 End Class
