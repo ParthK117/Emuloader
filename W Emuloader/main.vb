@@ -19,7 +19,13 @@ Public Class main
 
     Private Sub main_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12
-        Process.Start(".\eldr.exe")
+
+        Dim getupdate As Process
+        Dim p As New ProcessStartInfo
+        p.FileName = ".\eldr.exe"
+        p.WindowStyle = ProcessWindowStyle.Hidden
+        getupdate = Process.Start(p)
+
         panel_play.SendToBack()
         Call main_loadfonts()
         Call loadconfig()
@@ -1132,7 +1138,7 @@ Public Class main
         End If
 
         System.IO.File.Create(".\installed.eldr").Dispose()
-        For Each x In custom
+        For Each x In custom2
             File.WriteAllText(".\installed.eldr", x)
         Next
         Dim emutabs = {emu_one, emu_two, emu_three, emu_four, emu_five, emu_six, emu_seven, emu_eight, emu_nine}

@@ -221,7 +221,7 @@ Partial Class main
         Me.lbl_version.Name = "lbl_version"
         Me.lbl_version.Size = New System.Drawing.Size(36, 13)
         Me.lbl_version.TabIndex = 20
-        Me.lbl_version.Text = "v0.4.0"
+        Me.lbl_version.Text = "v0.4.3"
         '
         'emu_nine
         '
