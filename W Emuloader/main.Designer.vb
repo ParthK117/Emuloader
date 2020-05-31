@@ -68,6 +68,7 @@ Partial Class main
         Me.btn_exit = New System.Windows.Forms.Panel()
         Me.btn_about = New System.Windows.Forms.PictureBox()
         Me.panel_play = New System.Windows.Forms.Panel()
+        Me.btn_play_delete = New System.Windows.Forms.PictureBox()
         Me.panel_rom_rightclick = New System.Windows.Forms.Panel()
         Me.btn_rom_properties = New System.Windows.Forms.PictureBox()
         Me.btn_rom_delete = New System.Windows.Forms.PictureBox()
@@ -81,6 +82,10 @@ Partial Class main
         Me.lbl_play = New System.Windows.Forms.Label()
         Me.panel_browse = New System.Windows.Forms.Panel()
         Me.panel_search = New System.Windows.Forms.Panel()
+        Me.btn_search_ps2 = New System.Windows.Forms.PictureBox()
+        Me.btn_search_ps1 = New System.Windows.Forms.PictureBox()
+        Me.btn_search_wiiu = New System.Windows.Forms.PictureBox()
+        Me.btn_search_gc = New System.Windows.Forms.PictureBox()
         Me.btn_search_n64 = New System.Windows.Forms.PictureBox()
         Me.btn_search_wii = New System.Windows.Forms.PictureBox()
         Me.btn_search_psp = New System.Windows.Forms.PictureBox()
@@ -112,10 +117,11 @@ Partial Class main
         Me.panel_drag_drop = New System.Windows.Forms.Panel()
         Me.picturebox_drag = New System.Windows.Forms.PictureBox()
         Me.panel_blue_click = New System.Windows.Forms.Panel()
-        Me.thread_getboxart = New System.ComponentModel.BackgroundWorker()
-        Me.btn_search_gc = New System.Windows.Forms.PictureBox()
-        Me.btn_search_wiiu = New System.Windows.Forms.PictureBox()
+        Me.btn_show_lists = New System.Windows.Forms.PictureBox()
+        Me.btn_settings = New System.Windows.Forms.PictureBox()
+        Me.btn_prettify = New System.Windows.Forms.PictureBox()
         Me.btn_show_folders = New System.Windows.Forms.PictureBox()
+        Me.thread_getboxart = New System.ComponentModel.BackgroundWorker()
         CType(Me.image_logo, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panel_left.SuspendLayout()
         CType(Me.picturebox_tungsten, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -132,6 +138,7 @@ Partial Class main
         Me.paneL_menubar.SuspendLayout()
         CType(Me.btn_about, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panel_play.SuspendLayout()
+        CType(Me.btn_play_delete, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panel_rom_rightclick.SuspendLayout()
         CType(Me.btn_rom_properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btn_rom_delete, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -139,6 +146,10 @@ Partial Class main
         CType(Me.btn_import_roms, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panel_browse.SuspendLayout()
         Me.panel_search.SuspendLayout()
+        CType(Me.btn_search_ps2, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.btn_search_ps1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.btn_search_wiiu, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.btn_search_gc, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btn_search_n64, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btn_search_wii, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btn_search_psp, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -153,8 +164,9 @@ Partial Class main
         Me.panel_drag_drop.SuspendLayout()
         CType(Me.picturebox_drag, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panel_blue_click.SuspendLayout()
-        CType(Me.btn_search_gc, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.btn_search_wiiu, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.btn_show_lists, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.btn_settings, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.btn_prettify, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btn_show_folders, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -209,7 +221,7 @@ Partial Class main
         Me.lbl_version.Name = "lbl_version"
         Me.lbl_version.Size = New System.Drawing.Size(36, 13)
         Me.lbl_version.TabIndex = 20
-        Me.lbl_version.Text = "v0.3.1"
+        Me.lbl_version.Text = "v0.4.0"
         '
         'emu_nine
         '
@@ -665,6 +677,7 @@ Partial Class main
         Me.panel_play.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.panel_play.Controls.Add(Me.btn_play_delete)
         Me.panel_play.Controls.Add(Me.panel_rom_rightclick)
         Me.panel_play.Controls.Add(Me.checkbox_filepath)
         Me.panel_play.Controls.Add(Me.btn_import_roms)
@@ -674,6 +687,16 @@ Partial Class main
         Me.panel_play.Name = "panel_play"
         Me.panel_play.Size = New System.Drawing.Size(1100, 860)
         Me.panel_play.TabIndex = 4
+        '
+        'btn_play_delete
+        '
+        Me.btn_play_delete.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btn_play_delete.BackgroundImage = CType(resources.GetObject("btn_play_delete.BackgroundImage"), System.Drawing.Image)
+        Me.btn_play_delete.Location = New System.Drawing.Point(994, 6)
+        Me.btn_play_delete.Name = "btn_play_delete"
+        Me.btn_play_delete.Size = New System.Drawing.Size(100, 36)
+        Me.btn_play_delete.TabIndex = 12
+        Me.btn_play_delete.TabStop = False
         '
         'panel_rom_rightclick
         '
@@ -729,7 +752,7 @@ Partial Class main
         '
         Me.btn_import_roms.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btn_import_roms.BackgroundImage = CType(resources.GetObject("btn_import_roms.BackgroundImage"), System.Drawing.Image)
-        Me.btn_import_roms.Location = New System.Drawing.Point(956, 6)
+        Me.btn_import_roms.Location = New System.Drawing.Point(849, 6)
         Me.btn_import_roms.Name = "btn_import_roms"
         Me.btn_import_roms.Size = New System.Drawing.Size(139, 36)
         Me.btn_import_roms.TabIndex = 5
@@ -801,6 +824,8 @@ Partial Class main
         Me.panel_search.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.panel_search.Controls.Add(Me.btn_search_ps2)
+        Me.panel_search.Controls.Add(Me.btn_search_ps1)
         Me.panel_search.Controls.Add(Me.btn_search_wiiu)
         Me.panel_search.Controls.Add(Me.btn_search_gc)
         Me.panel_search.Controls.Add(Me.btn_search_n64)
@@ -818,6 +843,42 @@ Partial Class main
         Me.panel_search.Size = New System.Drawing.Size(1100, 740)
         Me.panel_search.TabIndex = 22
         Me.panel_search.Visible = False
+        '
+        'btn_search_ps2
+        '
+        Me.btn_search_ps2.BackgroundImage = CType(resources.GetObject("btn_search_ps2.BackgroundImage"), System.Drawing.Image)
+        Me.btn_search_ps2.Location = New System.Drawing.Point(764, 34)
+        Me.btn_search_ps2.Name = "btn_search_ps2"
+        Me.btn_search_ps2.Size = New System.Drawing.Size(60, 30)
+        Me.btn_search_ps2.TabIndex = 16
+        Me.btn_search_ps2.TabStop = False
+        '
+        'btn_search_ps1
+        '
+        Me.btn_search_ps1.BackgroundImage = CType(resources.GetObject("btn_search_ps1.BackgroundImage"), System.Drawing.Image)
+        Me.btn_search_ps1.Location = New System.Drawing.Point(698, 34)
+        Me.btn_search_ps1.Name = "btn_search_ps1"
+        Me.btn_search_ps1.Size = New System.Drawing.Size(60, 30)
+        Me.btn_search_ps1.TabIndex = 15
+        Me.btn_search_ps1.TabStop = False
+        '
+        'btn_search_wiiu
+        '
+        Me.btn_search_wiiu.BackgroundImage = CType(resources.GetObject("btn_search_wiiu.BackgroundImage"), System.Drawing.Image)
+        Me.btn_search_wiiu.Location = New System.Drawing.Point(632, 34)
+        Me.btn_search_wiiu.Name = "btn_search_wiiu"
+        Me.btn_search_wiiu.Size = New System.Drawing.Size(60, 30)
+        Me.btn_search_wiiu.TabIndex = 14
+        Me.btn_search_wiiu.TabStop = False
+        '
+        'btn_search_gc
+        '
+        Me.btn_search_gc.BackgroundImage = CType(resources.GetObject("btn_search_gc.BackgroundImage"), System.Drawing.Image)
+        Me.btn_search_gc.Location = New System.Drawing.Point(566, 34)
+        Me.btn_search_gc.Name = "btn_search_gc"
+        Me.btn_search_gc.Size = New System.Drawing.Size(60, 30)
+        Me.btn_search_gc.TabIndex = 13
+        Me.btn_search_gc.TabStop = False
         '
         'btn_search_n64
         '
@@ -1077,42 +1138,54 @@ Partial Class main
         'panel_blue_click
         '
         Me.panel_blue_click.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.panel_blue_click.Controls.Add(Me.btn_show_lists)
+        Me.panel_blue_click.Controls.Add(Me.btn_settings)
+        Me.panel_blue_click.Controls.Add(Me.btn_prettify)
         Me.panel_blue_click.Controls.Add(Me.btn_show_folders)
         Me.panel_blue_click.Location = New System.Drawing.Point(1460, 30)
         Me.panel_blue_click.Name = "panel_blue_click"
-        Me.panel_blue_click.Size = New System.Drawing.Size(125, 30)
+        Me.panel_blue_click.Size = New System.Drawing.Size(125, 120)
         Me.panel_blue_click.TabIndex = 10
         Me.panel_blue_click.Visible = False
         '
-        'thread_getboxart
+        'btn_show_lists
         '
+        Me.btn_show_lists.BackgroundImage = CType(resources.GetObject("btn_show_lists.BackgroundImage"), System.Drawing.Image)
+        Me.btn_show_lists.Location = New System.Drawing.Point(0, 0)
+        Me.btn_show_lists.Name = "btn_show_lists"
+        Me.btn_show_lists.Size = New System.Drawing.Size(125, 30)
+        Me.btn_show_lists.TabIndex = 3
+        Me.btn_show_lists.TabStop = False
         '
-        'btn_search_gc
+        'btn_settings
         '
-        Me.btn_search_gc.BackgroundImage = CType(resources.GetObject("btn_search_gc.BackgroundImage"), System.Drawing.Image)
-        Me.btn_search_gc.Location = New System.Drawing.Point(566, 34)
-        Me.btn_search_gc.Name = "btn_search_gc"
-        Me.btn_search_gc.Size = New System.Drawing.Size(60, 30)
-        Me.btn_search_gc.TabIndex = 13
-        Me.btn_search_gc.TabStop = False
+        Me.btn_settings.BackgroundImage = CType(resources.GetObject("btn_settings.BackgroundImage"), System.Drawing.Image)
+        Me.btn_settings.Location = New System.Drawing.Point(0, 90)
+        Me.btn_settings.Name = "btn_settings"
+        Me.btn_settings.Size = New System.Drawing.Size(125, 30)
+        Me.btn_settings.TabIndex = 2
+        Me.btn_settings.TabStop = False
         '
-        'btn_search_wiiu
+        'btn_prettify
         '
-        Me.btn_search_wiiu.BackgroundImage = CType(resources.GetObject("btn_search_wiiu.BackgroundImage"), System.Drawing.Image)
-        Me.btn_search_wiiu.Location = New System.Drawing.Point(632, 34)
-        Me.btn_search_wiiu.Name = "btn_search_wiiu"
-        Me.btn_search_wiiu.Size = New System.Drawing.Size(60, 30)
-        Me.btn_search_wiiu.TabIndex = 14
-        Me.btn_search_wiiu.TabStop = False
+        Me.btn_prettify.BackgroundImage = CType(resources.GetObject("btn_prettify.BackgroundImage"), System.Drawing.Image)
+        Me.btn_prettify.Location = New System.Drawing.Point(0, 60)
+        Me.btn_prettify.Name = "btn_prettify"
+        Me.btn_prettify.Size = New System.Drawing.Size(125, 30)
+        Me.btn_prettify.TabIndex = 1
+        Me.btn_prettify.TabStop = False
         '
         'btn_show_folders
         '
         Me.btn_show_folders.BackgroundImage = CType(resources.GetObject("btn_show_folders.BackgroundImage"), System.Drawing.Image)
-        Me.btn_show_folders.Location = New System.Drawing.Point(0, 0)
+        Me.btn_show_folders.Location = New System.Drawing.Point(0, 30)
         Me.btn_show_folders.Name = "btn_show_folders"
         Me.btn_show_folders.Size = New System.Drawing.Size(125, 30)
         Me.btn_show_folders.TabIndex = 0
         Me.btn_show_folders.TabStop = False
+        '
+        'thread_getboxart
+        '
         '
         'main
         '
@@ -1154,6 +1227,7 @@ Partial Class main
         CType(Me.btn_about, System.ComponentModel.ISupportInitialize).EndInit()
         Me.panel_play.ResumeLayout(False)
         Me.panel_play.PerformLayout()
+        CType(Me.btn_play_delete, System.ComponentModel.ISupportInitialize).EndInit()
         Me.panel_rom_rightclick.ResumeLayout(False)
         CType(Me.btn_rom_properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btn_rom_delete, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1163,6 +1237,10 @@ Partial Class main
         Me.panel_browse.PerformLayout()
         Me.panel_search.ResumeLayout(False)
         Me.panel_search.PerformLayout()
+        CType(Me.btn_search_ps2, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.btn_search_ps1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.btn_search_wiiu, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.btn_search_gc, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btn_search_n64, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btn_search_wii, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btn_search_psp, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1177,8 +1255,9 @@ Partial Class main
         Me.panel_drag_drop.ResumeLayout(False)
         CType(Me.picturebox_drag, System.ComponentModel.ISupportInitialize).EndInit()
         Me.panel_blue_click.ResumeLayout(False)
-        CType(Me.btn_search_gc, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.btn_search_wiiu, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.btn_show_lists, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.btn_settings, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.btn_prettify, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btn_show_folders, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
@@ -1276,4 +1355,10 @@ Partial Class main
     Friend WithEvents btn_search_wiiu As PictureBox
     Friend WithEvents btn_search_gc As PictureBox
     Friend WithEvents btn_show_folders As PictureBox
+    Friend WithEvents btn_prettify As PictureBox
+    Friend WithEvents btn_settings As PictureBox
+    Friend WithEvents btn_search_ps2 As PictureBox
+    Friend WithEvents btn_search_ps1 As PictureBox
+    Friend WithEvents btn_show_lists As PictureBox
+    Friend WithEvents btn_play_delete As PictureBox
 End Class

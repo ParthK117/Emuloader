@@ -29,3 +29,4 @@ C:\Users\Parth\Music\W Emuloader\W Emuloader\obj\Debug\Emuloader.vbproj.CoreComp
 C:\Users\Parth\Music\W Emuloader\W Emuloader\obj\Debug\Emuloader.exe
 C:\Users\Parth\Music\W Emuloader\W Emuloader\obj\Debug\Emuloader.xml
 C:\Users\Parth\Music\W Emuloader\W Emuloader\obj\Debug\Emuloader.pdb
+C:\Users\Parth\Music\W Emuloader\W Emuloader\obj\Debug\Emuloader.settings.resources
