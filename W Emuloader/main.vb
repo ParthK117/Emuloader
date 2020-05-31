@@ -13,10 +13,13 @@ Public Class main
     Public Shared spartan As New System.Drawing.Text.PrivateFontCollection()
     Public Shared labelgrey As Color
     Public Shared tab_index = 0
+    Public Shared dark = False
+
     '0.1.0
 
     Private Sub main_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12
+        Process.Start(".\eldr.exe")
         panel_play.SendToBack()
         Call main_loadfonts()
         Call loadconfig()
@@ -25,6 +28,15 @@ Public Class main
 
         Call load_roms_list()
         Me.AllowDrop = True
+
+        Dim settings As New List(Of String)
+        settings.AddRange(File.ReadAllLines(".\settings.dat"))
+        Dim checkbox_skin As String() = (settings(1).Split("="))
+        If checkbox_skin(1) = "1" Then
+            Call darkmode()
+            dark = True
+        End If
+
     End Sub
 
     Private Sub panel_top_MouseDown(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles panel_top.MouseDown
@@ -115,56 +127,94 @@ Public Class main
     Private Sub emu_one_Click(sender As Object, e As EventArgs) Handles emu_one.Click
         tab_index = 0
         Call module_emutabs.load_emutab()
-        emu_one.ForeColor = Color.Black
+        If dark = True Then
+            emu_one.ForeColor = Color.FromArgb(23, 191, 99)
+        Else
+            emu_one.ForeColor = Color.Black
+        End If
+
 
     End Sub
 
     Private Sub emu_two_Click(sender As Object, e As EventArgs) Handles emu_two.Click
         tab_index = 1
         Call module_emutabs.load_emutab()
-        emu_two.ForeColor = Color.Black
+
+        If dark = True Then
+            emu_two.ForeColor = Color.FromArgb(23, 191, 99)
+        Else
+            emu_two.ForeColor = Color.Black
+        End If
     End Sub
 
     Private Sub emu_three_Click(sender As Object, e As EventArgs) Handles emu_three.Click
         tab_index = 2
         Call module_emutabs.load_emutab()
-        emu_three.ForeColor = Color.Black
+        If dark = True Then
+            emu_three.ForeColor = Color.FromArgb(23, 191, 99)
+        Else
+            emu_three.ForeColor = Color.Black
+        End If
     End Sub
 
     Private Sub emu_four_Click(sender As Object, e As EventArgs) Handles emu_four.Click
         tab_index = 3
         Call module_emutabs.load_emutab()
-        emu_four.ForeColor = Color.Black
+        If dark = True Then
+            emu_four.ForeColor = Color.FromArgb(23, 191, 99)
+        Else
+            emu_four.ForeColor = Color.Black
+        End If
     End Sub
 
     Private Sub emu_five_Click(sender As Object, e As EventArgs) Handles emu_five.Click
         tab_index = 4
         Call module_emutabs.load_emutab()
-        emu_five.ForeColor = Color.Black
+        If dark = True Then
+            emu_five.ForeColor = Color.FromArgb(23, 191, 99)
+        Else
+            emu_five.ForeColor = Color.Black
+        End If
     End Sub
 
     Private Sub emu_six_Click(sender As Object, e As EventArgs) Handles emu_six.Click
         tab_index = 5
         Call module_emutabs.load_emutab()
-        emu_six.ForeColor = Color.Black
+        If dark = True Then
+            emu_six.ForeColor = Color.FromArgb(23, 191, 99)
+        Else
+            emu_six.ForeColor = Color.Black
+        End If
     End Sub
 
     Private Sub emu_seven_Click(sender As Object, e As EventArgs) Handles emu_seven.Click
         tab_index = 6
         Call module_emutabs.load_emutab()
-        emu_seven.ForeColor = Color.Black
+        If dark = True Then
+            emu_seven.ForeColor = Color.FromArgb(23, 191, 99)
+        Else
+            emu_seven.ForeColor = Color.Black
+        End If
     End Sub
 
     Private Sub emu_eight_Click(sender As Object, e As EventArgs) Handles emu_eight.Click
         tab_index = 7
         Call module_emutabs.load_emutab()
-        emu_eight.ForeColor = Color.Black
+        If dark = True Then
+            emu_eight.ForeColor = Color.FromArgb(23, 191, 99)
+        Else
+            emu_eight.ForeColor = Color.Black
+        End If
     End Sub
 
     Private Sub emu_nine_Click(sender As Object, e As EventArgs) Handles emu_nine.Click
         tab_index = 8
         Call module_emutabs.load_emutab()
-        emu_nine.ForeColor = Color.Black
+        If dark = True Then
+            emu_nine.ForeColor = Color.FromArgb(23, 191, 99)
+        Else
+            emu_nine.ForeColor = Color.Black
+        End If
     End Sub
     Private Sub btn_play_MouseEnter(sender As Object, e As EventArgs) Handles btn_play.MouseEnter
         btn_play.BackgroundImage = System.Drawing.Image.FromFile(".\resources\playwhite.png")
@@ -249,7 +299,7 @@ Public Class main
     End Sub
 
     Private Sub lbl_patreon_Click(sender As Object, e As EventArgs) Handles lbl_patreon.Click
-        Process.Start("https://github.com/ParthK117/W-Emuloader")
+        Process.Start("https://patreon.com/emuloader")
     End Sub
 
     Private Sub lbl_github_Click(sender As Object, e As EventArgs) Handles lbl_github.Click
@@ -336,9 +386,10 @@ Public Class main
     Private Sub btn_browse_Click(sender As Object, e As EventArgs) Handles btn_browse.Click
         tab_browse.Visible = True
         panel_browse.BringToFront()
-        emu_one.ForeColor = labelgrey
-        emu_two.ForeColor = labelgrey
-        emu_three.ForeColor = labelgrey
+        Dim emutabs = {emu_one, emu_two, emu_three, emu_four, emu_five, emu_six, emu_seven, emu_eight, emu_nine}
+        For Each x In emutabs
+            x.ForeColor = labelgrey
+        Next
         panel_rom_info.Visible = True
         panel_rom_rightclick.Visible = False
     End Sub
@@ -423,8 +474,11 @@ Public Class main
 
     Private Sub btn_queue_MouseDown(sender As Object, e As MouseEventArgs) Handles btn_queue.MouseDown
         btn_queue.BackgroundImage = System.Drawing.Image.FromFile(".\resources\queueclick.png")
-        Call download_roms()
-
+        If listbox_availableroms.FocusedItem IsNot Nothing = True Or listbox_search.FocusedItem IsNot Nothing = True Then
+            Call download_roms()
+        Else
+            MsgBox("Pick something to download first")
+        End If
     End Sub
 
     Private Sub btn_queue_MouseUp(sender As Object, e As MouseEventArgs) Handles btn_queue.MouseUp
@@ -580,7 +634,11 @@ Public Class main
     End Sub
 
     Private Sub btn_search_Click(sender As Object, e As EventArgs) Handles btn_search.Click
-        btn_search.ForeColor = Color.Black
+        If dark = True Then
+            btn_search.ForeColor = Color.FromArgb(23, 191, 99)
+        Else
+            btn_search.ForeColor = Color.Black
+        End If
         btn_all.ForeColor = labelgrey
         tab_all.Visible = False
         tab_search.Visible = True
@@ -588,7 +646,12 @@ Public Class main
     End Sub
 
     Private Sub btn_all_Click(sender As Object, e As EventArgs) Handles btn_all.Click
-        btn_all.ForeColor = Color.Black
+        If dark = True Then
+            btn_all.ForeColor = Color.FromArgb(23, 191, 99)
+        Else
+            btn_all.ForeColor = Color.Black
+        End If
+
         btn_search.ForeColor = labelgrey
         tab_all.Visible = True
         tab_search.Visible = False
@@ -830,8 +893,9 @@ Public Class main
             For Each x In find_art
                 Dim current_name As String() = x.Split("#")
                 If listbox_installedroms.FocusedItem IsNot Nothing = True Then
-                    If current_name(0).Contains(listbox_installedroms.FocusedItem.SubItems(0).Text) Then
+                    If listbox_installedroms.FocusedItem.SubItems(0).Text.Contains(current_name(0)) Then
                         picturebox_boxart.BackgroundImage = System.Drawing.Image.FromFile(current_name(1))
+                        romproperties.picturebox_boxart.BackgroundImage = System.Drawing.Image.FromFile(current_name(1))
 
                     End If
                 End If
@@ -862,41 +926,46 @@ Public Class main
         Next
         File.WriteAllLines((".\roms\" & currenttab_metadata(1) & "\metadata\romnamelist.eldr"), romnamelist)
 
+        Dim settings As New List(Of String)
+        settings.AddRange(File.ReadAllLines(".\settings.dat"))
+        Dim checkbox_loadart As String() = (settings(0).Split("="))
+        If checkbox_loadart(1) = "1" Then
 
 
-        If File.Exists(".\roms\" & currenttab_metadata(1) & "\metadata\boxartmatches.eldr") Then
-            Dim boxartmatches As String = File.ReadAllText(".\roms\" & currenttab_metadata(1) & "\metadata\boxartmatches.eldr")
+            If File.Exists(".\roms\" & currenttab_metadata(1) & "\metadata\boxartmatches.eldr") Then
+                Dim boxartmatches As String = File.ReadAllText(".\roms\" & currenttab_metadata(1) & "\metadata\boxartmatches.eldr")
 
-            For Each x In listbox_installedroms.Items
-                If Not boxartmatches.Contains(x.subitems(0).text) Then
-                    lbl_status.Text = "Downloading Boxart"
-                    lbl_status.Location = New Point((panel_top.Width - lbl_status.Width) \ 2, (panel_top.Height - lbl_status.Height) \ 2)
-                    picturebox_loading.Visible = True
-                    If thread_getboxart.IsBusy = False Then
+                For Each x In listbox_installedroms.Items
+                    If Not boxartmatches.Replace(" ", "") = (x.subitems(0).text).replace(" ", "") Then
+                        lbl_status.Text = "Downloading Boxart"
+                        lbl_status.Location = New Point((panel_top.Width - lbl_status.Width) \ 2, (panel_top.Height - lbl_status.Height) \ 2)
+                        picturebox_loading.Visible = True
+                        If thread_getboxart.IsBusy = False Then
 
-                        Dim arguments As String()
-                        arguments = {currenttab_metadata(1)}
+                            Dim arguments As String()
+                            arguments = {currenttab_metadata(1)}
 
-                        thread_getboxart.RunWorkerAsync(arguments)
+                            thread_getboxart.RunWorkerAsync(arguments)
 
+                        End If
+                        Exit For
                     End If
-                    Exit For
+                Next
+            Else
+                lbl_status.Text = "Downloading Boxart"
+                picturebox_loading.Visible = True
+                lbl_status.Location = New Point((panel_top.Width - lbl_status.Width) \ 2, (panel_top.Height - lbl_status.Height) \ 2)
+
+                If thread_getboxart.IsBusy = False Then
+
+                    Dim arguments As String()
+                    arguments = {currenttab_metadata(1), System.IO.Path.GetFullPath(".\roms\" & currenttab_metadata(1))}
+
+                    thread_getboxart.RunWorkerAsync(arguments)
                 End If
-            Next
-        Else
-            lbl_status.Text = "Downloading Boxart"
-            picturebox_loading.Visible = True
-            lbl_status.Location = New Point((panel_top.Width - lbl_status.Width) \ 2, (panel_top.Height - lbl_status.Height) \ 2)
 
-            If thread_getboxart.IsBusy = False Then
 
-                Dim arguments As String()
-                arguments = {currenttab_metadata(1)}
-
-                thread_getboxart.RunWorkerAsync(arguments)
             End If
-
-
         End If
     End Sub
 
@@ -947,5 +1016,139 @@ Public Class main
 
     Private Sub btn_show_folders_MouseLeave(sender As Object, e As EventArgs) Handles btn_show_folders.MouseLeave
         btn_show_folders.BackgroundImage = System.Drawing.Image.FromFile(".\resources\folderswhite.png")
+    End Sub
+
+    Private Sub btn_prettify_Click(sender As Object, e As EventArgs) Handles btn_prettify.Click
+        panel_blue_click.Visible = False
+        btn_expand.BackgroundImage = System.Drawing.Image.FromFile(".\resources\blue.png")
+        Call prettify()
+    End Sub
+
+    Private Sub btn_prettify_MouseEnter(sender As Object, e As EventArgs) Handles btn_prettify.MouseEnter
+        btn_prettify.BackgroundImage = System.Drawing.Image.FromFile(".\resources\prettifyblack.png")
+    End Sub
+
+    Private Sub btn_prettify_MouseLeave(sender As Object, e As EventArgs) Handles btn_prettify.MouseLeave
+        btn_prettify.BackgroundImage = System.Drawing.Image.FromFile(".\resources\prettifywhite.png")
+    End Sub
+
+    Private Sub btn_settings_Click(sender As Object, e As EventArgs) Handles btn_settings.Click
+        panel_blue_click.Visible = False
+        btn_expand.BackgroundImage = System.Drawing.Image.FromFile(".\resources\blue.png")
+        settings.Show()
+    End Sub
+
+    Private Sub btn_settings_MouseEnter(sender As Object, e As EventArgs) Handles btn_settings.MouseEnter
+        btn_settings.BackgroundImage = System.Drawing.Image.FromFile(".\resources\settingsblack.png")
+    End Sub
+
+    Private Sub btn_settings_MouseLeave(sender As Object, e As EventArgs) Handles btn_settings.MouseLeave
+        btn_settings.BackgroundImage = System.Drawing.Image.FromFile(".\resources\settingswhite.png")
+    End Sub
+    Public Sub prettify()
+
+        If File.Exists(".\modules\gamepaths.dat") Then
+            My.Computer.FileSystem.DeleteFile(".\modules\gamepaths.dat")
+        End If
+
+        System.IO.File.Create(".\modules\gamepaths.dat").Dispose()
+        Dim gamepaths As New List(Of String)
+        For Each x In listbox_installedroms.Items
+            gamepaths.Add(System.IO.Path.GetFileName(x.subitems(2).text) + "#" + x.subitems(2).text + "#" + System.IO.Path.GetDirectoryName(x.subitems(2).text))
+        Next
+        File.WriteAllLines((".\modules\gamepaths.dat"), gamepaths)
+        Dim arguments As String = (currenttab_metadata(1))
+
+        Dim prettifypy As Process
+        Dim p As New ProcessStartInfo
+        p.FileName = ".\prettify.exe"
+
+        '   p.UseShellExecute = True
+        p.WindowStyle = ProcessWindowStyle.Hidden
+        p.WorkingDirectory = ".\modules\"
+        p.Arguments = (arguments)
+        prettifypy = Process.Start(p)
+        prettifypy.WaitForExit()
+        Call load_installed_roms()
+    End Sub
+
+    Private Sub btn_search_ps1_Click(sender As Object, e As EventArgs) Handles btn_search_ps1.Click
+        emu_tab_metadata_list.tag_index = "PS1"
+        Call module_emutabs.button_tags()
+        btn_search_ps1.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchps1white.png")
+    End Sub
+
+    Private Sub btn_search_ps2_Click(sender As Object, e As EventArgs) Handles btn_search_ps2.Click
+        emu_tab_metadata_list.tag_index = "PS2"
+        Call module_emutabs.button_tags()
+        btn_search_ps2.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchps2white.png")
+    End Sub
+
+    Private Sub btn_show_lists_Click(sender As Object, e As EventArgs) Handles btn_show_lists.Click
+        Process.Start(".\lists")
+        panel_blue_click.Visible = False
+        btn_expand.BackgroundImage = System.Drawing.Image.FromFile(".\resources\blue.png")
+    End Sub
+
+    Private Sub btn_show_lists_MouseLeave(sender As Object, e As EventArgs) Handles btn_show_lists.MouseLeave
+        btn_show_lists.BackgroundImage = System.Drawing.Image.FromFile(".\resources\listswhite.png")
+    End Sub
+
+    Private Sub btn_show_lists_MouseEnter(sender As Object, e As EventArgs) Handles btn_show_lists.MouseEnter
+        btn_show_lists.BackgroundImage = System.Drawing.Image.FromFile(".\resources\listsblack.png")
+    End Sub
+
+
+    Private Sub btn_play_delete_MouseEnter(sender As Object, e As EventArgs) Handles btn_play_delete.MouseEnter
+        btn_play_delete.BackgroundImage = System.Drawing.Image.FromFile(".\resources\deleteplaywhite.png")
+    End Sub
+
+    Private Sub btn_play_delete_MouseLeave(sender As Object, e As EventArgs) Handles btn_play_delete.MouseLeave
+        btn_play_delete.BackgroundImage = System.Drawing.Image.FromFile(".\resources\deleteplayblack.png")
+    End Sub
+
+    Private Sub btn_play_delete_MouseDown(sender As Object, e As MouseEventArgs) Handles btn_play_delete.MouseDown
+        btn_play_delete.BackgroundImage = System.Drawing.Image.FromFile(".\resources\deleteplayclick.png")
+
+        Dim directoryName As String = ".\" & currenttab_metadata(4)
+        For Each deleteFile In Directory.GetFiles(directoryName, "*.*", SearchOption.AllDirectories)
+            File.Delete(deleteFile)
+        Next
+        Directory.Delete(".\" & currenttab_metadata(4), True)
+
+        Dim custom As New List(Of String)
+        Dim custom2 As New List(Of String)
+        custom.AddRange(File.ReadAllLines(".\installed.eldr"))
+        custom2.AddRange(File.ReadAllLines(".\installed.eldr"))
+        Dim newindex = 0
+        For Each x In custom2
+            If x.Contains(currenttab_metadata(4)) Then
+                custom.RemoveAt(newindex)
+            End If
+            newindex = newindex + 1
+        Next
+        If File.Exists(".\installed.eldr") Then
+            My.Computer.FileSystem.DeleteFile(".\installed.eldr")
+        End If
+
+        System.IO.File.Create(".\installed.eldr").Dispose()
+        For Each x In custom
+            File.WriteAllText(".\installed.eldr", x)
+        Next
+        Dim emutabs = {emu_one, emu_two, emu_three, emu_four, emu_five, emu_six, emu_seven, emu_eight, emu_nine}
+        For Each x In emutabs
+            x.Visible = False
+            x.ForeColor = labelgrey
+        Next
+        tab_browse.Visible = True
+        panel_browse.BringToFront()
+        panel_rom_info.Visible = True
+        panel_rom_rightclick.Visible = False
+        Call loadconfig()
+
+    End Sub
+
+    Private Sub btn_play_delete_MouseUp(sender As Object, e As MouseEventArgs) Handles btn_play_delete.MouseUp
+        btn_play_delete.BackgroundImage = System.Drawing.Image.FromFile(".\resources\deleteplaywhite.png")
     End Sub
 End Class
