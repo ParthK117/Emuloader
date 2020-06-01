@@ -23,6 +23,7 @@
         main.panel_top.BackColor = Color.FromArgb(37, 51, 64)
         main.paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\exitdark.png")
         main.lbl_status.ForeColor = Color.White
+        main.picturebox_loading.Image = System.Drawing.Image.FromFile(".\resources\loadingdark.gif")
     End Sub
     Public Sub lightmode()
         main.BackColor = Color.White
@@ -48,5 +49,6 @@
         main.panel_top.BackColor = Color.FromArgb(238, 238, 238)
         main.paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\exit.png")
         main.lbl_status.ForeColor = Color.Black
+        main.picturebox_loading.Image = System.Drawing.Image.FromFile(".\resources\loading.gif")
     End Sub
 End Module

@@ -14,7 +14,7 @@ Public Class main
     Public Shared labelgrey As Color
     Public Shared tab_index = 0
     Public Shared dark = False
-    Public Shared version_number = "0.5.2"
+    Public Shared version_number = "0.5.3"
 
     '0.1.0
 

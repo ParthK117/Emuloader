@@ -602,9 +602,9 @@ Partial Class main
         Me.picturebox_loading.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.picturebox_loading.BackColor = System.Drawing.Color.Transparent
         Me.picturebox_loading.Image = CType(resources.GetObject("picturebox_loading.Image"), System.Drawing.Image)
-        Me.picturebox_loading.Location = New System.Drawing.Point(1534, 6)
+        Me.picturebox_loading.Location = New System.Drawing.Point(1534, 5)
         Me.picturebox_loading.Name = "picturebox_loading"
-        Me.picturebox_loading.Size = New System.Drawing.Size(28, 31)
+        Me.picturebox_loading.Size = New System.Drawing.Size(31, 31)
         Me.picturebox_loading.TabIndex = 6
         Me.picturebox_loading.TabStop = False
         Me.picturebox_loading.Visible = False
