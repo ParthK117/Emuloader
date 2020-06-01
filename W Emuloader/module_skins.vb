@@ -20,6 +20,9 @@
         main.textbox_search.ForeColor = Color.White
         main.btn_all.ForeColor = Color.FromArgb(23, 191, 99)
         main.listbox_search.ForeColor = Color.White
+        main.panel_top.BackColor = Color.FromArgb(37, 51, 64)
+        main.paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\exitdark.png")
+        main.lbl_status.ForeColor = Color.White
     End Sub
     Public Sub lightmode()
         main.BackColor = Color.White
@@ -42,5 +45,8 @@
         main.textbox_search.ForeColor = Color.Black
         main.btn_all.ForeColor = Color.Black
         main.listbox_search.ForeColor = Color.Black
+        main.panel_top.BackColor = Color.FromArgb(238, 238, 238)
+        main.paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\exit.png")
+        main.lbl_status.ForeColor = Color.Black
     End Sub
 End Module

@@ -52,6 +52,8 @@
         main.btn_search_gc.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchgcblack.png")
         main.btn_search_ps1.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchps1black.png")
         main.btn_search_ps2.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchps2black.png")
+        main.btn_search_nes.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchnesblack.png")
+        main.btn_search_snes.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchsnesblack.png")
 
         For Each line In main.listbox_availableroms.Items
             If line.subitems(2).text = emu_tab_metadata_list.tag_index Then

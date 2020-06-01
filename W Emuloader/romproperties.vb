@@ -72,6 +72,13 @@
             main.listbox_installedroms.FocusedItem.SubItems(2).Text = lbl_file_path.Text
             name_rom = main.listbox_installedroms.FocusedItem.SubItems(0).Text
             Call main.retrieveboxart()
+            If Not main.thread_getboxart.IsBusy = True Then
+                Dim arguments As String()
+                arguments = {main.currenttab_metadata(1)}
+                main.lbl_status.Text = "Downloading Boxart"
+                main.lbl_status.Location = New Point((main.panel_top.Width - main.lbl_status.Width) \ 2, (main.panel_top.Height - main.lbl_status.Height) \ 2)
+                main.thread_getboxart.RunWorkerAsync(arguments)
+            End If
         End If
     End Sub
     Private Sub romproperties_Click(sender As Object, e As EventArgs) Handles Me.Click

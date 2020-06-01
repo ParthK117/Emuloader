@@ -32,7 +32,9 @@ Public Class settings
         End If
 
         System.IO.File.Create(".\settings.dat").Dispose()
-        File.WriteAllLines(".\settings.dat", settings)
+        Dim new_settings As String = settings(0) & vbNewLine & settings(1) & vbNewLine & "version=" & main.version_number
+        File.WriteAllText(".\settings.dat", new_settings)
+
         If load_skin.Checked = True Then
             Call darkmode()
             main.dark = True

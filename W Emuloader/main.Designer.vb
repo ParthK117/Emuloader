@@ -82,6 +82,8 @@ Partial Class main
         Me.lbl_play = New System.Windows.Forms.Label()
         Me.panel_browse = New System.Windows.Forms.Panel()
         Me.panel_search = New System.Windows.Forms.Panel()
+        Me.btn_search_nes = New System.Windows.Forms.PictureBox()
+        Me.btn_search_snes = New System.Windows.Forms.PictureBox()
         Me.btn_search_ps2 = New System.Windows.Forms.PictureBox()
         Me.btn_search_ps1 = New System.Windows.Forms.PictureBox()
         Me.btn_search_wiiu = New System.Windows.Forms.PictureBox()
@@ -146,6 +148,8 @@ Partial Class main
         CType(Me.btn_import_roms, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panel_browse.SuspendLayout()
         Me.panel_search.SuspendLayout()
+        CType(Me.btn_search_nes, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.btn_search_snes, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btn_search_ps2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btn_search_ps1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btn_search_wiiu, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -219,9 +223,9 @@ Partial Class main
         Me.lbl_version.Font = New System.Drawing.Font("Calibri", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl_version.Location = New System.Drawing.Point(130, 85)
         Me.lbl_version.Name = "lbl_version"
-        Me.lbl_version.Size = New System.Drawing.Size(36, 13)
+        Me.lbl_version.Size = New System.Drawing.Size(12, 13)
         Me.lbl_version.TabIndex = 20
-        Me.lbl_version.Text = "v0.4.3"
+        Me.lbl_version.Text = "v"
         '
         'emu_nine
         '
@@ -628,6 +632,7 @@ Partial Class main
         '
         'paneL_menubar
         '
+        Me.paneL_menubar.BackColor = System.Drawing.Color.Transparent
         Me.paneL_menubar.BackgroundImage = CType(resources.GetObject("paneL_menubar.BackgroundImage"), System.Drawing.Image)
         Me.paneL_menubar.Controls.Add(Me.btn_maximise)
         Me.paneL_menubar.Controls.Add(Me.btn_minimise)
@@ -824,6 +829,8 @@ Partial Class main
         Me.panel_search.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.panel_search.Controls.Add(Me.btn_search_nes)
+        Me.panel_search.Controls.Add(Me.btn_search_snes)
         Me.panel_search.Controls.Add(Me.btn_search_ps2)
         Me.panel_search.Controls.Add(Me.btn_search_ps1)
         Me.panel_search.Controls.Add(Me.btn_search_wiiu)
@@ -843,6 +850,24 @@ Partial Class main
         Me.panel_search.Size = New System.Drawing.Size(1100, 740)
         Me.panel_search.TabIndex = 22
         Me.panel_search.Visible = False
+        '
+        'btn_search_nes
+        '
+        Me.btn_search_nes.BackgroundImage = CType(resources.GetObject("btn_search_nes.BackgroundImage"), System.Drawing.Image)
+        Me.btn_search_nes.Location = New System.Drawing.Point(896, 34)
+        Me.btn_search_nes.Name = "btn_search_nes"
+        Me.btn_search_nes.Size = New System.Drawing.Size(60, 30)
+        Me.btn_search_nes.TabIndex = 18
+        Me.btn_search_nes.TabStop = False
+        '
+        'btn_search_snes
+        '
+        Me.btn_search_snes.BackgroundImage = CType(resources.GetObject("btn_search_snes.BackgroundImage"), System.Drawing.Image)
+        Me.btn_search_snes.Location = New System.Drawing.Point(830, 34)
+        Me.btn_search_snes.Name = "btn_search_snes"
+        Me.btn_search_snes.Size = New System.Drawing.Size(60, 30)
+        Me.btn_search_snes.TabIndex = 17
+        Me.btn_search_snes.TabStop = False
         '
         'btn_search_ps2
         '
@@ -1237,6 +1262,8 @@ Partial Class main
         Me.panel_browse.PerformLayout()
         Me.panel_search.ResumeLayout(False)
         Me.panel_search.PerformLayout()
+        CType(Me.btn_search_nes, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.btn_search_snes, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btn_search_ps2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btn_search_ps1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btn_search_wiiu, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1361,4 +1388,6 @@ Partial Class main
     Friend WithEvents btn_search_ps1 As PictureBox
     Friend WithEvents btn_show_lists As PictureBox
     Friend WithEvents btn_play_delete As PictureBox
+    Friend WithEvents btn_search_snes As PictureBox
+    Friend WithEvents btn_search_nes As PictureBox
 End Class

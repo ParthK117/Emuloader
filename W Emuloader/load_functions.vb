@@ -211,6 +211,25 @@ Module load_functions
                 End Try
 
             Next
+        ElseIf main.currenttab_metadata(1) = "SNES" Then
+            For Each f In rom_directory.GetFiles
+                If f.ToString.Contains("XT") Then
+                ElseIf f.ToString.Contains(".smc") Or f.ToString.Contains(".sfc") Or f.ToString.Contains(".bin") Then
+                    main.listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString.Replace(".smc", "").Replace(".sfc", "").Replace(".bin", ""), "SNES", System.IO.Path.GetFullPath(f.FullName)}))
+                End If
+
+            Next
+
+            For Each x In customromlist
+                Dim custom_directory As New DirectoryInfo(x)
+                For Each f In custom_directory.GetFiles
+                    If f.ToString.Contains(".smc") Or f.ToString.Contains(".sfc") Or f.ToString.Contains(".bin") Then
+
+                        main.listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString.Replace(".smc", "").Replace(".sfc", "").Replace(".bin", ""), "SNES", System.IO.Path.GetFullPath(f.FullName)}))
+                    End If
+
+                Next
+            Next
         End If
 
                     Call main.retrieveboxart()
@@ -272,6 +291,11 @@ Module load_functions
                     emutabs(index).Text = "Cemu"
                     emutabs(index).Visible = True
                     currentmetadata = File.ReadAllLines(".\" & x & "\cemu.eldr")
+                End If
+                If x.Contains("SNES9X") Then
+                    emutabs(index).Text = "Snes9x"
+                    emutabs(index).Visible = True
+                    currentmetadata = File.ReadAllLines(".\" & x & "\snes9x.eldr")
                 End If
                 emu_tab_metadata_list.emutabs_metadata(index) = currentmetadata
                 index = index + 1

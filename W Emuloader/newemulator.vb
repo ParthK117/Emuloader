@@ -5,7 +5,8 @@ Imports System.ComponentModel
 
 Public Class newemulator
     Dim arguments As String()
-    Dim list_of_emulators As String() = {"Visual Boy Advance-M (GBA)", "Citra (3DS)", "DeSmuME (NDS)", "Project64 (N64)", "PPSSPP (PSP)", "Dolphin (WII)", "Cemu (WIIU)"}
+    Dim list_of_emulators As String() = {"Visual Boy Advance-M (GBA)", "Citra (3DS)", "DeSmuME (NDS)", "Project64 (N64)", "PPSSPP (PSP)", "Dolphin (WII)", "Cemu (WIIU)", "Snes9x (SNES)"}
+    Dim uptodate_list As String()
 
 
     Private Sub newemulator_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -22,6 +23,17 @@ Public Class newemulator
         lbl_version_number.Font = spartanfont12
         lbl_platform.Font = spartanfont12
 
+
+
+
+        Using currentlinks = New WebClient()
+            Try
+                currentlinks.DownloadFile("https://parthkataria.com/emulatorlinks.txt", ".\modules\emulatorlinks.txt")
+                currentlinks.Dispose()
+                uptodate_list = File.ReadAllLines(".\modules\emulatorlinks.txt")
+            Catch ex As Exception
+            End Try
+        End Using
         listbox_emulators.SelectedItem = listbox_emulators.Items(0)
     End Sub
     Private Sub center_status_lbl()
@@ -113,53 +125,68 @@ Public Class newemulator
     Private Sub listbox_emulators_SelectedIndexChanged(sender As Object, e As EventArgs) Handles listbox_emulators.SelectedIndexChanged
         If listbox_emulators.SelectedItem IsNot Nothing Then
             If listbox_emulators.SelectedItem.ToString = "Visual Boy Advance-M (GBA)" Then
+                Dim vbam As String() = uptodate_list(0).Split(",")
                 lbl_emulator_name.Text = "Visual Boy Advance-M"
                 lbl_platform.Text = "Platform: Game Boy Advance (+GBC, GB)"
                 lbl_source.Text = "Source: GitHub"
-                lbl_version_number.Text = "Version 2.1.4"
+                lbl_version_number.Text = vbam(4)
                 picturebox_emulogo.BackgroundImage = System.Drawing.Image.FromFile(".\resources\vbam.png")
             End If
             If listbox_emulators.SelectedItem.ToString = "Citra (3DS)" Then
+                Dim citra As String() = uptodate_list(1).Split(",")
                 lbl_emulator_name.Text = "Citra"
                 lbl_platform.Text = "Platform: Nintendo 3DS"
                 lbl_source.Text = "Source: GitHub (Repackaged for Emuloader)"
-                lbl_version_number.Text = "Version Nightly 1547"
+                lbl_version_number.Text = citra(4)
                 picturebox_emulogo.BackgroundImage = New System.Drawing.Bitmap(".\resources\citra.png")
             End If
             If listbox_emulators.SelectedItem.ToString = "DeSmuME (NDS)" Then
+                Dim desmume As String() = uptodate_list(2).Split(",")
                 lbl_emulator_name.Text = "DeSmuME"
                 lbl_platform.Text = "Platform: Nintendo DS"
                 lbl_source.Text = "Source: Google Drive (Emuloader Repack)"
-                lbl_version_number.Text = "Version 0.9.11"
+                lbl_version_number.Text = desmume(4)
                 picturebox_emulogo.BackgroundImage = New System.Drawing.Bitmap(".\resources\desmume.png")
             End If
             If listbox_emulators.SelectedItem.ToString = "Project64 (N64)" Then
+                Dim project64 As String() = uptodate_list(3).Split(",")
                 lbl_emulator_name.Text = "Project64"
                 lbl_platform.Text = "Platform: Nintendo 64"
                 lbl_source.Text = "Source: Google Drive (Emuloader Repack)"
-                lbl_version_number.Text = "Version 2.3.2"
+                lbl_version_number.Text = project64(4)
                 picturebox_emulogo.BackgroundImage = New System.Drawing.Bitmap(".\resources\project64.png")
             End If
             If listbox_emulators.SelectedItem.ToString = "PPSSPP (PSP)" Then
+                Dim ppsspp As String() = uptodate_list(4).Split(",")
                 lbl_emulator_name.Text = "PPSSPP"
                 lbl_platform.Text = "Platform: Sony PSP"
                 lbl_source.Text = "Source: PPSSPP.org"
-                lbl_version_number.Text = "Version 1.9.3"
+                lbl_version_number.Text = ppsspp(4)
                 picturebox_emulogo.BackgroundImage = New System.Drawing.Bitmap(".\resources\ppsspp.png")
             End If
             If listbox_emulators.SelectedItem.ToString = "Dolphin (WII)" Then
+                Dim dolphin As String() = uptodate_list(5).Split(",")
                 lbl_emulator_name.Text = "Dolphin"
                 lbl_platform.Text = "Platform: Nintendo Wii (+Gamecube)"
                 lbl_source.Text = "Source: Google Drive (Emuloader Repack)"
-                lbl_version_number.Text = "Version 5.0-11991"
+                lbl_version_number.Text = dolphin(4)
                 picturebox_emulogo.BackgroundImage = New System.Drawing.Bitmap(".\resources\dolphin.png")
             End If
             If listbox_emulators.SelectedItem.ToString = "Cemu (WIIU)" Then
+                Dim cemu As String() = uptodate_list(6).Split(",")
                 lbl_emulator_name.Text = "Cemu"
                 lbl_platform.Text = "Platform: Nintendo Wii U"
                 lbl_source.Text = "Source: cemu.info"
-                lbl_version_number.Text = "Version 1.19.0"
+                lbl_version_number.Text = cemu(4)
                 picturebox_emulogo.BackgroundImage = New System.Drawing.Bitmap(".\resources\cemu.png")
+            End If
+            If listbox_emulators.SelectedItem.ToString = "Snes9x (SNES)" Then
+                Dim snes9x As String() = uptodate_list(7).Split(",")
+                lbl_emulator_name.Text = "Snes9x"
+                lbl_platform.Text = "Platform: Nintendo SNES"
+                lbl_source.Text = "Source: s9x-w32.de"
+                lbl_version_number.Text = snes9x(4)
+                picturebox_emulogo.BackgroundImage = New System.Drawing.Bitmap(".\resources\snes9x.png")
             End If
         End If
 
@@ -178,46 +205,63 @@ Public Class newemulator
         btn_install.BackgroundImage = New System.Drawing.Bitmap(".\resources\installclick.png")
 
         If listbox_emulators.SelectedItem = "Visual Boy Advance-M (GBA)" Then
-            arguments = {"VBAM", "https://github.com/visualboyadvance-m/visualboyadvance-m/releases/download/v2.1.4/visualboyadvance-m-Win-64bit.zip", "visualboyadvance-m-Win-64bit.zip", "GBA", "visualboyadvance-m.exe", "Visual Boy Advance-M", "vbam.eldr", "\"}
+            Dim vbam As String() = uptodate_list(0).Split(",")
+            For Each x In vbam
+                MsgBox(x)
+            Next
+            arguments = {"VBAM", vbam(0), vbam(1), "GBA", vbam(2), "Visual Boy Advance-M", "vbam.eldr", vbam(3)}
 
             emulator_downloader.RunWorkerAsync(arguments)
             main.lbl_status.Text = "Installing Visual Boy Advance-M"
             Call center_status_lbl()
         ElseIf listbox_emulators.SelectedItem = "Citra (3DS)" Then
-            arguments = {"CITRA", "https://github.com/ParthK117/citraportable/releases/download/1536/citraportable.zip", "citraportable.zip", "3DS", "citraportable\nightly-mingw\citra-qt.exe", "Citra", "citra.eldr", "\"}
+            Dim citra As String() = uptodate_list(1).Split(",")
+            arguments = {"CITRA", citra(0), citra(1), "3DS", citra(2), "Citra", "citra.eldr", citra(3)}
 
             emulator_downloader.RunWorkerAsync(arguments)
             main.lbl_status.Text = "Installing Citra"
             Call center_status_lbl()
         ElseIf listbox_emulators.SelectedItem = "DeSmuME (NDS)" Then
-            arguments = {"DESMUME", "https://drive.google.com/uc?export=download&id=1d4qdS0_Qzv2aub0FkZ_zGzJgnIK_8Set", "desmume-0.9.11-win64.zip", "NDS", "desmume-0.9.11-win64\DeSmuME_0.9.11_x64.exe", "DeSmuME", "desmume.eldr", "\"}
+            Dim desmume As String() = uptodate_list(2).Split(",")
+            arguments = {"DESMUME", desmume(0), desmume(1), "NDS", desmume(2), "DeSmuME", "desmume.eldr", desmume(3)}
 
             emulator_downloader.RunWorkerAsync(arguments)
             main.lbl_status.Text = "Installing DeSmuME"
             Call center_status_lbl()
         ElseIf listbox_emulators.SelectedItem = "Project64 (N64)" Then
-            arguments = {"PROJECT64", "https://drive.google.com/uc?export=download&id=1-zZooDk0ukUSIvEV79twB9FRLrk7ONVr", "Project64 2.3.2 Portable.zip", "N64", "Project64 2.3.2 FULL\Project64.exe", "Project64", "project64.eldr", "\"}
+            Dim project64 As String() = uptodate_list(3).Split(",")
+            arguments = {"PROJECT64", project64(0), project64(1), "N64", project64(2), "Project64", "project64.eldr", project64(3)}
 
             emulator_downloader.RunWorkerAsync(arguments)
             main.lbl_status.Text = "Installing Project64"
             Call center_status_lbl()
         ElseIf listbox_emulators.SelectedItem = "PPSSPP (PSP)" Then
-            arguments = {"PPSSPP", "https://www.ppsspp.org/files/1_9_3/ppsspp_win.zip", "ppsspp_win.zip", "PSP", "\ppsspp_win\PPSSPPWindows64.exe", "PPSSPP", "ppsspp.eldr", "\ppsspp_win\"}
+            Dim ppsspp As String() = uptodate_list(4).Split(",")
+            arguments = {"PPSSPP", ppsspp(0), ppsspp(1), "PSP", ppsspp(2), "PPSSPP", "ppsspp.eldr", ppsspp(3)}
 
             emulator_downloader.RunWorkerAsync(arguments)
             main.lbl_status.Text = "Installing PPSSPP"
             Call center_status_lbl()
         ElseIf listbox_emulators.SelectedItem = "Dolphin (WII)" Then
-            arguments = {"DOLPHIN", "https://drive.google.com/uc?export=download&id=1YLnQrjUwCRatH4TNyDg0un4M7UUV-MwZ", "Dolphin-x64.zip", "WII", "\Dolphin-x64\Dolphin.exe", "Dolphin", "dolphin.eldr", "\"}
+            Dim dolphin As String() = uptodate_list(5).Split(",")
+            arguments = {"DOLPHIN", dolphin(0), dolphin(1), "WII", dolphin(2), "Dolphin", "dolphin.eldr", dolphin(3)}
 
             emulator_downloader.RunWorkerAsync(arguments)
             main.lbl_status.Text = "Installing Dolphin"
             Call center_status_lbl()
         ElseIf listbox_emulators.SelectedItem = "Cemu (WIIU)" Then
-            arguments = {"CEMU", "http://cemu.info/releases/cemu_1.19.1.zip", "cemu_1.19.1.zip", "WIIU", "\cemu_1.19.1\Cemu.exe", "Cemu", "cemu.eldr", "\"}
+            Dim cemu As String() = uptodate_list(6).Split(",")
+            arguments = {"CEMU", cemu(0), cemu(1), "WIIU", cemu(2), "Cemu", "cemu.eldr", cemu(3)}
 
             emulator_downloader.RunWorkerAsync(arguments)
             main.lbl_status.Text = "Installing Cemu"
+            Call center_status_lbl()
+        ElseIf listbox_emulators.SelectedItem = "Snes9x (SNES)" Then
+            Dim snes9x As String() = uptodate_list(7).Split(",")
+            arguments = {"SNES9X", snes9x(0), snes9x(1), "SNES", snes9x(2), "Snes9x", "snes9x.eldr", snes9x(3)}
+
+            emulator_downloader.RunWorkerAsync(arguments)
+            main.lbl_status.Text = "Installing Snes9x (SNES)"
             Call center_status_lbl()
         End If
         main.picturebox_loading.Visible = True

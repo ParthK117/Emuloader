@@ -14,18 +14,13 @@ Public Class main
     Public Shared labelgrey As Color
     Public Shared tab_index = 0
     Public Shared dark = False
+    Public Shared version_number = "0.5.2"
 
     '0.1.0
 
     Private Sub main_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12
-
-        Dim getupdate As Process
-        Dim p As New ProcessStartInfo
-        p.FileName = ".\eldr.exe"
-        p.WindowStyle = ProcessWindowStyle.Hidden
-        getupdate = Process.Start(p)
-
+        Call check_for_updates()
         panel_play.SendToBack()
         Call main_loadfonts()
         Call loadconfig()
@@ -42,7 +37,7 @@ Public Class main
             Call darkmode()
             dark = True
         End If
-
+        lbl_version.Text = "v" & version_number
     End Sub
 
     Private Sub panel_top_MouseDown(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles panel_top.MouseDown
@@ -85,28 +80,53 @@ Public Class main
 
 
     Private Sub btn_maximise_MouseEnter(sender As Object, e As EventArgs) Handles btn_maximise.MouseEnter
-        paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\greenclick.png")
+        If dark = "1" Then
+            paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\greenclickdark.png")
+        Else
+            paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\greenclick.png")
+        End If
+
     End Sub
 
     Private Sub btn_maximise_MouseLeave(sender As Object, e As EventArgs) Handles btn_maximise.MouseLeave
-        paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\exit.png")
+        If dark = "1" Then
+            paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\exitdark.png")
+        Else
+            paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\exit.png")
+        End If
     End Sub
 
     Private Sub btn_minimise_MouseEnter(sender As Object, e As EventArgs) Handles btn_minimise.MouseEnter
-        paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\yellowclick.png")
+        If dark = "1" Then
+            paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\yellowclickdark.png")
+        Else
+            paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\yellowclick.png")
+        End If
     End Sub
 
     Private Sub btn_minimise_MouseLeave(sender As Object, e As EventArgs) Handles btn_minimise.MouseLeave
-        paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\exit.png")
+        If dark = "1" Then
+            paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\exitdark.png")
+        Else
+            paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\exit.png")
+        End If
     End Sub
 
 
     Private Sub btn_exit_MouseLeave(sender As Object, e As EventArgs) Handles btn_exit.MouseLeave
-        paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\exit.png")
+        If dark = "1" Then
+            paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\exitdark.png")
+        Else
+            paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\exit.png")
+        End If
     End Sub
 
     Private Sub btn_exit_MouseEnter(sender As Object, e As EventArgs) Handles btn_exit.MouseEnter
-        paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\redclick.png")
+        If dark = "1" Then
+            paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\redclickdark.png")
+        Else
+            paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\redclick.png")
+        End If
     End Sub
 
     Private Sub btn_newemu_MouseEnter(sender As Object, e As EventArgs) Handles btn_newemu.MouseEnter
@@ -276,6 +296,11 @@ Public Class main
 
             Dim rom_path As String = System.IO.Path.GetFullPath(listbox_installedroms.FocusedItem.SubItems(2).Text)
             p.Arguments = ("-g" & """" & rom_path & """")
+        ElseIf currenttab_metadata(1) = "SNES" Then
+
+
+            Dim rom_path As String = System.IO.Path.GetFullPath(listbox_installedroms.FocusedItem.SubItems(2).Text)
+            p.Arguments = ("""" & rom_path & """")
         End If
 
 
@@ -882,8 +907,12 @@ Public Class main
     End Sub
 
     Private Sub btn_expand_MouseEnter(sender As Object, e As EventArgs) Handles btn_expand.MouseEnter
-        btn_expand.BackgroundImage = System.Drawing.Image.FromFile(".\resources\blueclick.png")
 
+        If dark = "1" Then
+            btn_expand.BackgroundImage = System.Drawing.Image.FromFile(".\resources\blueclickdark.png")
+        Else
+            btn_expand.BackgroundImage = System.Drawing.Image.FromFile(".\resources\blueclick.png")
+        End If
     End Sub
 
     Private Sub btn_expand_MouseLeave(sender As Object, e As EventArgs) Handles btn_expand.MouseLeave
@@ -942,7 +971,7 @@ Public Class main
                 Dim boxartmatches As String = File.ReadAllText(".\roms\" & currenttab_metadata(1) & "\metadata\boxartmatches.eldr")
 
                 For Each x In listbox_installedroms.Items
-                    If Not boxartmatches.Replace(" ", "") = (x.subitems(0).text).replace(" ", "") Then
+                    If Not (boxartmatches.Replace(" ", "")).Contains((x.subitems(0).text).replace(" ", "")) Then
                         lbl_status.Text = "Downloading Boxart"
                         lbl_status.Location = New Point((panel_top.Width - lbl_status.Width) \ 2, (panel_top.Height - lbl_status.Height) \ 2)
                         picturebox_loading.Visible = True
@@ -1138,9 +1167,9 @@ Public Class main
         End If
 
         System.IO.File.Create(".\installed.eldr").Dispose()
-        For Each x In custom2
-            File.WriteAllText(".\installed.eldr", x)
-        Next
+
+        File.WriteAllText(".\installed.eldr", String.Join(vbNewLine, custom))
+
         Dim emutabs = {emu_one, emu_two, emu_three, emu_four, emu_five, emu_six, emu_seven, emu_eight, emu_nine}
         For Each x In emutabs
             x.Visible = False
@@ -1156,5 +1185,49 @@ Public Class main
 
     Private Sub btn_play_delete_MouseUp(sender As Object, e As MouseEventArgs) Handles btn_play_delete.MouseUp
         btn_play_delete.BackgroundImage = System.Drawing.Image.FromFile(".\resources\deleteplaywhite.png")
+    End Sub
+    Public Sub check_for_updates()
+        If Not File.Exists(".\settings.dat") Then
+            Dim new_settings As String = "load=1" & vbNewLine & "dark=0" & vbNewLine & "version=" & version_number
+            File.WriteAllText(".\settings.dat", new_settings)
+        Else
+            Dim settings As New List(Of String)
+            settings.AddRange(File.ReadAllLines(".\settings.dat"))
+
+            If Not settings(2).Contains(version_number) Then
+                File.Delete(".\settings.dat")
+                Dim new_settings As String = settings(0) & vbNewLine & settings(1) & vbNewLine & "version=" & version_number
+                File.WriteAllText(".\settings.dat", new_settings)
+            End If
+        End If
+        Try
+            Dim getupdate As Process
+            Dim p As New ProcessStartInfo
+            p.FileName = ".\eldr.exe"
+            p.WindowStyle = ProcessWindowStyle.Hidden
+            getupdate = Process.Start(p)
+            getupdate.WaitForExit()
+            If File.Exists(".\neweldr\eldr.exe") Then
+                File.Delete(".\eldr.exe")
+                File.Move(".\neweldr\eldr.exe", ".\eldr.exe")
+                Directory.Delete(".\neweldr")
+            End If
+        Catch ex As Exception
+        End Try
+        If File.Exists(".\Emuload.exe") Then
+            File.Delete(".\Emuload.exe")
+        End If
+    End Sub
+
+    Private Sub btn_search_snes_Click(sender As Object, e As EventArgs) Handles btn_search_snes.Click
+        emu_tab_metadata_list.tag_index = "SNES"
+        Call module_emutabs.button_tags()
+        btn_search_snes.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchsneswhite.png")
+    End Sub
+
+    Private Sub btn_search_nes_Click(sender As Object, e As EventArgs) Handles btn_search_nes.Click
+        emu_tab_metadata_list.tag_index = "NES"
+        Call module_emutabs.button_tags()
+        btn_search_nes.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchneswhite.png")
     End Sub
 End Class
