@@ -83,6 +83,26 @@ main.listbox_search.FocusedItem.SubItems(4).Text}))
             If Directory.Exists(".\roms\PS2") = False Then
                 Directory.CreateDirectory(".\roms\PS2")
             End If
+        ElseIf listbox_queue.Items(0).SubItems(2).Text = "MGD" Then
+            platform_id = ".bin"
+            If Directory.Exists(".\roms\MGD") = False Then
+                Directory.CreateDirectory(".\roms\MGD")
+            End If
+        ElseIf listbox_queue.Items(0).SubItems(2).Text = "NES" Then
+            platform_id = ".nes"
+            If Directory.Exists(".\roms\NES") = False Then
+                Directory.CreateDirectory(".\roms\NES")
+            End If
+        ElseIf listbox_queue.Items(0).SubItems(2).Text = "SNES" Then
+            platform_id = ".smc"
+            If Directory.Exists(".\roms\SNES") = False Then
+                Directory.CreateDirectory(".\roms\SNES")
+            End If
+        ElseIf listbox_queue.Items(0).SubItems(2).Text = "DC" Then
+            platform_id = ".gdi"
+            If Directory.Exists(".\roms\DC") = False Then
+                Directory.CreateDirectory(".\roms\DC")
+            End If
         End If
 
         Dim arguments As String()

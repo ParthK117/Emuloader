@@ -5,7 +5,7 @@ Imports System.ComponentModel
 
 Public Class newemulator
     Dim arguments As String()
-    Dim list_of_emulators As String() = {"Visual Boy Advance-M (GBA)", "Citra (3DS)", "DeSmuME (NDS)", "Project64 (N64)", "PPSSPP (PSP)", "Dolphin (WII)", "Cemu (WIIU)", "Snes9x (SNES)"}
+    Dim list_of_emulators As String() = {"Visual Boy Advance-M (GBA)", "Citra (3DS)", "DeSmuME (NDS)", "Project64 (N64)", "PPSSPP (PSP)", "Dolphin (WII)", "Cemu (WIIU)", "Snes9x (SNES)", "Mesen (NES)", "ePSXe (PSX)", "Fusion (MGD)", "Redream (DC)"}
     Dim uptodate_list As String()
 
 
@@ -188,6 +188,38 @@ Public Class newemulator
                 lbl_version_number.Text = snes9x(4)
                 picturebox_emulogo.BackgroundImage = New System.Drawing.Bitmap(".\resources\snes9x.png")
             End If
+            If listbox_emulators.SelectedItem.ToString = "Mesen (NES)" Then
+                Dim mesen As String() = uptodate_list(8).Split(",")
+                lbl_emulator_name.Text = "Mesen"
+                lbl_platform.Text = "Platform: Nintendo NES"
+                lbl_source.Text = "Source: Github"
+                lbl_version_number.Text = mesen(4)
+                picturebox_emulogo.BackgroundImage = New System.Drawing.Bitmap(".\resources\mesen.png")
+            End If
+            If listbox_emulators.SelectedItem.ToString = "ePSXe (PSX)" Then
+                Dim epsxe As String() = uptodate_list(9).Split(",")
+                lbl_emulator_name.Text = "ePSXe"
+                lbl_platform.Text = "Platform: Sony Playstation"
+                lbl_source.Text = "Source: epsxe.com"
+                lbl_version_number.Text = epsxe(4)
+                picturebox_emulogo.BackgroundImage = New System.Drawing.Bitmap(".\resources\epsxe.jpg")
+            End If
+            If listbox_emulators.SelectedItem.ToString = "Fusion (MGD)" Then
+                Dim emulator_meta As String() = uptodate_list(10).Split(",")
+                lbl_emulator_name.Text = "Fusion"
+                lbl_platform.Text = "Platform: Sega Megadrive/Genesis"
+                lbl_source.Text = "Source: Github (Emuloader Repack)"
+                lbl_version_number.Text = emulator_meta(4)
+                picturebox_emulogo.BackgroundImage = New System.Drawing.Bitmap(".\resources\fusion.png")
+            End If
+            If listbox_emulators.SelectedItem.ToString = "Redream (DC)" Then
+                Dim emulator_meta As String() = uptodate_list(11).Split(",")
+                lbl_emulator_name.Text = "Redream"
+                lbl_platform.Text = "Platform: Sega Dreamcast"
+                lbl_source.Text = "Source: redream.io"
+                lbl_version_number.Text = emulator_meta(4)
+                picturebox_emulogo.BackgroundImage = New System.Drawing.Bitmap(".\resources\redream.png")
+            End If
         End If
 
 
@@ -206,9 +238,6 @@ Public Class newemulator
 
         If listbox_emulators.SelectedItem = "Visual Boy Advance-M (GBA)" Then
             Dim vbam As String() = uptodate_list(0).Split(",")
-            For Each x In vbam
-                MsgBox(x)
-            Next
             arguments = {"VBAM", vbam(0), vbam(1), "GBA", vbam(2), "Visual Boy Advance-M", "vbam.eldr", vbam(3)}
 
             emulator_downloader.RunWorkerAsync(arguments)
@@ -262,6 +291,35 @@ Public Class newemulator
 
             emulator_downloader.RunWorkerAsync(arguments)
             main.lbl_status.Text = "Installing Snes9x (SNES)"
+            Call center_status_lbl()
+        ElseIf listbox_emulators.SelectedItem = "Mesen (NES)" Then
+            Dim mesen As String() = uptodate_list(8).Split(",")
+            arguments = {"MESEN", mesen(0), mesen(1), "NES", mesen(2), "Mesen", "mesen.eldr", mesen(3)}
+
+            emulator_downloader.RunWorkerAsync(arguments)
+            main.lbl_status.Text = "Installing Mesen (NES)"
+            Call center_status_lbl()
+        ElseIf listbox_emulators.SelectedItem = "ePSXe (PSX)" Then
+            Dim epsxe As String() = uptodate_list(9).Split(",")
+            arguments = {"EPSXE", epsxe(0), epsxe(1), "PSX", epsxe(2), "ePSXe", "epsxe.eldr", epsxe(3)}
+
+            emulator_downloader.RunWorkerAsync(arguments)
+            main.lbl_status.Text = "Installing ePSXe (PSX)"
+            Call center_status_lbl()
+            MessageBox.Show("ePSXe currently has a bug and will crash unless you set CPU Overclocking to x1, so ensure you do this.")
+        ElseIf listbox_emulators.SelectedItem = "Fusion (MGD)" Then
+            Dim emulator_meta As String() = uptodate_list(10).Split(",")
+            arguments = {"FUSION", emulator_meta(0), emulator_meta(1), "MGD", emulator_meta(2), "Fusion", "fusion.eldr", emulator_meta(3)}
+
+            emulator_downloader.RunWorkerAsync(arguments)
+            main.lbl_status.Text = "Installing Fusion (MGD)"
+            Call center_status_lbl()
+        ElseIf listbox_emulators.SelectedItem = "Redream (DC)" Then
+            Dim emulator_meta As String() = uptodate_list(11).Split(",")
+            arguments = {"REDREAM", emulator_meta(0), emulator_meta(1), "DC", emulator_meta(2), "Redream", "redream.eldr", emulator_meta(3)}
+
+            emulator_downloader.RunWorkerAsync(arguments)
+            main.lbl_status.Text = "Installing Redream (DC)"
             Call center_status_lbl()
         End If
         main.picturebox_loading.Visible = True

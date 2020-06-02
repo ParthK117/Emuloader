@@ -82,6 +82,7 @@ Partial Class main
         Me.lbl_play = New System.Windows.Forms.Label()
         Me.panel_browse = New System.Windows.Forms.Panel()
         Me.panel_search = New System.Windows.Forms.Panel()
+        Me.btn_search_mgd = New System.Windows.Forms.PictureBox()
         Me.btn_search_nes = New System.Windows.Forms.PictureBox()
         Me.btn_search_snes = New System.Windows.Forms.PictureBox()
         Me.btn_search_ps2 = New System.Windows.Forms.PictureBox()
@@ -124,6 +125,7 @@ Partial Class main
         Me.btn_prettify = New System.Windows.Forms.PictureBox()
         Me.btn_show_folders = New System.Windows.Forms.PictureBox()
         Me.thread_getboxart = New System.ComponentModel.BackgroundWorker()
+        Me.btn_search_dc = New System.Windows.Forms.PictureBox()
         CType(Me.image_logo, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panel_left.SuspendLayout()
         CType(Me.picturebox_tungsten, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -148,6 +150,7 @@ Partial Class main
         CType(Me.btn_import_roms, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panel_browse.SuspendLayout()
         Me.panel_search.SuspendLayout()
+        CType(Me.btn_search_mgd, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btn_search_nes, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btn_search_snes, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btn_search_ps2, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -172,6 +175,7 @@ Partial Class main
         CType(Me.btn_settings, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btn_prettify, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btn_show_folders, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.btn_search_dc, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'image_logo
@@ -829,6 +833,8 @@ Partial Class main
         Me.panel_search.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.panel_search.Controls.Add(Me.btn_search_dc)
+        Me.panel_search.Controls.Add(Me.btn_search_mgd)
         Me.panel_search.Controls.Add(Me.btn_search_nes)
         Me.panel_search.Controls.Add(Me.btn_search_snes)
         Me.panel_search.Controls.Add(Me.btn_search_ps2)
@@ -850,6 +856,15 @@ Partial Class main
         Me.panel_search.Size = New System.Drawing.Size(1100, 740)
         Me.panel_search.TabIndex = 22
         Me.panel_search.Visible = False
+        '
+        'btn_search_mgd
+        '
+        Me.btn_search_mgd.BackgroundImage = CType(resources.GetObject("btn_search_mgd.BackgroundImage"), System.Drawing.Image)
+        Me.btn_search_mgd.Location = New System.Drawing.Point(962, 34)
+        Me.btn_search_mgd.Name = "btn_search_mgd"
+        Me.btn_search_mgd.Size = New System.Drawing.Size(60, 30)
+        Me.btn_search_mgd.TabIndex = 19
+        Me.btn_search_mgd.TabStop = False
         '
         'btn_search_nes
         '
@@ -1212,6 +1227,15 @@ Partial Class main
         'thread_getboxart
         '
         '
+        'btn_search_dc
+        '
+        Me.btn_search_dc.BackgroundImage = CType(resources.GetObject("btn_search_dc.BackgroundImage"), System.Drawing.Image)
+        Me.btn_search_dc.Location = New System.Drawing.Point(1028, 34)
+        Me.btn_search_dc.Name = "btn_search_dc"
+        Me.btn_search_dc.Size = New System.Drawing.Size(60, 30)
+        Me.btn_search_dc.TabIndex = 20
+        Me.btn_search_dc.TabStop = False
+        '
         'main
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1262,6 +1286,7 @@ Partial Class main
         Me.panel_browse.PerformLayout()
         Me.panel_search.ResumeLayout(False)
         Me.panel_search.PerformLayout()
+        CType(Me.btn_search_mgd, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btn_search_nes, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btn_search_snes, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btn_search_ps2, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1286,6 +1311,7 @@ Partial Class main
         CType(Me.btn_settings, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btn_prettify, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btn_show_folders, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.btn_search_dc, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -1390,4 +1416,6 @@ Partial Class main
     Friend WithEvents btn_play_delete As PictureBox
     Friend WithEvents btn_search_snes As PictureBox
     Friend WithEvents btn_search_nes As PictureBox
+    Friend WithEvents btn_search_mgd As PictureBox
+    Friend WithEvents btn_search_dc As PictureBox
 End Class

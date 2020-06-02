@@ -24,6 +24,18 @@
         main.paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\exitdark.png")
         main.lbl_status.ForeColor = Color.White
         main.picturebox_loading.Image = System.Drawing.Image.FromFile(".\resources\loadingdark.gif")
+        newemulator.BackColor = Color.FromArgb(21, 32, 43)
+        newemulator.listbox_emulators.BackColor = Color.FromArgb(31, 45, 58)
+        newemulator.textbox_search.BackColor = Color.FromArgb(31, 45, 58)
+        newemulator.listbox_emulators.ForeColor = Color.White
+        newemulator.textbox_search.ForeColor = Color.White
+        newemulator.lbl_emulator_name.ForeColor = Color.White
+        newemulator.lbl_platform.ForeColor = Color.White
+        newemulator.lbl_source.ForeColor = Color.White
+        newemulator.lbl_version_number.ForeColor = Color.White
+        downloadqueue.BackColor = Color.FromArgb(21, 32, 43)
+        downloadqueue.listbox_queue.BackColor = Color.FromArgb(21, 32, 43)
+        downloadqueue.listbox_queue.ForeColor = Color.White
     End Sub
     Public Sub lightmode()
         main.BackColor = Color.White
@@ -50,5 +62,17 @@
         main.paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\exit.png")
         main.lbl_status.ForeColor = Color.Black
         main.picturebox_loading.Image = System.Drawing.Image.FromFile(".\resources\loading.gif")
+        newemulator.BackColor = Color.White
+        newemulator.listbox_emulators.BackColor = Color.White
+        newemulator.textbox_search.BackColor = Color.White
+        newemulator.listbox_emulators.ForeColor = Color.Black
+        newemulator.textbox_search.ForeColor = Color.Black
+        newemulator.lbl_emulator_name.ForeColor = Color.Black
+        newemulator.lbl_platform.ForeColor = Color.Black
+        newemulator.lbl_source.ForeColor = Color.Black
+        newemulator.lbl_version_number.ForeColor = Color.Black
+        downloadqueue.BackColor = Color.White
+        downloadqueue.listbox_queue.BackColor = Color.White
+        downloadqueue.listbox_queue.ForeColor = Color.Black
     End Sub
 End Module

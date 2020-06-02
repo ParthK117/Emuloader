@@ -53,7 +53,7 @@ Partial Class newemulator
         'textbox_search
         '
         Me.textbox_search.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.textbox_search.Location = New System.Drawing.Point(8, 12)
+        Me.textbox_search.Location = New System.Drawing.Point(7, 12)
         Me.textbox_search.Name = "textbox_search"
         Me.textbox_search.Size = New System.Drawing.Size(414, 22)
         Me.textbox_search.TabIndex = 1

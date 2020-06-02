@@ -14,7 +14,7 @@ Public Class main
     Public Shared labelgrey As Color
     Public Shared tab_index = 0
     Public Shared dark = False
-    Public Shared version_number = "0.5.3"
+    Public Shared version_number = "0.6.0"
 
     '0.1.0
 
@@ -297,6 +297,26 @@ Public Class main
             Dim rom_path As String = System.IO.Path.GetFullPath(listbox_installedroms.FocusedItem.SubItems(2).Text)
             p.Arguments = ("-g" & """" & rom_path & """")
         ElseIf currenttab_metadata(1) = "SNES" Then
+
+
+            Dim rom_path As String = System.IO.Path.GetFullPath(listbox_installedroms.FocusedItem.SubItems(2).Text)
+            p.Arguments = ("""" & rom_path & """")
+        ElseIf currenttab_metadata(1) = "NES" Then
+
+
+            Dim rom_path As String = System.IO.Path.GetFullPath(listbox_installedroms.FocusedItem.SubItems(2).Text)
+            p.Arguments = ("Mesen " & """" & rom_path & """")
+        ElseIf currenttab_metadata(1) = "NES" Then
+
+
+            Dim rom_path As String = System.IO.Path.GetFullPath(listbox_installedroms.FocusedItem.SubItems(2).Text)
+            p.Arguments = ("-loadbin " & """" & rom_path & """")
+        ElseIf currenttab_metadata(1) = "MGD" Then
+
+
+            Dim rom_path As String = System.IO.Path.GetFullPath(listbox_installedroms.FocusedItem.SubItems(2).Text)
+            p.Arguments = ("""" & rom_path & """")
+        ElseIf currenttab_metadata(1) = "DC" Then
 
 
             Dim rom_path As String = System.IO.Path.GetFullPath(listbox_installedroms.FocusedItem.SubItems(2).Text)
@@ -712,6 +732,12 @@ Public Class main
             btn_search_n64.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchn64black.png")
             btn_search_gbc.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchgbcblack.png")
             btn_search_gb.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchgbblack.png")
+            btn_search_nes.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchsnesblack.png")
+            btn_search_snes.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchnesblack.png")
+            btn_search_ps1.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchpsxblack.png")
+            btn_search_ps2.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchps2black.png")
+            btn_search_dc.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchdcblack.png")
+            btn_search_mgd.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchmgdblack.png")
         End If
     End Sub
 
@@ -1028,14 +1054,14 @@ Public Class main
     Private Sub btn_search_gc_Click(sender As Object, e As EventArgs) Handles btn_search_gc.Click
         emu_tab_metadata_list.tag_index = "GC"
         Call module_emutabs.button_tags()
-        btn_search_gba.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchgcwhite.png")
+        btn_search_gc.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchgcwhite.png")
 
     End Sub
 
     Private Sub btn_search_wiiu_Click(sender As Object, e As EventArgs) Handles btn_search_wiiu.Click
         emu_tab_metadata_list.tag_index = "WIIU"
         Call module_emutabs.button_tags()
-        btn_search_gba.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchwiiuwhite.png")
+        btn_search_wiiu.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchwiiuwhite.png")
 
     End Sub
 
@@ -1108,7 +1134,7 @@ Public Class main
     End Sub
 
     Private Sub btn_search_ps1_Click(sender As Object, e As EventArgs) Handles btn_search_ps1.Click
-        emu_tab_metadata_list.tag_index = "PS1"
+        emu_tab_metadata_list.tag_index = "PSX"
         Call module_emutabs.button_tags()
         btn_search_ps1.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchps1white.png")
     End Sub
@@ -1229,5 +1255,17 @@ Public Class main
         emu_tab_metadata_list.tag_index = "NES"
         Call module_emutabs.button_tags()
         btn_search_nes.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchneswhite.png")
+    End Sub
+
+    Private Sub btn_search_mgd_Click(sender As Object, e As EventArgs) Handles btn_search_mgd.Click
+        emu_tab_metadata_list.tag_index = "MGD"
+        Call module_emutabs.button_tags()
+        btn_search_mgd.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchmgdwhite.png")
+    End Sub
+
+    Private Sub btn_search_dc_Click(sender As Object, e As EventArgs) Handles btn_search_dc.Click
+        emu_tab_metadata_list.tag_index = "DC"
+        Call module_emutabs.button_tags()
+        btn_search_dc.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchdcwhite.png")
     End Sub
 End Class

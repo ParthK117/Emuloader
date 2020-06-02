@@ -230,9 +230,83 @@ Module load_functions
 
                 Next
             Next
+        ElseIf main.currenttab_metadata(1) = "NES" Then
+            For Each f In rom_directory.GetFiles
+                If f.ToString.Contains(".nes") Then
+                    main.listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString.Replace(".nes", ""), "NES", System.IO.Path.GetFullPath(f.FullName)}))
+                End If
+
+            Next
+
+            For Each x In customromlist
+                Dim custom_directory As New DirectoryInfo(x)
+                For Each f In custom_directory.GetFiles
+                    If f.ToString.Contains(".nes") Then
+
+                        main.listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString.Replace(".nes", ""), "NES", System.IO.Path.GetFullPath(f.FullName)}))
+                    End If
+
+                Next
+            Next
+        ElseIf main.currenttab_metadata(1) = "PSX" Then
+            For Each f In rom_directory.GetFiles
+                If f.ToString.Contains("XT") Then
+                ElseIf f.ToString.Contains(".bin") Or f.ToString.Contains(".img") Or f.ToString.Contains(".iso") Then
+                    main.listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString.Replace(".iso", "").Replace(".img", "").Replace(".bin", ""), "PSX", System.IO.Path.GetFullPath(f.FullName)}))
+                End If
+
+            Next
+
+            For Each x In customromlist
+                Dim custom_directory As New DirectoryInfo(x)
+                For Each f In custom_directory.GetFiles
+                    If f.ToString.Contains(".img") Or f.ToString.Contains(".iso") Or f.ToString.Contains(".bin") Then
+
+                        main.listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString.Replace(".img", "").Replace(".iso", "").Replace(".bin", ""), "PSX", System.IO.Path.GetFullPath(f.FullName)}))
+                    End If
+
+                Next
+            Next
+        ElseIf main.currenttab_metadata(1) = "MGD" Then
+            For Each f In rom_directory.GetFiles
+                If f.ToString.Contains(".md") Or f.ToString.Contains(".gen") Or f.ToString.Contains(".bin") Then
+                    main.listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString.Replace(".gen", "").Replace(".md", "").Replace(".bin", ""), "MGD", System.IO.Path.GetFullPath(f.FullName)}))
+                End If
+
+            Next
+
+            For Each x In customromlist
+                Dim custom_directory As New DirectoryInfo(x)
+                For Each f In custom_directory.GetFiles
+                    If f.ToString.Contains(".md") Or f.ToString.Contains(".gen") Or f.ToString.Contains(".bin") Then
+
+                        main.listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString.Replace(".gen", "").Replace(".md", "").Replace(".bin", ""), "MGD", System.IO.Path.GetFullPath(f.FullName)}))
+                    End If
+
+                Next
+            Next
+        ElseIf main.currenttab_metadata(1) = "DC" Then
+            For Each f In rom_directory.GetFiles
+                If f.ToString.Contains("XT") Then
+                ElseIf f.ToString.Contains(".gdi") Or f.ToString.Contains(".cdi") Or f.ToString.Contains(".chd") Then
+                    main.listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString.Replace(".gdi", "").Replace(".cdi", "").Replace(".chd", ""), "DC", System.IO.Path.GetFullPath(f.FullName)}))
+                End If
+
+            Next
+
+            For Each x In customromlist
+                Dim custom_directory As New DirectoryInfo(x)
+                For Each f In custom_directory.GetFiles
+                    If f.ToString.Contains(".gdi") Or f.ToString.Contains(".cdi") Or f.ToString.Contains(".ghd") Then
+
+                        main.listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString.Replace(".gdi", "").Replace(".cdi", "").Replace(".ghd", ""), "DC", System.IO.Path.GetFullPath(f.FullName)}))
+                    End If
+
+                Next
+            Next
         End If
 
-                    Call main.retrieveboxart()
+        Call main.retrieveboxart()
 
 
 
@@ -296,6 +370,26 @@ Module load_functions
                     emutabs(index).Text = "Snes9x"
                     emutabs(index).Visible = True
                     currentmetadata = File.ReadAllLines(".\" & x & "\snes9x.eldr")
+                End If
+                If x.Contains("MESEN") Then
+                    emutabs(index).Text = "Mesen"
+                    emutabs(index).Visible = True
+                    currentmetadata = File.ReadAllLines(".\" & x & "\mesen.eldr")
+                End If
+                If x.Contains("EPSXE") Then
+                    emutabs(index).Text = "ePSXe"
+                    emutabs(index).Visible = True
+                    currentmetadata = File.ReadAllLines(".\" & x & "\epsxe.eldr")
+                End If
+                If x.Contains("FUSION") Then
+                    emutabs(index).Text = "Fusion"
+                    emutabs(index).Visible = True
+                    currentmetadata = File.ReadAllLines(".\" & x & "\fusion.eldr")
+                End If
+                If x.Contains("REDREAM") Then
+                    emutabs(index).Text = "Redream"
+                    emutabs(index).Visible = True
+                    currentmetadata = File.ReadAllLines(".\" & x & "\redream.eldr")
                 End If
                 emu_tab_metadata_list.emutabs_metadata(index) = currentmetadata
                 index = index + 1
