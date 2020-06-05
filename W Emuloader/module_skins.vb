@@ -36,6 +36,9 @@
         downloadqueue.BackColor = Color.FromArgb(21, 32, 43)
         downloadqueue.listbox_queue.BackColor = Color.FromArgb(21, 32, 43)
         downloadqueue.listbox_queue.ForeColor = Color.White
+        main.lbl_sortby.ForeColor = Color.White
+        main.lbl_tags.ForeColor = Color.White
+        main.lbl_region.ForeColor = Color.White
     End Sub
     Public Sub lightmode()
         main.BackColor = Color.White
@@ -74,5 +77,7 @@
         downloadqueue.BackColor = Color.White
         downloadqueue.listbox_queue.BackColor = Color.White
         downloadqueue.listbox_queue.ForeColor = Color.Black
+        main.lbl_sortby.ForeColor = Color.Black
+        main.lbl_region.ForeColor = Color.Black
     End Sub
 End Module

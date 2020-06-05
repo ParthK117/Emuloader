@@ -702,7 +702,7 @@ Public Class main
         Else
             btn_all.ForeColor = Color.Black
         End If
-
+        panel_platform_tags.Visible = False
         btn_search.ForeColor = labelgrey
         tab_all.Visible = True
         tab_search.Visible = False
@@ -723,7 +723,9 @@ Public Class main
             listbox_search.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent)
             listbox_search.AutoResizeColumn(2, ColumnHeaderAutoResizeStyle.HeaderSize)
             listbox_search.Columns.Item(4).Width = 0
-
+            btn_search_europe.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searcheuropeblack.png")
+            btn_search_usa.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchusablack.png")
+            btn_search_japan.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchjapanblack.png")
             btn_search_3ds.BackgroundImage = System.Drawing.Image.FromFile(".\resources\search3dsblack.png")
             btn_search_wii.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchwiiblack.png")
             btn_search_nds.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchndsblack.png")
@@ -734,7 +736,7 @@ Public Class main
             btn_search_gb.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchgbblack.png")
             btn_search_nes.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchsnesblack.png")
             btn_search_snes.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchnesblack.png")
-            btn_search_ps1.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchpsxblack.png")
+            btn_search_ps1.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchps1black.png")
             btn_search_ps2.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchps2black.png")
             btn_search_dc.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchdcblack.png")
             btn_search_mgd.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchmgdblack.png")
@@ -745,6 +747,9 @@ Public Class main
         If textbox_search.Text = "Search" Then
             textbox_search.Text = ""
         End If
+        Call hide_platform_tags()
+        Call hide_region_tags()
+        btn_platform_tags.ForeColor = labelgrey
     End Sub
 
     Private Sub panel_top_DoubleClick(sender As Object, e As EventArgs) Handles panel_top.DoubleClick
@@ -1267,5 +1272,64 @@ Public Class main
         emu_tab_metadata_list.tag_index = "DC"
         Call module_emutabs.button_tags()
         btn_search_dc.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchdcwhite.png")
+    End Sub
+
+    Private Sub btn_platform_tags_Click(sender As Object, e As EventArgs) Handles btn_platform_tags.Click
+        Call hide_region_tags()
+        panel_platform_tags.Visible = True
+        If dark = True Then
+            btn_platform_tags.ForeColor = Color.FromArgb(23, 191, 99)
+        Else
+            btn_platform_tags.ForeColor = Color.Black
+        End If
+
+
+    End Sub
+
+    Private Sub panel_browse_MouseDown(sender As Object, e As MouseEventArgs) Handles panel_browse.MouseDown
+        Call hide_platform_tags()
+        Call hide_region_tags()
+    End Sub
+
+    Private Sub listbox_search_MouseDown(sender As Object, e As MouseEventArgs) Handles listbox_search.MouseDown
+        Call hide_platform_tags()
+        Call hide_region_tags()
+    End Sub
+    Public Sub hide_platform_tags()
+        panel_platform_tags.Visible = False
+        btn_platform_tags.ForeColor = labelgrey
+    End Sub
+    Public Sub hide_region_tags()
+        panel_region_tags.Visible = False
+        btn_region.ForeColor = labelgrey
+    End Sub
+
+    Private Sub btn_region_Click(sender As Object, e As EventArgs) Handles btn_region.Click
+        Call hide_platform_tags()
+
+        panel_region_tags.Visible = True
+        If dark = True Then
+            btn_region.ForeColor = Color.FromArgb(23, 191, 99)
+        Else
+            btn_region.ForeColor = Color.Black
+        End If
+    End Sub
+
+    Private Sub btn_search_europe_Click(sender As Object, e As EventArgs) Handles btn_search_europe.Click
+        emu_tab_metadata_list.tag_index = "EUR"
+        Call module_emutabs.button_regions()
+        btn_search_europe.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searcheuropewhite.png")
+    End Sub
+
+    Private Sub btn_search_usa_Click(sender As Object, e As EventArgs) Handles btn_search_usa.Click
+        emu_tab_metadata_list.tag_index = "USA"
+        Call module_emutabs.button_regions()
+        btn_search_usa.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchusawhite.png")
+    End Sub
+
+    Private Sub btn_search_japan_Click(sender As Object, e As EventArgs) Handles btn_search_japan.Click
+        emu_tab_metadata_list.tag_index = "JPN"
+        Call module_emutabs.button_regions()
+        btn_search_japan.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchjapanwhite.png")
     End Sub
 End Class

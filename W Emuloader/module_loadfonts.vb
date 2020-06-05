@@ -40,6 +40,8 @@
         main.lbl_rom_platform.ForeColor = main.labelgrey
         main.lbl_version.ForeColor = main.labelgrey
 
+        main.btn_platform_tags.ForeColor = main.labelgrey
+        main.btn_region.ForeColor = main.labelgrey
         main.lbl_status.Location = New Point((main.panel_top.Width - main.lbl_status.Width) \ 2, (main.panel_top.Height - main.lbl_status.Height) \ 2)
         main.picturebox_tungsten.Location = New Point((main.panel_left.Width - main.picturebox_tungsten.Width) \ 2, 690)
         main.picturebox_drag.Location = New Point((main.panel_drag_drop.Width - main.picturebox_drag.Width) \ 2, (main.panel_drag_drop.Height - main.picturebox_drag.Height) \ 2)
@@ -73,6 +75,7 @@
         settings.load_boxart_on_startup.Font = spartanfont14
         settings.load_skin.Font = spartanfont14
 
+
         Dim gothamfont18 As New System.Drawing.Font(main.gotham.Families(0), 18)
         main.emu_one.Font = gothamfont18
         main.emu_two.Font = gothamfont18
@@ -84,6 +87,13 @@
         main.emu_eight.Font = gothamfont18
         main.emu_nine.Font = gothamfont18
 
+        Dim gothamfont14 As New System.Drawing.Font(main.gotham.Families(0), 14)
+        main.lbl_sortby.Font = gothamfont14
+        main.lbl_tags.Font = gothamfont14
+        main.btn_platform_tags.Font = gothamfont14
+        main.btn_search.Font = gothamfont14
+        main.btn_all.Font = gothamfont14
+        main.btn_region.Font = gothamfont14
 
         Dim gothamfont10 As New System.Drawing.Font(main.gotham.Families(0), 10)
         main.lbl_information.Font = gothamfont10

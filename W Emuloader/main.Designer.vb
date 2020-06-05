@@ -82,28 +82,40 @@ Partial Class main
         Me.lbl_play = New System.Windows.Forms.Label()
         Me.panel_browse = New System.Windows.Forms.Panel()
         Me.panel_search = New System.Windows.Forms.Panel()
+        Me.panel_region_tags = New System.Windows.Forms.Panel()
+        Me.btn_search_europe = New System.Windows.Forms.PictureBox()
+        Me.btn_search_usa = New System.Windows.Forms.PictureBox()
+        Me.btn_search_japan = New System.Windows.Forms.PictureBox()
+        Me.lbl_region = New System.Windows.Forms.Label()
+        Me.btn_region = New System.Windows.Forms.Label()
+        Me.btn_platform_tags = New System.Windows.Forms.Label()
+        Me.lbl_sortby = New System.Windows.Forms.Label()
+        Me.panel_platform_tags = New System.Windows.Forms.Panel()
+        Me.lbl_tags = New System.Windows.Forms.Label()
+        Me.btn_search_gb = New System.Windows.Forms.PictureBox()
+        Me.btn_search_dc = New System.Windows.Forms.PictureBox()
+        Me.btn_search_gba = New System.Windows.Forms.PictureBox()
         Me.btn_search_mgd = New System.Windows.Forms.PictureBox()
         Me.btn_search_nes = New System.Windows.Forms.PictureBox()
+        Me.btn_search_gbc = New System.Windows.Forms.PictureBox()
         Me.btn_search_snes = New System.Windows.Forms.PictureBox()
+        Me.btn_search_psp = New System.Windows.Forms.PictureBox()
+        Me.btn_search_3ds = New System.Windows.Forms.PictureBox()
         Me.btn_search_ps2 = New System.Windows.Forms.PictureBox()
         Me.btn_search_ps1 = New System.Windows.Forms.PictureBox()
+        Me.btn_search_nds = New System.Windows.Forms.PictureBox()
         Me.btn_search_wiiu = New System.Windows.Forms.PictureBox()
         Me.btn_search_gc = New System.Windows.Forms.PictureBox()
-        Me.btn_search_n64 = New System.Windows.Forms.PictureBox()
         Me.btn_search_wii = New System.Windows.Forms.PictureBox()
-        Me.btn_search_psp = New System.Windows.Forms.PictureBox()
-        Me.btn_search_nds = New System.Windows.Forms.PictureBox()
-        Me.btn_search_3ds = New System.Windows.Forms.PictureBox()
-        Me.btn_search_gb = New System.Windows.Forms.PictureBox()
-        Me.btn_search_gbc = New System.Windows.Forms.PictureBox()
-        Me.btn_search_gba = New System.Windows.Forms.PictureBox()
+        Me.btn_search_n64 = New System.Windows.Forms.PictureBox()
+        Me.panel_searchbar = New System.Windows.Forms.Panel()
+        Me.textbox_search = New System.Windows.Forms.TextBox()
         Me.listbox_search = New System.Windows.Forms.ListView()
         Me.search_name = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.search_size = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.search_platform = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.search_source = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.search_url = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.textbox_search = New System.Windows.Forms.TextBox()
         Me.tab_search = New System.Windows.Forms.PictureBox()
         Me.tab_all = New System.Windows.Forms.PictureBox()
         Me.btn_search = New System.Windows.Forms.Label()
@@ -125,7 +137,7 @@ Partial Class main
         Me.btn_prettify = New System.Windows.Forms.PictureBox()
         Me.btn_show_folders = New System.Windows.Forms.PictureBox()
         Me.thread_getboxart = New System.ComponentModel.BackgroundWorker()
-        Me.btn_search_dc = New System.Windows.Forms.PictureBox()
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         CType(Me.image_logo, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panel_left.SuspendLayout()
         CType(Me.picturebox_tungsten, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -150,21 +162,28 @@ Partial Class main
         CType(Me.btn_import_roms, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panel_browse.SuspendLayout()
         Me.panel_search.SuspendLayout()
+        Me.panel_region_tags.SuspendLayout()
+        CType(Me.btn_search_europe, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.btn_search_usa, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.btn_search_japan, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.panel_platform_tags.SuspendLayout()
+        CType(Me.btn_search_gb, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.btn_search_dc, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.btn_search_gba, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btn_search_mgd, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btn_search_nes, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.btn_search_gbc, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btn_search_snes, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.btn_search_psp, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.btn_search_3ds, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btn_search_ps2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btn_search_ps1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.btn_search_nds, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btn_search_wiiu, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btn_search_gc, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.btn_search_n64, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btn_search_wii, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.btn_search_psp, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.btn_search_nds, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.btn_search_3ds, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.btn_search_gb, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.btn_search_gbc, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.btn_search_gba, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.btn_search_n64, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.panel_searchbar.SuspendLayout()
         CType(Me.tab_search, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.tab_all, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btn_import, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -175,7 +194,7 @@ Partial Class main
         CType(Me.btn_settings, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btn_prettify, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btn_show_folders, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.btn_search_dc, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'image_logo
@@ -833,34 +852,167 @@ Partial Class main
         Me.panel_search.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.panel_search.Controls.Add(Me.btn_search_dc)
-        Me.panel_search.Controls.Add(Me.btn_search_mgd)
-        Me.panel_search.Controls.Add(Me.btn_search_nes)
-        Me.panel_search.Controls.Add(Me.btn_search_snes)
-        Me.panel_search.Controls.Add(Me.btn_search_ps2)
-        Me.panel_search.Controls.Add(Me.btn_search_ps1)
-        Me.panel_search.Controls.Add(Me.btn_search_wiiu)
-        Me.panel_search.Controls.Add(Me.btn_search_gc)
-        Me.panel_search.Controls.Add(Me.btn_search_n64)
-        Me.panel_search.Controls.Add(Me.btn_search_wii)
-        Me.panel_search.Controls.Add(Me.btn_search_psp)
-        Me.panel_search.Controls.Add(Me.btn_search_nds)
-        Me.panel_search.Controls.Add(Me.btn_search_3ds)
-        Me.panel_search.Controls.Add(Me.btn_search_gb)
-        Me.panel_search.Controls.Add(Me.btn_search_gbc)
-        Me.panel_search.Controls.Add(Me.btn_search_gba)
+        Me.panel_search.Controls.Add(Me.panel_region_tags)
+        Me.panel_search.Controls.Add(Me.btn_region)
+        Me.panel_search.Controls.Add(Me.btn_platform_tags)
+        Me.panel_search.Controls.Add(Me.lbl_sortby)
+        Me.panel_search.Controls.Add(Me.panel_platform_tags)
+        Me.panel_search.Controls.Add(Me.panel_searchbar)
         Me.panel_search.Controls.Add(Me.listbox_search)
-        Me.panel_search.Controls.Add(Me.textbox_search)
         Me.panel_search.Location = New System.Drawing.Point(0, 120)
         Me.panel_search.Name = "panel_search"
         Me.panel_search.Size = New System.Drawing.Size(1100, 740)
         Me.panel_search.TabIndex = 22
         Me.panel_search.Visible = False
         '
+        'panel_region_tags
+        '
+        Me.panel_region_tags.BackgroundImage = CType(resources.GetObject("panel_region_tags.BackgroundImage"), System.Drawing.Image)
+        Me.panel_region_tags.Controls.Add(Me.btn_search_europe)
+        Me.panel_region_tags.Controls.Add(Me.btn_search_usa)
+        Me.panel_region_tags.Controls.Add(Me.btn_search_japan)
+        Me.panel_region_tags.Controls.Add(Me.lbl_region)
+        Me.panel_region_tags.Location = New System.Drawing.Point(321, 62)
+        Me.panel_region_tags.Name = "panel_region_tags"
+        Me.panel_region_tags.Size = New System.Drawing.Size(121, 139)
+        Me.panel_region_tags.TabIndex = 25
+        Me.panel_region_tags.Visible = False
+        '
+        'btn_search_europe
+        '
+        Me.btn_search_europe.BackgroundImage = CType(resources.GetObject("btn_search_europe.BackgroundImage"), System.Drawing.Image)
+        Me.btn_search_europe.Location = New System.Drawing.Point(7, 29)
+        Me.btn_search_europe.Name = "btn_search_europe"
+        Me.btn_search_europe.Size = New System.Drawing.Size(108, 30)
+        Me.btn_search_europe.TabIndex = 12
+        Me.btn_search_europe.TabStop = False
+        '
+        'btn_search_usa
+        '
+        Me.btn_search_usa.BackgroundImage = CType(resources.GetObject("btn_search_usa.BackgroundImage"), System.Drawing.Image)
+        Me.btn_search_usa.Location = New System.Drawing.Point(7, 65)
+        Me.btn_search_usa.Name = "btn_search_usa"
+        Me.btn_search_usa.Size = New System.Drawing.Size(108, 30)
+        Me.btn_search_usa.TabIndex = 13
+        Me.btn_search_usa.TabStop = False
+        '
+        'btn_search_japan
+        '
+        Me.btn_search_japan.BackgroundImage = CType(resources.GetObject("btn_search_japan.BackgroundImage"), System.Drawing.Image)
+        Me.btn_search_japan.Location = New System.Drawing.Point(7, 101)
+        Me.btn_search_japan.Name = "btn_search_japan"
+        Me.btn_search_japan.Size = New System.Drawing.Size(108, 30)
+        Me.btn_search_japan.TabIndex = 14
+        Me.btn_search_japan.TabStop = False
+        '
+        'lbl_region
+        '
+        Me.lbl_region.AutoSize = True
+        Me.lbl_region.Font = New System.Drawing.Font("Gotham Bold", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_region.Location = New System.Drawing.Point(3, 3)
+        Me.lbl_region.Name = "lbl_region"
+        Me.lbl_region.Size = New System.Drawing.Size(67, 23)
+        Me.lbl_region.TabIndex = 9
+        Me.lbl_region.Text = "TAGS:"
+        '
+        'btn_region
+        '
+        Me.btn_region.AutoSize = True
+        Me.btn_region.Font = New System.Drawing.Font("Gotham Bold", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btn_region.Location = New System.Drawing.Point(264, 40)
+        Me.btn_region.Name = "btn_region"
+        Me.btn_region.Size = New System.Drawing.Size(89, 23)
+        Me.btn_region.TabIndex = 24
+        Me.btn_region.Text = "REGION"
+        '
+        'btn_platform_tags
+        '
+        Me.btn_platform_tags.AutoSize = True
+        Me.btn_platform_tags.Font = New System.Drawing.Font("Gotham Bold", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btn_platform_tags.Location = New System.Drawing.Point(140, 40)
+        Me.btn_platform_tags.Name = "btn_platform_tags"
+        Me.btn_platform_tags.Size = New System.Drawing.Size(118, 23)
+        Me.btn_platform_tags.TabIndex = 21
+        Me.btn_platform_tags.Text = "PLATFORM"
+        '
+        'lbl_sortby
+        '
+        Me.lbl_sortby.AutoSize = True
+        Me.lbl_sortby.Font = New System.Drawing.Font("Gotham Bold", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_sortby.Location = New System.Drawing.Point(38, 40)
+        Me.lbl_sortby.Name = "lbl_sortby"
+        Me.lbl_sortby.Size = New System.Drawing.Size(102, 23)
+        Me.lbl_sortby.TabIndex = 23
+        Me.lbl_sortby.Text = "SORT BY:"
+        '
+        'panel_platform_tags
+        '
+        Me.panel_platform_tags.BackColor = System.Drawing.Color.Transparent
+        Me.panel_platform_tags.BackgroundImage = CType(resources.GetObject("panel_platform_tags.BackgroundImage"), System.Drawing.Image)
+        Me.panel_platform_tags.Controls.Add(Me.lbl_tags)
+        Me.panel_platform_tags.Controls.Add(Me.btn_search_gb)
+        Me.panel_platform_tags.Controls.Add(Me.btn_search_dc)
+        Me.panel_platform_tags.Controls.Add(Me.btn_search_gba)
+        Me.panel_platform_tags.Controls.Add(Me.btn_search_mgd)
+        Me.panel_platform_tags.Controls.Add(Me.btn_search_nes)
+        Me.panel_platform_tags.Controls.Add(Me.btn_search_gbc)
+        Me.panel_platform_tags.Controls.Add(Me.btn_search_snes)
+        Me.panel_platform_tags.Controls.Add(Me.btn_search_psp)
+        Me.panel_platform_tags.Controls.Add(Me.btn_search_3ds)
+        Me.panel_platform_tags.Controls.Add(Me.btn_search_ps2)
+        Me.panel_platform_tags.Controls.Add(Me.btn_search_ps1)
+        Me.panel_platform_tags.Controls.Add(Me.btn_search_nds)
+        Me.panel_platform_tags.Controls.Add(Me.btn_search_wiiu)
+        Me.panel_platform_tags.Controls.Add(Me.btn_search_gc)
+        Me.panel_platform_tags.Controls.Add(Me.btn_search_wii)
+        Me.panel_platform_tags.Controls.Add(Me.btn_search_n64)
+        Me.panel_platform_tags.Location = New System.Drawing.Point(229, 63)
+        Me.panel_platform_tags.Name = "panel_platform_tags"
+        Me.panel_platform_tags.Size = New System.Drawing.Size(216, 246)
+        Me.panel_platform_tags.TabIndex = 22
+        Me.panel_platform_tags.Visible = False
+        '
+        'lbl_tags
+        '
+        Me.lbl_tags.AutoSize = True
+        Me.lbl_tags.Font = New System.Drawing.Font("Gotham Bold", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_tags.Location = New System.Drawing.Point(3, 3)
+        Me.lbl_tags.Name = "lbl_tags"
+        Me.lbl_tags.Size = New System.Drawing.Size(67, 23)
+        Me.lbl_tags.TabIndex = 8
+        Me.lbl_tags.Text = "TAGS:"
+        '
+        'btn_search_gb
+        '
+        Me.btn_search_gb.BackgroundImage = CType(resources.GetObject("btn_search_gb.BackgroundImage"), System.Drawing.Image)
+        Me.btn_search_gb.Location = New System.Drawing.Point(143, 29)
+        Me.btn_search_gb.Name = "btn_search_gb"
+        Me.btn_search_gb.Size = New System.Drawing.Size(60, 30)
+        Me.btn_search_gb.TabIndex = 7
+        Me.btn_search_gb.TabStop = False
+        '
+        'btn_search_dc
+        '
+        Me.btn_search_dc.BackgroundImage = CType(resources.GetObject("btn_search_dc.BackgroundImage"), System.Drawing.Image)
+        Me.btn_search_dc.Location = New System.Drawing.Point(11, 208)
+        Me.btn_search_dc.Name = "btn_search_dc"
+        Me.btn_search_dc.Size = New System.Drawing.Size(60, 30)
+        Me.btn_search_dc.TabIndex = 20
+        Me.btn_search_dc.TabStop = False
+        '
+        'btn_search_gba
+        '
+        Me.btn_search_gba.BackgroundImage = CType(resources.GetObject("btn_search_gba.BackgroundImage"), System.Drawing.Image)
+        Me.btn_search_gba.Location = New System.Drawing.Point(11, 29)
+        Me.btn_search_gba.Name = "btn_search_gba"
+        Me.btn_search_gba.Size = New System.Drawing.Size(60, 30)
+        Me.btn_search_gba.TabIndex = 5
+        Me.btn_search_gba.TabStop = False
+        '
         'btn_search_mgd
         '
         Me.btn_search_mgd.BackgroundImage = CType(resources.GetObject("btn_search_mgd.BackgroundImage"), System.Drawing.Image)
-        Me.btn_search_mgd.Location = New System.Drawing.Point(962, 34)
+        Me.btn_search_mgd.Location = New System.Drawing.Point(143, 172)
         Me.btn_search_mgd.Name = "btn_search_mgd"
         Me.btn_search_mgd.Size = New System.Drawing.Size(60, 30)
         Me.btn_search_mgd.TabIndex = 19
@@ -869,25 +1021,52 @@ Partial Class main
         'btn_search_nes
         '
         Me.btn_search_nes.BackgroundImage = CType(resources.GetObject("btn_search_nes.BackgroundImage"), System.Drawing.Image)
-        Me.btn_search_nes.Location = New System.Drawing.Point(896, 34)
+        Me.btn_search_nes.Location = New System.Drawing.Point(77, 172)
         Me.btn_search_nes.Name = "btn_search_nes"
         Me.btn_search_nes.Size = New System.Drawing.Size(60, 30)
         Me.btn_search_nes.TabIndex = 18
         Me.btn_search_nes.TabStop = False
         '
+        'btn_search_gbc
+        '
+        Me.btn_search_gbc.BackgroundImage = CType(resources.GetObject("btn_search_gbc.BackgroundImage"), System.Drawing.Image)
+        Me.btn_search_gbc.Location = New System.Drawing.Point(77, 29)
+        Me.btn_search_gbc.Name = "btn_search_gbc"
+        Me.btn_search_gbc.Size = New System.Drawing.Size(60, 30)
+        Me.btn_search_gbc.TabIndex = 6
+        Me.btn_search_gbc.TabStop = False
+        '
         'btn_search_snes
         '
         Me.btn_search_snes.BackgroundImage = CType(resources.GetObject("btn_search_snes.BackgroundImage"), System.Drawing.Image)
-        Me.btn_search_snes.Location = New System.Drawing.Point(830, 34)
+        Me.btn_search_snes.Location = New System.Drawing.Point(11, 172)
         Me.btn_search_snes.Name = "btn_search_snes"
         Me.btn_search_snes.Size = New System.Drawing.Size(60, 30)
         Me.btn_search_snes.TabIndex = 17
         Me.btn_search_snes.TabStop = False
         '
+        'btn_search_psp
+        '
+        Me.btn_search_psp.BackgroundImage = CType(resources.GetObject("btn_search_psp.BackgroundImage"), System.Drawing.Image)
+        Me.btn_search_psp.Location = New System.Drawing.Point(143, 65)
+        Me.btn_search_psp.Name = "btn_search_psp"
+        Me.btn_search_psp.Size = New System.Drawing.Size(60, 30)
+        Me.btn_search_psp.TabIndex = 10
+        Me.btn_search_psp.TabStop = False
+        '
+        'btn_search_3ds
+        '
+        Me.btn_search_3ds.BackgroundImage = CType(resources.GetObject("btn_search_3ds.BackgroundImage"), System.Drawing.Image)
+        Me.btn_search_3ds.Location = New System.Drawing.Point(11, 65)
+        Me.btn_search_3ds.Name = "btn_search_3ds"
+        Me.btn_search_3ds.Size = New System.Drawing.Size(60, 30)
+        Me.btn_search_3ds.TabIndex = 8
+        Me.btn_search_3ds.TabStop = False
+        '
         'btn_search_ps2
         '
         Me.btn_search_ps2.BackgroundImage = CType(resources.GetObject("btn_search_ps2.BackgroundImage"), System.Drawing.Image)
-        Me.btn_search_ps2.Location = New System.Drawing.Point(764, 34)
+        Me.btn_search_ps2.Location = New System.Drawing.Point(143, 136)
         Me.btn_search_ps2.Name = "btn_search_ps2"
         Me.btn_search_ps2.Size = New System.Drawing.Size(60, 30)
         Me.btn_search_ps2.TabIndex = 16
@@ -896,16 +1075,25 @@ Partial Class main
         'btn_search_ps1
         '
         Me.btn_search_ps1.BackgroundImage = CType(resources.GetObject("btn_search_ps1.BackgroundImage"), System.Drawing.Image)
-        Me.btn_search_ps1.Location = New System.Drawing.Point(698, 34)
+        Me.btn_search_ps1.Location = New System.Drawing.Point(77, 136)
         Me.btn_search_ps1.Name = "btn_search_ps1"
         Me.btn_search_ps1.Size = New System.Drawing.Size(60, 30)
         Me.btn_search_ps1.TabIndex = 15
         Me.btn_search_ps1.TabStop = False
         '
+        'btn_search_nds
+        '
+        Me.btn_search_nds.BackgroundImage = CType(resources.GetObject("btn_search_nds.BackgroundImage"), System.Drawing.Image)
+        Me.btn_search_nds.Location = New System.Drawing.Point(77, 65)
+        Me.btn_search_nds.Name = "btn_search_nds"
+        Me.btn_search_nds.Size = New System.Drawing.Size(60, 30)
+        Me.btn_search_nds.TabIndex = 9
+        Me.btn_search_nds.TabStop = False
+        '
         'btn_search_wiiu
         '
         Me.btn_search_wiiu.BackgroundImage = CType(resources.GetObject("btn_search_wiiu.BackgroundImage"), System.Drawing.Image)
-        Me.btn_search_wiiu.Location = New System.Drawing.Point(632, 34)
+        Me.btn_search_wiiu.Location = New System.Drawing.Point(11, 136)
         Me.btn_search_wiiu.Name = "btn_search_wiiu"
         Me.btn_search_wiiu.Size = New System.Drawing.Size(60, 30)
         Me.btn_search_wiiu.TabIndex = 14
@@ -914,83 +1102,55 @@ Partial Class main
         'btn_search_gc
         '
         Me.btn_search_gc.BackgroundImage = CType(resources.GetObject("btn_search_gc.BackgroundImage"), System.Drawing.Image)
-        Me.btn_search_gc.Location = New System.Drawing.Point(566, 34)
+        Me.btn_search_gc.Location = New System.Drawing.Point(143, 101)
         Me.btn_search_gc.Name = "btn_search_gc"
         Me.btn_search_gc.Size = New System.Drawing.Size(60, 30)
         Me.btn_search_gc.TabIndex = 13
         Me.btn_search_gc.TabStop = False
         '
-        'btn_search_n64
-        '
-        Me.btn_search_n64.BackgroundImage = CType(resources.GetObject("btn_search_n64.BackgroundImage"), System.Drawing.Image)
-        Me.btn_search_n64.Location = New System.Drawing.Point(500, 34)
-        Me.btn_search_n64.Name = "btn_search_n64"
-        Me.btn_search_n64.Size = New System.Drawing.Size(60, 30)
-        Me.btn_search_n64.TabIndex = 12
-        Me.btn_search_n64.TabStop = False
-        '
         'btn_search_wii
         '
         Me.btn_search_wii.BackgroundImage = CType(resources.GetObject("btn_search_wii.BackgroundImage"), System.Drawing.Image)
-        Me.btn_search_wii.Location = New System.Drawing.Point(434, 34)
+        Me.btn_search_wii.Location = New System.Drawing.Point(11, 101)
         Me.btn_search_wii.Name = "btn_search_wii"
         Me.btn_search_wii.Size = New System.Drawing.Size(60, 30)
         Me.btn_search_wii.TabIndex = 11
         Me.btn_search_wii.TabStop = False
         '
-        'btn_search_psp
+        'btn_search_n64
         '
-        Me.btn_search_psp.BackgroundImage = CType(resources.GetObject("btn_search_psp.BackgroundImage"), System.Drawing.Image)
-        Me.btn_search_psp.Location = New System.Drawing.Point(368, 34)
-        Me.btn_search_psp.Name = "btn_search_psp"
-        Me.btn_search_psp.Size = New System.Drawing.Size(60, 30)
-        Me.btn_search_psp.TabIndex = 10
-        Me.btn_search_psp.TabStop = False
+        Me.btn_search_n64.BackgroundImage = CType(resources.GetObject("btn_search_n64.BackgroundImage"), System.Drawing.Image)
+        Me.btn_search_n64.Location = New System.Drawing.Point(77, 101)
+        Me.btn_search_n64.Name = "btn_search_n64"
+        Me.btn_search_n64.Size = New System.Drawing.Size(60, 30)
+        Me.btn_search_n64.TabIndex = 12
+        Me.btn_search_n64.TabStop = False
         '
-        'btn_search_nds
+        'panel_searchbar
         '
-        Me.btn_search_nds.BackgroundImage = CType(resources.GetObject("btn_search_nds.BackgroundImage"), System.Drawing.Image)
-        Me.btn_search_nds.Location = New System.Drawing.Point(302, 34)
-        Me.btn_search_nds.Name = "btn_search_nds"
-        Me.btn_search_nds.Size = New System.Drawing.Size(60, 30)
-        Me.btn_search_nds.TabIndex = 9
-        Me.btn_search_nds.TabStop = False
+        Me.panel_searchbar.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.panel_searchbar.BackgroundImage = CType(resources.GetObject("panel_searchbar.BackgroundImage"), System.Drawing.Image)
+        Me.panel_searchbar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.panel_searchbar.Controls.Add(Me.PictureBox1)
+        Me.panel_searchbar.Controls.Add(Me.textbox_search)
+        Me.panel_searchbar.Location = New System.Drawing.Point(37, 0)
+        Me.panel_searchbar.Name = "panel_searchbar"
+        Me.panel_searchbar.Size = New System.Drawing.Size(1060, 32)
+        Me.panel_searchbar.TabIndex = 21
         '
-        'btn_search_3ds
+        'textbox_search
         '
-        Me.btn_search_3ds.BackgroundImage = CType(resources.GetObject("btn_search_3ds.BackgroundImage"), System.Drawing.Image)
-        Me.btn_search_3ds.Location = New System.Drawing.Point(236, 34)
-        Me.btn_search_3ds.Name = "btn_search_3ds"
-        Me.btn_search_3ds.Size = New System.Drawing.Size(60, 30)
-        Me.btn_search_3ds.TabIndex = 8
-        Me.btn_search_3ds.TabStop = False
-        '
-        'btn_search_gb
-        '
-        Me.btn_search_gb.BackgroundImage = CType(resources.GetObject("btn_search_gb.BackgroundImage"), System.Drawing.Image)
-        Me.btn_search_gb.Location = New System.Drawing.Point(170, 34)
-        Me.btn_search_gb.Name = "btn_search_gb"
-        Me.btn_search_gb.Size = New System.Drawing.Size(60, 30)
-        Me.btn_search_gb.TabIndex = 7
-        Me.btn_search_gb.TabStop = False
-        '
-        'btn_search_gbc
-        '
-        Me.btn_search_gbc.BackgroundImage = CType(resources.GetObject("btn_search_gbc.BackgroundImage"), System.Drawing.Image)
-        Me.btn_search_gbc.Location = New System.Drawing.Point(104, 34)
-        Me.btn_search_gbc.Name = "btn_search_gbc"
-        Me.btn_search_gbc.Size = New System.Drawing.Size(60, 30)
-        Me.btn_search_gbc.TabIndex = 6
-        Me.btn_search_gbc.TabStop = False
-        '
-        'btn_search_gba
-        '
-        Me.btn_search_gba.BackgroundImage = CType(resources.GetObject("btn_search_gba.BackgroundImage"), System.Drawing.Image)
-        Me.btn_search_gba.Location = New System.Drawing.Point(38, 34)
-        Me.btn_search_gba.Name = "btn_search_gba"
-        Me.btn_search_gba.Size = New System.Drawing.Size(60, 30)
-        Me.btn_search_gba.TabIndex = 5
-        Me.btn_search_gba.TabStop = False
+        Me.textbox_search.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.textbox_search.BackColor = System.Drawing.Color.White
+        Me.textbox_search.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.textbox_search.Font = New System.Drawing.Font("Spartan MB", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.textbox_search.Location = New System.Drawing.Point(49, 4)
+        Me.textbox_search.Name = "textbox_search"
+        Me.textbox_search.Size = New System.Drawing.Size(995, 23)
+        Me.textbox_search.TabIndex = 0
+        Me.textbox_search.Text = "Search"
         '
         'listbox_search
         '
@@ -1036,22 +1196,10 @@ Partial Class main
         Me.search_url.Text = ""
         Me.search_url.Width = 0
         '
-        'textbox_search
-        '
-        Me.textbox_search.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.textbox_search.BackColor = System.Drawing.Color.White
-        Me.textbox_search.Font = New System.Drawing.Font("Spartan MB", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.textbox_search.Location = New System.Drawing.Point(38, 0)
-        Me.textbox_search.Name = "textbox_search"
-        Me.textbox_search.Size = New System.Drawing.Size(1059, 30)
-        Me.textbox_search.TabIndex = 0
-        Me.textbox_search.Text = "Search"
-        '
         'tab_search
         '
         Me.tab_search.BackColor = System.Drawing.Color.Black
-        Me.tab_search.Location = New System.Drawing.Point(104, 108)
+        Me.tab_search.Location = New System.Drawing.Point(105, 108)
         Me.tab_search.Name = "tab_search"
         Me.tab_search.Size = New System.Drawing.Size(60, 3)
         Me.tab_search.TabIndex = 21
@@ -1227,14 +1375,14 @@ Partial Class main
         'thread_getboxart
         '
         '
-        'btn_search_dc
+        'PictureBox1
         '
-        Me.btn_search_dc.BackgroundImage = CType(resources.GetObject("btn_search_dc.BackgroundImage"), System.Drawing.Image)
-        Me.btn_search_dc.Location = New System.Drawing.Point(1028, 34)
-        Me.btn_search_dc.Name = "btn_search_dc"
-        Me.btn_search_dc.Size = New System.Drawing.Size(60, 30)
-        Me.btn_search_dc.TabIndex = 20
-        Me.btn_search_dc.TabStop = False
+        Me.PictureBox1.BackgroundImage = CType(resources.GetObject("PictureBox1.BackgroundImage"), System.Drawing.Image)
+        Me.PictureBox1.Location = New System.Drawing.Point(18, 3)
+        Me.PictureBox1.Name = "PictureBox1"
+        Me.PictureBox1.Size = New System.Drawing.Size(25, 25)
+        Me.PictureBox1.TabIndex = 1
+        Me.PictureBox1.TabStop = False
         '
         'main
         '
@@ -1286,21 +1434,31 @@ Partial Class main
         Me.panel_browse.PerformLayout()
         Me.panel_search.ResumeLayout(False)
         Me.panel_search.PerformLayout()
+        Me.panel_region_tags.ResumeLayout(False)
+        Me.panel_region_tags.PerformLayout()
+        CType(Me.btn_search_europe, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.btn_search_usa, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.btn_search_japan, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.panel_platform_tags.ResumeLayout(False)
+        Me.panel_platform_tags.PerformLayout()
+        CType(Me.btn_search_gb, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.btn_search_dc, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.btn_search_gba, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btn_search_mgd, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btn_search_nes, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.btn_search_gbc, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btn_search_snes, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.btn_search_psp, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.btn_search_3ds, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btn_search_ps2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btn_search_ps1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.btn_search_nds, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btn_search_wiiu, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btn_search_gc, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.btn_search_n64, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btn_search_wii, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.btn_search_psp, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.btn_search_nds, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.btn_search_3ds, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.btn_search_gb, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.btn_search_gbc, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.btn_search_gba, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.btn_search_n64, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.panel_searchbar.ResumeLayout(False)
+        Me.panel_searchbar.PerformLayout()
         CType(Me.tab_search, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.tab_all, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btn_import, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1311,7 +1469,7 @@ Partial Class main
         CType(Me.btn_settings, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btn_prettify, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btn_show_folders, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.btn_search_dc, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -1418,4 +1576,16 @@ Partial Class main
     Friend WithEvents btn_search_nes As PictureBox
     Friend WithEvents btn_search_mgd As PictureBox
     Friend WithEvents btn_search_dc As PictureBox
+    Friend WithEvents panel_searchbar As Panel
+    Friend WithEvents lbl_sortby As Label
+    Friend WithEvents panel_platform_tags As Panel
+    Friend WithEvents lbl_tags As Label
+    Friend WithEvents btn_platform_tags As Label
+    Friend WithEvents btn_region As Label
+    Friend WithEvents panel_region_tags As Panel
+    Friend WithEvents lbl_region As Label
+    Friend WithEvents btn_search_europe As PictureBox
+    Friend WithEvents btn_search_usa As PictureBox
+    Friend WithEvents btn_search_japan As PictureBox
+    Friend WithEvents PictureBox1 As PictureBox
 End Class
