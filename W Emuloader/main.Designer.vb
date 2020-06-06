@@ -70,6 +70,7 @@ Partial Class main
         Me.panel_play = New System.Windows.Forms.Panel()
         Me.btn_play_delete = New System.Windows.Forms.PictureBox()
         Me.panel_rom_rightclick = New System.Windows.Forms.Panel()
+        Me.btn_rom_viewfile = New System.Windows.Forms.PictureBox()
         Me.btn_rom_properties = New System.Windows.Forms.PictureBox()
         Me.btn_rom_delete = New System.Windows.Forms.PictureBox()
         Me.btn_rom_rename = New System.Windows.Forms.PictureBox()
@@ -109,6 +110,7 @@ Partial Class main
         Me.btn_search_wii = New System.Windows.Forms.PictureBox()
         Me.btn_search_n64 = New System.Windows.Forms.PictureBox()
         Me.panel_searchbar = New System.Windows.Forms.Panel()
+        Me.picturebox_searchicon = New System.Windows.Forms.PictureBox()
         Me.textbox_search = New System.Windows.Forms.TextBox()
         Me.listbox_search = New System.Windows.Forms.ListView()
         Me.search_name = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
@@ -137,7 +139,6 @@ Partial Class main
         Me.btn_prettify = New System.Windows.Forms.PictureBox()
         Me.btn_show_folders = New System.Windows.Forms.PictureBox()
         Me.thread_getboxart = New System.ComponentModel.BackgroundWorker()
-        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         CType(Me.image_logo, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panel_left.SuspendLayout()
         CType(Me.picturebox_tungsten, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -156,6 +157,7 @@ Partial Class main
         Me.panel_play.SuspendLayout()
         CType(Me.btn_play_delete, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panel_rom_rightclick.SuspendLayout()
+        CType(Me.btn_rom_viewfile, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btn_rom_properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btn_rom_delete, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btn_rom_rename, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -184,6 +186,7 @@ Partial Class main
         CType(Me.btn_search_wii, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btn_search_n64, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panel_searchbar.SuspendLayout()
+        CType(Me.picturebox_searchicon, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.tab_search, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.tab_all, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btn_import, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -194,14 +197,13 @@ Partial Class main
         CType(Me.btn_settings, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btn_prettify, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btn_show_folders, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'image_logo
         '
         Me.image_logo.BackgroundImage = CType(resources.GetObject("image_logo.BackgroundImage"), System.Drawing.Image)
         Me.image_logo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.image_logo.Location = New System.Drawing.Point(12, 17)
+        Me.image_logo.Location = New System.Drawing.Point(26, 17)
         Me.image_logo.Name = "image_logo"
         Me.image_logo.Size = New System.Drawing.Size(154, 65)
         Me.image_logo.TabIndex = 1
@@ -244,7 +246,7 @@ Partial Class main
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lbl_version.AutoSize = True
         Me.lbl_version.Font = New System.Drawing.Font("Calibri", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lbl_version.Location = New System.Drawing.Point(130, 85)
+        Me.lbl_version.Location = New System.Drawing.Point(144, 85)
         Me.lbl_version.Name = "lbl_version"
         Me.lbl_version.Size = New System.Drawing.Size(12, 13)
         Me.lbl_version.TabIndex = 20
@@ -729,19 +731,29 @@ Partial Class main
         'panel_rom_rightclick
         '
         Me.panel_rom_rightclick.BackColor = System.Drawing.Color.White
+        Me.panel_rom_rightclick.Controls.Add(Me.btn_rom_viewfile)
         Me.panel_rom_rightclick.Controls.Add(Me.btn_rom_properties)
         Me.panel_rom_rightclick.Controls.Add(Me.btn_rom_delete)
         Me.panel_rom_rightclick.Controls.Add(Me.btn_rom_rename)
         Me.panel_rom_rightclick.Location = New System.Drawing.Point(611, 112)
         Me.panel_rom_rightclick.Name = "panel_rom_rightclick"
-        Me.panel_rom_rightclick.Size = New System.Drawing.Size(125, 90)
+        Me.panel_rom_rightclick.Size = New System.Drawing.Size(125, 120)
         Me.panel_rom_rightclick.TabIndex = 11
         Me.panel_rom_rightclick.Visible = False
+        '
+        'btn_rom_viewfile
+        '
+        Me.btn_rom_viewfile.BackgroundImage = CType(resources.GetObject("btn_rom_viewfile.BackgroundImage"), System.Drawing.Image)
+        Me.btn_rom_viewfile.Location = New System.Drawing.Point(0, 0)
+        Me.btn_rom_viewfile.Name = "btn_rom_viewfile"
+        Me.btn_rom_viewfile.Size = New System.Drawing.Size(125, 30)
+        Me.btn_rom_viewfile.TabIndex = 3
+        Me.btn_rom_viewfile.TabStop = False
         '
         'btn_rom_properties
         '
         Me.btn_rom_properties.BackgroundImage = CType(resources.GetObject("btn_rom_properties.BackgroundImage"), System.Drawing.Image)
-        Me.btn_rom_properties.Location = New System.Drawing.Point(0, 0)
+        Me.btn_rom_properties.Location = New System.Drawing.Point(0, 30)
         Me.btn_rom_properties.Name = "btn_rom_properties"
         Me.btn_rom_properties.Size = New System.Drawing.Size(125, 30)
         Me.btn_rom_properties.TabIndex = 2
@@ -750,7 +762,7 @@ Partial Class main
         'btn_rom_delete
         '
         Me.btn_rom_delete.BackgroundImage = CType(resources.GetObject("btn_rom_delete.BackgroundImage"), System.Drawing.Image)
-        Me.btn_rom_delete.Location = New System.Drawing.Point(0, 60)
+        Me.btn_rom_delete.Location = New System.Drawing.Point(0, 90)
         Me.btn_rom_delete.Name = "btn_rom_delete"
         Me.btn_rom_delete.Size = New System.Drawing.Size(125, 30)
         Me.btn_rom_delete.TabIndex = 1
@@ -759,7 +771,7 @@ Partial Class main
         'btn_rom_rename
         '
         Me.btn_rom_rename.BackgroundImage = CType(resources.GetObject("btn_rom_rename.BackgroundImage"), System.Drawing.Image)
-        Me.btn_rom_rename.Location = New System.Drawing.Point(0, 30)
+        Me.btn_rom_rename.Location = New System.Drawing.Point(0, 60)
         Me.btn_rom_rename.Name = "btn_rom_rename"
         Me.btn_rom_rename.Size = New System.Drawing.Size(125, 30)
         Me.btn_rom_rename.TabIndex = 0
@@ -1132,12 +1144,21 @@ Partial Class main
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.panel_searchbar.BackgroundImage = CType(resources.GetObject("panel_searchbar.BackgroundImage"), System.Drawing.Image)
         Me.panel_searchbar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.panel_searchbar.Controls.Add(Me.PictureBox1)
+        Me.panel_searchbar.Controls.Add(Me.picturebox_searchicon)
         Me.panel_searchbar.Controls.Add(Me.textbox_search)
         Me.panel_searchbar.Location = New System.Drawing.Point(37, 0)
         Me.panel_searchbar.Name = "panel_searchbar"
         Me.panel_searchbar.Size = New System.Drawing.Size(1060, 32)
         Me.panel_searchbar.TabIndex = 21
+        '
+        'picturebox_searchicon
+        '
+        Me.picturebox_searchicon.BackgroundImage = CType(resources.GetObject("picturebox_searchicon.BackgroundImage"), System.Drawing.Image)
+        Me.picturebox_searchicon.Location = New System.Drawing.Point(18, 3)
+        Me.picturebox_searchicon.Name = "picturebox_searchicon"
+        Me.picturebox_searchicon.Size = New System.Drawing.Size(25, 25)
+        Me.picturebox_searchicon.TabIndex = 1
+        Me.picturebox_searchicon.TabStop = False
         '
         'textbox_search
         '
@@ -1375,15 +1396,6 @@ Partial Class main
         'thread_getboxart
         '
         '
-        'PictureBox1
-        '
-        Me.PictureBox1.BackgroundImage = CType(resources.GetObject("PictureBox1.BackgroundImage"), System.Drawing.Image)
-        Me.PictureBox1.Location = New System.Drawing.Point(18, 3)
-        Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(25, 25)
-        Me.PictureBox1.TabIndex = 1
-        Me.PictureBox1.TabStop = False
-        '
         'main
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1426,6 +1438,7 @@ Partial Class main
         Me.panel_play.PerformLayout()
         CType(Me.btn_play_delete, System.ComponentModel.ISupportInitialize).EndInit()
         Me.panel_rom_rightclick.ResumeLayout(False)
+        CType(Me.btn_rom_viewfile, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btn_rom_properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btn_rom_delete, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btn_rom_rename, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1459,6 +1472,7 @@ Partial Class main
         CType(Me.btn_search_n64, System.ComponentModel.ISupportInitialize).EndInit()
         Me.panel_searchbar.ResumeLayout(False)
         Me.panel_searchbar.PerformLayout()
+        CType(Me.picturebox_searchicon, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.tab_search, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.tab_all, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btn_import, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1469,7 +1483,6 @@ Partial Class main
         CType(Me.btn_settings, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btn_prettify, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btn_show_folders, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -1587,5 +1600,6 @@ Partial Class main
     Friend WithEvents btn_search_europe As PictureBox
     Friend WithEvents btn_search_usa As PictureBox
     Friend WithEvents btn_search_japan As PictureBox
-    Friend WithEvents PictureBox1 As PictureBox
+    Friend WithEvents picturebox_searchicon As PictureBox
+    Friend WithEvents btn_rom_viewfile As PictureBox
 End Class

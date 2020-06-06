@@ -26,7 +26,11 @@ Partial Class settings
         Me.load_boxart_on_startup = New System.Windows.Forms.CheckBox()
         Me.btn_save = New System.Windows.Forms.PictureBox()
         Me.load_skin = New System.Windows.Forms.CheckBox()
+        Me.btn_lightmode = New System.Windows.Forms.PictureBox()
+        Me.btn_darkmode = New System.Windows.Forms.PictureBox()
         CType(Me.btn_save, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.btn_lightmode, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.btn_darkmode, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'load_boxart_on_startup
@@ -60,12 +64,32 @@ Partial Class settings
         Me.load_skin.Text = "Dark mode"
         Me.load_skin.UseVisualStyleBackColor = True
         '
+        'btn_lightmode
+        '
+        Me.btn_lightmode.BackgroundImage = CType(resources.GetObject("btn_lightmode.BackgroundImage"), System.Drawing.Image)
+        Me.btn_lightmode.Location = New System.Drawing.Point(102, 150)
+        Me.btn_lightmode.Name = "btn_lightmode"
+        Me.btn_lightmode.Size = New System.Drawing.Size(271, 152)
+        Me.btn_lightmode.TabIndex = 3
+        Me.btn_lightmode.TabStop = False
+        '
+        'btn_darkmode
+        '
+        Me.btn_darkmode.BackgroundImage = CType(resources.GetObject("btn_darkmode.BackgroundImage"), System.Drawing.Image)
+        Me.btn_darkmode.Location = New System.Drawing.Point(429, 150)
+        Me.btn_darkmode.Name = "btn_darkmode"
+        Me.btn_darkmode.Size = New System.Drawing.Size(271, 152)
+        Me.btn_darkmode.TabIndex = 4
+        Me.btn_darkmode.TabStop = False
+        '
         'settings
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.White
         Me.ClientSize = New System.Drawing.Size(800, 450)
+        Me.Controls.Add(Me.btn_darkmode)
+        Me.Controls.Add(Me.btn_lightmode)
         Me.Controls.Add(Me.load_skin)
         Me.Controls.Add(Me.btn_save)
         Me.Controls.Add(Me.load_boxart_on_startup)
@@ -73,6 +97,8 @@ Partial Class settings
         Me.Name = "settings"
         Me.Text = "Settings"
         CType(Me.btn_save, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.btn_lightmode, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.btn_darkmode, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -81,4 +107,6 @@ Partial Class settings
     Friend WithEvents load_boxart_on_startup As CheckBox
     Friend WithEvents btn_save As PictureBox
     Friend WithEvents load_skin As CheckBox
+    Friend WithEvents btn_lightmode As PictureBox
+    Friend WithEvents btn_darkmode As PictureBox
 End Class

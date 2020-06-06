@@ -1332,4 +1332,22 @@ Public Class main
         Call module_emutabs.button_regions()
         btn_search_japan.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchjapanwhite.png")
     End Sub
+
+    Private Sub btn_rom_viewfile_Click(sender As Object, e As EventArgs) Handles btn_rom_viewfile.Click
+        If File.Exists(listbox_installedroms.FocusedItem.SubItems(2).Text) Then
+            Dim path As String = listbox_installedroms.FocusedItem.SubItems(2).Text
+            Process.Start("explorer.exe", "/select," + path)
+        Else
+            MsgBox("File not found.")
+        End If
+        panel_rom_rightclick.Visible = False
+    End Sub
+
+    Private Sub btn_rom_viewfile_MouseEnter(sender As Object, e As EventArgs) Handles btn_rom_viewfile.MouseEnter
+        btn_rom_viewfile.BackgroundImage = System.Drawing.Image.FromFile(".\resources\viewfileblack.png")
+    End Sub
+
+    Private Sub btn_rom_viewfile_MouseLeave(sender As Object, e As EventArgs) Handles btn_rom_viewfile.MouseLeave
+        btn_rom_viewfile.BackgroundImage = System.Drawing.Image.FromFile(".\resources\viewfilewhite.png")
+    End Sub
 End Class
