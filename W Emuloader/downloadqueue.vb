@@ -5,6 +5,7 @@ Imports System.ComponentModel
 
 Public Class downloadqueue
     Public Shared spartan As New System.Drawing.Text.PrivateFontCollection()
+    Dim arguments As String()
 
     Private Sub downloadqueue_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         If main.panel_search.Visible = True Then
@@ -24,6 +25,12 @@ main.listbox_search.FocusedItem.SubItems(4).Text}))
 
         Dim spartanfont12 As New System.Drawing.Font(main.spartan.Families(0), 12)
         listbox_queue.Font = spartanfont12
+
+        If main.dark = True Then
+            Me.BackColor = Color.FromArgb(21, 32, 43)
+            listbox_queue.BackColor = Color.FromArgb(21, 32, 43)
+            listbox_queue.ForeColor = Color.White
+        End If
     End Sub
 
 
@@ -105,7 +112,7 @@ main.listbox_search.FocusedItem.SubItems(4).Text}))
             End If
         End If
 
-        Dim arguments As String()
+
 
         main.lbl_status.Text = "Downloading " & listbox_queue.Items(0).SubItems(0).Text
         main.lbl_status.Location = New Point((main.panel_top.Width - main.lbl_status.Width) \ 2, (main.panel_top.Height - main.lbl_status.Height) \ 2)
@@ -120,7 +127,7 @@ main.listbox_search.FocusedItem.SubItems(4).Text}))
         arguments = {corrected_name & platform_id, listbox_queue.Items(0).SubItems(2).Text, listbox_queue.Items(0).SubItems(4).Text}
 
 
-
+        timer_updateprogress.Enabled = True
         downloader.RunWorkerAsync(arguments)
 
 
@@ -139,6 +146,7 @@ main.listbox_search.FocusedItem.SubItems(4).Text}))
 
         Using downloader_client = New WebClient()
             Try
+
                 downloader_client.DownloadFile(arguments(2), ".\roms\" & arguments(1) & "\" & arguments(0).Replace("$", " "))
                 downloader_client.Dispose()
 
@@ -217,6 +225,7 @@ main.listbox_search.FocusedItem.SubItems(4).Text}))
     End Sub
 
     Private Sub downloader_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles downloader.RunWorkerCompleted
+        timer_updateprogress.Enabled = False
         main.lbl_status.Text = "Downloaded " & listbox_queue.Items(0).SubItems(0).Text
         Call load_installed_roms()
         main.lbl_status.Location = New Point((main.panel_top.Width - main.lbl_status.Width) \ 2, (main.panel_top.Height - main.lbl_status.Height) \ 2)
@@ -226,6 +235,30 @@ main.listbox_search.FocusedItem.SubItems(4).Text}))
             Me.Close()
         Else
             Call launch_downloader()
+        End If
+    End Sub
+
+
+    Private Sub timer_updateprogress_Tick(sender As Object, e As EventArgs) Handles timer_updateprogress.Tick
+        If File.Exists(".\roms\" & arguments(1) & "\" & arguments(0).Replace("$", " ")) Then
+            Dim currfile As New FileInfo(".\roms\" & arguments(1) & "\" & arguments(0).Replace("$", " "))
+            Dim currentsize As Double = (currfile.Length / 1000000)
+            Dim reportedsize As String = listbox_queue.Items(0).SubItems(1).Text
+            If reportedsize.Contains("GB") Then
+                reportedsize = (reportedsize.Replace(" ", "").Replace("GB", "") * 1000)
+            End If
+            If reportedsize.Contains("MB") Then
+                reportedsize = (reportedsize.Replace(" ", "").Replace("MB", ""))
+            End If
+            If reportedsize.Contains("KB") Then
+                reportedsize = (reportedsize.Replace(" ", "").Replace("KB", "") / 1000)
+            End If
+            Dim displaysize As Double = Math.Round(((currentsize / reportedsize) * 100), 2)
+            If displaysize > 100 Then
+                displaysize = 99.99
+            End If
+            main.lbl_status.Text = "Downloading " & listbox_queue.Items(0).SubItems(0).Text & " " & displaysize & "%"
+            main.lbl_status.Location = New Point((main.panel_top.Width - main.lbl_status.Width) \ 2, (main.panel_top.Height - main.lbl_status.Height) \ 2)
         End If
     End Sub
 End Class

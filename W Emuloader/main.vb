@@ -14,11 +14,15 @@ Public Class main
     Public Shared labelgrey As Color
     Public Shared tab_index = 0
     Public Shared dark = False
-    Public Shared version_number = "0.6.2"
+    Public Shared version_number = "0.7.0"
 
     '0.1.0
 
     Private Sub main_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        If Environment.OSVersion.ToString.Contains("6.1") Then
+            MessageBox.Show("Windows 7 and lower are not supported, Sorry.")
+            Application.Exit()
+        End If
         ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12
         Call check_for_updates()
         panel_play.SendToBack()

@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class downloadqueue
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,8 +20,9 @@ Partial Class downloadqueue
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(downloadqueue))
         Me.listbox_queue = New System.Windows.Forms.ListView()
         Me.column_name = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
@@ -30,6 +31,7 @@ Partial Class downloadqueue
         Me.column_source = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.column_url = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.downloader = New System.ComponentModel.BackgroundWorker()
+        Me.timer_updateprogress = New System.Windows.Forms.Timer(Me.components)
         Me.SuspendLayout()
         '
         'listbox_queue
@@ -77,6 +79,10 @@ Partial Class downloadqueue
         Me.downloader.WorkerReportsProgress = True
         Me.downloader.WorkerSupportsCancellation = True
         '
+        'timer_updateprogress
+        '
+        Me.timer_updateprogress.Interval = 1000
+        '
         'downloadqueue
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -100,4 +106,5 @@ Partial Class downloadqueue
     Friend WithEvents column_source As ColumnHeader
     Friend WithEvents column_url As ColumnHeader
     Friend WithEvents downloader As System.ComponentModel.BackgroundWorker
+    Friend WithEvents timer_updateprogress As Timer
 End Class

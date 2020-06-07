@@ -35,6 +35,18 @@ Public Class newemulator
             End Try
         End Using
         listbox_emulators.SelectedItem = listbox_emulators.Items(0)
+
+        If main.dark = True Then
+            BackColor = Color.FromArgb(21, 32, 43)
+            listbox_emulators.BackColor = Color.FromArgb(31, 45, 58)
+            textbox_search.BackColor = Color.FromArgb(31, 45, 58)
+            listbox_emulators.ForeColor = Color.White
+            textbox_search.ForeColor = Color.White
+            lbl_emulator_name.ForeColor = Color.White
+            lbl_platform.ForeColor = Color.White
+            lbl_source.ForeColor = Color.White
+            lbl_version_number.ForeColor = Color.White
+        End If
     End Sub
     Private Sub center_status_lbl()
         main.lbl_status.Location = New Point((main.panel_top.Width - main.lbl_status.Width) \ 2, (main.panel_top.Height - main.lbl_status.Height) \ 2)
