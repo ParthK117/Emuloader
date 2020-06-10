@@ -72,6 +72,7 @@
     <Reference Include="System.IO.Compression" />
     <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -92,10 +93,17 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="downloadqueue.Designer.vb">
-      <DependentUpon>downloadqueue.vb</DependentUpon>
+    <Compile Include="downloads.vb" />
+    <Compile Include="firstlaunch.Designer.vb">
+      <DependentUpon>firstlaunch.vb</DependentUpon>
     </Compile>
-    <Compile Include="downloadqueue.vb">
+    <Compile Include="firstlaunch.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="listlink.Designer.vb">
+      <DependentUpon>listlink.vb</DependentUpon>
+    </Compile>
+    <Compile Include="listlink.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="load_functions.vb" />
@@ -131,6 +139,12 @@
     <Compile Include="newemulator.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="parameters.Designer.vb">
+      <DependentUpon>parameters.vb</DependentUpon>
+    </Compile>
+    <Compile Include="parameters.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="romproperties.Designer.vb">
       <DependentUpon>romproperties.vb</DependentUpon>
     </Compile>
@@ -145,8 +159,11 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="downloadqueue.resx">
-      <DependentUpon>downloadqueue.vb</DependentUpon>
+    <EmbeddedResource Include="firstlaunch.resx">
+      <DependentUpon>firstlaunch.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="listlink.resx">
+      <DependentUpon>listlink.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="main.resx">
       <DependentUpon>main.vb</DependentUpon>
@@ -160,6 +177,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="newemulator.resx">
       <DependentUpon>newemulator.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="parameters.resx">
+      <DependentUpon>parameters.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="romproperties.resx">
       <DependentUpon>romproperties.vb</DependentUpon>

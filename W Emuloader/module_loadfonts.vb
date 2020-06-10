@@ -39,8 +39,9 @@
         main.lbl_rom_name.ForeColor = main.labelgrey
         main.lbl_rom_platform.ForeColor = main.labelgrey
         main.lbl_version.ForeColor = main.labelgrey
-
+        main.btn_showdownloads.ForeColor = main.labelgrey
         main.btn_platform_tags.ForeColor = main.labelgrey
+        main.btn_parameters.ForeColor = main.labelgrey
         main.btn_region.ForeColor = main.labelgrey
         main.lbl_status.Location = New Point((main.panel_top.Width - main.lbl_status.Width) \ 2, (main.panel_top.Height - main.lbl_status.Height) \ 2)
         main.picturebox_tungsten.Location = New Point((main.panel_left.Width - main.picturebox_tungsten.Width) \ 2, 690)
@@ -65,6 +66,10 @@
         main.listbox_installedroms.Font = spartanfont16
         main.listbox_search.Font = spartanfont16
 
+
+        Dim spartanfont12 As New System.Drawing.Font(main.spartan.Families(0), 12)
+        main.listbox_queue.Font = spartanfont12
+
         Dim spartanfont14 As New System.Drawing.Font(main.spartan.Families(0), 14)
         main.lbl_rom_name.Font = spartanfont14
         main.lbl_rom_platform.Font = spartanfont14
@@ -72,9 +77,10 @@
         main.lbl_platform.Font = spartanfont14
         main.lbl_installedon.Font = spartanfont14
         main.textbox_search.Font = spartanfont14
-        settings.load_boxart_on_startup.Font = spartanfont14
-        settings.load_skin.Font = spartanfont14
-
+        main.lbl_speed.Font = spartanfont14
+        main.lbl_networkusage.Font = spartanfont14
+        main.lbl_peak.Font = spartanfont14
+        main.lbl_total.Font = spartanfont14
 
         Dim gothamfont18 As New System.Drawing.Font(main.gotham.Families(0), 18)
         main.emu_one.Font = gothamfont18
@@ -86,6 +92,7 @@
         main.emu_seven.Font = gothamfont18
         main.emu_eight.Font = gothamfont18
         main.emu_nine.Font = gothamfont18
+
 
         Dim gothamfont14 As New System.Drawing.Font(main.gotham.Families(0), 14)
         main.lbl_sortby.Font = gothamfont14
@@ -101,6 +108,7 @@
         Dim gothamfont28 As New System.Drawing.Font(main.gotham.Families(0), 28)
         main.lbl_play.Font = gothamfont28
         main.lbl_browse.Font = gothamfont28
+        main.lbl_downloads.Font = gothamfont28
 
         Dim gothamfont11 As New System.Drawing.Font(main.gotham.Families(0), 11)
         main.lbl_about.Font = gothamfont11
@@ -109,5 +117,7 @@
         main.lbl_patreon.Font = gothamfont11
         main.checkbox_fullscreen.Font = gothamfont11
         main.checkbox_filepath.Font = gothamfont11
+        main.btn_showdownloads.Font = gothamfont11
+
     End Sub
 End Module

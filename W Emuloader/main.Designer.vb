@@ -22,6 +22,7 @@ Partial Class main
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(main))
         Me.image_logo = New System.Windows.Forms.PictureBox()
         Me.panel_left = New System.Windows.Forms.Panel()
@@ -47,6 +48,7 @@ Partial Class main
         Me.btn_newemu = New System.Windows.Forms.PictureBox()
         Me.panel_right = New System.Windows.Forms.Panel()
         Me.panel_rom_info = New System.Windows.Forms.Panel()
+        Me.btn_showdownloads = New System.Windows.Forms.Label()
         Me.btn_queue = New System.Windows.Forms.PictureBox()
         Me.lbl_rom_platform = New System.Windows.Forms.Label()
         Me.lbl_rom_name = New System.Windows.Forms.Label()
@@ -58,6 +60,7 @@ Partial Class main
         Me.panel_seperator = New System.Windows.Forms.Panel()
         Me.lbl_information = New System.Windows.Forms.Label()
         Me.picturebox_boxart = New System.Windows.Forms.PictureBox()
+        Me.btn_parameters = New System.Windows.Forms.Label()
         Me.panel_top = New System.Windows.Forms.Panel()
         Me.picturebox_loading = New System.Windows.Forms.PictureBox()
         Me.btn_expand = New System.Windows.Forms.PictureBox()
@@ -82,6 +85,9 @@ Partial Class main
         Me.installed_directory = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.lbl_play = New System.Windows.Forms.Label()
         Me.panel_browse = New System.Windows.Forms.Panel()
+        Me.panel_import_click = New System.Windows.Forms.Panel()
+        Me.btn_fromeldr = New System.Windows.Forms.PictureBox()
+        Me.btn_fromlink = New System.Windows.Forms.PictureBox()
         Me.panel_search = New System.Windows.Forms.Panel()
         Me.panel_region_tags = New System.Windows.Forms.Panel()
         Me.btn_search_europe = New System.Windows.Forms.PictureBox()
@@ -139,6 +145,23 @@ Partial Class main
         Me.btn_prettify = New System.Windows.Forms.PictureBox()
         Me.btn_show_folders = New System.Windows.Forms.PictureBox()
         Me.thread_getboxart = New System.ComponentModel.BackgroundWorker()
+        Me.notify_emuloader = New System.Windows.Forms.NotifyIcon(Me.components)
+        Me.panel_downloads = New System.Windows.Forms.Panel()
+        Me.lbl_total = New System.Windows.Forms.Label()
+        Me.lbl_peak = New System.Windows.Forms.Label()
+        Me.lbl_networkusage = New System.Windows.Forms.Label()
+        Me.lbl_speed = New System.Windows.Forms.Label()
+        Me.lbl_downloads = New System.Windows.Forms.Label()
+        Me.listbox_queue = New System.Windows.Forms.ListView()
+        Me.download_name = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.download_size = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.download_platform = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.download_source = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.download_url = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.panel_download_chart = New System.Windows.Forms.Panel()
+        Me.picturebox_download = New System.Windows.Forms.PictureBox()
+        Me.timer_updateprogress = New System.Windows.Forms.Timer(Me.components)
+        Me.downloader = New System.ComponentModel.BackgroundWorker()
         CType(Me.image_logo, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panel_left.SuspendLayout()
         CType(Me.picturebox_tungsten, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -163,6 +186,9 @@ Partial Class main
         CType(Me.btn_rom_rename, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btn_import_roms, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panel_browse.SuspendLayout()
+        Me.panel_import_click.SuspendLayout()
+        CType(Me.btn_fromeldr, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.btn_fromlink, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panel_search.SuspendLayout()
         Me.panel_region_tags.SuspendLayout()
         CType(Me.btn_search_europe, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -197,6 +223,9 @@ Partial Class main
         CType(Me.btn_settings, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btn_prettify, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btn_show_folders, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.panel_downloads.SuspendLayout()
+        Me.panel_download_chart.SuspendLayout()
+        CType(Me.picturebox_download, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'image_logo
@@ -479,6 +508,7 @@ Partial Class main
         Me.panel_right.Controls.Add(Me.panel_seperator)
         Me.panel_right.Controls.Add(Me.lbl_information)
         Me.panel_right.Controls.Add(Me.picturebox_boxart)
+        Me.panel_right.Controls.Add(Me.btn_parameters)
         Me.panel_right.Location = New System.Drawing.Point(1350, 40)
         Me.panel_right.Name = "panel_right"
         Me.panel_right.Size = New System.Drawing.Size(250, 860)
@@ -488,6 +518,7 @@ Partial Class main
         '
         Me.panel_rom_info.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.panel_rom_info.Controls.Add(Me.btn_showdownloads)
         Me.panel_rom_info.Controls.Add(Me.btn_queue)
         Me.panel_rom_info.Controls.Add(Me.lbl_rom_platform)
         Me.panel_rom_info.Controls.Add(Me.lbl_rom_name)
@@ -496,11 +527,22 @@ Partial Class main
         Me.panel_rom_info.Size = New System.Drawing.Size(250, 800)
         Me.panel_rom_info.TabIndex = 6
         '
+        'btn_showdownloads
+        '
+        Me.btn_showdownloads.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btn_showdownloads.AutoSize = True
+        Me.btn_showdownloads.Font = New System.Drawing.Font("Gotham Bold", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btn_showdownloads.Location = New System.Drawing.Point(39, 732)
+        Me.btn_showdownloads.Name = "btn_showdownloads"
+        Me.btn_showdownloads.Size = New System.Drawing.Size(170, 18)
+        Me.btn_showdownloads.TabIndex = 10
+        Me.btn_showdownloads.Text = "SHOW DOWNLOADS"
+        '
         'btn_queue
         '
         Me.btn_queue.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btn_queue.BackgroundImage = CType(resources.GetObject("btn_queue.BackgroundImage"), System.Drawing.Image)
-        Me.btn_queue.Location = New System.Drawing.Point(36, 702)
+        Me.btn_queue.Location = New System.Drawing.Point(36, 680)
         Me.btn_queue.Name = "btn_queue"
         Me.btn_queue.Size = New System.Drawing.Size(176, 48)
         Me.btn_queue.TabIndex = 8
@@ -606,6 +648,17 @@ Partial Class main
         Me.picturebox_boxart.Size = New System.Drawing.Size(229, 266)
         Me.picturebox_boxart.TabIndex = 9
         Me.picturebox_boxart.TabStop = False
+        '
+        'btn_parameters
+        '
+        Me.btn_parameters.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btn_parameters.AutoSize = True
+        Me.btn_parameters.Font = New System.Drawing.Font("Gotham Bold", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btn_parameters.Location = New System.Drawing.Point(30, 820)
+        Me.btn_parameters.Name = "btn_parameters"
+        Me.btn_parameters.Size = New System.Drawing.Size(189, 18)
+        Me.btn_parameters.TabIndex = 12
+        Me.btn_parameters.Text = "CHANGE PARAMETERS"
         '
         'panel_top
         '
@@ -846,6 +899,7 @@ Partial Class main
         Me.panel_browse.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.panel_browse.Controls.Add(Me.panel_import_click)
         Me.panel_browse.Controls.Add(Me.panel_search)
         Me.panel_browse.Controls.Add(Me.tab_search)
         Me.panel_browse.Controls.Add(Me.tab_all)
@@ -858,6 +912,35 @@ Partial Class main
         Me.panel_browse.Name = "panel_browse"
         Me.panel_browse.Size = New System.Drawing.Size(1100, 860)
         Me.panel_browse.TabIndex = 5
+        '
+        'panel_import_click
+        '
+        Me.panel_import_click.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.panel_import_click.Controls.Add(Me.btn_fromeldr)
+        Me.panel_import_click.Controls.Add(Me.btn_fromlink)
+        Me.panel_import_click.Location = New System.Drawing.Point(896, 42)
+        Me.panel_import_click.Name = "panel_import_click"
+        Me.panel_import_click.Size = New System.Drawing.Size(125, 60)
+        Me.panel_import_click.TabIndex = 11
+        Me.panel_import_click.Visible = False
+        '
+        'btn_fromeldr
+        '
+        Me.btn_fromeldr.BackgroundImage = CType(resources.GetObject("btn_fromeldr.BackgroundImage"), System.Drawing.Image)
+        Me.btn_fromeldr.Location = New System.Drawing.Point(0, 0)
+        Me.btn_fromeldr.Name = "btn_fromeldr"
+        Me.btn_fromeldr.Size = New System.Drawing.Size(125, 30)
+        Me.btn_fromeldr.TabIndex = 3
+        Me.btn_fromeldr.TabStop = False
+        '
+        'btn_fromlink
+        '
+        Me.btn_fromlink.BackgroundImage = CType(resources.GetObject("btn_fromlink.BackgroundImage"), System.Drawing.Image)
+        Me.btn_fromlink.Location = New System.Drawing.Point(0, 30)
+        Me.btn_fromlink.Name = "btn_fromlink"
+        Me.btn_fromlink.Size = New System.Drawing.Size(125, 30)
+        Me.btn_fromlink.TabIndex = 0
+        Me.btn_fromlink.TabStop = False
         '
         'panel_search
         '
@@ -1396,6 +1479,159 @@ Partial Class main
         'thread_getboxart
         '
         '
+        'notify_emuloader
+        '
+        Me.notify_emuloader.Icon = CType(resources.GetObject("notify_emuloader.Icon"), System.Drawing.Icon)
+        Me.notify_emuloader.Text = "Emuloader"
+        Me.notify_emuloader.Visible = True
+        '
+        'panel_downloads
+        '
+        Me.panel_downloads.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.panel_downloads.Controls.Add(Me.lbl_total)
+        Me.panel_downloads.Controls.Add(Me.lbl_peak)
+        Me.panel_downloads.Controls.Add(Me.lbl_networkusage)
+        Me.panel_downloads.Controls.Add(Me.lbl_speed)
+        Me.panel_downloads.Controls.Add(Me.lbl_downloads)
+        Me.panel_downloads.Controls.Add(Me.listbox_queue)
+        Me.panel_downloads.Controls.Add(Me.panel_download_chart)
+        Me.panel_downloads.Location = New System.Drawing.Point(250, 40)
+        Me.panel_downloads.Name = "panel_downloads"
+        Me.panel_downloads.Size = New System.Drawing.Size(1100, 860)
+        Me.panel_downloads.TabIndex = 23
+        '
+        'lbl_total
+        '
+        Me.lbl_total.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.lbl_total.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_total.Location = New System.Drawing.Point(891, 129)
+        Me.lbl_total.MaximumSize = New System.Drawing.Size(300, 23)
+        Me.lbl_total.Name = "lbl_total"
+        Me.lbl_total.Size = New System.Drawing.Size(202, 23)
+        Me.lbl_total.TabIndex = 8
+        Me.lbl_total.Text = "0MB TOTAL"
+        Me.lbl_total.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'lbl_peak
+        '
+        Me.lbl_peak.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.lbl_peak.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_peak.Location = New System.Drawing.Point(887, 105)
+        Me.lbl_peak.MaximumSize = New System.Drawing.Size(300, 23)
+        Me.lbl_peak.Name = "lbl_peak"
+        Me.lbl_peak.Size = New System.Drawing.Size(206, 23)
+        Me.lbl_peak.TabIndex = 7
+        Me.lbl_peak.Text = "0MB/S PEAK"
+        Me.lbl_peak.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'lbl_networkusage
+        '
+        Me.lbl_networkusage.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.lbl_networkusage.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_networkusage.Location = New System.Drawing.Point(912, 59)
+        Me.lbl_networkusage.MaximumSize = New System.Drawing.Size(200, 23)
+        Me.lbl_networkusage.Name = "lbl_networkusage"
+        Me.lbl_networkusage.Size = New System.Drawing.Size(182, 23)
+        Me.lbl_networkusage.TabIndex = 7
+        Me.lbl_networkusage.Text = "NETWORK USAGE"
+        Me.lbl_networkusage.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'lbl_speed
+        '
+        Me.lbl_speed.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.lbl_speed.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_speed.Location = New System.Drawing.Point(849, 82)
+        Me.lbl_speed.MaximumSize = New System.Drawing.Size(300, 23)
+        Me.lbl_speed.Name = "lbl_speed"
+        Me.lbl_speed.Size = New System.Drawing.Size(244, 23)
+        Me.lbl_speed.TabIndex = 6
+        Me.lbl_speed.Text = "0MB/S CURRENT"
+        Me.lbl_speed.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'lbl_downloads
+        '
+        Me.lbl_downloads.AutoSize = True
+        Me.lbl_downloads.Font = New System.Drawing.Font("Gotham Bold", 27.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_downloads.Location = New System.Drawing.Point(30, 38)
+        Me.lbl_downloads.Name = "lbl_downloads"
+        Me.lbl_downloads.Size = New System.Drawing.Size(230, 44)
+        Me.lbl_downloads.TabIndex = 1
+        Me.lbl_downloads.Text = "Downloads"
+        '
+        'listbox_queue
+        '
+        Me.listbox_queue.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.listbox_queue.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.listbox_queue.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.download_name, Me.download_size, Me.download_platform, Me.download_source, Me.download_url})
+        Me.listbox_queue.Font = New System.Drawing.Font("Gotham Bold", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.listbox_queue.ForeColor = System.Drawing.Color.Black
+        Me.listbox_queue.HideSelection = False
+        Me.listbox_queue.Location = New System.Drawing.Point(3, 181)
+        Me.listbox_queue.Name = "listbox_queue"
+        Me.listbox_queue.Size = New System.Drawing.Size(1094, 677)
+        Me.listbox_queue.TabIndex = 5
+        Me.listbox_queue.UseCompatibleStateImageBehavior = False
+        Me.listbox_queue.View = System.Windows.Forms.View.Details
+        '
+        'download_name
+        '
+        Me.download_name.Text = "Name"
+        Me.download_name.Width = 120
+        '
+        'download_size
+        '
+        Me.download_size.Tag = ""
+        Me.download_size.Text = "Size"
+        Me.download_size.Width = 120
+        '
+        'download_platform
+        '
+        Me.download_platform.Text = "Platform"
+        Me.download_platform.Width = 120
+        '
+        'download_source
+        '
+        Me.download_source.Text = "Source"
+        Me.download_source.Width = 120
+        '
+        'download_url
+        '
+        Me.download_url.Text = ""
+        Me.download_url.Width = 0
+        '
+        'panel_download_chart
+        '
+        Me.panel_download_chart.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.panel_download_chart.Controls.Add(Me.picturebox_download)
+        Me.panel_download_chart.Location = New System.Drawing.Point(0, 0)
+        Me.panel_download_chart.Name = "panel_download_chart"
+        Me.panel_download_chart.Size = New System.Drawing.Size(1100, 180)
+        Me.panel_download_chart.TabIndex = 2
+        Me.panel_download_chart.Visible = False
+        '
+        'picturebox_download
+        '
+        Me.picturebox_download.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.picturebox_download.Image = CType(resources.GetObject("picturebox_download.Image"), System.Drawing.Image)
+        Me.picturebox_download.Location = New System.Drawing.Point(0, 0)
+        Me.picturebox_download.Name = "picturebox_download"
+        Me.picturebox_download.Size = New System.Drawing.Size(1100, 180)
+        Me.picturebox_download.TabIndex = 0
+        Me.picturebox_download.TabStop = False
+        '
+        'timer_updateprogress
+        '
+        Me.timer_updateprogress.Interval = 1000
+        '
+        'downloader
+        '
+        '
         'main
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1410,6 +1646,7 @@ Partial Class main
         Me.Controls.Add(Me.panel_browse)
         Me.Controls.Add(Me.panel_play)
         Me.Controls.Add(Me.panel_drag_drop)
+        Me.Controls.Add(Me.panel_downloads)
         Me.DoubleBuffered = True
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
@@ -1445,6 +1682,9 @@ Partial Class main
         CType(Me.btn_import_roms, System.ComponentModel.ISupportInitialize).EndInit()
         Me.panel_browse.ResumeLayout(False)
         Me.panel_browse.PerformLayout()
+        Me.panel_import_click.ResumeLayout(False)
+        CType(Me.btn_fromeldr, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.btn_fromlink, System.ComponentModel.ISupportInitialize).EndInit()
         Me.panel_search.ResumeLayout(False)
         Me.panel_search.PerformLayout()
         Me.panel_region_tags.ResumeLayout(False)
@@ -1483,6 +1723,10 @@ Partial Class main
         CType(Me.btn_settings, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btn_prettify, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btn_show_folders, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.panel_downloads.ResumeLayout(False)
+        Me.panel_downloads.PerformLayout()
+        Me.panel_download_chart.ResumeLayout(False)
+        CType(Me.picturebox_download, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -1602,4 +1846,26 @@ Partial Class main
     Friend WithEvents btn_search_japan As PictureBox
     Friend WithEvents picturebox_searchicon As PictureBox
     Friend WithEvents btn_rom_viewfile As PictureBox
+    Friend WithEvents notify_emuloader As NotifyIcon
+    Friend WithEvents panel_downloads As Panel
+    Friend WithEvents lbl_downloads As Label
+    Friend WithEvents panel_download_chart As Panel
+    Friend WithEvents listbox_queue As ListView
+    Friend WithEvents download_name As ColumnHeader
+    Friend WithEvents download_size As ColumnHeader
+    Friend WithEvents download_platform As ColumnHeader
+    Friend WithEvents download_source As ColumnHeader
+    Friend WithEvents download_url As ColumnHeader
+    Friend WithEvents timer_updateprogress As Timer
+    Friend WithEvents downloader As System.ComponentModel.BackgroundWorker
+    Friend WithEvents btn_showdownloads As Label
+    Friend WithEvents picturebox_download As PictureBox
+    Friend WithEvents lbl_speed As Label
+    Friend WithEvents lbl_networkusage As Label
+    Friend WithEvents lbl_peak As Label
+    Friend WithEvents lbl_total As Label
+    Friend WithEvents btn_parameters As Label
+    Friend WithEvents panel_import_click As Panel
+    Friend WithEvents btn_fromeldr As PictureBox
+    Friend WithEvents btn_fromlink As PictureBox
 End Class

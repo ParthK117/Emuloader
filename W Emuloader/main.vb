@@ -7,14 +7,19 @@ Public Class main
     Dim drag As Boolean
     Dim mousex As Integer
     Dim mousey As Integer
-
+    Dim index As Long = 0
+    Dim speed As Long = 0
+    Dim peak As Long = 0
+    Dim total As Long = 0
     Public Shared currenttab_metadata As String() = {"na", "na", "na", "na", "na"}
     Public Shared gotham As New System.Drawing.Text.PrivateFontCollection()
     Public Shared spartan As New System.Drawing.Text.PrivateFontCollection()
     Public Shared labelgrey As Color
     Public Shared tab_index = 0
     Public Shared dark = False
-    Public Shared version_number = "0.7.0"
+    Public Shared version_number = "0.8.0"
+    Public Shared global_settings As New List(Of String)
+
 
     '0.1.0
 
@@ -34,14 +39,28 @@ Public Class main
         Call load_roms_list()
         Me.AllowDrop = True
 
-        Dim settings As New List(Of String)
-        settings.AddRange(File.ReadAllLines(".\settings.dat"))
-        Dim checkbox_skin As String() = (settings(1).Split("="))
+        global_settings.AddRange(File.ReadAllLines(".\settings.dat"))
+        Dim firsttime As String() = (global_settings(6).Split("="))
+        If firsttime(1).Contains("1") Then
+            firstlaunch.ShowDialog()
+            global_settings(6) = "firsttime=0"
+            If File.Exists(".\settings.dat") Then
+                My.Computer.FileSystem.DeleteFile(".\settings.dat")
+            End If
+
+            System.IO.File.Create(".\settings.dat").Dispose()
+            Dim new_settings As String = global_settings(0) & vbNewLine & global_settings(1) & vbNewLine & global_settings(2) & vbNewLine & global_settings(3) & vbNewLine & global_settings(4) & vbNewLine & global_settings(5) & vbNewLine & global_settings(6)
+            File.WriteAllText(".\settings.dat", new_settings)
+        End If
+        Dim checkbox_skin As String() = (global_settings(1).Split("="))
         If checkbox_skin(1) = "1" Then
             Call darkmode()
             dark = True
+        Else
+            Call lightmode()
         End If
         lbl_version.Text = "v" & version_number
+        lbl_networkusage.ForeColor = labelgrey
     End Sub
 
     Private Sub panel_top_MouseDown(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles panel_top.MouseDown
@@ -263,68 +282,68 @@ Public Class main
         Dim emulator As Process
         Dim p As New ProcessStartInfo
 
-
+        Dim params As String = File.ReadAllText(".\" & currenttab_metadata(4) & "\cmdlineargs.ini")
         p.FileName = (".\" & currenttab_metadata(4) & "\" & currenttab_metadata(3))
 
         If currenttab_metadata(1) = "GBA" Then
 
             Dim rom_path As String = System.IO.Path.GetFullPath(listbox_installedroms.FocusedItem.SubItems(2).Text)
-            p.Arguments = ("""" & rom_path & """")
+            p.Arguments = ("""" & rom_path & """ " & params)
         ElseIf currenttab_metadata(1) = "3DS" Then
 
 
             Dim rom_path As String = System.IO.Path.GetFullPath(listbox_installedroms.FocusedItem.SubItems(2).Text)
-            p.Arguments = ("""" & rom_path & """")
+            p.Arguments = ("""" & rom_path & """ " & params)
         ElseIf currenttab_metadata(1) = "NDS" Then
 
 
             Dim rom_path As String = System.IO.Path.GetFullPath(listbox_installedroms.FocusedItem.SubItems(2).Text)
-            p.Arguments = ("""" & rom_path & """")
+            p.Arguments = ("""" & rom_path & """ " & params)
         ElseIf currenttab_metadata(1) = "N64" Then
 
 
             Dim rom_path As String = System.IO.Path.GetFullPath(listbox_installedroms.FocusedItem.SubItems(2).Text)
-            p.Arguments = ("""" & rom_path & """")
+            p.Arguments = ("""" & rom_path & """ " & params)
         ElseIf currenttab_metadata(1) = "PSP" Then
 
 
             Dim rom_path As String = System.IO.Path.GetFullPath(listbox_installedroms.FocusedItem.SubItems(2).Text)
-            p.Arguments = ("""" & rom_path & """")
+            p.Arguments = ("""" & rom_path & """ " & params)
         ElseIf currenttab_metadata(1) = "WII" Then
 
 
             Dim rom_path As String = System.IO.Path.GetFullPath(listbox_installedroms.FocusedItem.SubItems(2).Text)
-            p.Arguments = ("""" & rom_path & """")
+            p.Arguments = ("""" & rom_path & """ " & params)
         ElseIf currenttab_metadata(1) = "WIIU" Then
 
 
             Dim rom_path As String = System.IO.Path.GetFullPath(listbox_installedroms.FocusedItem.SubItems(2).Text)
-            p.Arguments = ("-g" & """" & rom_path & """")
+            p.Arguments = ("-g" & """" & rom_path & """ " & params)
         ElseIf currenttab_metadata(1) = "SNES" Then
 
 
             Dim rom_path As String = System.IO.Path.GetFullPath(listbox_installedroms.FocusedItem.SubItems(2).Text)
-            p.Arguments = ("""" & rom_path & """")
+            p.Arguments = ("""" & rom_path & """ " & params)
         ElseIf currenttab_metadata(1) = "NES" Then
 
 
             Dim rom_path As String = System.IO.Path.GetFullPath(listbox_installedroms.FocusedItem.SubItems(2).Text)
-            p.Arguments = ("Mesen " & """" & rom_path & """")
+            p.Arguments = ("Mesen " & """" & rom_path & """ " & params)
         ElseIf currenttab_metadata(1) = "NES" Then
 
 
             Dim rom_path As String = System.IO.Path.GetFullPath(listbox_installedroms.FocusedItem.SubItems(2).Text)
-            p.Arguments = ("-loadbin " & """" & rom_path & """")
+            p.Arguments = ("-loadbin " & """" & rom_path & """ " & params)
         ElseIf currenttab_metadata(1) = "MGD" Then
 
 
             Dim rom_path As String = System.IO.Path.GetFullPath(listbox_installedroms.FocusedItem.SubItems(2).Text)
-            p.Arguments = ("""" & rom_path & """")
+            p.Arguments = ("""" & rom_path & """ " & params)
         ElseIf currenttab_metadata(1) = "DC" Then
 
 
             Dim rom_path As String = System.IO.Path.GetFullPath(listbox_installedroms.FocusedItem.SubItems(2).Text)
-            p.Arguments = ("""" & rom_path & """")
+            p.Arguments = ("""" & rom_path & """ " & params)
         End If
 
 
@@ -346,7 +365,7 @@ Public Class main
     End Sub
 
     Private Sub lbl_about_Click(sender As Object, e As EventArgs) Handles lbl_about.Click
-        Process.Start("https://github.com/ParthK117/W-Emuloader")
+        Process.Start("https://parthkataria.com")
     End Sub
 
     Private Sub lbl_twitter_Click(sender As Object, e As EventArgs) Handles lbl_twitter.Click
@@ -363,54 +382,9 @@ Public Class main
 
     Private Sub btn_import_MouseDown(sender As Object, e As MouseEventArgs) Handles btn_import.MouseDown
         btn_import.BackgroundImage = System.Drawing.Image.FromFile(".\resources\importclick.png")
-        import_list.Filter = "Emuloader Files (*.eldr*)|*.eldr"
-        If import_list.ShowDialog = Windows.Forms.DialogResult.OK AndAlso File.Exists(".\lists\" & System.IO.Path.GetFileName(import_list.FileName)) = False Then
 
+        panel_import_click.Visible = True
 
-            Dim imported_list_downloads As String() = File.ReadAllLines(import_list.FileName)
-            Dim showsource As Boolean = False
-            Dim metadata As String()
-            If imported_list_downloads(0).Contains("#") Then
-
-                metadata = Split(imported_list_downloads(0), "#")
-                If metadata(2) = "verify" Then
-                    Process.Start(metadata(3))
-                End If
-                showsource = True
-            End If
-
-
-
-            For Each x In imported_list_downloads
-                If Not x.Contains("#") Then
-                    Dim x_split As String() = Split(x, ",")
-                    '  listbox_availableroms.Items.Add(x_split(0))
-                    Dim file_source As String = x_split(3)
-                    If file_source.Contains("google") Then
-                        file_source = "Google Drive"
-                    ElseIf showsource = True Then
-                        file_source = metadata(0)
-                    Else
-                        file_source = "Other"
-                    End If
-                    listbox_availableroms.Items.Add(New ListViewItem(New String() {x_split(0), x_split(1), x_split(2), file_source, x_split(3)}))
-                End If
-            Next
-            listbox_availableroms.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent)
-            listbox_availableroms.AutoResizeColumn(2, ColumnHeaderAutoResizeStyle.HeaderSize)
-            listbox_availableroms.Columns.Item(4).Width = 0
-            If Directory.Exists(".\lists\") Then
-            Else
-                My.Computer.FileSystem.CreateDirectory(".\lists\")
-            End If
-
-
-
-            System.IO.File.Copy(import_list.FileName, ".\lists\" & System.IO.Path.GetFileName(import_list.FileName))
-        ElseIf Windows.Forms.DialogResult.Cancel Then
-        Else
-            MessageBox.Show("List already imported")
-        End If
 
 
     End Sub
@@ -440,6 +414,7 @@ Public Class main
 
     Private Sub btn_browse_Click(sender As Object, e As EventArgs) Handles btn_browse.Click
         tab_browse.Visible = True
+
         panel_browse.BringToFront()
         Dim emutabs = {emu_one, emu_two, emu_three, emu_four, emu_five, emu_six, emu_seven, emu_eight, emu_nine}
         For Each x In emutabs
@@ -447,6 +422,9 @@ Public Class main
         Next
         panel_rom_info.Visible = True
         panel_rom_rightclick.Visible = False
+        panel_import_click.Visible = False
+        btn_showdownloads.ForeColor = main.labelgrey
+        btn_parameters.ForeColor = main.labelgrey
     End Sub
 
     Private Sub load_roms_list()
@@ -489,29 +467,25 @@ Public Class main
     End Sub
 
     Private Sub download_roms()
-        If downloadqueue.Visible = True Then
-            If panel_search.Visible = True Then
+        If panel_search.Visible = True Then
 
-                downloadqueue.listbox_queue.Items.Add(New ListViewItem(New String() {listbox_search.FocusedItem.SubItems(0).Text,
-    listbox_search.FocusedItem.SubItems(1).Text,
-    listbox_search.FocusedItem.SubItems(2).Text,
-    listbox_search.FocusedItem.SubItems(3).Text,
-    listbox_search.FocusedItem.SubItems(4).Text}))
+            listbox_queue.Items.Add(New ListViewItem(New String() {listbox_search.FocusedItem.SubItems(0).Text,
+listbox_search.FocusedItem.SubItems(1).Text,
+listbox_search.FocusedItem.SubItems(2).Text,
+listbox_search.FocusedItem.SubItems(3).Text,
+listbox_search.FocusedItem.SubItems(4).Text}))
 
-            Else
-
-
-                downloadqueue.listbox_queue.Items.Add(New ListViewItem(New String() {listbox_availableroms.FocusedItem.SubItems(0).Text,
-      listbox_availableroms.FocusedItem.SubItems(1).Text,
-      listbox_availableroms.FocusedItem.SubItems(2).Text,
-      listbox_availableroms.FocusedItem.SubItems(3).Text,
-      listbox_availableroms.FocusedItem.SubItems(4).Text}))
-            End If
         Else
-            downloadqueue.Show()
+
+
+            listbox_queue.Items.Add(New ListViewItem(New String() {listbox_availableroms.FocusedItem.SubItems(0).Text,
+  listbox_availableroms.FocusedItem.SubItems(1).Text,
+  listbox_availableroms.FocusedItem.SubItems(2).Text,
+  listbox_availableroms.FocusedItem.SubItems(3).Text,
+  listbox_availableroms.FocusedItem.SubItems(4).Text}))
         End If
 
-
+        Call launch_downloader()
 
 
 
@@ -530,6 +504,7 @@ Public Class main
     Private Sub btn_queue_MouseDown(sender As Object, e As MouseEventArgs) Handles btn_queue.MouseDown
         btn_queue.BackgroundImage = System.Drawing.Image.FromFile(".\resources\queueclick.png")
         If listbox_availableroms.FocusedItem IsNot Nothing = True Or listbox_search.FocusedItem IsNot Nothing = True Then
+            panel_download_chart.Visible = True
             Call download_roms()
         Else
             MsgBox("Pick something to download first")
@@ -542,7 +517,13 @@ Public Class main
 
 
     Private Sub btn_exit_MouseDown(sender As Object, e As MouseEventArgs) Handles btn_exit.MouseDown
-        Application.Exit()
+        Dim checkbox_exit As String() = (global_settings(4).Split("="))
+        If checkbox_exit(1) = "0" Then
+            Application.Exit()
+        Else
+            Me.ShowInTaskbar = False
+            Me.WindowState = FormWindowState.Minimized
+        End If
     End Sub
 
     Private Sub btn_minimise_MouseDown(sender As Object, e As MouseEventArgs) Handles btn_minimise.MouseDown
@@ -1223,7 +1204,7 @@ Public Class main
     End Sub
     Public Sub check_for_updates()
         If Not File.Exists(".\settings.dat") Then
-            Dim new_settings As String = "load=1" & vbNewLine & "dark=0" & vbNewLine & "version=" & version_number
+            Dim new_settings As String = "load=1" & vbNewLine & "dark=0" & vbNewLine & "version=" & version_number & vbNewLine & "autoupdate=1" & vbNewLine & "exitonx=0" & vbNewLine & "fancydl=0" & vbNewLine & "firstime=1"
             File.WriteAllText(".\settings.dat", new_settings)
         Else
             Dim settings As New List(Of String)
@@ -1231,27 +1212,32 @@ Public Class main
 
             If Not settings(2).Contains(version_number) Then
                 File.Delete(".\settings.dat")
-                Dim new_settings As String = settings(0) & vbNewLine & settings(1) & vbNewLine & "version=" & version_number
+                Dim new_settings As String = settings(0) & vbNewLine & settings(1) & vbNewLine & "version=" & version_number & vbNewLine & settings(3) & vbNewLine & settings(4) & vbNewLine & settings(5) & vbNewLine & settings(6)
                 File.WriteAllText(".\settings.dat", new_settings)
             End If
         End If
-        Try
-            Dim getupdate As Process
-            Dim p As New ProcessStartInfo
-            p.FileName = ".\eldr.exe"
-            p.WindowStyle = ProcessWindowStyle.Hidden
-            getupdate = Process.Start(p)
-            getupdate.WaitForExit()
-            If File.Exists(".\neweldr\eldr.exe") Then
-                File.Delete(".\eldr.exe")
-                File.Move(".\neweldr\eldr.exe", ".\eldr.exe")
-                Directory.Delete(".\neweldr")
-            End If
-        Catch ex As Exception
-        End Try
-        If File.Exists(".\Emuload.exe") Then
-            File.Delete(".\Emuload.exe")
+        Dim settings2 As New List(Of String)
+        settings2.AddRange(File.ReadAllLines(".\settings.dat"))
+        If settings2(3).Contains("1") Then
+            Try
+                Dim getupdate As Process
+                Dim p As New ProcessStartInfo
+                p.FileName = ".\eldr.exe"
+                p.WindowStyle = ProcessWindowStyle.Hidden
+                getupdate = Process.Start(p)
+                getupdate.WaitForExit()
+                If File.Exists(".\neweldr\eldr.exe") Then
+                    File.Delete(".\eldr.exe")
+                    File.Move(".\neweldr\eldr.exe", ".\eldr.exe")
+                    Directory.Delete(".\neweldr")
+                End If
+            Catch ex As Exception
+            End Try
         End If
+        If File.Exists(".\Emuload.exe") Then
+                File.Delete(".\Emuload.exe")
+            End If
+
     End Sub
 
     Private Sub btn_search_snes_Click(sender As Object, e As EventArgs) Handles btn_search_snes.Click
@@ -1353,5 +1339,256 @@ Public Class main
 
     Private Sub btn_rom_viewfile_MouseLeave(sender As Object, e As EventArgs) Handles btn_rom_viewfile.MouseLeave
         btn_rom_viewfile.BackgroundImage = System.Drawing.Image.FromFile(".\resources\viewfilewhite.png")
+    End Sub
+
+    Private Sub notify_emuloader_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles notify_emuloader.MouseDoubleClick
+
+    End Sub
+
+    Private Sub notify_emuloader_Click(sender As Object, e As EventArgs) Handles notify_emuloader.Click
+        Me.WindowState = FormWindowState.Normal
+        Me.ShowInTaskbar = True
+    End Sub
+
+    Private Sub btn_showdownloads_Click(sender As Object, e As EventArgs) Handles btn_showdownloads.Click
+        panel_downloads.BringToFront()
+        If dark = True Then
+            btn_showdownloads.ForeColor = Color.White
+        Else
+            btn_showdownloads.ForeColor = Color.Black
+        End If
+    End Sub
+
+    Private Sub downloader_DoWork(sender As Object, e As DoWorkEventArgs) Handles downloader.DoWork
+        ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12
+        Dim arguments As String() = (e.Argument)
+        Dim iszip = False
+
+
+
+        Using downloader_client = New WebClient()
+            Try
+                downloader_client.DownloadFile(arguments(2), ".\roms\" & arguments(1) & "\" & arguments(0).Replace("$", " "))
+                downloader_client.Dispose()
+
+
+
+                Try
+
+
+                    Using zipFile2 = ZipFile.OpenRead(".\roms\" & arguments(1) & "\" & arguments(0).Replace("$", " "))
+                        Dim entries = zipFile2.Entries
+                        iszip = True
+
+                    End Using
+
+
+
+
+                    If iszip = True Then
+                        'unzip file
+                        If File.Exists(".\roms\" & arguments(1) & "\temp.zip") Then
+                            My.Computer.FileSystem.DeleteFile(".\roms\" & arguments(1) & "\temp.zip")
+                        End If
+                        My.Computer.FileSystem.RenameFile(".\roms\" & arguments(1) & "\" & arguments(0).Replace("$", " "), "temp.zip")
+
+                        '  ZipFile.ExtractToDirectory(".\roms\" & arguments(1) & "\temp.zip", ".\roms\" & arguments(1) & "\")
+
+                        Using zipfile3 = ZipFile.OpenRead(".\roms\" & arguments(1) & "\temp.zip")
+                            For Each entry As ZipArchiveEntry In zipfile3.Entries
+
+
+                                entry.ExtractToFile(Path.Combine(".\roms\" & arguments(1) & "\", entry.FullName), True)
+
+                            Next
+                        End Using
+
+                        My.Computer.FileSystem.DeleteFile(".\roms\" & arguments(1) & "\temp.zip")
+                    End If
+
+
+
+                Catch __unusedInvalidDataException1__ As InvalidDataException
+
+                Catch ex As IOException
+
+                    MessageBox.Show("Error unzipping")
+                End Try
+
+
+                If arguments(0).Contains(".7z") Or arguments(0).Contains(".rar") Then
+
+                    Dim un7z As Process
+                    Dim p As New ProcessStartInfo
+                    p.FileName = ".\7z.exe"
+
+                    '   p.UseShellExecute = True
+                    p.WindowStyle = ProcessWindowStyle.Hidden
+                    p.WorkingDirectory = ".\modules\7zip"
+                    p.Arguments = ("e" & " " & Chr(34) & System.IO.Path.GetFullPath(".\roms\" & arguments(1) & "\" & arguments(0).Replace("$", " ")) & Chr(34) & " -o" & Chr(34) & System.IO.Path.GetFullPath(".\roms\" & arguments(1) & "\") & Chr(34))
+                    un7z = Process.Start(p)
+                    un7z.WaitForExit()
+                    If File.Exists(System.IO.Path.GetFullPath(".\roms\" & arguments(1) & "\" & arguments(0).Replace("$", " "))) Then
+                        File.Delete(System.IO.Path.GetFullPath(".\roms\" & arguments(1) & "\" & arguments(0).Replace("$", " ")))
+                    End If
+                End If
+
+
+
+            Catch ex As Exception
+                downloader_client.Dispose()
+                MessageBox.Show("Error downloading")
+
+
+            End Try
+        End Using
+    End Sub
+
+    Private Sub downloader_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles downloader.RunWorkerCompleted
+        timer_updateprogress.Enabled = False
+        lbl_status.Text = "Downloaded " & listbox_queue.Items(0).SubItems(0).Text
+        Call load_installed_roms()
+        lbl_status.Location = New Point((panel_top.Width - lbl_status.Width) \ 2, (panel_top.Height - lbl_status.Height) \ 2)
+        listbox_queue.Items(0).Remove()
+        If listbox_queue.Items.Count = 0 Then
+            picturebox_loading.Visible = False
+            panel_download_chart.Visible = False
+            lbl_speed.Text = "0 MB/s CURRENT"
+            timer_updateprogress.Enabled = False
+            notify_emuloader.Text = "Emuloader"
+        Else
+            Call launch_downloader()
+
+        End If
+    End Sub
+
+    Private Sub timer_updateprogress_Tick(sender As Object, e As EventArgs) Handles timer_updateprogress.Tick
+        If File.Exists(".\roms\" & downloads.downloadqueue.arguments(1) & "\" & downloads.downloadqueue.arguments(0).Replace("$", " ")) Then
+            Dim currfile As New FileInfo(".\roms\" & downloads.downloadqueue.arguments(1) & "\" & downloads.downloadqueue.arguments(0).Replace("$", " "))
+            Dim currentsize As Double = (currfile.Length)
+
+            Dim displaysize As Double = Math.Round(((currentsize / downloads.downloadqueue.reportedsize) * 100), 2)
+
+            lbl_status.Text = "Downloading " & listbox_queue.Items(0).SubItems(0).Text & " " & displaysize & "%"
+            notify_emuloader.Text = "Downloading ROM" & " " & displaysize & "%"
+            lbl_status.Location = New Point((panel_top.Width - lbl_status.Width) \ 2, (panel_top.Height - lbl_status.Height) \ 2)
+
+            Dim difference As Long = currentsize - speed
+            If Math.Round((difference / 1000000), 2) > 1 Then
+                lbl_speed.Text = Math.Round((difference / 1000000), 2) & " MB/s CURRENT"
+            ElseIf Math.Round((difference / 1000), 2) > 0 Then
+                lbl_speed.Text = Math.Round((difference / 1000), 2) & " KB/s CURRENT"
+            End If
+
+            If difference > peak Then
+
+                If Math.Round((difference / 1000000), 2) > 1 Then
+                    lbl_peak.Text = Math.Round((difference / 1000000), 2) & " MB/s PEAK"
+                Else
+                    lbl_peak.Text = Math.Round((difference / 1000), 2) & " KB/s PEAK"
+                End If
+                peak = difference
+            End If
+            speed = currentsize
+            If difference > 0 Then
+                total += difference
+            End If
+
+            If Math.Round((total / 1000000000), 2) > 1 Then
+                lbl_total.Text = Math.Round((total / 1000000000), 2) & " GB TOTAL"
+            ElseIf Math.Round((total / 1000000), 2) > 1 Then
+                lbl_total.Text = Math.Round((total / 1000000), 2) & " MB TOTAL"
+            ElseIf Math.Round((total / 1000), 2) > 0 Then
+                lbl_total.Text = Math.Round((total / 1000), 2) & " KB TOTAL"
+            End If
+        End If
+
+    End Sub
+
+    Private Sub btn_parameters_Click(sender As Object, e As EventArgs) Handles btn_parameters.Click
+        parameters.Show()
+
+        If dark = True Then
+            btn_parameters.ForeColor = Color.White
+        Else
+            btn_parameters.ForeColor = Color.Black
+        End If
+    End Sub
+
+    Private Sub btn_fromeldr_Click(sender As Object, e As EventArgs) Handles btn_fromeldr.Click
+        panel_import_click.Visible = False
+        import_list.Filter = "Emuloader Files (*.eldr*)|*.eldr"
+        If import_list.ShowDialog = Windows.Forms.DialogResult.OK AndAlso File.Exists(".\lists\" & System.IO.Path.GetFileName(import_list.FileName)) = False Then
+
+
+            Dim imported_list_downloads As String() = File.ReadAllLines(import_list.FileName)
+            Dim showsource As Boolean = False
+            Dim metadata As String()
+            If imported_list_downloads(0).Contains("#") Then
+
+                metadata = Split(imported_list_downloads(0), "#")
+                If metadata(2) = "verify" Then
+                    Process.Start(metadata(3))
+                End If
+                showsource = True
+            End If
+
+
+
+            For Each x In imported_list_downloads
+                If Not x.Contains("#") Then
+                    Dim x_split As String() = Split(x, ",")
+                    '  listbox_availableroms.Items.Add(x_split(0))
+                    Dim file_source As String = x_split(3)
+                    If file_source.Contains("google") Then
+                        file_source = "Google Drive"
+                    ElseIf showsource = True Then
+                        file_source = metadata(0)
+                    Else
+                        file_source = "Other"
+                    End If
+                    listbox_availableroms.Items.Add(New ListViewItem(New String() {x_split(0), x_split(1), x_split(2), file_source, x_split(3)}))
+                End If
+            Next
+            listbox_availableroms.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent)
+            listbox_availableroms.AutoResizeColumn(2, ColumnHeaderAutoResizeStyle.HeaderSize)
+            listbox_availableroms.Columns.Item(4).Width = 0
+            If Directory.Exists(".\lists\") Then
+            Else
+                My.Computer.FileSystem.CreateDirectory(".\lists\")
+            End If
+
+
+
+            System.IO.File.Copy(import_list.FileName, ".\lists\" & System.IO.Path.GetFileName(import_list.FileName))
+        ElseIf Windows.Forms.DialogResult.Cancel Then
+        Else
+            MessageBox.Show("List already imported")
+        End If
+
+    End Sub
+
+    Private Sub btn_fromeldr_MouseEnter(sender As Object, e As EventArgs) Handles btn_fromeldr.MouseEnter
+        btn_fromeldr.BackgroundImage = System.Drawing.Image.FromFile(".\resources\fromeldrblack.png")
+    End Sub
+
+    Private Sub btn_fromeldr_MouseLeave(sender As Object, e As EventArgs) Handles btn_fromeldr.MouseLeave
+        btn_fromeldr.BackgroundImage = System.Drawing.Image.FromFile(".\resources\fromeldrwhite.png")
+    End Sub
+    Private Sub panel_browse_Click(sender As Object, e As EventArgs) Handles panel_browse.Click
+        panel_import_click.Visible = False
+    End Sub
+
+    Private Sub btn_fromlink_Click(sender As Object, e As EventArgs) Handles btn_fromlink.Click
+        panel_import_click.Visible = False
+        listlink.Show()
+    End Sub
+
+    Private Sub btn_fromlink_MouseEnter(sender As Object, e As EventArgs) Handles btn_fromlink.MouseEnter
+        btn_fromlink.BackgroundImage = System.Drawing.Image.FromFile(".\resources\fromlinkblack.png")
+    End Sub
+
+    Private Sub btn_fromlink_MouseLeave(sender As Object, e As EventArgs) Handles btn_fromlink.MouseLeave
+        btn_fromlink.BackgroundImage = System.Drawing.Image.FromFile(".\resources\fromlinkwhite.png")
     End Sub
 End Class

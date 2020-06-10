@@ -98,7 +98,7 @@ Public Class newemulator
         Dim metadata As String = arguments(5) & vbNewLine & arguments(3) & vbNewLine & datestamp & vbNewLine & arguments(4) & vbNewLine & arguments(0) & "-" & timestamp
         System.IO.File.Create(".\" & arguments(0) & "-" & timestamp & "\" & arguments(6)).Dispose()
         My.Computer.FileSystem.WriteAllText(".\" & arguments(0) & "-" & timestamp & "\" & arguments(6), metadata, True)
-
+        System.IO.File.Create(".\" & arguments(0) & "-" & timestamp & "\cmdlineargs.ini").Dispose()
 
 
 

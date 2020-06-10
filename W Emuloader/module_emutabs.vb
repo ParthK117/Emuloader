@@ -28,9 +28,12 @@
 
         main.currenttab_metadata = emu_tab_metadata_list.emutabs_metadata(main.tab_index)
         main.panel_rom_info.Visible = False
+        main.panel_import_click.Visible = False
         Call main.hide_platform_tags()
         Call main.hide_region_tags()
         main.tab_browse.Visible = False
+        main.btn_showdownloads.ForeColor = main.labelgrey
+        main.btn_parameters.ForeColor = main.labelgrey
         main.panel_play.BringToFront()
 
         main.lbl_name.Text = main.currenttab_metadata(0)

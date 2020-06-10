@@ -19,7 +19,6 @@ C:\Users\Parth\Music\W Emuloader\W Emuloader\bin\Debug\Emuloader.exe
 C:\Users\Parth\Music\W Emuloader\W Emuloader\bin\Debug\Emuloader.pdb
 C:\Users\Parth\Music\W Emuloader\W Emuloader\bin\Debug\Emuloader.xml
 C:\Users\Parth\Music\W Emuloader\W Emuloader\obj\Debug\Emuloader.vbprojAssemblyReference.cache
-C:\Users\Parth\Music\W Emuloader\W Emuloader\obj\Debug\Emuloader.downloadqueue.resources
 C:\Users\Parth\Music\W Emuloader\W Emuloader\obj\Debug\Emuloader.main.resources
 C:\Users\Parth\Music\W Emuloader\W Emuloader\obj\Debug\Emuloader.Resources.resources
 C:\Users\Parth\Music\W Emuloader\W Emuloader\obj\Debug\Emuloader.newemulator.resources
@@ -30,3 +29,6 @@ C:\Users\Parth\Music\W Emuloader\W Emuloader\obj\Debug\Emuloader.exe
 C:\Users\Parth\Music\W Emuloader\W Emuloader\obj\Debug\Emuloader.xml
 C:\Users\Parth\Music\W Emuloader\W Emuloader\obj\Debug\Emuloader.pdb
 C:\Users\Parth\Music\W Emuloader\W Emuloader\obj\Debug\Emuloader.settings.resources
+C:\Users\Parth\Music\W Emuloader\W Emuloader\obj\Debug\Emuloader.parameters.resources
+C:\Users\Parth\Music\W Emuloader\W Emuloader\obj\Debug\Emuloader.firstlaunch.resources
+C:\Users\Parth\Music\W Emuloader\W Emuloader\obj\Debug\Emuloader.listlink.resources
