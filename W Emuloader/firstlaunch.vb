@@ -59,7 +59,7 @@ Public Class firstlaunch
     End Sub
 
     Private Sub btn_search_Click(sender As Object, e As EventArgs) Handles btn_search.Click
-        Process.Start("https://www.google.com/search?q=emuloader+eldrs+reddit&nirf=emuloader+elders+reddit")
+        Process.Start("https://www.reddit.com/search?q=eldrs&sort=relevance&t=all")
     End Sub
 
 

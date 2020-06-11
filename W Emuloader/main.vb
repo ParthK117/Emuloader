@@ -17,7 +17,7 @@ Public Class main
     Public Shared labelgrey As Color
     Public Shared tab_index = 0
     Public Shared dark = False
-    Public Shared version_number = "0.8.0"
+    Public Shared version_number = "0.8.1"
     Public Shared global_settings As New List(Of String)
 
 
@@ -1181,11 +1181,18 @@ listbox_search.FocusedItem.SubItems(4).Text}))
         If File.Exists(".\installed.eldr") Then
             My.Computer.FileSystem.DeleteFile(".\installed.eldr")
         End If
+        If Not custom.Count = 0 Then
+            System.IO.File.Create(".\installed.eldr").Dispose()
 
-        System.IO.File.Create(".\installed.eldr").Dispose()
 
-        File.WriteAllText(".\installed.eldr", String.Join(vbNewLine, custom))
+            Dim writenew = New StreamWriter(".\installed.eldr", False)
+            For Each x In custom
+                writenew.Write(x)
+            Next
 
+            writenew.Flush()
+            writenew.Close()
+        End If
         Dim emutabs = {emu_one, emu_two, emu_three, emu_four, emu_five, emu_six, emu_seven, emu_eight, emu_nine}
         For Each x In emutabs
             x.Visible = False

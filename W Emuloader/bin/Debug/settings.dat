@@ -1,7 +1,7 @@
 load=1
-dark=1
-version=0.8.0
+dark=0
+version=0.8.1
 autoupdate=1
 exitonx=0
-fancydl=0
+fancydl=1
 firsttime=0

@@ -12,7 +12,9 @@ Public Class listlink
 
     Private Sub btn_import_MouseDown(sender As Object, e As MouseEventArgs) Handles btn_import.MouseDown
         btn_import.BackgroundImage = System.Drawing.Image.FromFile(".\resources\importclick.png")
-        For Each line In textbox_url.Text
+        Dim urls As String() = textbox_url.Lines
+
+        For Each line In urls
             Dim timestamp As String = Date.Now.ToString("HH-mm-ss-dd-MM-yyyy")
             Using importlinks = New WebClient()
                 Try

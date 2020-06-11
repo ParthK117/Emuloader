@@ -23,20 +23,10 @@ Partial Class listlink
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(listlink))
-        Me.textbox_url = New System.Windows.Forms.TextBox()
         Me.btn_import = New System.Windows.Forms.PictureBox()
+        Me.textbox_url = New System.Windows.Forms.RichTextBox()
         CType(Me.btn_import, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
-        '
-        'textbox_url
-        '
-        Me.textbox_url.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.textbox_url.Location = New System.Drawing.Point(3, 4)
-        Me.textbox_url.Multiline = True
-        Me.textbox_url.Name = "textbox_url"
-        Me.textbox_url.Size = New System.Drawing.Size(499, 161)
-        Me.textbox_url.TabIndex = 0
-        Me.textbox_url.WordWrap = False
         '
         'btn_import
         '
@@ -47,14 +37,23 @@ Partial Class listlink
         Me.btn_import.TabIndex = 1
         Me.btn_import.TabStop = False
         '
+        'textbox_url
+        '
+        Me.textbox_url.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.textbox_url.Location = New System.Drawing.Point(3, 4)
+        Me.textbox_url.Name = "textbox_url"
+        Me.textbox_url.Size = New System.Drawing.Size(499, 161)
+        Me.textbox_url.TabIndex = 2
+        Me.textbox_url.Text = ""
+        '
         'listlink
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.White
         Me.ClientSize = New System.Drawing.Size(504, 212)
-        Me.Controls.Add(Me.btn_import)
         Me.Controls.Add(Me.textbox_url)
+        Me.Controls.Add(Me.btn_import)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
@@ -62,10 +61,8 @@ Partial Class listlink
         Me.Text = "Import from link (one per line)"
         CType(Me.btn_import, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
-        Me.PerformLayout()
 
     End Sub
-
-    Friend WithEvents textbox_url As TextBox
     Friend WithEvents btn_import As PictureBox
+    Friend WithEvents textbox_url As RichTextBox
 End Class
