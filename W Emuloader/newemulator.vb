@@ -28,7 +28,7 @@ Public Class newemulator
 
         Using currentlinks = New WebClient()
             Try
-                currentlinks.DownloadFile("https://parthkataria.com/emulatorlinks.txt", ".\modules\emulatorlinks.txt")
+                currentlinks.DownloadFile("https://tungstencore.com/cdn/emulatorlinks.txt", ".\modules\emulatorlinks.txt")
                 currentlinks.Dispose()
                 uptodate_list = File.ReadAllLines(".\modules\emulatorlinks.txt")
             Catch ex As Exception

@@ -32,3 +32,4 @@ C:\Users\Parth\Music\W Emuloader\W Emuloader\obj\Debug\Emuloader.settings.resour
 C:\Users\Parth\Music\W Emuloader\W Emuloader\obj\Debug\Emuloader.parameters.resources
 C:\Users\Parth\Music\W Emuloader\W Emuloader\obj\Debug\Emuloader.firstlaunch.resources
 C:\Users\Parth\Music\W Emuloader\W Emuloader\obj\Debug\Emuloader.listlink.resources
+C:\Users\Parth\Music\W Emuloader\W Emuloader\obj\Debug\Emuloader.about.resources

@@ -48,6 +48,8 @@ Partial Class main
         Me.btn_newemu = New System.Windows.Forms.PictureBox()
         Me.panel_right = New System.Windows.Forms.Panel()
         Me.panel_rom_info = New System.Windows.Forms.Panel()
+        Me.lbl_rom_source = New System.Windows.Forms.Label()
+        Me.lbl_rom_size = New System.Windows.Forms.Label()
         Me.btn_showdownloads = New System.Windows.Forms.Label()
         Me.btn_queue = New System.Windows.Forms.PictureBox()
         Me.lbl_rom_platform = New System.Windows.Forms.Label()
@@ -160,8 +162,12 @@ Partial Class main
         Me.download_url = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.panel_download_chart = New System.Windows.Forms.Panel()
         Me.picturebox_download = New System.Windows.Forms.PictureBox()
+        Me.lbl_nothing = New System.Windows.Forms.Label()
         Me.timer_updateprogress = New System.Windows.Forms.Timer(Me.components)
         Me.downloader = New System.ComponentModel.BackgroundWorker()
+        Me.lbl_installed_downloadtime = New System.Windows.Forms.Label()
+        Me.lbl_installed_size = New System.Windows.Forms.Label()
+        Me.lbl_installed_name = New System.Windows.Forms.Label()
         CType(Me.image_logo, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panel_left.SuspendLayout()
         CType(Me.picturebox_tungsten, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -357,10 +363,10 @@ Partial Class main
         '
         Me.picturebox_tungsten.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.picturebox_tungsten.BackgroundImage = CType(resources.GetObject("picturebox_tungsten.BackgroundImage"), System.Drawing.Image)
-        Me.picturebox_tungsten.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.picturebox_tungsten.Location = New System.Drawing.Point(38, 690)
+        Me.picturebox_tungsten.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.picturebox_tungsten.Location = New System.Drawing.Point(38, 673)
         Me.picturebox_tungsten.Name = "picturebox_tungsten"
-        Me.picturebox_tungsten.Size = New System.Drawing.Size(175, 25)
+        Me.picturebox_tungsten.Size = New System.Drawing.Size(175, 40)
         Me.picturebox_tungsten.TabIndex = 13
         Me.picturebox_tungsten.TabStop = False
         '
@@ -501,6 +507,9 @@ Partial Class main
         Me.panel_right.BackColor = System.Drawing.Color.Gainsboro
         Me.panel_right.Controls.Add(Me.panel_rom_info)
         Me.panel_right.Controls.Add(Me.checkbox_fullscreen)
+        Me.panel_right.Controls.Add(Me.lbl_installed_size)
+        Me.panel_right.Controls.Add(Me.lbl_installed_name)
+        Me.panel_right.Controls.Add(Me.lbl_installed_downloadtime)
         Me.panel_right.Controls.Add(Me.btn_play)
         Me.panel_right.Controls.Add(Me.lbl_platform)
         Me.panel_right.Controls.Add(Me.lbl_installedon)
@@ -518,6 +527,8 @@ Partial Class main
         '
         Me.panel_rom_info.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.panel_rom_info.Controls.Add(Me.lbl_rom_source)
+        Me.panel_rom_info.Controls.Add(Me.lbl_rom_size)
         Me.panel_rom_info.Controls.Add(Me.btn_showdownloads)
         Me.panel_rom_info.Controls.Add(Me.btn_queue)
         Me.panel_rom_info.Controls.Add(Me.lbl_rom_platform)
@@ -526,6 +537,28 @@ Partial Class main
         Me.panel_rom_info.Name = "panel_rom_info"
         Me.panel_rom_info.Size = New System.Drawing.Size(250, 800)
         Me.panel_rom_info.TabIndex = 6
+        '
+        'lbl_rom_source
+        '
+        Me.lbl_rom_source.AutoSize = True
+        Me.lbl_rom_source.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_rom_source.Location = New System.Drawing.Point(14, 190)
+        Me.lbl_rom_source.Name = "lbl_rom_source"
+        Me.lbl_rom_source.Size = New System.Drawing.Size(209, 23)
+        Me.lbl_rom_source.TabIndex = 12
+        Me.lbl_rom_source.Text = "https://tungstencore.com"
+        Me.lbl_rom_source.Visible = False
+        '
+        'lbl_rom_size
+        '
+        Me.lbl_rom_size.AutoSize = True
+        Me.lbl_rom_size.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_rom_size.Location = New System.Drawing.Point(14, 160)
+        Me.lbl_rom_size.Name = "lbl_rom_size"
+        Me.lbl_rom_size.Size = New System.Drawing.Size(202, 23)
+        Me.lbl_rom_size.TabIndex = 11
+        Me.lbl_rom_size.Text = "https://parthkataria.com"
+        Me.lbl_rom_size.Visible = False
         '
         'btn_showdownloads
         '
@@ -552,20 +585,20 @@ Partial Class main
         '
         Me.lbl_rom_platform.AutoSize = True
         Me.lbl_rom_platform.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lbl_rom_platform.Location = New System.Drawing.Point(14, 30)
+        Me.lbl_rom_platform.Location = New System.Drawing.Point(14, 130)
         Me.lbl_rom_platform.Name = "lbl_rom_platform"
         Me.lbl_rom_platform.Size = New System.Drawing.Size(187, 23)
         Me.lbl_rom_platform.TabIndex = 7
         Me.lbl_rom_platform.Text = "Tell me what you think!"
+        Me.lbl_rom_platform.Visible = False
         '
         'lbl_rom_name
         '
-        Me.lbl_rom_name.AutoSize = True
         Me.lbl_rom_name.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl_rom_name.Location = New System.Drawing.Point(14, 1)
-        Me.lbl_rom_name.MaximumSize = New System.Drawing.Size(200, 23)
+        Me.lbl_rom_name.MaximumSize = New System.Drawing.Size(400, 120)
         Me.lbl_rom_name.Name = "lbl_rom_name"
-        Me.lbl_rom_name.Size = New System.Drawing.Size(133, 23)
+        Me.lbl_rom_name.Size = New System.Drawing.Size(217, 120)
         Me.lbl_rom_name.TabIndex = 5
         Me.lbl_rom_name.Text = "Prerelease Build"
         '
@@ -1497,6 +1530,7 @@ Partial Class main
         Me.panel_downloads.Controls.Add(Me.lbl_downloads)
         Me.panel_downloads.Controls.Add(Me.listbox_queue)
         Me.panel_downloads.Controls.Add(Me.panel_download_chart)
+        Me.panel_downloads.Controls.Add(Me.lbl_nothing)
         Me.panel_downloads.Location = New System.Drawing.Point(250, 40)
         Me.panel_downloads.Name = "panel_downloads"
         Me.panel_downloads.Size = New System.Drawing.Size(1100, 860)
@@ -1625,12 +1659,54 @@ Partial Class main
         Me.picturebox_download.TabIndex = 0
         Me.picturebox_download.TabStop = False
         '
+        'lbl_nothing
+        '
+        Me.lbl_nothing.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.lbl_nothing.AutoSize = True
+        Me.lbl_nothing.Font = New System.Drawing.Font("Gotham Bold", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_nothing.Location = New System.Drawing.Point(445, 506)
+        Me.lbl_nothing.Name = "lbl_nothing"
+        Me.lbl_nothing.Size = New System.Drawing.Size(235, 18)
+        Me.lbl_nothing.TabIndex = 11
+        Me.lbl_nothing.Text = "Nothing is being downloaded"
+        '
         'timer_updateprogress
         '
         Me.timer_updateprogress.Interval = 1000
         '
         'downloader
         '
+        '
+        'lbl_installed_downloadtime
+        '
+        Me.lbl_installed_downloadtime.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_installed_downloadtime.Location = New System.Drawing.Point(14, 330)
+        Me.lbl_installed_downloadtime.Name = "lbl_installed_downloadtime"
+        Me.lbl_installed_downloadtime.Size = New System.Drawing.Size(202, 73)
+        Me.lbl_installed_downloadtime.TabIndex = 15
+        Me.lbl_installed_downloadtime.Text = "https://parthkataria.com"
+        '
+        'lbl_installed_size
+        '
+        Me.lbl_installed_size.AutoSize = True
+        Me.lbl_installed_size.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_installed_size.Location = New System.Drawing.Point(14, 380)
+        Me.lbl_installed_size.Name = "lbl_installed_size"
+        Me.lbl_installed_size.Size = New System.Drawing.Size(187, 23)
+        Me.lbl_installed_size.TabIndex = 14
+        Me.lbl_installed_size.Text = "Tell me what you think!"
+        '
+        'lbl_installed_name
+        '
+        Me.lbl_installed_name.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_installed_name.Location = New System.Drawing.Point(14, 200)
+        Me.lbl_installed_name.MaximumSize = New System.Drawing.Size(400, 120)
+        Me.lbl_installed_name.Name = "lbl_installed_name"
+        Me.lbl_installed_name.Size = New System.Drawing.Size(217, 120)
+        Me.lbl_installed_name.TabIndex = 13
+        Me.lbl_installed_name.Text = "Prerelease Build"
         '
         'main
         '
@@ -1868,4 +1944,10 @@ Partial Class main
     Friend WithEvents panel_import_click As Panel
     Friend WithEvents btn_fromeldr As PictureBox
     Friend WithEvents btn_fromlink As PictureBox
+    Friend WithEvents lbl_nothing As Label
+    Friend WithEvents lbl_rom_size As Label
+    Friend WithEvents lbl_rom_source As Label
+    Friend WithEvents lbl_installed_size As Label
+    Friend WithEvents lbl_installed_name As Label
+    Friend WithEvents lbl_installed_downloadtime As Label
 End Class

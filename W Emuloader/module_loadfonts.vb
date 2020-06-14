@@ -43,6 +43,12 @@
         main.btn_platform_tags.ForeColor = main.labelgrey
         main.btn_parameters.ForeColor = main.labelgrey
         main.btn_region.ForeColor = main.labelgrey
+        main.lbl_nothing.ForeColor = main.labelgrey
+        main.lbl_rom_source.ForeColor = main.labelgrey
+        main.lbl_rom_size.ForeColor = main.labelgrey
+        main.lbl_installed_size.ForeColor = main.labelgrey
+        main.lbl_installed_name.ForeColor = main.labelgrey
+        main.lbl_installed_downloadtime.ForeColor = main.labelgrey
         main.lbl_status.Location = New Point((main.panel_top.Width - main.lbl_status.Width) \ 2, (main.panel_top.Height - main.lbl_status.Height) \ 2)
         main.picturebox_tungsten.Location = New Point((main.panel_left.Width - main.picturebox_tungsten.Width) \ 2, 690)
         main.picturebox_drag.Location = New Point((main.panel_drag_drop.Width - main.picturebox_drag.Width) \ 2, (main.panel_drag_drop.Height - main.picturebox_drag.Height) \ 2)
@@ -73,6 +79,11 @@
         Dim spartanfont14 As New System.Drawing.Font(main.spartan.Families(0), 14)
         main.lbl_rom_name.Font = spartanfont14
         main.lbl_rom_platform.Font = spartanfont14
+        main.lbl_rom_size.Font = spartanfont14
+        main.lbl_installed_name.Font = spartanfont14
+        main.lbl_installed_downloadtime.Font = spartanfont14
+        main.lbl_installed_size.Font = spartanfont14
+        main.lbl_rom_source.Font = spartanfont14
         main.lbl_name.Font = spartanfont14
         main.lbl_platform.Font = spartanfont14
         main.lbl_installedon.Font = spartanfont14

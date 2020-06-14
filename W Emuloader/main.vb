@@ -17,7 +17,7 @@ Public Class main
     Public Shared labelgrey As Color
     Public Shared tab_index = 0
     Public Shared dark = False
-    Public Shared version_number = "0.8.1"
+    Public Shared version_number = "0.9.0"
     Public Shared global_settings As New List(Of String)
 
 
@@ -61,6 +61,9 @@ Public Class main
         End If
         lbl_version.Text = "v" & version_number
         lbl_networkusage.ForeColor = labelgrey
+
+        listbox_queue.Visible = False
+        lbl_nothing.Location = New Point((panel_downloads.Width - lbl_nothing.Width) \ 2, (panel_downloads.Height - lbl_nothing.Height) \ 2)
     End Sub
 
     Private Sub panel_top_MouseDown(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles panel_top.MouseDown
@@ -365,7 +368,7 @@ Public Class main
     End Sub
 
     Private Sub lbl_about_Click(sender As Object, e As EventArgs) Handles lbl_about.Click
-        Process.Start("https://parthkataria.com")
+        about.Show()
     End Sub
 
     Private Sub lbl_twitter_Click(sender As Object, e As EventArgs) Handles lbl_twitter.Click
@@ -403,13 +406,27 @@ Public Class main
     End Sub
 
     Private Sub listbox_availableroms_SelectedIndexChanged(sender As Object, e As EventArgs) Handles listbox_availableroms.SelectedIndexChanged
-        lbl_rom_name.Text = listbox_availableroms.FocusedItem.SubItems(0).Text
-        lbl_rom_platform.Text = "Platform: " & listbox_availableroms.FocusedItem.SubItems(2).Text
+        If listbox_availableroms.SelectedItems IsNot Nothing Then
+            lbl_rom_source.Visible = True
+            lbl_rom_size.Visible = True
+            lbl_rom_platform.Visible = True
+            lbl_rom_name.Text = listbox_availableroms.FocusedItem.SubItems(0).Text
+            lbl_rom_platform.Text = "Platform: " & listbox_availableroms.FocusedItem.SubItems(2).Text
+            lbl_rom_source.Text = "From " & listbox_availableroms.FocusedItem.SubItems(3).Text
+            lbl_rom_size.Text = "Size: " & listbox_availableroms.FocusedItem.SubItems(1).Text
+        End If
     End Sub
 
     Private Sub listbox_search_SelectedIndexChanged(sender As Object, e As EventArgs) Handles listbox_search.SelectedIndexChanged
-        lbl_rom_name.Text = listbox_search.FocusedItem.SubItems(0).Text
-        lbl_rom_platform.Text = "Platform: " & listbox_search.FocusedItem.SubItems(2).Text
+        If listbox_search.SelectedItems IsNot Nothing Then
+            lbl_rom_source.Visible = True
+            lbl_rom_size.Visible = True
+            lbl_rom_platform.Visible = True
+            lbl_rom_name.Text = listbox_search.FocusedItem.SubItems(0).Text
+            lbl_rom_platform.Text = "Platform: " & listbox_search.FocusedItem.SubItems(2).Text
+            lbl_rom_source.Text = "From " & listbox_search.FocusedItem.SubItems(3).Text
+            lbl_rom_size.Text = "Size: " & listbox_search.FocusedItem.SubItems(1).Text
+        End If
     End Sub
 
     Private Sub btn_browse_Click(sender As Object, e As EventArgs) Handles btn_browse.Click
@@ -468,7 +485,7 @@ Public Class main
 
     Private Sub download_roms()
         If panel_search.Visible = True Then
-
+            listbox_queue.Visible = True
             listbox_queue.Items.Add(New ListViewItem(New String() {listbox_search.FocusedItem.SubItems(0).Text,
 listbox_search.FocusedItem.SubItems(1).Text,
 listbox_search.FocusedItem.SubItems(2).Text,
@@ -476,7 +493,7 @@ listbox_search.FocusedItem.SubItems(3).Text,
 listbox_search.FocusedItem.SubItems(4).Text}))
 
         Else
-
+            listbox_queue.Visible = True
 
             listbox_queue.Items.Add(New ListViewItem(New String() {listbox_availableroms.FocusedItem.SubItems(0).Text,
   listbox_availableroms.FocusedItem.SubItems(1).Text,
@@ -535,10 +552,12 @@ listbox_search.FocusedItem.SubItems(4).Text}))
 
             Me.WindowState = FormWindowState.Maximized
             lbl_status.Location = New Point((panel_top.Width - lbl_status.Width) \ 2, (panel_top.Height - lbl_status.Height) \ 2)
+            lbl_nothing.Location = New Point((panel_downloads.Width - lbl_nothing.Width) \ 2, (panel_downloads.Height - lbl_nothing.Height) \ 2)
         Else
 
             Me.WindowState = FormWindowState.Normal
             lbl_status.Location = New Point((panel_top.Width - lbl_status.Width) \ 2, (panel_top.Height - lbl_status.Height) \ 2)
+            lbl_nothing.Location = New Point((panel_downloads.Width - lbl_nothing.Width) \ 2, (panel_downloads.Height - lbl_nothing.Height) \ 2)
         End If
     End Sub
 
@@ -742,10 +761,12 @@ listbox_search.FocusedItem.SubItems(4).Text}))
 
             Me.WindowState = FormWindowState.Maximized
             lbl_status.Location = New Point((panel_top.Width - lbl_status.Width) \ 2, (panel_top.Height - lbl_status.Height) \ 2)
+            lbl_nothing.Location = New Point((panel_downloads.Width - lbl_nothing.Width) \ 2, (panel_downloads.Height - lbl_nothing.Height) \ 2)
         Else
 
             Me.WindowState = FormWindowState.Normal
             lbl_status.Location = New Point((panel_top.Width - lbl_status.Width) \ 2, (panel_top.Height - lbl_status.Height) \ 2)
+            lbl_nothing.Location = New Point((panel_downloads.Width - lbl_nothing.Width) \ 2, (panel_downloads.Height - lbl_nothing.Height) \ 2)
         End If
     End Sub
 
@@ -952,6 +973,13 @@ listbox_search.FocusedItem.SubItems(4).Text}))
                 End If
             Next
 
+        End If
+
+        If listbox_installedroms.FocusedItem IsNot Nothing = True Then
+            lbl_installed_name.Text = listbox_installedroms.FocusedItem.SubItems(0).Text
+            Dim size_rom As New IO.FileInfo(listbox_installedroms.FocusedItem.SubItems(2).Text)
+            lbl_installed_size.Text = "Size: " & Math.Round((size_rom.Length / 1000000), 2) & " MB"
+            lbl_installed_downloadtime.Text = "Downloaded on " & File.GetCreationTime(listbox_installedroms.FocusedItem.SubItems(2).Text)
         End If
     End Sub
 
@@ -1463,6 +1491,7 @@ listbox_search.FocusedItem.SubItems(4).Text}))
             lbl_speed.Text = "0 MB/s CURRENT"
             timer_updateprogress.Enabled = False
             notify_emuloader.Text = "Emuloader"
+            listbox_queue.Visible = False
         Else
             Call launch_downloader()
 
@@ -1597,5 +1626,9 @@ listbox_search.FocusedItem.SubItems(4).Text}))
 
     Private Sub btn_fromlink_MouseLeave(sender As Object, e As EventArgs) Handles btn_fromlink.MouseLeave
         btn_fromlink.BackgroundImage = System.Drawing.Image.FromFile(".\resources\fromlinkwhite.png")
+    End Sub
+
+    Private Sub picturebox_tungsten_Click(sender As Object, e As EventArgs) Handles picturebox_tungsten.Click
+        Process.Start("https://tungstencore.com/emuloader/")
     End Sub
 End Class
