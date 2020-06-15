@@ -17,7 +17,7 @@ Public Class main
     Public Shared labelgrey As Color
     Public Shared tab_index = 0
     Public Shared dark = False
-    Public Shared version_number = "0.9.0"
+    Public Shared version_number = "0.9.1"
     Public Shared global_settings As New List(Of String)
 
 
@@ -1215,7 +1215,12 @@ listbox_search.FocusedItem.SubItems(4).Text}))
 
             Dim writenew = New StreamWriter(".\installed.eldr", False)
             For Each x In custom
-                writenew.Write(x)
+                If x Is custom.Last Then
+                    writenew.Write(x)
+                Else
+                    writenew.Write(x & vbNewLine)
+                End If
+
             Next
 
             writenew.Flush()
@@ -1630,5 +1635,9 @@ listbox_search.FocusedItem.SubItems(4).Text}))
 
     Private Sub picturebox_tungsten_Click(sender As Object, e As EventArgs) Handles picturebox_tungsten.Click
         Process.Start("https://tungstencore.com/emuloader/")
+    End Sub
+
+    Private Sub btn_discord_Click(sender As Object, e As EventArgs) Handles btn_discord.Click
+        Process.Start("https://discord.gg/bhnr6kM")
     End Sub
 End Class

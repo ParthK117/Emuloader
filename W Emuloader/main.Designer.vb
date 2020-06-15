@@ -55,6 +55,9 @@ Partial Class main
         Me.lbl_rom_platform = New System.Windows.Forms.Label()
         Me.lbl_rom_name = New System.Windows.Forms.Label()
         Me.checkbox_fullscreen = New System.Windows.Forms.CheckBox()
+        Me.lbl_installed_size = New System.Windows.Forms.Label()
+        Me.lbl_installed_name = New System.Windows.Forms.Label()
+        Me.lbl_installed_downloadtime = New System.Windows.Forms.Label()
         Me.btn_play = New System.Windows.Forms.PictureBox()
         Me.lbl_platform = New System.Windows.Forms.Label()
         Me.lbl_installedon = New System.Windows.Forms.Label()
@@ -165,9 +168,7 @@ Partial Class main
         Me.lbl_nothing = New System.Windows.Forms.Label()
         Me.timer_updateprogress = New System.Windows.Forms.Timer(Me.components)
         Me.downloader = New System.ComponentModel.BackgroundWorker()
-        Me.lbl_installed_downloadtime = New System.Windows.Forms.Label()
-        Me.lbl_installed_size = New System.Windows.Forms.Label()
-        Me.lbl_installed_name = New System.Windows.Forms.Label()
+        Me.btn_discord = New System.Windows.Forms.PictureBox()
         CType(Me.image_logo, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panel_left.SuspendLayout()
         CType(Me.picturebox_tungsten, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -232,6 +233,7 @@ Partial Class main
         Me.panel_downloads.SuspendLayout()
         Me.panel_download_chart.SuspendLayout()
         CType(Me.picturebox_download, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.btn_discord, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'image_logo
@@ -614,6 +616,35 @@ Partial Class main
         Me.checkbox_fullscreen.Text = "Launch in fullscreen"
         Me.checkbox_fullscreen.UseVisualStyleBackColor = True
         '
+        'lbl_installed_size
+        '
+        Me.lbl_installed_size.AutoSize = True
+        Me.lbl_installed_size.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_installed_size.Location = New System.Drawing.Point(14, 380)
+        Me.lbl_installed_size.Name = "lbl_installed_size"
+        Me.lbl_installed_size.Size = New System.Drawing.Size(187, 23)
+        Me.lbl_installed_size.TabIndex = 14
+        Me.lbl_installed_size.Text = "Tell me what you think!"
+        '
+        'lbl_installed_name
+        '
+        Me.lbl_installed_name.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_installed_name.Location = New System.Drawing.Point(14, 200)
+        Me.lbl_installed_name.MaximumSize = New System.Drawing.Size(400, 120)
+        Me.lbl_installed_name.Name = "lbl_installed_name"
+        Me.lbl_installed_name.Size = New System.Drawing.Size(217, 120)
+        Me.lbl_installed_name.TabIndex = 13
+        Me.lbl_installed_name.Text = "Prerelease Build"
+        '
+        'lbl_installed_downloadtime
+        '
+        Me.lbl_installed_downloadtime.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_installed_downloadtime.Location = New System.Drawing.Point(14, 330)
+        Me.lbl_installed_downloadtime.Name = "lbl_installed_downloadtime"
+        Me.lbl_installed_downloadtime.Size = New System.Drawing.Size(202, 73)
+        Me.lbl_installed_downloadtime.TabIndex = 15
+        Me.lbl_installed_downloadtime.Text = "https://parthkataria.com"
+        '
         'btn_play
         '
         Me.btn_play.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
@@ -781,7 +812,7 @@ Partial Class main
         '
         Me.btn_about.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btn_about.BackgroundImage = CType(resources.GetObject("btn_about.BackgroundImage"), System.Drawing.Image)
-        Me.btn_about.Location = New System.Drawing.Point(1281, 1)
+        Me.btn_about.Location = New System.Drawing.Point(1064, 1)
         Me.btn_about.Name = "btn_about"
         Me.btn_about.Size = New System.Drawing.Size(100, 36)
         Me.btn_about.TabIndex = 1
@@ -941,6 +972,7 @@ Partial Class main
         Me.panel_browse.Controls.Add(Me.listbox_availableroms)
         Me.panel_browse.Controls.Add(Me.btn_import)
         Me.panel_browse.Controls.Add(Me.lbl_browse)
+        Me.panel_browse.Controls.Add(Me.btn_discord)
         Me.panel_browse.Location = New System.Drawing.Point(250, 40)
         Me.panel_browse.Name = "panel_browse"
         Me.panel_browse.Size = New System.Drawing.Size(1100, 860)
@@ -1679,34 +1711,16 @@ Partial Class main
         'downloader
         '
         '
-        'lbl_installed_downloadtime
+        'btn_discord
         '
-        Me.lbl_installed_downloadtime.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lbl_installed_downloadtime.Location = New System.Drawing.Point(14, 330)
-        Me.lbl_installed_downloadtime.Name = "lbl_installed_downloadtime"
-        Me.lbl_installed_downloadtime.Size = New System.Drawing.Size(202, 73)
-        Me.lbl_installed_downloadtime.TabIndex = 15
-        Me.lbl_installed_downloadtime.Text = "https://parthkataria.com"
-        '
-        'lbl_installed_size
-        '
-        Me.lbl_installed_size.AutoSize = True
-        Me.lbl_installed_size.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lbl_installed_size.Location = New System.Drawing.Point(14, 380)
-        Me.lbl_installed_size.Name = "lbl_installed_size"
-        Me.lbl_installed_size.Size = New System.Drawing.Size(187, 23)
-        Me.lbl_installed_size.TabIndex = 14
-        Me.lbl_installed_size.Text = "Tell me what you think!"
-        '
-        'lbl_installed_name
-        '
-        Me.lbl_installed_name.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lbl_installed_name.Location = New System.Drawing.Point(14, 200)
-        Me.lbl_installed_name.MaximumSize = New System.Drawing.Size(400, 120)
-        Me.lbl_installed_name.Name = "lbl_installed_name"
-        Me.lbl_installed_name.Size = New System.Drawing.Size(217, 120)
-        Me.lbl_installed_name.TabIndex = 13
-        Me.lbl_installed_name.Text = "Prerelease Build"
+        Me.btn_discord.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btn_discord.BackColor = System.Drawing.Color.Transparent
+        Me.btn_discord.BackgroundImage = CType(resources.GetObject("btn_discord.BackgroundImage"), System.Drawing.Image)
+        Me.btn_discord.Location = New System.Drawing.Point(1000, 44)
+        Me.btn_discord.Name = "btn_discord"
+        Me.btn_discord.Size = New System.Drawing.Size(94, 36)
+        Me.btn_discord.TabIndex = 7
+        Me.btn_discord.TabStop = False
         '
         'main
         '
@@ -1803,6 +1817,7 @@ Partial Class main
         Me.panel_downloads.PerformLayout()
         Me.panel_download_chart.ResumeLayout(False)
         CType(Me.picturebox_download, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.btn_discord, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -1950,4 +1965,5 @@ Partial Class main
     Friend WithEvents lbl_installed_size As Label
     Friend WithEvents lbl_installed_name As Label
     Friend WithEvents lbl_installed_downloadtime As Label
+    Friend WithEvents btn_discord As PictureBox
 End Class
