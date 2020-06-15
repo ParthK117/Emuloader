@@ -142,7 +142,7 @@ Partial Class main
         Me.btn_import = New System.Windows.Forms.PictureBox()
         Me.lbl_browse = New System.Windows.Forms.Label()
         Me.btn_discord = New System.Windows.Forms.PictureBox()
-        Me.btn_reddit = New System.Windows.Forms.PictureBox()
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.import_list = New System.Windows.Forms.OpenFileDialog()
         Me.panel_drag_drop = New System.Windows.Forms.Panel()
         Me.picturebox_drag = New System.Windows.Forms.PictureBox()
@@ -225,7 +225,7 @@ Partial Class main
         CType(Me.tab_all, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btn_import, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btn_discord, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.btn_reddit, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panel_drag_drop.SuspendLayout()
         CType(Me.picturebox_drag, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panel_blue_click.SuspendLayout()
@@ -975,7 +975,7 @@ Partial Class main
         Me.panel_browse.Controls.Add(Me.btn_import)
         Me.panel_browse.Controls.Add(Me.lbl_browse)
         Me.panel_browse.Controls.Add(Me.btn_discord)
-        Me.panel_browse.Controls.Add(Me.btn_reddit)
+        Me.panel_browse.Controls.Add(Me.PictureBox1)
         Me.panel_browse.Location = New System.Drawing.Point(250, 40)
         Me.panel_browse.Name = "panel_browse"
         Me.panel_browse.Size = New System.Drawing.Size(1100, 860)
@@ -1482,17 +1482,17 @@ Partial Class main
         Me.btn_discord.TabIndex = 7
         Me.btn_discord.TabStop = False
         '
-        'btn_reddit
+        'PictureBox1
         '
-        Me.btn_reddit.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btn_reddit.BackColor = System.Drawing.Color.Transparent
-        Me.btn_reddit.BackgroundImage = CType(resources.GetObject("btn_reddit.BackgroundImage"), System.Drawing.Image)
-        Me.btn_reddit.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btn_reddit.Location = New System.Drawing.Point(798, 6)
-        Me.btn_reddit.Name = "btn_reddit"
-        Me.btn_reddit.Size = New System.Drawing.Size(94, 36)
-        Me.btn_reddit.TabIndex = 23
-        Me.btn_reddit.TabStop = False
+        Me.PictureBox1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.PictureBox1.BackColor = System.Drawing.Color.Transparent
+        Me.PictureBox1.BackgroundImage = CType(resources.GetObject("PictureBox1.BackgroundImage"), System.Drawing.Image)
+        Me.PictureBox1.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.PictureBox1.Location = New System.Drawing.Point(798, 6)
+        Me.PictureBox1.Name = "PictureBox1"
+        Me.PictureBox1.Size = New System.Drawing.Size(94, 36)
+        Me.PictureBox1.TabIndex = 23
+        Me.PictureBox1.TabStop = False
         '
         'import_list
         '
@@ -1823,7 +1823,7 @@ Partial Class main
         CType(Me.tab_all, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btn_import, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btn_discord, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.btn_reddit, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.panel_drag_drop.ResumeLayout(False)
         CType(Me.picturebox_drag, System.ComponentModel.ISupportInitialize).EndInit()
         Me.panel_blue_click.ResumeLayout(False)
@@ -1983,5 +1983,5 @@ Partial Class main
     Friend WithEvents lbl_installed_name As Label
     Friend WithEvents lbl_installed_downloadtime As Label
     Friend WithEvents btn_discord As PictureBox
-    Friend WithEvents btn_reddit As PictureBox
+    Friend WithEvents PictureBox1 As PictureBox
 End Class
