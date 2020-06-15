@@ -65,6 +65,7 @@ Public Class listlink
                 End Try
             End Using
         Next
+        Me.Close()
     End Sub
 
     Private Sub btn_import_MouseEnter(sender As Object, e As EventArgs) Handles btn_import.MouseEnter

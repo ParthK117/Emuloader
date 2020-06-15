@@ -170,6 +170,10 @@ Partial Class main
         Me.lbl_nothing = New System.Windows.Forms.Label()
         Me.timer_updateprogress = New System.Windows.Forms.Timer(Me.components)
         Me.downloader = New System.ComponentModel.BackgroundWorker()
+        Me.context_icon = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.ExitToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ShowDownloadsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.SettingsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         CType(Me.image_logo, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panel_left.SuspendLayout()
         CType(Me.picturebox_tungsten, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -236,6 +240,7 @@ Partial Class main
         Me.panel_downloads.SuspendLayout()
         Me.panel_download_chart.SuspendLayout()
         CType(Me.picturebox_download, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.context_icon.SuspendLayout()
         Me.SuspendLayout()
         '
         'image_logo
@@ -1573,6 +1578,7 @@ Partial Class main
         '
         'notify_emuloader
         '
+        Me.notify_emuloader.ContextMenuStrip = Me.context_icon
         Me.notify_emuloader.Icon = CType(resources.GetObject("notify_emuloader.Icon"), System.Drawing.Icon)
         Me.notify_emuloader.Text = "Emuloader"
         Me.notify_emuloader.Visible = True
@@ -1738,6 +1744,30 @@ Partial Class main
         'downloader
         '
         '
+        'context_icon
+        '
+        Me.context_icon.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ShowDownloadsToolStripMenuItem, Me.SettingsToolStripMenuItem, Me.ExitToolStripMenuItem})
+        Me.context_icon.Name = "context_icon"
+        Me.context_icon.Size = New System.Drawing.Size(166, 70)
+        '
+        'ExitToolStripMenuItem
+        '
+        Me.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem"
+        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.ExitToolStripMenuItem.Text = "Exit"
+        '
+        'ShowDownloadsToolStripMenuItem
+        '
+        Me.ShowDownloadsToolStripMenuItem.Name = "ShowDownloadsToolStripMenuItem"
+        Me.ShowDownloadsToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.ShowDownloadsToolStripMenuItem.Text = "Show Downloads"
+        '
+        'SettingsToolStripMenuItem
+        '
+        Me.SettingsToolStripMenuItem.Name = "SettingsToolStripMenuItem"
+        Me.SettingsToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.SettingsToolStripMenuItem.Text = "Settings"
+        '
         'main
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1835,6 +1865,7 @@ Partial Class main
         Me.panel_downloads.PerformLayout()
         Me.panel_download_chart.ResumeLayout(False)
         CType(Me.picturebox_download, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.context_icon.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
@@ -1984,4 +2015,8 @@ Partial Class main
     Friend WithEvents lbl_installed_downloadtime As Label
     Friend WithEvents btn_discord As PictureBox
     Friend WithEvents PictureBox1 As PictureBox
+    Friend WithEvents context_icon As ContextMenuStrip
+    Friend WithEvents ExitToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ShowDownloadsToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents SettingsToolStripMenuItem As ToolStripMenuItem
 End Class

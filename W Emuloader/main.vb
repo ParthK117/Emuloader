@@ -17,7 +17,7 @@ Public Class main
     Public Shared labelgrey As Color
     Public Shared tab_index = 0
     Public Shared dark = False
-    Public Shared version_number = "0.9.2"
+    Public Shared version_number = "0.9.4"
     Public Shared global_settings As New List(Of String)
 
 
@@ -1382,12 +1382,14 @@ listbox_search.FocusedItem.SubItems(4).Text}))
     End Sub
 
     Private Sub notify_emuloader_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles notify_emuloader.MouseDoubleClick
-
+        Me.WindowState = FormWindowState.Normal
+        Me.ShowInTaskbar = True
+        panel_blue_click.BringToFront()
     End Sub
 
     Private Sub notify_emuloader_Click(sender As Object, e As EventArgs) Handles notify_emuloader.Click
-        Me.WindowState = FormWindowState.Normal
-        Me.ShowInTaskbar = True
+
+
     End Sub
 
     Private Sub btn_showdownloads_Click(sender As Object, e As EventArgs) Handles btn_showdownloads.Click
@@ -1639,5 +1641,20 @@ listbox_search.FocusedItem.SubItems(4).Text}))
 
     Private Sub btn_discord_Click(sender As Object, e As EventArgs) Handles btn_discord.Click
         Process.Start("https://discord.gg/bhnr6kM")
+    End Sub
+
+    Private Sub ExitToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ExitToolStripMenuItem.Click
+        Application.Exit()
+    End Sub
+
+    Private Sub ShowDownloadsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ShowDownloadsToolStripMenuItem.Click
+        Me.WindowState = FormWindowState.Normal
+        Me.ShowInTaskbar = True
+        panel_blue_click.BringToFront()
+        panel_downloads.BringToFront()
+    End Sub
+
+    Private Sub SettingsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SettingsToolStripMenuItem.Click
+        settings.Show()
     End Sub
 End Class
