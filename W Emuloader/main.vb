@@ -17,7 +17,7 @@ Public Class main
     Public Shared labelgrey As Color
     Public Shared tab_index = 0
     Public Shared dark = False
-    Public Shared version_number = "0.9.1"
+    Public Shared version_number = "0.9.2"
     Public Shared global_settings As New List(Of String)
 
 
