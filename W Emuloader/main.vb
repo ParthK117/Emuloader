@@ -17,7 +17,7 @@ Public Class main
     Public Shared labelgrey As Color
     Public Shared tab_index = 0
     Public Shared dark = False
-    Public Shared version_number = "0.9.2"
+    Public Shared version_number = "0.9.3"
     Public Shared global_settings As New List(Of String)
 
 
@@ -406,7 +406,7 @@ Public Class main
     End Sub
 
     Private Sub listbox_availableroms_SelectedIndexChanged(sender As Object, e As EventArgs) Handles listbox_availableroms.SelectedIndexChanged
-        If listbox_availableroms.SelectedItems IsNot Nothing Then
+        If listbox_availableroms.FocusedItem IsNot Nothing And listbox_availableroms.SelectedItems IsNot Nothing Then
             lbl_rom_source.Visible = True
             lbl_rom_size.Visible = True
             lbl_rom_platform.Visible = True
@@ -418,7 +418,7 @@ Public Class main
     End Sub
 
     Private Sub listbox_search_SelectedIndexChanged(sender As Object, e As EventArgs) Handles listbox_search.SelectedIndexChanged
-        If listbox_search.SelectedItems IsNot Nothing Then
+        If listbox_search.SelectedItems IsNot Nothing And listbox_search.FocusedItem IsNot Nothing Then
             lbl_rom_source.Visible = True
             lbl_rom_size.Visible = True
             lbl_rom_platform.Visible = True
@@ -538,6 +538,7 @@ listbox_search.FocusedItem.SubItems(4).Text}))
         If checkbox_exit(1) = "0" Then
             Application.Exit()
         Else
+            '  listbox_availableroms.FocusedItem.Focused = False
             Me.ShowInTaskbar = False
             Me.WindowState = FormWindowState.Minimized
         End If
@@ -666,10 +667,15 @@ listbox_search.FocusedItem.SubItems(4).Text}))
 
     Private Sub btn_rom_delete_Click(sender As Object, e As EventArgs) Handles btn_rom_delete.Click
 
-        If File.Exists(listbox_installedroms.FocusedItem.SubItems(2).Text) Then
-
-            My.Computer.FileSystem.DeleteFile(listbox_installedroms.FocusedItem.SubItems(2).Text)
+        If listbox_installedroms.FocusedItem IsNot Nothing = True AndAlso File.Exists(listbox_installedroms.FocusedItem.SubItems(2).Text) Then
+            Dim file_to_delete As String = listbox_installedroms.FocusedItem.SubItems(2).Text
             listbox_installedroms.FocusedItem.Remove()
+            Try
+                My.Computer.FileSystem.DeleteFile(file_to_delete)
+            Catch ex As Exception
+                MsgBox("Can't delete rom you're trying to download")
+
+            End Try
             panel_rom_rightclick.Visible = False
         End If
     End Sub
@@ -964,7 +970,7 @@ listbox_search.FocusedItem.SubItems(4).Text}))
             Dim find_art As String() = File.ReadAllLines(".\roms\" & currenttab_metadata(1) & "\metadata\boxartmatches.eldr")
             For Each x In find_art
                 Dim current_name As String() = x.Split("#")
-                If listbox_installedroms.FocusedItem IsNot Nothing = True Then
+                If listbox_installedroms.FocusedItem IsNot Nothing = True And listbox_installedroms.SelectedItems IsNot Nothing = True Then
                     If listbox_installedroms.FocusedItem.SubItems(0).Text.Contains(current_name(0)) Then
                         picturebox_boxart.BackgroundImage = System.Drawing.Image.FromFile(current_name(1))
                         romproperties.picturebox_boxart.BackgroundImage = System.Drawing.Image.FromFile(current_name(1))
@@ -1639,5 +1645,10 @@ listbox_search.FocusedItem.SubItems(4).Text}))
 
     Private Sub btn_discord_Click(sender As Object, e As EventArgs) Handles btn_discord.Click
         Process.Start("https://discord.gg/bhnr6kM")
+    End Sub
+
+    Private Sub btn_reddit_Click(sender As Object, e As EventArgs) Handles btn_reddit.Click
+        Process.Start("https://www.reddit.com/r/Emuloader")
+
     End Sub
 End Class
