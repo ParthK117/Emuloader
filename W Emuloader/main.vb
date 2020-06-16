@@ -17,7 +17,7 @@ Public Class main
     Public Shared labelgrey As Color
     Public Shared tab_index = 0
     Public Shared dark = False
-    Public Shared version_number = "0.9.4"
+    Public Shared version_number = "0.10.0"
     Public Shared global_settings As New List(Of String)
 
 
@@ -1276,8 +1276,14 @@ x.SubItems(4).Text}))
 
             If Not settings(2).Contains(version_number) Then
                 File.Delete(".\settings.dat")
-                Dim new_settings As String = settings(0) & vbNewLine & settings(1) & vbNewLine & "version=" & version_number & vbNewLine & settings(3) & vbNewLine & settings(4) & vbNewLine & settings(5) & vbNewLine & settings(6) & vbNewLine & settings(7)
-                File.WriteAllText(".\settings.dat", new_settings)
+                Try
+                    Dim new_settings As String = settings(0) & vbNewLine & settings(1) & vbNewLine & "version=" & version_number & vbNewLine & settings(3) & vbNewLine & settings(4) & vbNewLine & settings(5) & vbNewLine & settings(6) & vbNewLine & settings(7)
+                    File.WriteAllText(".\settings.dat", new_settings)
+                Catch ex As Exception
+                    MessageBox.Show("The new update is incompatible with your old settings, sorry. Launching first-time setup.")
+                    Dim new_settings As String = "load=1" & vbNewLine & "dark=0" & vbNewLine & "version=" & version_number & vbNewLine & "autoupdate=1" & vbNewLine & "exitonx=0" & vbNewLine & "fancydl=0" & vbNewLine & "firstime=1" & vbNewLine & "windowsbar=0"
+                    File.WriteAllText(".\settings.dat", new_settings)
+                End Try
             End If
         End If
         Dim settings2 As New List(Of String)
