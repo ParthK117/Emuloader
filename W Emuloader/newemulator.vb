@@ -5,7 +5,7 @@ Imports System.ComponentModel
 
 Public Class newemulator
     Dim arguments As String()
-    Dim list_of_emulators As String() = {"Visual Boy Advance-M (GBA)", "Citra (3DS)", "DeSmuME (NDS)", "Project64 (N64)", "PPSSPP (PSP)", "Dolphin (WII)", "Cemu (WIIU)", "Snes9x (SNES)", "Mesen (NES)", "ePSXe (PSX)", "Fusion (MGD)", "Redream (DC)"}
+    Dim list_of_emulators As String() = {"Visual Boy Advance-M (GBA)", "Citra (3DS)", "DeSmuME (NDS)", "Project64 (N64)", "PPSSPP (PSP)", "Dolphin (WII)", "Cemu (WIIU)", "Snes9x (SNES)", "Mesen (NES)", "ePSXe (PSX)", "Fusion (MGD)", "Redream (DC)", "PCSX2 (PS2)"}
     Dim uptodate_list As String()
 
 
@@ -232,6 +232,14 @@ Public Class newemulator
                 lbl_version_number.Text = emulator_meta(4)
                 picturebox_emulogo.BackgroundImage = New System.Drawing.Bitmap(".\resources\redream.png")
             End If
+            If listbox_emulators.SelectedItem.ToString = "PCSX2 (PS2)" Then
+                Dim emulator_meta As String() = uptodate_list(12).Split(",")
+                lbl_emulator_name.Text = "PCSX2"
+                lbl_platform.Text = "Platform: Playstation 2"
+                lbl_source.Text = "Source: Google Drive (Emuloader Repack)"
+                lbl_version_number.Text = emulator_meta(4)
+                picturebox_emulogo.BackgroundImage = New System.Drawing.Bitmap(".\resources\pcsx2.png")
+            End If
         End If
 
 
@@ -333,6 +341,14 @@ Public Class newemulator
             emulator_downloader.RunWorkerAsync(arguments)
             main.lbl_status.Text = "Installing Redream (DC)"
             Call center_status_lbl()
+        ElseIf listbox_emulators.SelectedItem = "PCSX2 (PS2)" Then
+            Dim emulator_meta As String() = uptodate_list(12).Split(",")
+            arguments = {"PCSX2", emulator_meta(0), emulator_meta(1), "PS2", emulator_meta(2), "PCSX2", "pcsx2.eldr", emulator_meta(3)}
+
+            emulator_downloader.RunWorkerAsync(arguments)
+            main.lbl_status.Text = "Installing PCSX2 (PS2)"
+            Call center_status_lbl()
+            MessageBox.Show("PCSX2 requires a PS2 Bios to function.")
         End If
         main.picturebox_loading.Visible = True
         MessageBox.Show(arguments(5) & " will be installed")

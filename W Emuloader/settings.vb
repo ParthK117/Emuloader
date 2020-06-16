@@ -26,12 +26,17 @@ Public Class settings
         If fancy(1) = "1" Then
             checkbox_fancy.Checked = True
         End If
+        Dim topbar As String() = (settings(7).Split("="))
+        If topbar(1) = "1" Then
+            checkbox_topbar.Checked = True
+        End If
         Dim spartanfont14 As New System.Drawing.Font(main.spartan.Families(0), 14)
         load_boxart_on_startup.Font = spartanfont14
         load_skin.Font = spartanfont14
         checkbox_autoupdate.Font = spartanfont14
         checkbox_exit_on_taskbar.Font = spartanfont14
         checkbox_fancy.Font = spartanfont14
+        checkbox_topbar.Font = spartanfont14
 
         Dim spartanfont16 As New System.Drawing.Font(main.spartan.Families(0), 16)
         listbox_settings.Font = spartanfont16
@@ -48,6 +53,7 @@ Public Class settings
             listbox_settings.ForeColor = Color.White
             lbl_settingstitle.ForeColor = Color.FromArgb(23, 191, 99)
             checkbox_exit_on_taskbar.ForeColor = Color.White
+            checkbox_topbar.ForeColor = Color.White
             checkbox_fancy.ForeColor = Color.White
             picturebox_wave.BackgroundImage = System.Drawing.Image.FromFile(".\resources\egwavedark.png")
         End If
@@ -71,7 +77,7 @@ Public Class settings
         End If
 
         System.IO.File.Create(".\settings.dat").Dispose()
-        Dim new_settings As String = settings(0) & vbNewLine & settings(1) & vbNewLine & "version=" & main.version_number & vbNewLine & settings(3) & vbNewLine & settings(4) & vbNewLine & settings(5) & vbNewLine & settings(6)
+        Dim new_settings As String = settings(0) & vbNewLine & settings(1) & vbNewLine & "version=" & main.version_number & vbNewLine & settings(3) & vbNewLine & settings(4) & vbNewLine & settings(5) & vbNewLine & "firsttime=0" & vbNewLine & settings(7)
         File.WriteAllText(".\settings.dat", new_settings)
         main.global_settings.Clear()
         main.global_settings.AddRange(File.ReadAllLines(".\settings.dat"))
@@ -98,6 +104,13 @@ Public Class settings
         Else
             Call lightmode()
             main.dark = False
+        End If
+        If checkbox_topbar.Checked = True Then
+            main.FormBorderStyle = FormBorderStyle.Sizable
+            main.paneL_menubar.Visible = False
+        Else
+            main.FormBorderStyle = FormBorderStyle.None
+            main.paneL_menubar.Visible = True
         End If
         Me.Close()
 
@@ -159,6 +172,14 @@ Public Class settings
             settings(5) = "fancydl=1"
         Else
             settings(5) = "fancydl=0"
+        End If
+    End Sub
+
+    Private Sub checkbox_topbar_CheckedChanged(sender As Object, e As EventArgs) Handles checkbox_topbar.CheckedChanged
+        If checkbox_topbar.Checked = True Then
+            settings(7) = "windowsbar=1"
+        Else
+            settings(7) = "windowsbar=0"
         End If
     End Sub
 End Class

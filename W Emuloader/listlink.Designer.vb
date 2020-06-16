@@ -25,6 +25,7 @@ Partial Class listlink
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(listlink))
         Me.btn_import = New System.Windows.Forms.PictureBox()
         Me.textbox_url = New System.Windows.Forms.RichTextBox()
+        Me.lbl_disclaimer = New System.Windows.Forms.Label()
         CType(Me.btn_import, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -42,9 +43,19 @@ Partial Class listlink
         Me.textbox_url.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.textbox_url.Location = New System.Drawing.Point(3, 4)
         Me.textbox_url.Name = "textbox_url"
-        Me.textbox_url.Size = New System.Drawing.Size(499, 161)
+        Me.textbox_url.Size = New System.Drawing.Size(499, 157)
         Me.textbox_url.TabIndex = 2
         Me.textbox_url.Text = ""
+        '
+        'lbl_disclaimer
+        '
+        Me.lbl_disclaimer.AutoSize = True
+        Me.lbl_disclaimer.Location = New System.Drawing.Point(12, 164)
+        Me.lbl_disclaimer.Name = "lbl_disclaimer"
+        Me.lbl_disclaimer.Size = New System.Drawing.Size(258, 39)
+        Me.lbl_disclaimer.TabIndex = 3
+        Me.lbl_disclaimer.Text = "Only use backups you've *legally* dumped yourself." & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "You cannot use backups from a" &
+    " friend or the internet." & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "You must dump the backups from your own console."
         '
         'listlink
         '
@@ -52,6 +63,7 @@ Partial Class listlink
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.White
         Me.ClientSize = New System.Drawing.Size(504, 212)
+        Me.Controls.Add(Me.lbl_disclaimer)
         Me.Controls.Add(Me.textbox_url)
         Me.Controls.Add(Me.btn_import)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
@@ -61,8 +73,10 @@ Partial Class listlink
         Me.Text = "Import from link (one per line)"
         CType(Me.btn_import, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
     Friend WithEvents btn_import As PictureBox
     Friend WithEvents textbox_url As RichTextBox
+    Friend WithEvents lbl_disclaimer As Label
 End Class

@@ -37,6 +37,7 @@ Partial Class firstlaunch
         Me.picturebox_dragdrop = New System.Windows.Forms.PictureBox()
         Me.picturebox_add_sources = New System.Windows.Forms.PictureBox()
         Me.picturebox_example = New System.Windows.Forms.PictureBox()
+        Me.picturebox_disclaimer = New System.Windows.Forms.PictureBox()
         CType(Me.picturebox_logo, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btn_next, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panel_colourpicker.SuspendLayout()
@@ -51,6 +52,7 @@ Partial Class firstlaunch
         CType(Me.picturebox_dragdrop, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.picturebox_add_sources, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.picturebox_example, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.picturebox_disclaimer, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'picturebox_logo
@@ -67,7 +69,7 @@ Partial Class firstlaunch
         '
         Me.btn_next.BackgroundImage = CType(resources.GetObject("btn_next.BackgroundImage"), System.Drawing.Image)
         Me.btn_next.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
-        Me.btn_next.Location = New System.Drawing.Point(374, 328)
+        Me.btn_next.Location = New System.Drawing.Point(374, 291)
         Me.btn_next.Name = "btn_next"
         Me.btn_next.Size = New System.Drawing.Size(176, 48)
         Me.btn_next.TabIndex = 2
@@ -200,6 +202,16 @@ Partial Class firstlaunch
         Me.picturebox_example.TabIndex = 0
         Me.picturebox_example.TabStop = False
         '
+        'picturebox_disclaimer
+        '
+        Me.picturebox_disclaimer.BackgroundImage = CType(resources.GetObject("picturebox_disclaimer.BackgroundImage"), System.Drawing.Image)
+        Me.picturebox_disclaimer.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.picturebox_disclaimer.Location = New System.Drawing.Point(200, 348)
+        Me.picturebox_disclaimer.Name = "picturebox_disclaimer"
+        Me.picturebox_disclaimer.Size = New System.Drawing.Size(300, 60)
+        Me.picturebox_disclaimer.TabIndex = 5
+        Me.picturebox_disclaimer.TabStop = False
+        '
         'firstlaunch
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -210,6 +222,7 @@ Partial Class firstlaunch
         Me.Controls.Add(Me.panel_colourpicker)
         Me.Controls.Add(Me.btn_next)
         Me.Controls.Add(Me.picturebox_logo)
+        Me.Controls.Add(Me.picturebox_disclaimer)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
@@ -230,6 +243,7 @@ Partial Class firstlaunch
         CType(Me.picturebox_dragdrop, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.picturebox_add_sources, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.picturebox_example, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.picturebox_disclaimer, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -248,4 +262,5 @@ Partial Class firstlaunch
     Friend WithEvents picturebox_dragdrop As PictureBox
     Friend WithEvents btn_search As PictureBox
     Friend WithEvents btn_finish As PictureBox
+    Friend WithEvents picturebox_disclaimer As PictureBox
 End Class

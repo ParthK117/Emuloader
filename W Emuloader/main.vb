@@ -49,7 +49,7 @@ Public Class main
             End If
 
             System.IO.File.Create(".\settings.dat").Dispose()
-            Dim new_settings As String = global_settings(0) & vbNewLine & global_settings(1) & vbNewLine & global_settings(2) & vbNewLine & global_settings(3) & vbNewLine & global_settings(4) & vbNewLine & global_settings(5) & vbNewLine & global_settings(6)
+            Dim new_settings As String = global_settings(0) & vbNewLine & global_settings(1) & vbNewLine & global_settings(2) & vbNewLine & global_settings(3) & vbNewLine & global_settings(4) & vbNewLine & global_settings(5) & vbNewLine & global_settings(6) & vbNewLine & global_settings(7)
             File.WriteAllText(".\settings.dat", new_settings)
         End If
         Dim checkbox_skin As String() = (global_settings(1).Split("="))
@@ -58,6 +58,11 @@ Public Class main
             dark = True
         Else
             Call lightmode()
+        End If
+        Dim checkbox_topbar As String() = (global_settings(7).Split("="))
+        If checkbox_topbar(1) = "1" Then
+            Me.FormBorderStyle = FormBorderStyle.Sizable
+            paneL_menubar.Visible = False
         End If
         lbl_version.Text = "v" & version_number
         lbl_networkusage.ForeColor = labelgrey
@@ -347,6 +352,11 @@ Public Class main
 
             Dim rom_path As String = System.IO.Path.GetFullPath(listbox_installedroms.FocusedItem.SubItems(2).Text)
             p.Arguments = ("""" & rom_path & """ " & params)
+        ElseIf currenttab_metadata(1) = "PS2" Then
+
+
+            Dim rom_path As String = System.IO.Path.GetFullPath(listbox_installedroms.FocusedItem.SubItems(2).Text)
+            p.Arguments = ("""" & rom_path & """ " & params)
         End If
 
 
@@ -486,20 +496,23 @@ Public Class main
     Private Sub download_roms()
         If panel_search.Visible = True Then
             listbox_queue.Visible = True
-            listbox_queue.Items.Add(New ListViewItem(New String() {listbox_search.FocusedItem.SubItems(0).Text,
-listbox_search.FocusedItem.SubItems(1).Text,
-listbox_search.FocusedItem.SubItems(2).Text,
-listbox_search.FocusedItem.SubItems(3).Text,
-listbox_search.FocusedItem.SubItems(4).Text}))
-
+            For Each x In listbox_search.SelectedItems
+                listbox_queue.Items.Add(New ListViewItem(New String() {x.SubItems(0).Text,
+x.SubItems(1).Text,
+x.SubItems(2).Text,
+x.SubItems(3).Text,
+x.SubItems(4).Text}))
+            Next
         Else
             listbox_queue.Visible = True
 
-            listbox_queue.Items.Add(New ListViewItem(New String() {listbox_availableroms.FocusedItem.SubItems(0).Text,
-  listbox_availableroms.FocusedItem.SubItems(1).Text,
-  listbox_availableroms.FocusedItem.SubItems(2).Text,
-  listbox_availableroms.FocusedItem.SubItems(3).Text,
-  listbox_availableroms.FocusedItem.SubItems(4).Text}))
+            For Each x In listbox_availableroms.SelectedItems
+                listbox_queue.Items.Add(New ListViewItem(New String() {x.SubItems(0).Text,
+x.SubItems(1).Text,
+x.SubItems(2).Text,
+x.SubItems(3).Text,
+x.SubItems(4).Text}))
+            Next
         End If
 
         Call launch_downloader()
@@ -667,9 +680,10 @@ listbox_search.FocusedItem.SubItems(4).Text}))
     Private Sub btn_rom_delete_Click(sender As Object, e As EventArgs) Handles btn_rom_delete.Click
 
         If File.Exists(listbox_installedroms.FocusedItem.SubItems(2).Text) Then
-
-            My.Computer.FileSystem.DeleteFile(listbox_installedroms.FocusedItem.SubItems(2).Text)
+            Dim file_to_delete As String = listbox_installedroms.FocusedItem.SubItems(2).Text
             listbox_installedroms.FocusedItem.Remove()
+            My.Computer.FileSystem.DeleteFile(file_to_delete)
+
             panel_rom_rightclick.Visible = False
         End If
     End Sub
@@ -885,9 +899,19 @@ listbox_search.FocusedItem.SubItems(4).Text}))
 
 
                 If File.Exists(".\custom.eldr") And (New FileInfo(".\custom.eldr").Length > 0) Then
+                    Dim check As Boolean = False
+                    Dim check_directory As String() = File.ReadAllLines(".\custom.eldr")
+                    For Each x In check_directory
+                        If x = folderPath Then
+                            MessageBox.Show("You've already imported this rom/directory")
+                            check = True
+                            Exit For
 
-                    My.Computer.FileSystem.WriteAllText(".\custom.eldr", vbNewLine & folderPath, True)
-
+                        End If
+                    Next
+                    If check = False Then
+                        My.Computer.FileSystem.WriteAllText(".\custom.eldr", vbNewLine & folderPath, True)
+                    End If
                 Else
                     System.IO.File.Create(".\custom.eldr").Dispose()
                     My.Computer.FileSystem.WriteAllText(".\custom.eldr", folderPath, False)
@@ -1244,7 +1268,7 @@ listbox_search.FocusedItem.SubItems(4).Text}))
     End Sub
     Public Sub check_for_updates()
         If Not File.Exists(".\settings.dat") Then
-            Dim new_settings As String = "load=1" & vbNewLine & "dark=0" & vbNewLine & "version=" & version_number & vbNewLine & "autoupdate=1" & vbNewLine & "exitonx=0" & vbNewLine & "fancydl=0" & vbNewLine & "firstime=1"
+            Dim new_settings As String = "load=1" & vbNewLine & "dark=0" & vbNewLine & "version=" & version_number & vbNewLine & "autoupdate=1" & vbNewLine & "exitonx=0" & vbNewLine & "fancydl=0" & vbNewLine & "firstime=1" & vbNewLine & "windowsbar=0"
             File.WriteAllText(".\settings.dat", new_settings)
         Else
             Dim settings As New List(Of String)
@@ -1252,7 +1276,7 @@ listbox_search.FocusedItem.SubItems(4).Text}))
 
             If Not settings(2).Contains(version_number) Then
                 File.Delete(".\settings.dat")
-                Dim new_settings As String = settings(0) & vbNewLine & settings(1) & vbNewLine & "version=" & version_number & vbNewLine & settings(3) & vbNewLine & settings(4) & vbNewLine & settings(5) & vbNewLine & settings(6)
+                Dim new_settings As String = settings(0) & vbNewLine & settings(1) & vbNewLine & "version=" & version_number & vbNewLine & settings(3) & vbNewLine & settings(4) & vbNewLine & settings(5) & vbNewLine & settings(6) & vbNewLine & settings(7)
                 File.WriteAllText(".\settings.dat", new_settings)
             End If
         End If
@@ -1657,4 +1681,12 @@ listbox_search.FocusedItem.SubItems(4).Text}))
     Private Sub SettingsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SettingsToolStripMenuItem.Click
         settings.Show()
     End Sub
+    Private Sub Main_ResizeEnd(ByVal sender As Object, ByVal e As EventArgs) Handles Me.SizeChanged
+        lbl_nothing.Location = New Point((panel_downloads.Width - lbl_nothing.Width) \ 2, (panel_downloads.Height - lbl_nothing.Height) \ 2)
+        lbl_status.Location = New Point((panel_top.Width - lbl_status.Width) \ 2, (panel_top.Height - lbl_status.Height) \ 2)
+    End Sub
+    ' Private Sub Main_Maximise(ByVal sender As Object, ByVal e As EventArgs) Handles Me.w
+    '     lbl_nothing.Location = New Point((panel_downloads.Width - lbl_nothing.Width) \ 2, (panel_downloads.Height - lbl_nothing.Height) \ 2)
+    '     lbl_status.Location = New Point((panel_top.Width - lbl_status.Width) \ 2, (panel_top.Height - lbl_status.Height) \ 2)
+    ' End Sub
 End Class

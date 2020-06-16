@@ -304,6 +304,25 @@ Module load_functions
 
                 Next
             Next
+        ElseIf main.currenttab_metadata(1) = "PS2" Then
+            For Each f In rom_directory.GetFiles
+                If f.ToString.Contains("XT") Then
+                ElseIf f.ToString.Contains(".iso") Or f.ToString.Contains(".bin") Then
+                    main.listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString.Replace(".iso", "").Replace(".bin", ""), "PS2", System.IO.Path.GetFullPath(f.FullName)}))
+                End If
+
+            Next
+
+            For Each x In customromlist
+                Dim custom_directory As New DirectoryInfo(x)
+                For Each f In custom_directory.GetFiles
+                    If f.ToString.Contains(".iso") Or f.ToString.Contains(".bin") Then
+
+                        main.listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString.Replace(".iso", "").Replace(".bin", ""), "PS2", System.IO.Path.GetFullPath(f.FullName)}))
+                    End If
+
+                Next
+            Next
         End If
 
         Call main.retrieveboxart()
@@ -390,6 +409,11 @@ Module load_functions
                     emutabs(index).Text = "Redream"
                     emutabs(index).Visible = True
                     currentmetadata = File.ReadAllLines(".\" & x & "\redream.eldr")
+                End If
+                If x.Contains("PCSX2") Then
+                    emutabs(index).Text = "PCSX2"
+                    emutabs(index).Visible = True
+                    currentmetadata = File.ReadAllLines(".\" & x & "\pcsx2.eldr")
                 End If
                 emu_tab_metadata_list.emutabs_metadata(index) = currentmetadata
                 index = index + 1

@@ -10,6 +10,7 @@ Public Class firstlaunch
         picturebox_add_sources.Left = (Me.ClientSize.Width / 2) - (picturebox_add_sources.Width / 2)
         picturebox_dragdrop.Left = (Me.ClientSize.Width / 2) - (picturebox_dragdrop.Width / 2)
         btn_search.Left = (Me.ClientSize.Width / 2) - (btn_search.Width / 2)
+        picturebox_disclaimer.Left = (Me.ClientSize.Width / 2) - (picturebox_disclaimer.Width / 2)
         Me.TopMost = True
     End Sub
 
@@ -59,7 +60,7 @@ Public Class firstlaunch
     End Sub
 
     Private Sub btn_search_Click(sender As Object, e As EventArgs) Handles btn_search.Click
-        Process.Start("https://www.reddit.com/search?q=eldrs&sort=relevance&t=all")
+        Process.Start("https://www.google.com/search?q=drive")
     End Sub
 
 
@@ -73,5 +74,8 @@ Public Class firstlaunch
 
     Private Sub btn_finish_MouseDown(sender As Object, e As MouseEventArgs) Handles btn_finish.MouseDown
         Me.Close()
+    End Sub
+    Private Sub picturebox_disclaimer_Click(sender As Object, e As EventArgs) Handles picturebox_disclaimer.Click
+        Process.Start("https://tungstencore.com/emuloader/#Disclaimer")
     End Sub
 End Class

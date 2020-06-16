@@ -30,20 +30,21 @@ Partial Class settings
         Me.btn_darkmode = New System.Windows.Forms.PictureBox()
         Me.listbox_settings = New System.Windows.Forms.ListBox()
         Me.panel_general = New System.Windows.Forms.Panel()
+        Me.checkbox_exit_on_taskbar = New System.Windows.Forms.CheckBox()
         Me.lbl_settingstitle = New System.Windows.Forms.Label()
         Me.panel_appearance = New System.Windows.Forms.Panel()
+        Me.picturebox_wave = New System.Windows.Forms.PictureBox()
+        Me.checkbox_fancy = New System.Windows.Forms.CheckBox()
         Me.panel_updates = New System.Windows.Forms.Panel()
         Me.checkbox_autoupdate = New System.Windows.Forms.CheckBox()
-        Me.checkbox_exit_on_taskbar = New System.Windows.Forms.CheckBox()
-        Me.checkbox_fancy = New System.Windows.Forms.CheckBox()
-        Me.picturebox_wave = New System.Windows.Forms.PictureBox()
+        Me.checkbox_topbar = New System.Windows.Forms.CheckBox()
         CType(Me.btn_save, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btn_lightmode, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btn_darkmode, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panel_general.SuspendLayout()
         Me.panel_appearance.SuspendLayout()
-        Me.panel_updates.SuspendLayout()
         CType(Me.picturebox_wave, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.panel_updates.SuspendLayout()
         Me.SuspendLayout()
         '
         'load_boxart_on_startup
@@ -108,12 +109,24 @@ Partial Class settings
         '
         'panel_general
         '
+        Me.panel_general.Controls.Add(Me.checkbox_topbar)
         Me.panel_general.Controls.Add(Me.checkbox_exit_on_taskbar)
         Me.panel_general.Controls.Add(Me.load_boxart_on_startup)
         Me.panel_general.Location = New System.Drawing.Point(220, 60)
         Me.panel_general.Name = "panel_general"
         Me.panel_general.Size = New System.Drawing.Size(689, 372)
         Me.panel_general.TabIndex = 6
+        '
+        'checkbox_exit_on_taskbar
+        '
+        Me.checkbox_exit_on_taskbar.AutoSize = True
+        Me.checkbox_exit_on_taskbar.Font = New System.Drawing.Font("Spartan MB", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.checkbox_exit_on_taskbar.Location = New System.Drawing.Point(12, 49)
+        Me.checkbox_exit_on_taskbar.Name = "checkbox_exit_on_taskbar"
+        Me.checkbox_exit_on_taskbar.Size = New System.Drawing.Size(386, 56)
+        Me.checkbox_exit_on_taskbar.TabIndex = 1
+        Me.checkbox_exit_on_taskbar.Text = "Checked: Pressing 'X' moves to taskbar" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Unchecked: Pressing 'X' closes emuloader"
+        Me.checkbox_exit_on_taskbar.UseVisualStyleBackColor = True
         '
         'lbl_settingstitle
         '
@@ -137,6 +150,27 @@ Partial Class settings
         Me.panel_appearance.Size = New System.Drawing.Size(689, 372)
         Me.panel_appearance.TabIndex = 8
         '
+        'picturebox_wave
+        '
+        Me.picturebox_wave.BackgroundImage = CType(resources.GetObject("picturebox_wave.BackgroundImage"), System.Drawing.Image)
+        Me.picturebox_wave.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.picturebox_wave.Location = New System.Drawing.Point(12, 244)
+        Me.picturebox_wave.Name = "picturebox_wave"
+        Me.picturebox_wave.Size = New System.Drawing.Size(567, 109)
+        Me.picturebox_wave.TabIndex = 6
+        Me.picturebox_wave.TabStop = False
+        '
+        'checkbox_fancy
+        '
+        Me.checkbox_fancy.AutoSize = True
+        Me.checkbox_fancy.Font = New System.Drawing.Font("Spartan MB", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.checkbox_fancy.Location = New System.Drawing.Point(12, 207)
+        Me.checkbox_fancy.Name = "checkbox_fancy"
+        Me.checkbox_fancy.Size = New System.Drawing.Size(438, 30)
+        Me.checkbox_fancy.TabIndex = 5
+        Me.checkbox_fancy.Text = "Fancy download animations (30MB download)"
+        Me.checkbox_fancy.UseVisualStyleBackColor = True
+        '
         'panel_updates
         '
         Me.panel_updates.Controls.Add(Me.checkbox_autoupdate)
@@ -155,37 +189,16 @@ Partial Class settings
         Me.checkbox_autoupdate.Text = "Check for updates on startup"
         Me.checkbox_autoupdate.UseVisualStyleBackColor = True
         '
-        'checkbox_exit_on_taskbar
+        'checkbox_topbar
         '
-        Me.checkbox_exit_on_taskbar.AutoSize = True
-        Me.checkbox_exit_on_taskbar.Font = New System.Drawing.Font("Spartan MB", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.checkbox_exit_on_taskbar.Location = New System.Drawing.Point(12, 49)
-        Me.checkbox_exit_on_taskbar.Name = "checkbox_exit_on_taskbar"
-        Me.checkbox_exit_on_taskbar.Size = New System.Drawing.Size(386, 56)
-        Me.checkbox_exit_on_taskbar.TabIndex = 1
-        Me.checkbox_exit_on_taskbar.Text = "Checked: Pressing 'X' moves to taskbar" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Unchecked: Pressing 'X' closes emuloader"
-        Me.checkbox_exit_on_taskbar.UseVisualStyleBackColor = True
-        '
-        'checkbox_fancy
-        '
-        Me.checkbox_fancy.AutoSize = True
-        Me.checkbox_fancy.Font = New System.Drawing.Font("Spartan MB", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.checkbox_fancy.Location = New System.Drawing.Point(12, 207)
-        Me.checkbox_fancy.Name = "checkbox_fancy"
-        Me.checkbox_fancy.Size = New System.Drawing.Size(438, 30)
-        Me.checkbox_fancy.TabIndex = 5
-        Me.checkbox_fancy.Text = "Fancy download animations (30MB download)"
-        Me.checkbox_fancy.UseVisualStyleBackColor = True
-        '
-        'picturebox_wave
-        '
-        Me.picturebox_wave.BackgroundImage = CType(resources.GetObject("picturebox_wave.BackgroundImage"), System.Drawing.Image)
-        Me.picturebox_wave.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.picturebox_wave.Location = New System.Drawing.Point(12, 244)
-        Me.picturebox_wave.Name = "picturebox_wave"
-        Me.picturebox_wave.Size = New System.Drawing.Size(567, 109)
-        Me.picturebox_wave.TabIndex = 6
-        Me.picturebox_wave.TabStop = False
+        Me.checkbox_topbar.AutoSize = True
+        Me.checkbox_topbar.Font = New System.Drawing.Font("Spartan MB", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.checkbox_topbar.Location = New System.Drawing.Point(12, 111)
+        Me.checkbox_topbar.Name = "checkbox_topbar"
+        Me.checkbox_topbar.Size = New System.Drawing.Size(253, 30)
+        Me.checkbox_topbar.TabIndex = 2
+        Me.checkbox_topbar.Text = "Use windows style topbar"
+        Me.checkbox_topbar.UseVisualStyleBackColor = True
         '
         'settings
         '
@@ -196,9 +209,9 @@ Partial Class settings
         Me.Controls.Add(Me.lbl_settingstitle)
         Me.Controls.Add(Me.listbox_settings)
         Me.Controls.Add(Me.btn_save)
-        Me.Controls.Add(Me.panel_appearance)
         Me.Controls.Add(Me.panel_general)
         Me.Controls.Add(Me.panel_updates)
+        Me.Controls.Add(Me.panel_appearance)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
@@ -211,9 +224,9 @@ Partial Class settings
         Me.panel_general.PerformLayout()
         Me.panel_appearance.ResumeLayout(False)
         Me.panel_appearance.PerformLayout()
+        CType(Me.picturebox_wave, System.ComponentModel.ISupportInitialize).EndInit()
         Me.panel_updates.ResumeLayout(False)
         Me.panel_updates.PerformLayout()
-        CType(Me.picturebox_wave, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -233,4 +246,5 @@ Partial Class settings
     Friend WithEvents checkbox_exit_on_taskbar As CheckBox
     Friend WithEvents checkbox_fancy As CheckBox
     Friend WithEvents picturebox_wave As PictureBox
+    Friend WithEvents checkbox_topbar As CheckBox
 End Class

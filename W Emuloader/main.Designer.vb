@@ -153,6 +153,10 @@ Partial Class main
         Me.btn_show_folders = New System.Windows.Forms.PictureBox()
         Me.thread_getboxart = New System.ComponentModel.BackgroundWorker()
         Me.notify_emuloader = New System.Windows.Forms.NotifyIcon(Me.components)
+        Me.context_icon = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.ShowDownloadsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.SettingsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ExitToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.panel_downloads = New System.Windows.Forms.Panel()
         Me.lbl_total = New System.Windows.Forms.Label()
         Me.lbl_peak = New System.Windows.Forms.Label()
@@ -170,10 +174,6 @@ Partial Class main
         Me.lbl_nothing = New System.Windows.Forms.Label()
         Me.timer_updateprogress = New System.Windows.Forms.Timer(Me.components)
         Me.downloader = New System.ComponentModel.BackgroundWorker()
-        Me.context_icon = New System.Windows.Forms.ContextMenuStrip(Me.components)
-        Me.ExitToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ShowDownloadsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.SettingsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         CType(Me.image_logo, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panel_left.SuspendLayout()
         CType(Me.picturebox_tungsten, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -237,10 +237,10 @@ Partial Class main
         CType(Me.btn_settings, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btn_prettify, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btn_show_folders, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.context_icon.SuspendLayout()
         Me.panel_downloads.SuspendLayout()
         Me.panel_download_chart.SuspendLayout()
         CType(Me.picturebox_download, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.context_icon.SuspendLayout()
         Me.SuspendLayout()
         '
         'image_logo
@@ -1583,6 +1583,30 @@ Partial Class main
         Me.notify_emuloader.Text = "Emuloader"
         Me.notify_emuloader.Visible = True
         '
+        'context_icon
+        '
+        Me.context_icon.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ShowDownloadsToolStripMenuItem, Me.SettingsToolStripMenuItem, Me.ExitToolStripMenuItem})
+        Me.context_icon.Name = "context_icon"
+        Me.context_icon.Size = New System.Drawing.Size(166, 70)
+        '
+        'ShowDownloadsToolStripMenuItem
+        '
+        Me.ShowDownloadsToolStripMenuItem.Name = "ShowDownloadsToolStripMenuItem"
+        Me.ShowDownloadsToolStripMenuItem.Size = New System.Drawing.Size(165, 22)
+        Me.ShowDownloadsToolStripMenuItem.Text = "Show Downloads"
+        '
+        'SettingsToolStripMenuItem
+        '
+        Me.SettingsToolStripMenuItem.Name = "SettingsToolStripMenuItem"
+        Me.SettingsToolStripMenuItem.Size = New System.Drawing.Size(165, 22)
+        Me.SettingsToolStripMenuItem.Text = "Settings"
+        '
+        'ExitToolStripMenuItem
+        '
+        Me.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem"
+        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(165, 22)
+        Me.ExitToolStripMenuItem.Text = "Exit"
+        '
         'panel_downloads
         '
         Me.panel_downloads.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
@@ -1744,30 +1768,6 @@ Partial Class main
         'downloader
         '
         '
-        'context_icon
-        '
-        Me.context_icon.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ShowDownloadsToolStripMenuItem, Me.SettingsToolStripMenuItem, Me.ExitToolStripMenuItem})
-        Me.context_icon.Name = "context_icon"
-        Me.context_icon.Size = New System.Drawing.Size(166, 70)
-        '
-        'ExitToolStripMenuItem
-        '
-        Me.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem"
-        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.ExitToolStripMenuItem.Text = "Exit"
-        '
-        'ShowDownloadsToolStripMenuItem
-        '
-        Me.ShowDownloadsToolStripMenuItem.Name = "ShowDownloadsToolStripMenuItem"
-        Me.ShowDownloadsToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.ShowDownloadsToolStripMenuItem.Text = "Show Downloads"
-        '
-        'SettingsToolStripMenuItem
-        '
-        Me.SettingsToolStripMenuItem.Name = "SettingsToolStripMenuItem"
-        Me.SettingsToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.SettingsToolStripMenuItem.Text = "Settings"
-        '
         'main
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1786,6 +1786,7 @@ Partial Class main
         Me.DoubleBuffered = True
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.MinimumSize = New System.Drawing.Size(1366, 768)
         Me.Name = "main"
         Me.Text = "Emuloader"
         CType(Me.image_logo, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1861,11 +1862,11 @@ Partial Class main
         CType(Me.btn_settings, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btn_prettify, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btn_show_folders, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.context_icon.ResumeLayout(False)
         Me.panel_downloads.ResumeLayout(False)
         Me.panel_downloads.PerformLayout()
         Me.panel_download_chart.ResumeLayout(False)
         CType(Me.picturebox_download, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.context_icon.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
