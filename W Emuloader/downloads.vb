@@ -5,7 +5,10 @@ Module downloads
         Public Shared spartan As New System.Drawing.Text.PrivateFontCollection()
         Public Shared arguments As String()
         Public Shared reportedsize As Double
+        Public Shared currentsize As Double
 
+        Public Shared downloader_state As Boolean = False
+        Public Shared downloader_process As New Process()
     End Class
     Public Sub launch_downloader()
         main.picturebox_loading.Visible = True
@@ -100,18 +103,67 @@ Module downloads
         main.listbox_queue.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent)
         main.listbox_queue.AutoResizeColumn(2, ColumnHeaderAutoResizeStyle.HeaderSize)
         main.listbox_queue.Columns.Item(4).Width = 0
-        Dim r As Net.WebRequest = Net.WebRequest.Create(main.listbox_queue.Items(0).SubItems(4).Text)
-        r.Method = Net.WebRequestMethods.Http.Head
-        Try
-            Using rsp = r.GetResponse()
-                downloadqueue.reportedsize = rsp.ContentLength
-            End Using
-        Catch ex As Exception
-        End Try
+
         main.timer_updateprogress.Enabled = True
         If main.downloader.IsBusy = False Then
             main.downloader.RunWorkerAsync(downloadqueue.arguments)
         End If
 
     End Sub
+
+
+    Delegate Sub downloader_box_Delg(downloader_text As String)
+    Public downloader_delegate As downloader_box_Delg = New downloader_box_Delg(AddressOf downloader_output)
+    Public Sub downloader_output(downloader_text As String)
+        If downloader_text IsNot Nothing Then
+            Dim speed_split As String() = Split(downloader_text, ",")
+            '   downloadqueue.reportedsize = speed_split(3)
+            '    downloadqueue.currentsize = speed_split(2)
+
+        Else
+            MessageBox.Show("")
+        End If
+
+
+    End Sub
+    Public Sub downloader_process_OutputDataReceived(ByVal sender As Object, ByVal e As DataReceivedEventArgs)
+        If main.InvokeRequired = True Then
+            main.Invoke(downloader_delegate, e.Data)
+        Else
+            downloader_output(e.Data)
+        End If
+    End Sub
+
+    Public Sub kill_downloader()
+        If downloadqueue.downloader_state = True Then
+            Try
+                downloadqueue.downloader_process.Kill()
+            Catch ex As Exception
+            End Try
+            RemoveHandler downloadqueue.downloader_process.ErrorDataReceived, AddressOf downloader_process_OutputDataReceived
+            RemoveHandler downloadqueue.downloader_process.OutputDataReceived, AddressOf downloader_process_OutputDataReceived
+            downloadqueue.downloader_process.CancelErrorRead()
+            downloadqueue.downloader_process.CancelOutputRead()
+            downloadqueue.downloader_state = False
+            'lbl_status.Text = "Status: Stopped"
+        End If
+    End Sub
+    Public Sub downloader()
+        downloadqueue.downloader_process.StartInfo.FileName = ".\modules\anylink"
+        downloadqueue.downloader_process.StartInfo.Arguments = (Chr(34) & downloadqueue.arguments(2) & Chr(34) & " " & Chr(34) & downloadqueue.arguments(0) & Chr(34))
+        downloadqueue.downloader_process.StartInfo.WorkingDirectory = ".\roms\" & downloadqueue.arguments(1)
+        downloadqueue.downloader_process.StartInfo.RedirectStandardError = True
+        downloadqueue.downloader_process.StartInfo.RedirectStandardOutput = True
+        downloadqueue.downloader_process.EnableRaisingEvents = True
+        downloadqueue.downloader_process.StartInfo.UseShellExecute = False
+        downloadqueue.downloader_process.StartInfo.CreateNoWindow = False
+        Application.DoEvents()
+        AddHandler downloadqueue.downloader_process.ErrorDataReceived, AddressOf downloader_process_OutputDataReceived
+        AddHandler downloadqueue.downloader_process.OutputDataReceived, AddressOf downloader_process_OutputDataReceived
+        downloadqueue.downloader_process.Start()
+        downloadqueue.downloader_process.BeginErrorReadLine()
+        downloadqueue.downloader_process.BeginOutputReadLine()
+        downloadqueue.downloader_state = True
+    End Sub
+
 End Module

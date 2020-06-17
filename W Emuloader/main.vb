@@ -1440,10 +1440,9 @@ x.SubItems(4).Text}))
 
         Using downloader_client = New WebClient()
             Try
-                downloader_client.DownloadFile(arguments(2), ".\roms\" & arguments(1) & "\" & arguments(0).Replace("$", " "))
-                downloader_client.Dispose()
-
-
+                Call downloads.downloader()
+                downloadqueue.downloader_process.WaitForExit()
+                Call kill_downloader()
 
                 Try
 
@@ -1508,7 +1507,7 @@ x.SubItems(4).Text}))
 
 
             Catch ex As Exception
-                downloader_client.Dispose()
+                Call kill_downloader()
                 MessageBox.Show("Error downloading")
 
 
@@ -1536,44 +1535,40 @@ x.SubItems(4).Text}))
     End Sub
 
     Private Sub timer_updateprogress_Tick(sender As Object, e As EventArgs) Handles timer_updateprogress.Tick
-        If File.Exists(".\roms\" & downloads.downloadqueue.arguments(1) & "\" & downloads.downloadqueue.arguments(0).Replace("$", " ")) Then
-            Dim currfile As New FileInfo(".\roms\" & downloads.downloadqueue.arguments(1) & "\" & downloads.downloadqueue.arguments(0).Replace("$", " "))
-            Dim currentsize As Double = (currfile.Length)
 
-            Dim displaysize As Double = Math.Round(((currentsize / downloads.downloadqueue.reportedsize) * 100), 2)
+        Dim displaysize As Double = Math.Round(((downloadqueue.currentsize / downloads.downloadqueue.reportedsize) * 100), 2)
 
-            lbl_status.Text = "Downloading " & listbox_queue.Items(0).SubItems(0).Text & " " & displaysize & "%"
-            notify_emuloader.Text = "Downloading ROM" & " " & displaysize & "%"
-            lbl_status.Location = New Point((panel_top.Width - lbl_status.Width) \ 2, (panel_top.Height - lbl_status.Height) \ 2)
+        lbl_status.Text = "Downloading " & listbox_queue.Items(0).SubItems(0).Text & " " & displaysize & "%"
+        notify_emuloader.Text = "Downloading ROM" & " " & displaysize & "%"
+        lbl_status.Location = New Point((panel_top.Width - lbl_status.Width) \ 2, (panel_top.Height - lbl_status.Height) \ 2)
 
-            Dim difference As Long = currentsize - speed
+        Dim difference As Long = downloadqueue.currentsize - speed
+        If Math.Round((difference / 1000000), 2) > 1 Then
+            lbl_speed.Text = Math.Round((difference / 1000000), 2) & " MB/s CURRENT"
+        ElseIf Math.Round((difference / 1000), 2) > 0 Then
+            lbl_speed.Text = Math.Round((difference / 1000), 2) & " KB/s CURRENT"
+        End If
+
+        If difference > peak Then
+
             If Math.Round((difference / 1000000), 2) > 1 Then
-                lbl_speed.Text = Math.Round((difference / 1000000), 2) & " MB/s CURRENT"
-            ElseIf Math.Round((difference / 1000), 2) > 0 Then
-                lbl_speed.Text = Math.Round((difference / 1000), 2) & " KB/s CURRENT"
+                lbl_peak.Text = Math.Round((difference / 1000000), 2) & " MB/s PEAK"
+            Else
+                lbl_peak.Text = Math.Round((difference / 1000), 2) & " KB/s PEAK"
             End If
+            peak = difference
+        End If
+        speed = downloadqueue.currentsize
+        If difference > 0 Then
+            total += difference
+        End If
 
-            If difference > peak Then
-
-                If Math.Round((difference / 1000000), 2) > 1 Then
-                    lbl_peak.Text = Math.Round((difference / 1000000), 2) & " MB/s PEAK"
-                Else
-                    lbl_peak.Text = Math.Round((difference / 1000), 2) & " KB/s PEAK"
-                End If
-                peak = difference
-            End If
-            speed = currentsize
-            If difference > 0 Then
-                total += difference
-            End If
-
-            If Math.Round((total / 1000000000), 2) > 1 Then
-                lbl_total.Text = Math.Round((total / 1000000000), 2) & " GB TOTAL"
-            ElseIf Math.Round((total / 1000000), 2) > 1 Then
-                lbl_total.Text = Math.Round((total / 1000000), 2) & " MB TOTAL"
-            ElseIf Math.Round((total / 1000), 2) > 0 Then
-                lbl_total.Text = Math.Round((total / 1000), 2) & " KB TOTAL"
-            End If
+        If Math.Round((total / 1000000000), 2) > 1 Then
+            lbl_total.Text = Math.Round((total / 1000000000), 2) & " GB TOTAL"
+        ElseIf Math.Round((total / 1000000), 2) > 1 Then
+            lbl_total.Text = Math.Round((total / 1000000), 2) & " MB TOTAL"
+        ElseIf Math.Round((total / 1000), 2) > 0 Then
+            lbl_total.Text = Math.Round((total / 1000), 2) & " KB TOTAL"
         End If
 
     End Sub
