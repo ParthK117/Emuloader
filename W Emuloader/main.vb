@@ -1438,81 +1438,88 @@ x.SubItems(4).Text}))
 
 
 
-        Using downloader_client = New WebClient()
+        Try
+
+            Dim downloader_proc As Process
+            Dim p2 As New ProcessStartInfo
+            p2.FileName = "anylink.exe"
+
+            '   p.UseShellExecute = True
+            p2.WindowStyle = ProcessWindowStyle.Hidden
+            p2.WorkingDirectory = ".\modules\"
+            p2.Arguments = (Chr(34) & arguments(2) & Chr(34) & " " & Chr(34) & System.IO.Path.GetFullPath(".\roms\" & arguments(1)) & "\" & arguments(0) & Chr(34))
+            downloader_proc = Process.Start(p2)
+            downloader_proc.WaitForExit()
+
             Try
-                Call downloads.downloader()
-                downloadqueue.downloader_process.WaitForExit()
-                Call kill_downloader()
-
-                Try
 
 
-                    Using zipFile2 = ZipFile.OpenRead(".\roms\" & arguments(1) & "\" & arguments(0).Replace("$", " "))
-                        Dim entries = zipFile2.Entries
-                        iszip = True
+                Using zipFile2 = ZipFile.OpenRead(".\roms\" & arguments(1) & "\" & arguments(0).Replace("$", " "))
+                    Dim entries = zipFile2.Entries
+                    iszip = True
 
-                    End Using
+                End Using
 
 
 
 
-                    If iszip = True Then
-                        'unzip file
-                        If File.Exists(".\roms\" & arguments(1) & "\temp.zip") Then
-                            My.Computer.FileSystem.DeleteFile(".\roms\" & arguments(1) & "\temp.zip")
-                        End If
-                        My.Computer.FileSystem.RenameFile(".\roms\" & arguments(1) & "\" & arguments(0).Replace("$", " "), "temp.zip")
-
-                        '  ZipFile.ExtractToDirectory(".\roms\" & arguments(1) & "\temp.zip", ".\roms\" & arguments(1) & "\")
-
-                        Using zipfile3 = ZipFile.OpenRead(".\roms\" & arguments(1) & "\temp.zip")
-                            For Each entry As ZipArchiveEntry In zipfile3.Entries
-
-
-                                entry.ExtractToFile(Path.Combine(".\roms\" & arguments(1) & "\", entry.FullName), True)
-
-                            Next
-                        End Using
-
+                If iszip = True Then
+                    'unzip file
+                    If File.Exists(".\roms\" & arguments(1) & "\temp.zip") Then
                         My.Computer.FileSystem.DeleteFile(".\roms\" & arguments(1) & "\temp.zip")
                     End If
+                    My.Computer.FileSystem.RenameFile(".\roms\" & arguments(1) & "\" & arguments(0).Replace("$", " "), "temp.zip")
+
+                    '  ZipFile.ExtractToDirectory(".\roms\" & arguments(1) & "\temp.zip", ".\roms\" & arguments(1) & "\")
+
+                    Using zipfile3 = ZipFile.OpenRead(".\roms\" & arguments(1) & "\temp.zip")
+                        For Each entry As ZipArchiveEntry In zipfile3.Entries
 
 
+                            entry.ExtractToFile(Path.Combine(".\roms\" & arguments(1) & "\", entry.FullName), True)
 
-                Catch __unusedInvalidDataException1__ As InvalidDataException
+                        Next
+                    End Using
 
-                Catch ex As IOException
-
-                    MessageBox.Show("Error unzipping")
-                End Try
-
-
-                If arguments(0).Contains(".7z") Or arguments(0).Contains(".rar") Then
-
-                    Dim un7z As Process
-                    Dim p As New ProcessStartInfo
-                    p.FileName = ".\7z.exe"
-
-                    '   p.UseShellExecute = True
-                    p.WindowStyle = ProcessWindowStyle.Hidden
-                    p.WorkingDirectory = ".\modules\7zip"
-                    p.Arguments = ("e" & " " & Chr(34) & System.IO.Path.GetFullPath(".\roms\" & arguments(1) & "\" & arguments(0).Replace("$", " ")) & Chr(34) & " -o" & Chr(34) & System.IO.Path.GetFullPath(".\roms\" & arguments(1) & "\") & Chr(34))
-                    un7z = Process.Start(p)
-                    un7z.WaitForExit()
-                    If File.Exists(System.IO.Path.GetFullPath(".\roms\" & arguments(1) & "\" & arguments(0).Replace("$", " "))) Then
-                        File.Delete(System.IO.Path.GetFullPath(".\roms\" & arguments(1) & "\" & arguments(0).Replace("$", " ")))
-                    End If
+                    My.Computer.FileSystem.DeleteFile(".\roms\" & arguments(1) & "\temp.zip")
                 End If
 
 
 
-            Catch ex As Exception
-                Call kill_downloader()
-                MessageBox.Show("Error downloading")
+            Catch __unusedInvalidDataException1__ As InvalidDataException
+
+            Catch ex As IOException
+
+                MessageBox.Show("Error unzipping")
+            End Try
+
+
+            If arguments(0).Contains(".7z") Or arguments(0).Contains(".rar") Then
+
+                Dim un7z As Process
+                Dim p As New ProcessStartInfo
+                p.FileName = ".\7z.exe"
+
+                '   p.UseShellExecute = True
+                p.WindowStyle = ProcessWindowStyle.Hidden
+                p.WorkingDirectory = ".\modules\7zip"
+                p.Arguments = ("e" & " " & Chr(34) & System.IO.Path.GetFullPath(".\roms\" & arguments(1) & "\" & arguments(0).Replace("$", " ")) & Chr(34) & " -o" & Chr(34) & System.IO.Path.GetFullPath(".\roms\" & arguments(1) & "\") & Chr(34))
+                un7z = Process.Start(p)
+                un7z.WaitForExit()
+                If File.Exists(System.IO.Path.GetFullPath(".\roms\" & arguments(1) & "\" & arguments(0).Replace("$", " "))) Then
+                    File.Delete(System.IO.Path.GetFullPath(".\roms\" & arguments(1) & "\" & arguments(0).Replace("$", " ")))
+                End If
+            End If
+
+
+
+        Catch ex As Exception
+
+            MessageBox.Show("Error downloading")
 
 
             End Try
-        End Using
+
     End Sub
 
     Private Sub downloader_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles downloader.RunWorkerCompleted
@@ -1535,41 +1542,47 @@ x.SubItems(4).Text}))
     End Sub
 
     Private Sub timer_updateprogress_Tick(sender As Object, e As EventArgs) Handles timer_updateprogress.Tick
+        Try
+            Dim outputlog As String = File.ReadAllText(".\modules\outputlog.txt")
+            Dim metadata As String() = outputlog.Split(",")
+            Dim displaysize As Double = Math.Round(((metadata(2) / metadata(3)) * 100), 2)
 
-        Dim displaysize As Double = Math.Round(((downloadqueue.currentsize / downloads.downloadqueue.reportedsize) * 100), 2)
+            lbl_status.Text = "Downloading " & listbox_queue.Items(0).SubItems(0).Text & " " & displaysize & "%"
+            notify_emuloader.Text = "Downloading ROM" & " " & displaysize & "%"
+            lbl_status.Location = New Point((panel_top.Width - lbl_status.Width) \ 2, (panel_top.Height - lbl_status.Height) \ 2)
 
-        lbl_status.Text = "Downloading " & listbox_queue.Items(0).SubItems(0).Text & " " & displaysize & "%"
-        notify_emuloader.Text = "Downloading ROM" & " " & displaysize & "%"
-        lbl_status.Location = New Point((panel_top.Width - lbl_status.Width) \ 2, (panel_top.Height - lbl_status.Height) \ 2)
-
-        Dim difference As Long = downloadqueue.currentsize - speed
-        If Math.Round((difference / 1000000), 2) > 1 Then
-            lbl_speed.Text = Math.Round((difference / 1000000), 2) & " MB/s CURRENT"
-        ElseIf Math.Round((difference / 1000), 2) > 0 Then
-            lbl_speed.Text = Math.Round((difference / 1000), 2) & " KB/s CURRENT"
-        End If
-
-        If difference > peak Then
-
+            Dim difference As Long = metadata(2) - speed
             If Math.Round((difference / 1000000), 2) > 1 Then
-                lbl_peak.Text = Math.Round((difference / 1000000), 2) & " MB/s PEAK"
-            Else
-                lbl_peak.Text = Math.Round((difference / 1000), 2) & " KB/s PEAK"
+                lbl_speed.Text = Math.Round((difference / 1000000), 2) & " MB/s CURRENT"
+            ElseIf Math.Round((difference / 1000), 2) > 0 Then
+                lbl_speed.Text = Math.Round((difference / 1000), 2) & " KB/s CURRENT"
             End If
-            peak = difference
-        End If
-        speed = downloadqueue.currentsize
-        If difference > 0 Then
-            total += difference
-        End If
 
-        If Math.Round((total / 1000000000), 2) > 1 Then
-            lbl_total.Text = Math.Round((total / 1000000000), 2) & " GB TOTAL"
-        ElseIf Math.Round((total / 1000000), 2) > 1 Then
-            lbl_total.Text = Math.Round((total / 1000000), 2) & " MB TOTAL"
-        ElseIf Math.Round((total / 1000), 2) > 0 Then
-            lbl_total.Text = Math.Round((total / 1000), 2) & " KB TOTAL"
-        End If
+            If difference > peak Then
+
+                If Math.Round((difference / 1000000), 2) > 1 Then
+                    lbl_peak.Text = Math.Round((difference / 1000000), 2) & " MB/s PEAK"
+                Else
+                    lbl_peak.Text = Math.Round((difference / 1000), 2) & " KB/s PEAK"
+                End If
+                peak = difference
+            End If
+            speed = metadata(2)
+            If difference > 0 Then
+                total += difference
+            End If
+
+            If Math.Round((total / 1000000000), 2) > 1 Then
+                lbl_total.Text = Math.Round((total / 1000000000), 2) & " GB TOTAL"
+            ElseIf Math.Round((total / 1000000), 2) > 1 Then
+                lbl_total.Text = Math.Round((total / 1000000), 2) & " MB TOTAL"
+            ElseIf Math.Round((total / 1000), 2) > 0 Then
+                lbl_total.Text = Math.Round((total / 1000), 2) & " KB TOTAL"
+            End If
+        Catch ex As Exception
+            'file being used by python
+        End Try
+
 
     End Sub
 
