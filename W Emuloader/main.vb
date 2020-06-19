@@ -17,7 +17,7 @@ Public Class main
     Public Shared labelgrey As Color
     Public Shared tab_index = 0
     Public Shared dark = False
-    Public Shared version_number = "0.10.0"
+    Public Shared version_number = "0.11.0"
     Public Shared global_settings As New List(Of String)
 
 
@@ -501,7 +501,7 @@ Public Class main
 x.SubItems(1).Text,
 x.SubItems(2).Text,
 x.SubItems(3).Text,
-x.SubItems(4).Text}))
+x.SubItems(4).Text, "Queued"}))
             Next
         Else
             listbox_queue.Visible = True
@@ -511,7 +511,7 @@ x.SubItems(4).Text}))
 x.SubItems(1).Text,
 x.SubItems(2).Text,
 x.SubItems(3).Text,
-x.SubItems(4).Text}))
+x.SubItems(4).Text, "Queued"}))
             Next
         End If
 
@@ -1437,10 +1437,10 @@ x.SubItems(4).Text}))
         Dim iszip = False
 
 
+        '
+        '      Try
 
-        Try
-
-            Dim downloader_proc As Process
+        Dim downloader_proc As Process
             Dim p2 As New ProcessStartInfo
             p2.FileName = "anylink.exe"
 
@@ -1450,7 +1450,7 @@ x.SubItems(4).Text}))
             p2.Arguments = (Chr(34) & arguments(2) & Chr(34) & " " & Chr(34) & System.IO.Path.GetFullPath(".\roms\" & arguments(1)) & "\" & arguments(0) & Chr(34))
             downloader_proc = Process.Start(p2)
             downloader_proc.WaitForExit()
-
+            My.Computer.FileSystem.RenameFile(".\roms\" & arguments(1) & "\" & arguments(0), arguments(0).Replace("$", " "))
             Try
 
 
@@ -1513,12 +1513,12 @@ x.SubItems(4).Text}))
 
 
 
-        Catch ex As Exception
+   '     Catch ex As Exception
 
-            MessageBox.Show("Error downloading")
+        '       MessageBox.Show("Error downloading")
 
 
-            End Try
+        '      End Try
 
     End Sub
 
@@ -1527,29 +1527,44 @@ x.SubItems(4).Text}))
         lbl_status.Text = "Downloaded " & listbox_queue.Items(0).SubItems(0).Text
         Call load_installed_roms()
         lbl_status.Location = New Point((panel_top.Width - lbl_status.Width) \ 2, (panel_top.Height - lbl_status.Height) \ 2)
-        listbox_queue.Items(0).Remove()
-        If listbox_queue.Items.Count = 0 Then
-            picturebox_loading.Visible = False
-            panel_download_chart.Visible = False
-            lbl_speed.Text = "0 MB/s CURRENT"
-            timer_updateprogress.Enabled = False
-            notify_emuloader.Text = "Emuloader"
-            listbox_queue.Visible = False
-        Else
-            Call launch_downloader()
+        listbox_queue.Items(0).SubItems(5).Text = "Completed"
+        For Each x In listbox_queue.Items
+            If Not x.subitems(5).text = "Queued" Then
+                picturebox_loading.Visible = False
+                panel_download_chart.Visible = False
+                lbl_speed.Text = "0 MB/s CURRENT"
+                timer_updateprogress.Enabled = False
+                notify_emuloader.Text = "Emuloader"
+            Else
+                picturebox_loading.Visible = True
+                Call launch_downloader()
+                Exit For
+            End If
+        Next
 
-        End If
     End Sub
 
     Private Sub timer_updateprogress_Tick(sender As Object, e As EventArgs) Handles timer_updateprogress.Tick
         Try
             Dim outputlog As String = File.ReadAllText(".\modules\outputlog.txt")
-            Dim metadata As String() = outputlog.Split(",")
-            Dim displaysize As Double = Math.Round(((metadata(2) / metadata(3)) * 100), 2)
+            Dim metadata As New List(Of String)
+            metadata.AddRange(outputlog.Split(","))
+            If metadata(0) = "wget" Then
+                Dim displaysize As Double = Math.Round(((metadata(2) / metadata(3)) * 100), 2)
+                lbl_status.Text = "Downloading " & listbox_queue.Items(0).SubItems(0).Text & " " & displaysize & "%"
+                notify_emuloader.Text = "Downloading ROM" & " " & displaysize & "%"
+                lbl_status.Location = New Point((panel_top.Width - lbl_status.Width) \ 2, (panel_top.Height - lbl_status.Height) \ 2)
+            ElseIf metadata(0) = "wgetfailed" Then
+                lbl_status.Text = "Downloading " & listbox_queue.Items(0).SubItems(0).Text
 
-            lbl_status.Text = "Downloading " & listbox_queue.Items(0).SubItems(0).Text & " " & displaysize & "%"
-            notify_emuloader.Text = "Downloading ROM" & " " & displaysize & "%"
-            lbl_status.Location = New Point((panel_top.Width - lbl_status.Width) \ 2, (panel_top.Height - lbl_status.Height) \ 2)
+                Dim currfile As New FileInfo(".\roms\" & downloadqueue.arguments(1) & "\" & downloadqueue.arguments(0))
+                Dim currentsize As Double = (currfile.Length)
+                metadata(2) = currentsize
+                lbl_status.Location = New Point((panel_top.Width - lbl_status.Width) \ 2, (panel_top.Height - lbl_status.Height) \ 2)
+            End If
+
+
+
 
             Dim difference As Long = metadata(2) - speed
             If Math.Round((difference / 1000000), 2) > 1 Then

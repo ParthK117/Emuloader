@@ -174,6 +174,7 @@ Partial Class main
         Me.lbl_nothing = New System.Windows.Forms.Label()
         Me.timer_updateprogress = New System.Windows.Forms.Timer(Me.components)
         Me.downloader = New System.ComponentModel.BackgroundWorker()
+        Me.download_status = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         CType(Me.image_logo, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panel_left.SuspendLayout()
         CType(Me.picturebox_tungsten, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -1689,7 +1690,7 @@ Partial Class main
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.listbox_queue.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.listbox_queue.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.download_name, Me.download_size, Me.download_platform, Me.download_source, Me.download_url})
+        Me.listbox_queue.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.download_name, Me.download_size, Me.download_platform, Me.download_source, Me.download_url, Me.download_status})
         Me.listbox_queue.Font = New System.Drawing.Font("Gotham Bold", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.listbox_queue.ForeColor = System.Drawing.Color.Black
         Me.listbox_queue.HideSelection = False
@@ -1768,6 +1769,11 @@ Partial Class main
         'downloader
         '
         '
+        'download_status
+        '
+        Me.download_status.Text = "Status"
+        Me.download_status.Width = 100
+        '
         'main
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1779,10 +1785,10 @@ Partial Class main
         Me.Controls.Add(Me.panel_top)
         Me.Controls.Add(Me.panel_right)
         Me.Controls.Add(Me.panel_left)
+        Me.Controls.Add(Me.panel_downloads)
         Me.Controls.Add(Me.panel_browse)
         Me.Controls.Add(Me.panel_play)
         Me.Controls.Add(Me.panel_drag_drop)
-        Me.Controls.Add(Me.panel_downloads)
         Me.DoubleBuffered = True
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
@@ -2020,4 +2026,5 @@ Partial Class main
     Friend WithEvents ExitToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ShowDownloadsToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents SettingsToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents download_status As ColumnHeader
 End Class

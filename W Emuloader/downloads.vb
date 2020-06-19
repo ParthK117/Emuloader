@@ -87,7 +87,13 @@ Module downloads
             End If
         End If
 
+        For Each x In main.listbox_queue.Items()
+            If x.subitems(5).text = "Queued" Then
+                main.listbox_queue.Items.Remove(x)
+                main.listbox_queue.Items.Insert(0, x)
 
+            End If
+        Next
 
         main.lbl_status.Text = "Downloading " & main.listbox_queue.Items(0).SubItems(0).Text
         main.lbl_status.Location = New Point((main.panel_top.Width - main.lbl_status.Width) \ 2, (main.panel_top.Height - main.lbl_status.Height) \ 2)
