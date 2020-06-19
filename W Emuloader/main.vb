@@ -39,6 +39,17 @@ Public Class main
         Call load_roms_list()
         Me.AllowDrop = True
 
+        If File.Exists(".\downloadlog.dat") Then
+            Dim history As String() = File.ReadAllLines(".\downloadlog.dat")
+            For Each x In history
+                Dim y As String() = x.Split(",")
+                listbox_queue.Items.Add(New ListViewItem(New String() {y(0), y(1), y(2), y(3), y(4), y(5), y(6)}))
+            Next
+            listbox_queue.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent)
+            listbox_queue.AutoResizeColumn(2, ColumnHeaderAutoResizeStyle.HeaderSize)
+            listbox_queue.Columns.Item(4).Width = 0
+        End If
+
         global_settings.AddRange(File.ReadAllLines(".\settings.dat"))
         Dim firsttime As String() = (global_settings(6).Split("="))
         If firsttime(1).Contains("1") Then
@@ -67,7 +78,6 @@ Public Class main
         lbl_version.Text = "v" & version_number
         lbl_networkusage.ForeColor = labelgrey
 
-        listbox_queue.Visible = False
         lbl_nothing.Location = New Point((panel_downloads.Width - lbl_nothing.Width) \ 2, (panel_downloads.Height - lbl_nothing.Height) \ 2)
     End Sub
 
@@ -441,7 +451,7 @@ Public Class main
 
     Private Sub btn_browse_Click(sender As Object, e As EventArgs) Handles btn_browse.Click
         tab_browse.Visible = True
-
+        panel_cancel.Visible = False
         panel_browse.BringToFront()
         Dim emutabs = {emu_one, emu_two, emu_three, emu_four, emu_five, emu_six, emu_seven, emu_eight, emu_nine}
         For Each x In emutabs
@@ -494,25 +504,34 @@ Public Class main
     End Sub
 
     Private Sub download_roms()
+        Dim timestamp As String = Date.Now.ToString("dd-MM-yyyy")
+        Dim index As Double = 0
+        For Each x In listbox_queue.Items
+            If x.subitems(5).text = "Queued" Or x.subitems(5).text = "Downloading" Then
+                index += 1
+            End If
+        Next
         If panel_search.Visible = True Then
             listbox_queue.Visible = True
             For Each x In listbox_search.SelectedItems
-                listbox_queue.Items.Add(New ListViewItem(New String() {x.SubItems(0).Text,
+                listbox_queue.Items.Insert(index, New ListViewItem(New String() {x.SubItems(0).Text,
 x.SubItems(1).Text,
 x.SubItems(2).Text,
 x.SubItems(3).Text,
-x.SubItems(4).Text, "Queued"}))
+x.SubItems(4).Text, "Queued", timestamp}))
+                index += 1
             Next
         Else
             listbox_queue.Visible = True
 
             For Each x In listbox_availableroms.SelectedItems
-                listbox_queue.Items.Add(New ListViewItem(New String() {x.SubItems(0).Text,
+                listbox_queue.Items.Insert(index, New ListViewItem(New String() {x.SubItems(0).Text,
 x.SubItems(1).Text,
 x.SubItems(2).Text,
 x.SubItems(3).Text,
-x.SubItems(4).Text, "Queued"}))
+x.SubItems(4).Text, "Queued", timestamp}))
             Next
+            index += 1
         End If
 
         Call launch_downloader()
@@ -1424,6 +1443,7 @@ x.SubItems(4).Text, "Queued"}))
 
     Private Sub btn_showdownloads_Click(sender As Object, e As EventArgs) Handles btn_showdownloads.Click
         panel_downloads.BringToFront()
+        panel_cancel.Visible = True
         If dark = True Then
             btn_showdownloads.ForeColor = Color.White
         Else
@@ -1436,11 +1456,8 @@ x.SubItems(4).Text, "Queued"}))
         Dim arguments As String() = (e.Argument)
         Dim iszip = False
 
-
-        '
-        '      Try
-
-        Dim downloader_proc As Process
+        Try
+            Dim downloader_proc As Process
             Dim p2 As New ProcessStartInfo
             p2.FileName = "anylink.exe"
 
@@ -1503,7 +1520,7 @@ x.SubItems(4).Text, "Queued"}))
                 '   p.UseShellExecute = True
                 p.WindowStyle = ProcessWindowStyle.Hidden
                 p.WorkingDirectory = ".\modules\7zip"
-                p.Arguments = ("e" & " " & Chr(34) & System.IO.Path.GetFullPath(".\roms\" & arguments(1) & "\" & arguments(0).Replace("$", " ")) & Chr(34) & " -o" & Chr(34) & System.IO.Path.GetFullPath(".\roms\" & arguments(1) & "\") & Chr(34))
+                p.Arguments = ("e" & " " & Chr(34) & System.IO.Path.GetFullPath(".\roms\" & arguments(1) & "\" & arguments(0).Replace("$", " ")) & Chr(34) & "-aoa -o" & Chr(34) & System.IO.Path.GetFullPath(".\roms\" & arguments(1) & "\") & Chr(34))
                 un7z = Process.Start(p)
                 un7z.WaitForExit()
                 If File.Exists(System.IO.Path.GetFullPath(".\roms\" & arguments(1) & "\" & arguments(0).Replace("$", " "))) Then
@@ -1513,21 +1530,37 @@ x.SubItems(4).Text, "Queued"}))
 
 
 
-   '     Catch ex As Exception
+        Catch ex As Exception
 
-        '       MessageBox.Show("Error downloading")
+            MessageBox.Show("Error downloading")
 
 
-        '      End Try
+        End Try
 
     End Sub
 
     Private Sub downloader_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles downloader.RunWorkerCompleted
+        listbox_queue.Items(0).SubItems(5).Text = "Completed"
+        If Not File.Exists(".\downloadlog.dat") Then
+            File.Create(".\downloadlog.dat")
+        End If
+        Dim log As String = File.ReadAllText(".\downloadlog.dat")
+        File.WriteAllText(".\downloadlog.dat", listbox_queue.Items(0).SubItems(0).Text & "," & listbox_queue.Items(0).SubItems(1).Text & "," & listbox_queue.Items(0).SubItems(2).Text & "," & listbox_queue.Items(0).SubItems(3).Text & "," & "removed" & "," & listbox_queue.Items(0).SubItems(5).Text & "," & listbox_queue.Items(0).SubItems(6).Text & vbNewLine & log)
         timer_updateprogress.Enabled = False
         lbl_status.Text = "Downloaded " & listbox_queue.Items(0).SubItems(0).Text
-        Call load_installed_roms()
         lbl_status.Location = New Point((panel_top.Width - lbl_status.Width) \ 2, (panel_top.Height - lbl_status.Height) \ 2)
-        listbox_queue.Items(0).SubItems(5).Text = "Completed"
+
+        Call load_installed_roms()
+
+        Dim index As Double = 0
+        For Each x In listbox_queue.Items
+            If x.subitems(5).text = "Queued" Or x.subitems(5).text = "Downloading" Then
+                index += 1
+            End If
+        Next
+        Dim item = listbox_queue.Items(0)
+        listbox_queue.Items.RemoveAt(0)
+        listbox_queue.Items.Insert(index, item)
         For Each x In listbox_queue.Items
             If Not x.subitems(5).text = "Queued" Then
                 picturebox_loading.Visible = False
@@ -1536,6 +1569,7 @@ x.SubItems(4).Text, "Queued"}))
                 timer_updateprogress.Enabled = False
                 notify_emuloader.Text = "Emuloader"
             Else
+
                 picturebox_loading.Visible = True
                 Call launch_downloader()
                 Exit For
@@ -1545,6 +1579,8 @@ x.SubItems(4).Text, "Queued"}))
     End Sub
 
     Private Sub timer_updateprogress_Tick(sender As Object, e As EventArgs) Handles timer_updateprogress.Tick
+        picturebox_loading.Visible = True
+
         Try
             Dim outputlog As String = File.ReadAllText(".\modules\outputlog.txt")
             Dim metadata As New List(Of String)
@@ -1713,6 +1749,53 @@ x.SubItems(4).Text, "Queued"}))
     Private Sub Main_ResizeEnd(ByVal sender As Object, ByVal e As EventArgs) Handles Me.SizeChanged
         lbl_nothing.Location = New Point((panel_downloads.Width - lbl_nothing.Width) \ 2, (panel_downloads.Height - lbl_nothing.Height) \ 2)
         lbl_status.Location = New Point((panel_top.Width - lbl_status.Width) \ 2, (panel_top.Height - lbl_status.Height) \ 2)
+    End Sub
+
+    Private Sub button_cancel_MouseEnter(sender As Object, e As EventArgs) Handles btn_cancel.MouseEnter
+        btn_cancel.BackgroundImage = System.Drawing.Image.FromFile(".\resources\cancelwhite.png")
+    End Sub
+
+    Private Sub button_cancel_MouseLeave(sender As Object, e As EventArgs) Handles btn_cancel.MouseLeave
+        btn_cancel.BackgroundImage = System.Drawing.Image.FromFile(".\resources\cancelblack.png")
+    End Sub
+
+    Private Sub button_cancel_MouseDown(sender As Object, e As MouseEventArgs) Handles btn_cancel.MouseDown
+
+        btn_cancel.BackgroundImage = System.Drawing.Image.FromFile(".\resources\cancelclick.png")
+        If listbox_queue.SelectedItems IsNot Nothing And listbox_queue.FocusedItem IsNot Nothing Then
+            If listbox_queue.SelectedItems IsNot Nothing And listbox_queue.FocusedItem.SubItems(5).Text = "Queued" Or listbox_queue.FocusedItem.SubItems(5).Text = "Downloading" And Not listbox_queue.FocusedItem.SubItems(5).Text = "Downloading" Then
+                listbox_queue.FocusedItem.SubItems(5).Text = "Cancelled"
+                If Not File.Exists(".\downloadlog.dat") Then
+                    File.Create(".\downloadlog.dat")
+                    File.WriteAllText(".\downloadlog.dat", listbox_queue.Items(0).SubItems(0).Text & "," & listbox_queue.Items(0).SubItems(1).Text & "," & listbox_queue.Items(0).SubItems(2).Text & "," & listbox_queue.Items(0).SubItems(3).Text & "," & "removed" & "," & listbox_queue.Items(0).SubItems(5).Text & "," & listbox_queue.Items(0).SubItems(6).Text)
+
+                Else
+                    Dim log As String = File.ReadAllText(".\downloadlog.dat")
+                    File.WriteAllText(".\downloadlog.dat", listbox_queue.Items(0).SubItems(0).Text & "," & listbox_queue.Items(0).SubItems(1).Text & "," & listbox_queue.Items(0).SubItems(2).Text & "," & listbox_queue.Items(0).SubItems(3).Text & "," & "removed" & "," & listbox_queue.Items(0).SubItems(5).Text & "," & listbox_queue.Items(0).SubItems(6).Text & vbNewLine & log)
+                End If
+
+            ElseIf listbox_queue.FocusedItem.SubItems(5).Text = "Downloading" Then
+                MessageBox.Show("Cannot cancel currently downloading file.")
+            Else
+                MessageBox.Show("Cannot cancel a past download.")
+            End If
+
+
+        Else
+            MessageBox.Show("Nothing selected to cancel!")
+        End If
+    End Sub
+
+    Private Sub listbox_queue_SelectedIndexChanged(sender As Object, e As EventArgs) Handles listbox_queue.SelectedIndexChanged
+        If listbox_queue.SelectedItems IsNot Nothing Then
+            lbl_rom_source.Visible = True
+            lbl_rom_size.Visible = True
+            lbl_rom_platform.Visible = True
+            lbl_rom_name.Text = listbox_queue.FocusedItem.SubItems(0).Text
+            lbl_rom_platform.Text = "Platform: " & listbox_queue.FocusedItem.SubItems(2).Text
+            lbl_rom_source.Text = "From " & listbox_queue.FocusedItem.SubItems(3).Text
+            lbl_rom_size.Text = "Size: " & listbox_queue.FocusedItem.SubItems(1).Text
+        End If
     End Sub
     ' Private Sub Main_Maximise(ByVal sender As Object, ByVal e As EventArgs) Handles Me.w
     '     lbl_nothing.Location = New Point((panel_downloads.Width - lbl_nothing.Width) \ 2, (panel_downloads.Height - lbl_nothing.Height) \ 2)

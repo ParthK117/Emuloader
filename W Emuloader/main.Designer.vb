@@ -48,6 +48,8 @@ Partial Class main
         Me.btn_newemu = New System.Windows.Forms.PictureBox()
         Me.panel_right = New System.Windows.Forms.Panel()
         Me.panel_rom_info = New System.Windows.Forms.Panel()
+        Me.panel_cancel = New System.Windows.Forms.Panel()
+        Me.btn_cancel = New System.Windows.Forms.PictureBox()
         Me.lbl_rom_source = New System.Windows.Forms.Label()
         Me.lbl_rom_size = New System.Windows.Forms.Label()
         Me.btn_showdownloads = New System.Windows.Forms.Label()
@@ -169,12 +171,13 @@ Partial Class main
         Me.download_platform = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.download_source = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.download_url = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.download_status = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.download_attempt = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.panel_download_chart = New System.Windows.Forms.Panel()
         Me.picturebox_download = New System.Windows.Forms.PictureBox()
         Me.lbl_nothing = New System.Windows.Forms.Label()
         Me.timer_updateprogress = New System.Windows.Forms.Timer(Me.components)
         Me.downloader = New System.ComponentModel.BackgroundWorker()
-        Me.download_status = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         CType(Me.image_logo, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panel_left.SuspendLayout()
         CType(Me.picturebox_tungsten, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -182,6 +185,8 @@ Partial Class main
         CType(Me.btn_newemu, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panel_right.SuspendLayout()
         Me.panel_rom_info.SuspendLayout()
+        Me.panel_cancel.SuspendLayout()
+        CType(Me.btn_cancel, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btn_queue, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btn_play, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.picturebox_boxart, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -537,6 +542,7 @@ Partial Class main
         '
         Me.panel_rom_info.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.panel_rom_info.Controls.Add(Me.panel_cancel)
         Me.panel_rom_info.Controls.Add(Me.lbl_rom_source)
         Me.panel_rom_info.Controls.Add(Me.lbl_rom_size)
         Me.panel_rom_info.Controls.Add(Me.btn_showdownloads)
@@ -547,6 +553,26 @@ Partial Class main
         Me.panel_rom_info.Name = "panel_rom_info"
         Me.panel_rom_info.Size = New System.Drawing.Size(250, 800)
         Me.panel_rom_info.TabIndex = 6
+        '
+        'panel_cancel
+        '
+        Me.panel_cancel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.panel_cancel.Controls.Add(Me.btn_cancel)
+        Me.panel_cancel.Location = New System.Drawing.Point(36, 680)
+        Me.panel_cancel.Name = "panel_cancel"
+        Me.panel_cancel.Size = New System.Drawing.Size(176, 48)
+        Me.panel_cancel.TabIndex = 13
+        Me.panel_cancel.Visible = False
+        '
+        'btn_cancel
+        '
+        Me.btn_cancel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btn_cancel.BackgroundImage = CType(resources.GetObject("btn_cancel.BackgroundImage"), System.Drawing.Image)
+        Me.btn_cancel.Location = New System.Drawing.Point(0, 0)
+        Me.btn_cancel.Name = "btn_cancel"
+        Me.btn_cancel.Size = New System.Drawing.Size(176, 48)
+        Me.btn_cancel.TabIndex = 9
+        Me.btn_cancel.TabStop = False
         '
         'lbl_rom_source
         '
@@ -1690,11 +1716,12 @@ Partial Class main
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.listbox_queue.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.listbox_queue.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.download_name, Me.download_size, Me.download_platform, Me.download_source, Me.download_url, Me.download_status})
+        Me.listbox_queue.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.download_name, Me.download_size, Me.download_platform, Me.download_source, Me.download_url, Me.download_status, Me.download_attempt})
         Me.listbox_queue.Font = New System.Drawing.Font("Gotham Bold", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.listbox_queue.ForeColor = System.Drawing.Color.Black
         Me.listbox_queue.HideSelection = False
         Me.listbox_queue.Location = New System.Drawing.Point(3, 181)
+        Me.listbox_queue.MultiSelect = False
         Me.listbox_queue.Name = "listbox_queue"
         Me.listbox_queue.Size = New System.Drawing.Size(1094, 677)
         Me.listbox_queue.TabIndex = 5
@@ -1726,6 +1753,16 @@ Partial Class main
         '
         Me.download_url.Text = ""
         Me.download_url.Width = 0
+        '
+        'download_status
+        '
+        Me.download_status.Text = "Status"
+        Me.download_status.Width = 100
+        '
+        'download_attempt
+        '
+        Me.download_attempt.Text = "Accessed"
+        Me.download_attempt.Width = 180
         '
         'panel_download_chart
         '
@@ -1769,11 +1806,6 @@ Partial Class main
         'downloader
         '
         '
-        'download_status
-        '
-        Me.download_status.Text = "Status"
-        Me.download_status.Width = 100
-        '
         'main
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1785,10 +1817,10 @@ Partial Class main
         Me.Controls.Add(Me.panel_top)
         Me.Controls.Add(Me.panel_right)
         Me.Controls.Add(Me.panel_left)
-        Me.Controls.Add(Me.panel_downloads)
         Me.Controls.Add(Me.panel_browse)
         Me.Controls.Add(Me.panel_play)
         Me.Controls.Add(Me.panel_drag_drop)
+        Me.Controls.Add(Me.panel_downloads)
         Me.DoubleBuffered = True
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
@@ -1805,6 +1837,8 @@ Partial Class main
         Me.panel_right.PerformLayout()
         Me.panel_rom_info.ResumeLayout(False)
         Me.panel_rom_info.PerformLayout()
+        Me.panel_cancel.ResumeLayout(False)
+        CType(Me.btn_cancel, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btn_queue, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btn_play, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.picturebox_boxart, System.ComponentModel.ISupportInitialize).EndInit()
@@ -2027,4 +2061,7 @@ Partial Class main
     Friend WithEvents ShowDownloadsToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents SettingsToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents download_status As ColumnHeader
+    Friend WithEvents download_attempt As ColumnHeader
+    Friend WithEvents panel_cancel As Panel
+    Friend WithEvents btn_cancel As PictureBox
 End Class
