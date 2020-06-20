@@ -26,6 +26,7 @@ Partial Class main
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(main))
         Me.image_logo = New System.Windows.Forms.PictureBox()
         Me.panel_left = New System.Windows.Forms.Panel()
+        Me.picturebox_patreon = New System.Windows.Forms.PictureBox()
         Me.lbl_version = New System.Windows.Forms.Label()
         Me.emu_nine = New System.Windows.Forms.Label()
         Me.emu_eight = New System.Windows.Forms.Label()
@@ -35,9 +36,7 @@ Partial Class main
         Me.emu_four = New System.Windows.Forms.Label()
         Me.picturebox_tungsten = New System.Windows.Forms.PictureBox()
         Me.lbl_licensing = New System.Windows.Forms.Label()
-        Me.lbl_patreon = New System.Windows.Forms.Label()
         Me.lbl_github = New System.Windows.Forms.Label()
-        Me.lbl_twitter = New System.Windows.Forms.Label()
         Me.lbl_about = New System.Windows.Forms.Label()
         Me.emu_three = New System.Windows.Forms.Label()
         Me.emu_two = New System.Windows.Forms.Label()
@@ -92,6 +91,7 @@ Partial Class main
         Me.installed_directory = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.lbl_play = New System.Windows.Forms.Label()
         Me.panel_browse = New System.Windows.Forms.Panel()
+        Me.picturebox_twitter = New System.Windows.Forms.PictureBox()
         Me.panel_import_click = New System.Windows.Forms.Panel()
         Me.btn_fromeldr = New System.Windows.Forms.PictureBox()
         Me.btn_fromlink = New System.Windows.Forms.PictureBox()
@@ -144,7 +144,7 @@ Partial Class main
         Me.btn_import = New System.Windows.Forms.PictureBox()
         Me.lbl_browse = New System.Windows.Forms.Label()
         Me.btn_discord = New System.Windows.Forms.PictureBox()
-        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
+        Me.picturebox_reddit = New System.Windows.Forms.PictureBox()
         Me.import_list = New System.Windows.Forms.OpenFileDialog()
         Me.panel_drag_drop = New System.Windows.Forms.Panel()
         Me.picturebox_drag = New System.Windows.Forms.PictureBox()
@@ -180,6 +180,7 @@ Partial Class main
         Me.downloader = New System.ComponentModel.BackgroundWorker()
         CType(Me.image_logo, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panel_left.SuspendLayout()
+        CType(Me.picturebox_patreon, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.picturebox_tungsten, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.tab_browse, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btn_newemu, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -204,6 +205,7 @@ Partial Class main
         CType(Me.btn_rom_rename, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btn_import_roms, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panel_browse.SuspendLayout()
+        CType(Me.picturebox_twitter, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panel_import_click.SuspendLayout()
         CType(Me.btn_fromeldr, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btn_fromlink, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -235,7 +237,7 @@ Partial Class main
         CType(Me.tab_all, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btn_import, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btn_discord, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.picturebox_reddit, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panel_drag_drop.SuspendLayout()
         CType(Me.picturebox_drag, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panel_blue_click.SuspendLayout()
@@ -264,6 +266,7 @@ Partial Class main
         Me.panel_left.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.panel_left.BackColor = System.Drawing.Color.Gainsboro
+        Me.panel_left.Controls.Add(Me.picturebox_patreon)
         Me.panel_left.Controls.Add(Me.lbl_version)
         Me.panel_left.Controls.Add(Me.emu_nine)
         Me.panel_left.Controls.Add(Me.emu_eight)
@@ -273,9 +276,7 @@ Partial Class main
         Me.panel_left.Controls.Add(Me.emu_four)
         Me.panel_left.Controls.Add(Me.picturebox_tungsten)
         Me.panel_left.Controls.Add(Me.lbl_licensing)
-        Me.panel_left.Controls.Add(Me.lbl_patreon)
         Me.panel_left.Controls.Add(Me.lbl_github)
-        Me.panel_left.Controls.Add(Me.lbl_twitter)
         Me.panel_left.Controls.Add(Me.lbl_about)
         Me.panel_left.Controls.Add(Me.emu_three)
         Me.panel_left.Controls.Add(Me.emu_two)
@@ -289,6 +290,19 @@ Partial Class main
         Me.panel_left.Name = "panel_left"
         Me.panel_left.Size = New System.Drawing.Size(250, 860)
         Me.panel_left.TabIndex = 2
+        '
+        'picturebox_patreon
+        '
+        Me.picturebox_patreon.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.picturebox_patreon.BackColor = System.Drawing.Color.Transparent
+        Me.picturebox_patreon.BackgroundImage = CType(resources.GetObject("picturebox_patreon.BackgroundImage"), System.Drawing.Image)
+        Me.picturebox_patreon.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.picturebox_patreon.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.picturebox_patreon.Location = New System.Drawing.Point(48, 730)
+        Me.picturebox_patreon.Name = "picturebox_patreon"
+        Me.picturebox_patreon.Size = New System.Drawing.Size(176, 43)
+        Me.picturebox_patreon.TabIndex = 26
+        Me.picturebox_patreon.TabStop = False
         '
         'lbl_version
         '
@@ -379,7 +393,7 @@ Partial Class main
         Me.picturebox_tungsten.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.picturebox_tungsten.BackgroundImage = CType(resources.GetObject("picturebox_tungsten.BackgroundImage"), System.Drawing.Image)
         Me.picturebox_tungsten.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.picturebox_tungsten.Location = New System.Drawing.Point(38, 673)
+        Me.picturebox_tungsten.Location = New System.Drawing.Point(37, 675)
         Me.picturebox_tungsten.Name = "picturebox_tungsten"
         Me.picturebox_tungsten.Size = New System.Drawing.Size(175, 40)
         Me.picturebox_tungsten.TabIndex = 13
@@ -396,45 +410,23 @@ Partial Class main
         Me.lbl_licensing.TabIndex = 12
         Me.lbl_licensing.Text = "Licensed under GPLv3, open-source."
         '
-        'lbl_patreon
-        '
-        Me.lbl_patreon.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.lbl_patreon.AutoSize = True
-        Me.lbl_patreon.Font = New System.Drawing.Font("Gotham Bold", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lbl_patreon.Location = New System.Drawing.Point(152, 792)
-        Me.lbl_patreon.Name = "lbl_patreon"
-        Me.lbl_patreon.Size = New System.Drawing.Size(67, 18)
-        Me.lbl_patreon.TabIndex = 11
-        Me.lbl_patreon.Text = "Patreon"
-        '
         'lbl_github
         '
         Me.lbl_github.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.lbl_github.AutoSize = True
         Me.lbl_github.Font = New System.Drawing.Font("Gotham Bold", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lbl_github.Location = New System.Drawing.Point(34, 792)
+        Me.lbl_github.Location = New System.Drawing.Point(153, 800)
         Me.lbl_github.Name = "lbl_github"
         Me.lbl_github.Size = New System.Drawing.Size(61, 18)
         Me.lbl_github.TabIndex = 10
         Me.lbl_github.Text = "GitHub"
-        '
-        'lbl_twitter
-        '
-        Me.lbl_twitter.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.lbl_twitter.AutoSize = True
-        Me.lbl_twitter.Font = New System.Drawing.Font("Gotham Bold", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lbl_twitter.Location = New System.Drawing.Point(152, 736)
-        Me.lbl_twitter.Name = "lbl_twitter"
-        Me.lbl_twitter.Size = New System.Drawing.Size(62, 18)
-        Me.lbl_twitter.TabIndex = 9
-        Me.lbl_twitter.Text = "Twitter"
         '
         'lbl_about
         '
         Me.lbl_about.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.lbl_about.AutoSize = True
         Me.lbl_about.Font = New System.Drawing.Font("Gotham Bold", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lbl_about.Location = New System.Drawing.Point(34, 736)
+        Me.lbl_about.Location = New System.Drawing.Point(29, 800)
         Me.lbl_about.Name = "lbl_about"
         Me.lbl_about.Size = New System.Drawing.Size(55, 18)
         Me.lbl_about.TabIndex = 5
@@ -997,6 +989,7 @@ Partial Class main
         Me.panel_browse.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.panel_browse.Controls.Add(Me.picturebox_twitter)
         Me.panel_browse.Controls.Add(Me.panel_import_click)
         Me.panel_browse.Controls.Add(Me.panel_search)
         Me.panel_browse.Controls.Add(Me.tab_search)
@@ -1007,11 +1000,23 @@ Partial Class main
         Me.panel_browse.Controls.Add(Me.btn_import)
         Me.panel_browse.Controls.Add(Me.lbl_browse)
         Me.panel_browse.Controls.Add(Me.btn_discord)
-        Me.panel_browse.Controls.Add(Me.PictureBox1)
+        Me.panel_browse.Controls.Add(Me.picturebox_reddit)
         Me.panel_browse.Location = New System.Drawing.Point(250, 40)
         Me.panel_browse.Name = "panel_browse"
         Me.panel_browse.Size = New System.Drawing.Size(1100, 860)
         Me.panel_browse.TabIndex = 5
+        '
+        'picturebox_twitter
+        '
+        Me.picturebox_twitter.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.picturebox_twitter.BackColor = System.Drawing.Color.Transparent
+        Me.picturebox_twitter.BackgroundImage = CType(resources.GetObject("picturebox_twitter.BackgroundImage"), System.Drawing.Image)
+        Me.picturebox_twitter.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.picturebox_twitter.Location = New System.Drawing.Point(674, 6)
+        Me.picturebox_twitter.Name = "picturebox_twitter"
+        Me.picturebox_twitter.Size = New System.Drawing.Size(120, 36)
+        Me.picturebox_twitter.TabIndex = 24
+        Me.picturebox_twitter.TabStop = False
         '
         'panel_import_click
         '
@@ -1514,17 +1519,17 @@ Partial Class main
         Me.btn_discord.TabIndex = 7
         Me.btn_discord.TabStop = False
         '
-        'PictureBox1
+        'picturebox_reddit
         '
-        Me.PictureBox1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.PictureBox1.BackColor = System.Drawing.Color.Transparent
-        Me.PictureBox1.BackgroundImage = CType(resources.GetObject("PictureBox1.BackgroundImage"), System.Drawing.Image)
-        Me.PictureBox1.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.PictureBox1.Location = New System.Drawing.Point(798, 6)
-        Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(94, 36)
-        Me.PictureBox1.TabIndex = 23
-        Me.PictureBox1.TabStop = False
+        Me.picturebox_reddit.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.picturebox_reddit.BackColor = System.Drawing.Color.Transparent
+        Me.picturebox_reddit.BackgroundImage = CType(resources.GetObject("picturebox_reddit.BackgroundImage"), System.Drawing.Image)
+        Me.picturebox_reddit.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.picturebox_reddit.Location = New System.Drawing.Point(798, 6)
+        Me.picturebox_reddit.Name = "picturebox_reddit"
+        Me.picturebox_reddit.Size = New System.Drawing.Size(94, 36)
+        Me.picturebox_reddit.TabIndex = 23
+        Me.picturebox_reddit.TabStop = False
         '
         'import_list
         '
@@ -1830,6 +1835,7 @@ Partial Class main
         CType(Me.image_logo, System.ComponentModel.ISupportInitialize).EndInit()
         Me.panel_left.ResumeLayout(False)
         Me.panel_left.PerformLayout()
+        CType(Me.picturebox_patreon, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.picturebox_tungsten, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.tab_browse, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btn_newemu, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1859,6 +1865,7 @@ Partial Class main
         CType(Me.btn_import_roms, System.ComponentModel.ISupportInitialize).EndInit()
         Me.panel_browse.ResumeLayout(False)
         Me.panel_browse.PerformLayout()
+        CType(Me.picturebox_twitter, System.ComponentModel.ISupportInitialize).EndInit()
         Me.panel_import_click.ResumeLayout(False)
         CType(Me.btn_fromeldr, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btn_fromlink, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1894,7 +1901,7 @@ Partial Class main
         CType(Me.tab_all, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btn_import, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btn_discord, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.picturebox_reddit, System.ComponentModel.ISupportInitialize).EndInit()
         Me.panel_drag_drop.ResumeLayout(False)
         CType(Me.picturebox_drag, System.ComponentModel.ISupportInitialize).EndInit()
         Me.panel_blue_click.ResumeLayout(False)
@@ -1933,9 +1940,7 @@ Partial Class main
     Friend WithEvents lbl_installedon As Label
     Friend WithEvents lbl_platform As Label
     Friend WithEvents lbl_about As Label
-    Friend WithEvents lbl_patreon As Label
     Friend WithEvents lbl_github As Label
-    Friend WithEvents lbl_twitter As Label
     Friend WithEvents lbl_licensing As Label
     Friend WithEvents btn_play As PictureBox
     Friend WithEvents panel_play As Panel
@@ -2055,7 +2060,7 @@ Partial Class main
     Friend WithEvents lbl_installed_name As Label
     Friend WithEvents lbl_installed_downloadtime As Label
     Friend WithEvents btn_discord As PictureBox
-    Friend WithEvents PictureBox1 As PictureBox
+    Friend WithEvents picturebox_reddit As PictureBox
     Friend WithEvents context_icon As ContextMenuStrip
     Friend WithEvents ExitToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ShowDownloadsToolStripMenuItem As ToolStripMenuItem
@@ -2064,4 +2069,6 @@ Partial Class main
     Friend WithEvents download_attempt As ColumnHeader
     Friend WithEvents panel_cancel As Panel
     Friend WithEvents btn_cancel As PictureBox
+    Friend WithEvents picturebox_twitter As PictureBox
+    Friend WithEvents picturebox_patreon As PictureBox
 End Class

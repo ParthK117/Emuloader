@@ -79,6 +79,8 @@ Public Class main
         lbl_networkusage.ForeColor = labelgrey
 
         lbl_nothing.Location = New Point((panel_downloads.Width - lbl_nothing.Width) \ 2, (panel_downloads.Height - lbl_nothing.Height) \ 2)
+        picturebox_patreon.Location = New Point((panel_left.Width - picturebox_patreon.Width) \ 2, 730)
+        picturebox_tungsten.Location = New Point((panel_left.Width - picturebox_tungsten.Width) \ 2, 675)
     End Sub
 
     Private Sub panel_top_MouseDown(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles panel_top.MouseDown
@@ -391,11 +393,11 @@ Public Class main
         about.Show()
     End Sub
 
-    Private Sub lbl_twitter_Click(sender As Object, e As EventArgs) Handles lbl_twitter.Click
+    Private Sub lbl_twitter_Click(sender As Object, e As EventArgs)
         Process.Start("https://twitter.com/drgreenboys")
     End Sub
 
-    Private Sub lbl_patreon_Click(sender As Object, e As EventArgs) Handles lbl_patreon.Click
+    Private Sub lbl_patreon_Click(sender As Object, e As EventArgs)
         Process.Start("https://patreon.com/emuloader")
     End Sub
 
@@ -1324,8 +1326,8 @@ x.SubItems(4).Text, "Queued", timestamp}))
             End Try
         End If
         If File.Exists(".\Emuload.exe") Then
-                File.Delete(".\Emuload.exe")
-            End If
+            File.Delete(".\Emuload.exe")
+        End If
 
     End Sub
 
@@ -1796,6 +1798,24 @@ x.SubItems(4).Text, "Queued", timestamp}))
             lbl_rom_source.Text = "From " & listbox_queue.FocusedItem.SubItems(3).Text
             lbl_rom_size.Text = "Size: " & listbox_queue.FocusedItem.SubItems(1).Text
         End If
+    End Sub
+
+    Private Sub main_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
+        Dim checkbox_exit As String() = (global_settings(4).Split("="))
+        If checkbox_exit(1) = "0" Then
+        Else
+            e.Cancel = True
+            Me.ShowInTaskbar = False
+            Me.WindowState = FormWindowState.Minimized
+        End If
+    End Sub
+
+    Private Sub picturebox_twitter_Click(sender As Object, e As EventArgs) Handles picturebox_twitter.Click
+        Process.Start("https://twitter.com/drgreenboys")
+    End Sub
+
+    Private Sub picturebox_patreon_Click(sender As Object, e As EventArgs) Handles picturebox_patreon.Click
+        Process.Start("https://www.patreon.com/emuloader")
     End Sub
     ' Private Sub Main_Maximise(ByVal sender As Object, ByVal e As EventArgs) Handles Me.w
     '     lbl_nothing.Location = New Point((panel_downloads.Width - lbl_nothing.Width) \ 2, (panel_downloads.Height - lbl_nothing.Height) \ 2)

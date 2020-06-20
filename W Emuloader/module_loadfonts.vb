@@ -33,8 +33,6 @@
         main.lbl_platform.ForeColor = main.labelgrey
         main.lbl_github.ForeColor = main.labelgrey
         main.lbl_about.ForeColor = main.labelgrey
-        main.lbl_twitter.ForeColor = main.labelgrey
-        main.lbl_patreon.ForeColor = main.labelgrey
         main.lbl_licensing.ForeColor = main.labelgrey
         main.lbl_rom_name.ForeColor = main.labelgrey
         main.lbl_rom_platform.ForeColor = main.labelgrey
@@ -124,8 +122,6 @@
         Dim gothamfont11 As New System.Drawing.Font(main.gotham.Families(0), 11)
         main.lbl_about.Font = gothamfont11
         main.lbl_github.Font = gothamfont11
-        main.lbl_twitter.Font = gothamfont11
-        main.lbl_patreon.Font = gothamfont11
         main.checkbox_fullscreen.Font = gothamfont11
         main.checkbox_filepath.Font = gothamfont11
         main.btn_showdownloads.Font = gothamfont11
