@@ -13,6 +13,11 @@ Module load_functions
         If Directory.Exists(".\roms\" & main.currenttab_metadata(1)) = False Then
             Directory.CreateDirectory(".\roms\" & main.currenttab_metadata(1))
         End If
+
+        If File.Exists(".\roms\" & main.currenttab_metadata(1) & "\metadata\lastplayed.dat") = False Then
+            System.IO.File.Create(".\roms\" & main.currenttab_metadata(1) & "\metadata\lastplayed.dat").Dispose()
+        End If
+
         Dim rom_directory As New DirectoryInfo(".\roms\" & main.currenttab_metadata(1))
 
         If main.currenttab_metadata(1) = "GBA" Then

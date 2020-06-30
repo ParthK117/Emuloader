@@ -22,5 +22,15 @@ Emuloader
   resource lookups using this strongly typed resource class.
 </summary>
 </member>
+<member name="T:Emuloader.mainux">
+<summary>
+mainux
+</summary>
+</member>
+<member name="M:Emuloader.mainux.InitializeComponent">
+<summary>
+InitializeComponent
+</summary>
+</member>
 </members>
 </doc>

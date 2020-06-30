@@ -54,6 +54,11 @@ Module module_skins
         parameters.BackColor = Color.FromArgb(21, 32, 43)
         parameters.lbl_params_title.ForeColor = Color.FromArgb(23, 191, 99)
         settings.checkbox_fancy.ForeColor = Color.White
+        main.lbl_last_played.ForeColor = Color.White
+        main.lbl_rom_top_name.ForeColor = Color.White
+        main.btn_play.Image = System.Drawing.Image.FromFile(".\resources\playblackdark.gif")
+        main.btn_newemu.Image = System.Drawing.Image.FromFile(".\resources\newemublackdark.gif")
+        main.btn_queue.Image = System.Drawing.Image.FromFile(".\resources\downloadblackdark.gif")
         Dim settings2 As New List(Of String)
         settings2.AddRange(File.ReadAllLines(".\settings.dat"))
         If settings2(5).Contains("1") Then
@@ -131,6 +136,11 @@ Module module_skins
         parameters.BackColor = Color.White
         parameters.lbl_params_title.ForeColor = Color.Black
         settings.checkbox_fancy.ForeColor = Color.Black
+        main.lbl_last_played.ForeColor = Color.Black
+        main.lbl_rom_top_name.ForeColor = Color.Black
+        main.btn_play.Image = System.Drawing.Image.FromFile(".\resources\playblacklight.gif")
+        main.btn_newemu.Image = System.Drawing.Image.FromFile(".\resources\newemublacklight.gif")
+        main.btn_queue.Image = System.Drawing.Image.FromFile(".\resources\downloadblacklight.gif")
         Dim settings2 As New List(Of String)
         settings2.AddRange(File.ReadAllLines(".\settings.dat"))
         If settings2(5).Contains("1") Then

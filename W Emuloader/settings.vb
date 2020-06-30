@@ -30,6 +30,10 @@ Public Class settings
         If topbar(1) = "1" Then
             checkbox_topbar.Checked = True
         End If
+        Dim delivery As String() = (settings(8).Split("="))
+        If delivery(1) = "1" Then
+            checkbox_delivery.Checked = True
+        End If
         Dim spartanfont14 As New System.Drawing.Font(main.spartan.Families(0), 14)
         load_boxart_on_startup.Font = spartanfont14
         load_skin.Font = spartanfont14
@@ -37,6 +41,7 @@ Public Class settings
         checkbox_exit_on_taskbar.Font = spartanfont14
         checkbox_fancy.Font = spartanfont14
         checkbox_topbar.Font = spartanfont14
+        checkbox_delivery.Font = spartanfont14
 
         Dim spartanfont16 As New System.Drawing.Font(main.spartan.Families(0), 16)
         listbox_settings.Font = spartanfont16
@@ -55,6 +60,7 @@ Public Class settings
             checkbox_exit_on_taskbar.ForeColor = Color.White
             checkbox_topbar.ForeColor = Color.White
             checkbox_fancy.ForeColor = Color.White
+            checkbox_delivery.ForeColor = Color.White
             picturebox_wave.BackgroundImage = System.Drawing.Image.FromFile(".\resources\egwavedark.png")
         End If
         listbox_settings.SelectedItem = listbox_settings.Items(0)
@@ -77,7 +83,7 @@ Public Class settings
         End If
 
         System.IO.File.Create(".\settings.dat").Dispose()
-        Dim new_settings As String = settings(0) & vbNewLine & settings(1) & vbNewLine & "version=" & main.version_number & vbNewLine & settings(3) & vbNewLine & settings(4) & vbNewLine & settings(5) & vbNewLine & "firsttime=0" & vbNewLine & settings(7)
+        Dim new_settings As String = settings(0) & vbNewLine & settings(1) & vbNewLine & "version=" & main.version_number & vbNewLine & settings(3) & vbNewLine & settings(4) & vbNewLine & settings(5) & vbNewLine & "firsttime=0" & vbNewLine & settings(7) & vbNewLine & settings(8)
         File.WriteAllText(".\settings.dat", new_settings)
         main.global_settings.Clear()
         main.global_settings.AddRange(File.ReadAllLines(".\settings.dat"))
@@ -148,6 +154,9 @@ Public Class settings
         ElseIf listbox_settings.SelectedItem = "Updates" Then
             lbl_settingstitle.Text = "Updates"
             panel_updates.BringToFront()
+        ElseIf listbox_settings.SelectedItem = "Instant Delivery" Then
+            lbl_settingstitle.Text = "Instant Delivery"
+            panel_delivery.BringToFront()
         End If
     End Sub
 
@@ -180,6 +189,14 @@ Public Class settings
             settings(7) = "windowsbar=1"
         Else
             settings(7) = "windowsbar=0"
+        End If
+    End Sub
+
+    Private Sub checkbox_delivery_CheckedChanged(sender As Object, e As EventArgs) Handles checkbox_delivery.CheckedChanged
+        If checkbox_delivery.Checked = True Then
+            settings(8) = "instantdelivery=1"
+        Else
+            settings(8) = "instantdelivery=0"
         End If
     End Sub
 End Class

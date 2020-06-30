@@ -69,7 +69,7 @@
         main.listbox_availableroms.Font = spartanfont16
         main.listbox_installedroms.Font = spartanfont16
         main.listbox_search.Font = spartanfont16
-
+        main.lbl_last_played.Font = spartanfont16
 
         Dim spartanfont12 As New System.Drawing.Font(main.spartan.Families(0), 12)
         main.listbox_queue.Font = spartanfont12
@@ -101,7 +101,7 @@
         main.emu_seven.Font = gothamfont18
         main.emu_eight.Font = gothamfont18
         main.emu_nine.Font = gothamfont18
-
+        main.lbl_rom_top_name.Font = gothamfont18
 
         Dim gothamfont14 As New System.Drawing.Font(main.gotham.Families(0), 14)
         main.lbl_sortby.Font = gothamfont14

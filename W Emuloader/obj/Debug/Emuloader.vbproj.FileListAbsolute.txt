@@ -33,3 +33,9 @@ C:\Users\Parth\Music\W Emuloader\W Emuloader\obj\Debug\Emuloader.parameters.reso
 C:\Users\Parth\Music\W Emuloader\W Emuloader\obj\Debug\Emuloader.firstlaunch.resources
 C:\Users\Parth\Music\W Emuloader\W Emuloader\obj\Debug\Emuloader.listlink.resources
 C:\Users\Parth\Music\W Emuloader\W Emuloader\obj\Debug\Emuloader.about.resources
+C:\Users\Parth\Music\W Emuloader\W Emuloader\obj\Debug\mainux.g.vb
+C:\Users\Parth\Music\W Emuloader\W Emuloader\obj\Debug\Emuloader_Content.g.vb
+C:\Users\Parth\Music\W Emuloader\W Emuloader\obj\Debug\Emuloader_MarkupCompile.cache
+C:\Users\Parth\Music\W Emuloader\W Emuloader\obj\Debug\Emuloader_MarkupCompile.lref
+C:\Users\Parth\Music\W Emuloader\W Emuloader\obj\Debug\mainux.baml
+C:\Users\Parth\Music\W Emuloader\W Emuloader\obj\Debug\Emuloader.g.resources

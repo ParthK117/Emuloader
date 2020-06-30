@@ -1,8 +1,9 @@
 load=1
-dark=0
-version=0.11.1
+dark=1
+version=0.12.0
 autoupdate=1
-exitonx=1
+exitonx=0
 fancydl=0
 firsttime=0
-windowsbar=1
+windowsbar=0
+instantdelivery=1

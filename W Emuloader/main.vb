@@ -17,7 +17,7 @@ Public Class main
     Public Shared labelgrey As Color
     Public Shared tab_index = 0
     Public Shared dark = False
-    Public Shared version_number = "0.11.1"
+    Public Shared version_number = "0.12.0"
     Public Shared global_settings As New List(Of String)
 
 
@@ -60,7 +60,7 @@ Public Class main
             End If
 
             System.IO.File.Create(".\settings.dat").Dispose()
-            Dim new_settings As String = global_settings(0) & vbNewLine & global_settings(1) & vbNewLine & global_settings(2) & vbNewLine & global_settings(3) & vbNewLine & global_settings(4) & vbNewLine & global_settings(5) & vbNewLine & global_settings(6) & vbNewLine & global_settings(7)
+            Dim new_settings As String = global_settings(0) & vbNewLine & global_settings(1) & vbNewLine & global_settings(2) & vbNewLine & global_settings(3) & vbNewLine & global_settings(4) & vbNewLine & global_settings(5) & vbNewLine & global_settings(6) & vbNewLine & global_settings(7) & vbNewLine & global_settings(8)
             File.WriteAllText(".\settings.dat", new_settings)
         End If
         Dim checkbox_skin As String() = (global_settings(1).Split("="))
@@ -81,6 +81,10 @@ Public Class main
         lbl_nothing.Location = New Point((panel_downloads.Width - lbl_nothing.Width) \ 2, (panel_downloads.Height - lbl_nothing.Height) \ 2)
         picturebox_patreon.Location = New Point((panel_left.Width - picturebox_patreon.Width) \ 2, 730)
         picturebox_tungsten.Location = New Point((panel_left.Width - picturebox_tungsten.Width) \ 2, 675)
+
+        '    Dim wpfwindow = New mainux()
+        '   wpfwindow.Show()
+
     End Sub
 
     Private Sub panel_top_MouseDown(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles panel_top.MouseDown
@@ -173,23 +177,28 @@ Public Class main
     End Sub
 
     Private Sub btn_newemu_MouseEnter(sender As Object, e As EventArgs) Handles btn_newemu.MouseEnter
-        btn_newemu.BackgroundImage = System.Drawing.Image.FromFile(".\resources\newemuwhite.png")
+        btn_newemu.Image = System.Drawing.Image.FromFile(".\resources\newemuwhite.png")
     End Sub
 
     Private Sub btn_newemu_MouseLeave(sender As Object, e As EventArgs) Handles btn_newemu.MouseLeave
-        btn_newemu.BackgroundImage = System.Drawing.Image.FromFile(".\resources\newemublack.png")
+        If dark = True Then
+            btn_newemu.Image = System.Drawing.Image.FromFile(".\resources\newemublackdark.gif")
+        Else
+            btn_newemu.Image = System.Drawing.Image.FromFile(".\resources\newemublacklight.gif")
+        End If
+        GC.Collect()
 
     End Sub
 
     Private Sub btn_newemu_MouseDown(sender As Object, e As MouseEventArgs) Handles btn_newemu.MouseDown
         GC.Collect()
-        btn_newemu.BackgroundImage = System.Drawing.Image.FromFile(".\resources\newemuclick.png")
+        btn_newemu.Image = System.Drawing.Image.FromFile(".\resources\newemuclick.png")
         newemulator.Show()
 
     End Sub
 
     Private Sub btn_newemu_MouseUp(sender As Object, e As MouseEventArgs) Handles btn_newemu.MouseUp
-        btn_newemu.BackgroundImage = System.Drawing.Image.FromFile(".\resources\newemuwhite.png")
+        btn_newemu.Image = System.Drawing.Image.FromFile(".\resources\newemuwhite.png")
 
     End Sub
 
@@ -286,18 +295,24 @@ Public Class main
         End If
     End Sub
     Private Sub btn_play_MouseEnter(sender As Object, e As EventArgs) Handles btn_play.MouseEnter
-        btn_play.BackgroundImage = System.Drawing.Image.FromFile(".\resources\playwhite.png")
+        btn_play.Image = System.Drawing.Image.FromFile(".\resources\playwhite.png")
     End Sub
 
     Private Sub btn_play_MouseLeave(sender As Object, e As EventArgs) Handles btn_play.MouseLeave
-        btn_play.BackgroundImage = System.Drawing.Image.FromFile(".\resources\playblack.png")
+        If dark = True Then
+            btn_play.Image = System.Drawing.Image.FromFile(".\resources\playblackdark.gif")
+        Else
+            btn_play.Image = System.Drawing.Image.FromFile(".\resources\playblacklight.gif")
+        End If
+        GC.Collect()
     End Sub
 
     Private Sub btn_play_MouseDown(sender As Object, e As MouseEventArgs) Handles btn_play.MouseDown
-        btn_play.BackgroundImage = System.Drawing.Image.FromFile(".\resources\playclick.png")
+        btn_play.Image = System.Drawing.Image.FromFile(".\resources\playclick.png")
 
-
-
+        Dim timestamp As String = Date.Now.ToString("dd/MM/yyyy")
+        Dim existing As String = File.ReadAllText(".\roms\" & currenttab_metadata(1) & "\metadata\lastplayed.dat")
+        File.WriteAllText(".\roms\" & currenttab_metadata(1) & "\metadata\lastplayed.dat", (existing & vbNewLine & listbox_installedroms.FocusedItem.SubItems(0).Text & "," & timestamp))
 
         Dim emulator As Process
         Dim p As New ProcessStartInfo
@@ -545,15 +560,20 @@ x.SubItems(4).Text, "Queued", timestamp}))
 
 
     Private Sub btn_queue_MouseEnter(sender As Object, e As EventArgs) Handles btn_queue.MouseEnter
-        btn_queue.BackgroundImage = System.Drawing.Image.FromFile(".\resources\queuewhite.png")
+        btn_queue.Image = System.Drawing.Image.FromFile(".\resources\queuewhite.png")
     End Sub
 
     Private Sub btn_queue_MouseLeave(sender As Object, e As EventArgs) Handles btn_queue.MouseLeave
-        btn_queue.BackgroundImage = System.Drawing.Image.FromFile(".\resources\queueblack.png")
+        If dark = True Then
+            btn_queue.Image = System.Drawing.Image.FromFile(".\resources\downloadblackdark.gif")
+        Else
+            btn_queue.Image = System.Drawing.Image.FromFile(".\resources\downloadblacklight.gif")
+        End If
+        GC.Collect()
     End Sub
 
     Private Sub btn_queue_MouseDown(sender As Object, e As MouseEventArgs) Handles btn_queue.MouseDown
-        btn_queue.BackgroundImage = System.Drawing.Image.FromFile(".\resources\queueclick.png")
+        btn_queue.Image = System.Drawing.Image.FromFile(".\resources\queueclick.png")
         If listbox_availableroms.FocusedItem IsNot Nothing = True Or listbox_search.FocusedItem IsNot Nothing = True Then
             panel_download_chart.Visible = True
             Call download_roms()
@@ -563,7 +583,7 @@ x.SubItems(4).Text, "Queued", timestamp}))
     End Sub
 
     Private Sub btn_queue_MouseUp(sender As Object, e As MouseEventArgs) Handles btn_queue.MouseUp
-        btn_queue.BackgroundImage = System.Drawing.Image.FromFile(".\resources\queuewhite.png")
+        btn_queue.Image = System.Drawing.Image.FromFile(".\resources\queuewhite.png")
     End Sub
 
 
@@ -583,7 +603,6 @@ x.SubItems(4).Text, "Queued", timestamp}))
 
     Private Sub btn_maximise_MouseDown(sender As Object, e As MouseEventArgs) Handles btn_maximise.MouseDown
         If Me.WindowState = FormWindowState.Normal Then
-
             Me.WindowState = FormWindowState.Maximized
             lbl_status.Location = New Point((panel_top.Width - lbl_status.Width) \ 2, (panel_top.Height - lbl_status.Height) \ 2)
             lbl_nothing.Location = New Point((panel_downloads.Width - lbl_nothing.Width) \ 2, (panel_downloads.Height - lbl_nothing.Height) \ 2)
@@ -1013,7 +1032,7 @@ x.SubItems(4).Text, "Queued", timestamp}))
                     If listbox_installedroms.FocusedItem.SubItems(0).Text.Contains(current_name(0)) Then
                         picturebox_boxart.BackgroundImage = System.Drawing.Image.FromFile(current_name(1))
                         romproperties.picturebox_boxart.BackgroundImage = System.Drawing.Image.FromFile(current_name(1))
-
+                        picturebox_boxart_top.BackgroundImage = System.Drawing.Image.FromFile(current_name(1))
                     End If
                 End If
             Next
@@ -1025,6 +1044,18 @@ x.SubItems(4).Text, "Queued", timestamp}))
             Dim size_rom As New IO.FileInfo(listbox_installedroms.FocusedItem.SubItems(2).Text)
             lbl_installed_size.Text = "Size: " & Math.Round((size_rom.Length / 1000000), 2) & " MB"
             lbl_installed_downloadtime.Text = "Downloaded on " & File.GetCreationTime(listbox_installedroms.FocusedItem.SubItems(2).Text)
+            lbl_rom_top_name.Text = listbox_installedroms.FocusedItem.SubItems(0).Text
+            Dim lastplayed As String() = File.ReadAllLines(".\roms\" & main.currenttab_metadata(1) & "\metadata\lastplayed.dat")
+            For Each x In lastplayed
+                Dim current_played As String() = x.Split(",")
+                If current_played(0) = listbox_installedroms.FocusedItem.SubItems(0).Text Then
+                    lbl_last_played.Text = "Last played on " & current_played(1)
+                    Exit For
+                Else
+                    lbl_last_played.Text = "Last played never"
+                End If
+            Next
+            GC.Collect()
         End If
     End Sub
 
@@ -1289,7 +1320,7 @@ x.SubItems(4).Text, "Queued", timestamp}))
     End Sub
     Public Sub check_for_updates()
         If Not File.Exists(".\settings.dat") Then
-            Dim new_settings As String = "load=1" & vbNewLine & "dark=0" & vbNewLine & "version=" & version_number & vbNewLine & "autoupdate=1" & vbNewLine & "exitonx=0" & vbNewLine & "fancydl=0" & vbNewLine & "firstime=1" & vbNewLine & "windowsbar=0"
+            Dim new_settings As String = "load=1" & vbNewLine & "dark=0" & vbNewLine & "version=" & version_number & vbNewLine & "autoupdate=1" & vbNewLine & "exitonx=0" & vbNewLine & "fancydl=0" & vbNewLine & "firstime=1" & vbNewLine & "windowsbar=0" & vbNewLine & "instantdelivery=1"
             File.WriteAllText(".\settings.dat", new_settings)
         Else
             Dim settings As New List(Of String)
@@ -1298,11 +1329,11 @@ x.SubItems(4).Text, "Queued", timestamp}))
             If Not settings(2).Contains(version_number) Then
                 File.Delete(".\settings.dat")
                 Try
-                    Dim new_settings As String = settings(0) & vbNewLine & settings(1) & vbNewLine & "version=" & version_number & vbNewLine & settings(3) & vbNewLine & settings(4) & vbNewLine & settings(5) & vbNewLine & settings(6) & vbNewLine & settings(7)
+                    Dim new_settings As String = settings(0) & vbNewLine & settings(1) & vbNewLine & "version=" & version_number & vbNewLine & settings(3) & vbNewLine & settings(4) & vbNewLine & settings(5) & vbNewLine & settings(6) & vbNewLine & settings(7) & vbNewLine & settings(8)
                     File.WriteAllText(".\settings.dat", new_settings)
                 Catch ex As Exception
                     MessageBox.Show("The new update is incompatible with your old settings, sorry. Launching first-time setup.")
-                    Dim new_settings As String = "load=1" & vbNewLine & "dark=0" & vbNewLine & "version=" & version_number & vbNewLine & "autoupdate=1" & vbNewLine & "exitonx=0" & vbNewLine & "fancydl=0" & vbNewLine & "firstime=1" & vbNewLine & "windowsbar=0"
+                    Dim new_settings As String = "load=1" & vbNewLine & "dark=0" & vbNewLine & "version=" & version_number & vbNewLine & "autoupdate=1" & vbNewLine & "exitonx=0" & vbNewLine & "fancydl=0" & vbNewLine & "firstime=1" & vbNewLine & "windowsbar=0" & vbNewLine & "instantdelivery=1"
                     File.WriteAllText(".\settings.dat", new_settings)
                 End Try
             End If
@@ -1470,6 +1501,7 @@ x.SubItems(4).Text, "Queued", timestamp}))
             downloader_proc = Process.Start(p2)
             downloader_proc.WaitForExit()
             My.Computer.FileSystem.RenameFile(".\roms\" & arguments(1) & "\" & arguments(0), arguments(0).Replace("$", " "))
+
             Try
 
 
@@ -1483,6 +1515,7 @@ x.SubItems(4).Text, "Queued", timestamp}))
 
 
                 If iszip = True Then
+
                     'unzip file
                     If File.Exists(".\roms\" & arguments(1) & "\temp.zip") Then
                         My.Computer.FileSystem.DeleteFile(".\roms\" & arguments(1) & "\temp.zip")
@@ -1522,7 +1555,8 @@ x.SubItems(4).Text, "Queued", timestamp}))
                 '   p.UseShellExecute = True
                 p.WindowStyle = ProcessWindowStyle.Hidden
                 p.WorkingDirectory = ".\modules\7zip"
-                p.Arguments = ("e" & " " & Chr(34) & System.IO.Path.GetFullPath(".\roms\" & arguments(1) & "\" & arguments(0).Replace("$", " ")) & Chr(34) & "-aoa -o" & Chr(34) & System.IO.Path.GetFullPath(".\roms\" & arguments(1) & "\") & Chr(34))
+                p.Arguments = ("e" & " " & Chr(34) & System.IO.Path.GetFullPath(".\roms\" & arguments(1) & "\" & arguments(0).Replace("$", " ")) & Chr(34) & " -y -o" & Chr(34) & System.IO.Path.GetFullPath(".\roms\" & arguments(1) & "\") & Chr(34))
+                '   MessageBox.Show("e" & " " & Chr(34) & System.IO.Path.GetFullPath(".\roms\" & arguments(1) & "\" & arguments(0).Replace("$", " ")) & Chr(34) & "-aoa -o" & Chr(34) & System.IO.Path.GetFullPath(".\roms\" & arguments(1) & "\") & Chr(34))
                 un7z = Process.Start(p)
                 un7z.WaitForExit()
                 If File.Exists(System.IO.Path.GetFullPath(".\roms\" & arguments(1) & "\" & arguments(0).Replace("$", " "))) Then
@@ -1546,12 +1580,14 @@ x.SubItems(4).Text, "Queued", timestamp}))
         If Not File.Exists(".\downloadlog.dat") Then
             File.Create(".\downloadlog.dat")
         End If
-        Dim log As String = File.ReadAllText(".\downloadlog.dat")
-        File.WriteAllText(".\downloadlog.dat", listbox_queue.Items(0).SubItems(0).Text & "," & listbox_queue.Items(0).SubItems(1).Text & "," & listbox_queue.Items(0).SubItems(2).Text & "," & listbox_queue.Items(0).SubItems(3).Text & "," & "removed" & "," & listbox_queue.Items(0).SubItems(5).Text & "," & listbox_queue.Items(0).SubItems(6).Text & vbNewLine & log)
+        Try
+            Dim log As String = File.ReadAllText(".\downloadlog.dat")
+            File.WriteAllText(".\downloadlog.dat", listbox_queue.Items(0).SubItems(0).Text & "," & listbox_queue.Items(0).SubItems(1).Text & "," & listbox_queue.Items(0).SubItems(2).Text & "," & listbox_queue.Items(0).SubItems(3).Text & "," & "removed" & "," & listbox_queue.Items(0).SubItems(5).Text & "," & listbox_queue.Items(0).SubItems(6).Text & vbNewLine & log)
+        Catch ex As Exception
+        End Try
         timer_updateprogress.Enabled = False
-        lbl_status.Text = "Downloaded " & listbox_queue.Items(0).SubItems(0).Text
+            lbl_status.Text = "Downloaded " & listbox_queue.Items(0).SubItems(0).Text
         lbl_status.Location = New Point((panel_top.Width - lbl_status.Width) \ 2, (panel_top.Height - lbl_status.Height) \ 2)
-
         Call load_installed_roms()
 
         Dim index As Double = 0
@@ -1751,6 +1787,17 @@ x.SubItems(4).Text, "Queued", timestamp}))
     Private Sub Main_ResizeEnd(ByVal sender As Object, ByVal e As EventArgs) Handles Me.SizeChanged
         lbl_nothing.Location = New Point((panel_downloads.Width - lbl_nothing.Width) \ 2, (panel_downloads.Height - lbl_nothing.Height) \ 2)
         lbl_status.Location = New Point((panel_top.Width - lbl_status.Width) \ 2, (panel_top.Height - lbl_status.Height) \ 2)
+        If Me.WindowState = FormWindowState.Maximized Then
+            Dim screenHeight As Integer = Screen.PrimaryScreen.Bounds.Height
+            If screenHeight.ToString = "1440" Then
+                Me.MaximumSize = New Size(2560, 1440)
+            ElseIf screenHeight.ToString = "1080" Then
+                Me.MaximumSize = New Size(1920, 1080)
+            End If
+        Else
+            Me.MaximumSize = New Size(4320, 4320)
+        End If
+
     End Sub
 
     Private Sub button_cancel_MouseEnter(sender As Object, e As EventArgs) Handles btn_cancel.MouseEnter
@@ -1789,11 +1836,10 @@ x.SubItems(4).Text, "Queued", timestamp}))
     End Sub
 
     Private Sub listbox_queue_SelectedIndexChanged(sender As Object, e As EventArgs) Handles listbox_queue.SelectedIndexChanged
-        If listbox_queue.SelectedItems IsNot Nothing Then
+        If listbox_queue.SelectedItems IsNot Nothing And listbox_queue.FocusedItem IsNot Nothing Then
             lbl_rom_source.Visible = True
             lbl_rom_size.Visible = True
             lbl_rom_platform.Visible = True
-            lbl_rom_name.Text = listbox_queue.FocusedItem.SubItems(0).Text
             lbl_rom_platform.Text = "Platform: " & listbox_queue.FocusedItem.SubItems(2).Text
             lbl_rom_source.Text = "From " & listbox_queue.FocusedItem.SubItems(3).Text
             lbl_rom_size.Text = "Size: " & listbox_queue.FocusedItem.SubItems(1).Text
@@ -1817,6 +1863,70 @@ x.SubItems(4).Text, "Queued", timestamp}))
     Private Sub picturebox_patreon_Click(sender As Object, e As EventArgs) Handles picturebox_patreon.Click
         Process.Start("https://www.patreon.com/emuloader")
     End Sub
+
+    Private Sub btn_closeright_Click(sender As Object, e As EventArgs) Handles btn_closeright.Click
+        panel_right.Visible = False
+        panel_browse.Width += 250
+        panel_play.Width += 250
+        panel_downloads.Width += 250
+        panel_drag_drop.Width += 250
+        btn_openright.Visible = True
+    End Sub
+
+    Private Sub btn_openright_Click(sender As Object, e As EventArgs) Handles btn_openright.Click
+        panel_right.Visible = True
+        panel_browse.Width -= 250
+        panel_play.Width -= 250
+        panel_downloads.Width -= 250
+        panel_drag_drop.Width -= 250
+        btn_openright.Visible = False
+    End Sub
+
+    Private Sub btn_closetop_Click(sender As Object, e As EventArgs) Handles btn_closetop.Click
+        picturebox_boxart_top.Visible = False
+        panel_top_info.Height = 70
+        panel_play_buttons.Anchor = AnchorStyles.Right And Not AnchorStyles.Top And Not AnchorStyles.Left And Not AnchorStyles.Bottom
+        panel_play_buttons.Location = New Point(panel_top_info.Width - 228, 5)
+        btn_opentop.Visible = True
+        listbox_installedroms.Height += 126
+        listbox_installedroms.Location = New Point(40, 184)
+        lbl_last_played.Location = New Point(2, 32)
+        lbl_rom_top_name.Location = New Point(0, 3)
+    End Sub
+
+    Private Sub btn_opentop_Click(sender As Object, e As EventArgs) Handles btn_opentop.Click
+        picturebox_boxart_top.Visible = True
+        panel_top_info.Height = 196
+        panel_play_buttons.Anchor = AnchorStyles.Left And Not AnchorStyles.Top And Not AnchorStyles.Right And Not AnchorStyles.Bottom
+        panel_play_buttons.Location = New Point(208, 144)
+        btn_opentop.Visible = False
+        listbox_installedroms.Height -= 126
+        listbox_installedroms.Location = New Point(40, 310)
+        lbl_last_played.Location = New Point(204, 32)
+        lbl_rom_top_name.Location = New Point(202, 3)
+    End Sub
+
+    Private Sub btn_extras_Click(sender As Object, e As EventArgs) Handles btn_extras.Click
+
+    End Sub
+
+    Private Sub btn_extras_MouseEnter(sender As Object, e As EventArgs) Handles btn_extras.MouseEnter
+        btn_extras.BackgroundImage = System.Drawing.Image.FromFile(".\resources\extraswhite.png")
+    End Sub
+
+    Private Sub btn_extras_MouseLeave(sender As Object, e As EventArgs) Handles btn_extras.MouseLeave
+        btn_extras.BackgroundImage = System.Drawing.Image.FromFile(".\resources\extrasblack.png")
+    End Sub
+
+    Private Sub btn_extras_MouseDown(sender As Object, e As MouseEventArgs) Handles btn_extras.MouseDown
+        btn_extras.BackgroundImage = System.Drawing.Image.FromFile(".\resources\extrasclick.png")
+    End Sub
+
+    Private Sub btn_extras_MouseUp(sender As Object, e As MouseEventArgs) Handles btn_extras.MouseUp
+        btn_extras.BackgroundImage = System.Drawing.Image.FromFile(".\resources\extraswhite.png")
+    End Sub
+
+
     ' Private Sub Main_Maximise(ByVal sender As Object, ByVal e As EventArgs) Handles Me.w
     '     lbl_nothing.Location = New Point((panel_downloads.Width - lbl_nothing.Width) \ 2, (panel_downloads.Height - lbl_nothing.Height) \ 2)
     '     lbl_status.Location = New Point((panel_top.Width - lbl_status.Width) \ 2, (panel_top.Height - lbl_status.Height) \ 2)

@@ -30,6 +30,7 @@ Partial Class settings
         Me.btn_darkmode = New System.Windows.Forms.PictureBox()
         Me.listbox_settings = New System.Windows.Forms.ListBox()
         Me.panel_general = New System.Windows.Forms.Panel()
+        Me.checkbox_topbar = New System.Windows.Forms.CheckBox()
         Me.checkbox_exit_on_taskbar = New System.Windows.Forms.CheckBox()
         Me.lbl_settingstitle = New System.Windows.Forms.Label()
         Me.panel_appearance = New System.Windows.Forms.Panel()
@@ -37,7 +38,8 @@ Partial Class settings
         Me.checkbox_fancy = New System.Windows.Forms.CheckBox()
         Me.panel_updates = New System.Windows.Forms.Panel()
         Me.checkbox_autoupdate = New System.Windows.Forms.CheckBox()
-        Me.checkbox_topbar = New System.Windows.Forms.CheckBox()
+        Me.panel_delivery = New System.Windows.Forms.Panel()
+        Me.checkbox_delivery = New System.Windows.Forms.CheckBox()
         CType(Me.btn_save, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btn_lightmode, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btn_darkmode, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -45,6 +47,7 @@ Partial Class settings
         Me.panel_appearance.SuspendLayout()
         CType(Me.picturebox_wave, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panel_updates.SuspendLayout()
+        Me.panel_delivery.SuspendLayout()
         Me.SuspendLayout()
         '
         'load_boxart_on_startup
@@ -101,7 +104,7 @@ Partial Class settings
         'listbox_settings
         '
         Me.listbox_settings.FormattingEnabled = True
-        Me.listbox_settings.Items.AddRange(New Object() {"General", "Appearance", "Updates"})
+        Me.listbox_settings.Items.AddRange(New Object() {"General", "Appearance", "Updates", "Instant Delivery"})
         Me.listbox_settings.Location = New System.Drawing.Point(12, 12)
         Me.listbox_settings.Name = "listbox_settings"
         Me.listbox_settings.Size = New System.Drawing.Size(201, 472)
@@ -116,6 +119,17 @@ Partial Class settings
         Me.panel_general.Name = "panel_general"
         Me.panel_general.Size = New System.Drawing.Size(689, 372)
         Me.panel_general.TabIndex = 6
+        '
+        'checkbox_topbar
+        '
+        Me.checkbox_topbar.AutoSize = True
+        Me.checkbox_topbar.Font = New System.Drawing.Font("Spartan MB", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.checkbox_topbar.Location = New System.Drawing.Point(12, 111)
+        Me.checkbox_topbar.Name = "checkbox_topbar"
+        Me.checkbox_topbar.Size = New System.Drawing.Size(253, 30)
+        Me.checkbox_topbar.TabIndex = 2
+        Me.checkbox_topbar.Text = "Use windows style topbar"
+        Me.checkbox_topbar.UseVisualStyleBackColor = True
         '
         'checkbox_exit_on_taskbar
         '
@@ -189,16 +203,24 @@ Partial Class settings
         Me.checkbox_autoupdate.Text = "Check for updates on startup"
         Me.checkbox_autoupdate.UseVisualStyleBackColor = True
         '
-        'checkbox_topbar
+        'panel_delivery
         '
-        Me.checkbox_topbar.AutoSize = True
-        Me.checkbox_topbar.Font = New System.Drawing.Font("Spartan MB", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.checkbox_topbar.Location = New System.Drawing.Point(12, 111)
-        Me.checkbox_topbar.Name = "checkbox_topbar"
-        Me.checkbox_topbar.Size = New System.Drawing.Size(253, 30)
-        Me.checkbox_topbar.TabIndex = 2
-        Me.checkbox_topbar.Text = "Use windows style topbar"
-        Me.checkbox_topbar.UseVisualStyleBackColor = True
+        Me.panel_delivery.Controls.Add(Me.checkbox_delivery)
+        Me.panel_delivery.Location = New System.Drawing.Point(220, 60)
+        Me.panel_delivery.Name = "panel_delivery"
+        Me.panel_delivery.Size = New System.Drawing.Size(689, 372)
+        Me.panel_delivery.TabIndex = 10
+        '
+        'checkbox_delivery
+        '
+        Me.checkbox_delivery.AutoSize = True
+        Me.checkbox_delivery.Font = New System.Drawing.Font("Spartan MB", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.checkbox_delivery.Location = New System.Drawing.Point(12, 13)
+        Me.checkbox_delivery.Name = "checkbox_delivery"
+        Me.checkbox_delivery.Size = New System.Drawing.Size(226, 30)
+        Me.checkbox_delivery.TabIndex = 1
+        Me.checkbox_delivery.Text = "Enable Instant Delivery"
+        Me.checkbox_delivery.UseVisualStyleBackColor = True
         '
         'settings
         '
@@ -212,6 +234,7 @@ Partial Class settings
         Me.Controls.Add(Me.panel_general)
         Me.Controls.Add(Me.panel_updates)
         Me.Controls.Add(Me.panel_appearance)
+        Me.Controls.Add(Me.panel_delivery)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
@@ -227,6 +250,8 @@ Partial Class settings
         CType(Me.picturebox_wave, System.ComponentModel.ISupportInitialize).EndInit()
         Me.panel_updates.ResumeLayout(False)
         Me.panel_updates.PerformLayout()
+        Me.panel_delivery.ResumeLayout(False)
+        Me.panel_delivery.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -247,4 +272,6 @@ Partial Class settings
     Friend WithEvents checkbox_fancy As CheckBox
     Friend WithEvents picturebox_wave As PictureBox
     Friend WithEvents checkbox_topbar As CheckBox
+    Friend WithEvents panel_delivery As Panel
+    Friend WithEvents checkbox_delivery As CheckBox
 End Class
