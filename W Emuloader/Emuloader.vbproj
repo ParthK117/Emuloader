@@ -103,6 +103,12 @@
     <Compile Include="about.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="connectwithdropbox.Designer.vb">
+      <DependentUpon>connectwithdropbox.vb</DependentUpon>
+    </Compile>
+    <Compile Include="connectwithdropbox.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="downloads.vb" />
     <Compile Include="firstlaunch.Designer.vb">
       <DependentUpon>firstlaunch.vb</DependentUpon>
@@ -174,6 +180,9 @@
   <ItemGroup>
     <EmbeddedResource Include="about.resx">
       <DependentUpon>about.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="connectwithdropbox.resx">
+      <DependentUpon>connectwithdropbox.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="firstlaunch.resx">
       <DependentUpon>firstlaunch.vb</DependentUpon>

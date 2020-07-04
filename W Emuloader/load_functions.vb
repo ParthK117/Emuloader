@@ -9,6 +9,19 @@ Module load_functions
 
         Dim customromlist As String() = File.ReadAllLines(".\custom.eldr")
 
+        Dim myFiles As New List(Of String)
+        If main.dark = 1 Or main.dark = 2 Or main.dark = 3 Then
+            For Each file As String In My.Computer.FileSystem.GetFiles(".\resources\banners\dark\" & main.currenttab_metadata(1))
+                myFiles.Add(file)
+            Next
+        Else
+            For Each file As String In My.Computer.FileSystem.GetFiles(".\resources\banners\light\" & main.currenttab_metadata(1))
+                myFiles.Add(file)
+            Next
+        End If
+
+        Dim rnd As New Random
+        main.panel_banner.BackgroundImage = System.Drawing.Image.FromFile((myFiles(rnd.Next(0, myFiles.Count))))
 
         If Directory.Exists(".\roms\" & main.currenttab_metadata(1)) = False Then
             Directory.CreateDirectory(".\roms\" & main.currenttab_metadata(1))

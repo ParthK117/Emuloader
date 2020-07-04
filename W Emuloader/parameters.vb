@@ -2,7 +2,7 @@
 
 Public Class parameters
     Private Sub parameters_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        If main.dark = True Then
+        If main.dark = 1 Then
             Me.BackColor = Color.FromArgb(21, 32, 43)
             lbl_params_title.ForeColor = Color.FromArgb(23, 191, 99)
         End If

@@ -12,7 +12,13 @@ Public Class settings
         End If
         Dim checkbox_skin As String() = (settings(1).Split("="))
         If checkbox_skin(1) = "1" Then
-            load_skin.Checked = True
+            combobox_theme.SelectedIndex = 1
+        ElseIf checkbox_skin(1) = "2" Then
+            combobox_theme.SelectedIndex = 2
+        ElseIf checkbox_skin(1) = "3" Then
+            combobox_theme.SelectedIndex = 3
+        ElseIf checkbox_skin(1) = "0" Then
+            combobox_theme.SelectedIndex = 0
         End If
         Dim checkbox_update As String() = (settings(3).Split("="))
         If checkbox_update(1) = "1" Then
@@ -34,6 +40,23 @@ Public Class settings
         If delivery(1) = "1" Then
             checkbox_delivery.Checked = True
         End If
+        Dim affiliate As String() = (settings(10).Split("="))
+        If affiliate(1) = "1" Then
+            checkbox_affiliate.Checked = True
+        End If
+        Dim checkbox_shop As String() = (settings(9).Split("="))
+        If checkbox_shop(1) = "google" Then
+            combobox_provider.SelectedIndex = 0
+        ElseIf checkbox_shop(1) = "amazon" Then
+            combobox_provider.SelectedIndex = 1
+        ElseIf checkbox_shop(1) = "amazonuk" Then
+            combobox_provider.SelectedIndex = 2
+        ElseIf checkbox_shop(1) = "ebay" Then
+            combobox_provider.SelectedIndex = 3
+        ElseIf checkbox_shop(1) = "ebayuk" Then
+            combobox_provider.SelectedIndex = 4
+        End If
+
         Dim spartanfont14 As New System.Drawing.Font(main.spartan.Families(0), 14)
         load_boxart_on_startup.Font = spartanfont14
         load_skin.Font = spartanfont14
@@ -42,14 +65,17 @@ Public Class settings
         checkbox_fancy.Font = spartanfont14
         checkbox_topbar.Font = spartanfont14
         checkbox_delivery.Font = spartanfont14
-
+        lbl_provider.Font = spartanfont14
+        combobox_theme.Font = spartanfont14
+        combobox_provider.Font = spartanfont14
+        checkbox_affiliate.Font = spartanfont14
         Dim spartanfont16 As New System.Drawing.Font(main.spartan.Families(0), 16)
         listbox_settings.Font = spartanfont16
 
         Dim gothamfont28 As New System.Drawing.Font(main.gotham.Families(0), 28)
         lbl_settingstitle.Font = gothamfont28
 
-        If main.dark = True Then
+        If main.dark = 1 Then
             Me.BackColor = Color.FromArgb(21, 32, 43)
             load_boxart_on_startup.ForeColor = Color.White
             load_skin.ForeColor = Color.White
@@ -62,6 +88,38 @@ Public Class settings
             checkbox_fancy.ForeColor = Color.White
             checkbox_delivery.ForeColor = Color.White
             picturebox_wave.BackgroundImage = System.Drawing.Image.FromFile(".\resources\egwavedark.png")
+            lbl_provider.ForeColor = Color.White
+            checkbox_affiliate.ForeColor = Color.White
+        ElseIf main.dark = 2 Then
+            Me.BackColor = Color.FromArgb(25, 28, 40)
+            load_boxart_on_startup.ForeColor = Color.White
+            load_skin.ForeColor = Color.White
+            checkbox_autoupdate.ForeColor = Color.White
+            listbox_settings.BackColor = Color.FromArgb(25, 28, 40)
+            listbox_settings.ForeColor = Color.White
+            lbl_settingstitle.ForeColor = Color.White
+            checkbox_exit_on_taskbar.ForeColor = Color.White
+            checkbox_topbar.ForeColor = Color.White
+            checkbox_fancy.ForeColor = Color.White
+            checkbox_delivery.ForeColor = Color.White
+            picturebox_wave.BackgroundImage = System.Drawing.Image.FromFile(".\resources\egwavedarker.png")
+            lbl_provider.ForeColor = Color.White
+            checkbox_affiliate.ForeColor = Color.White
+        ElseIf main.dark = 3 Then
+            Me.BackColor = Color.FromArgb(12, 12, 12)
+            load_boxart_on_startup.ForeColor = Color.White
+            load_skin.ForeColor = Color.White
+            checkbox_autoupdate.ForeColor = Color.White
+            listbox_settings.BackColor = Color.FromArgb(12, 12, 12)
+            listbox_settings.ForeColor = Color.White
+            lbl_settingstitle.ForeColor = Color.White
+            checkbox_exit_on_taskbar.ForeColor = Color.White
+            checkbox_topbar.ForeColor = Color.White
+            checkbox_fancy.ForeColor = Color.White
+            checkbox_delivery.ForeColor = Color.White
+            picturebox_wave.BackgroundImage = System.Drawing.Image.FromFile(".\resources\egwavedarkest.png")
+            lbl_provider.ForeColor = Color.White
+            checkbox_affiliate.ForeColor = Color.White
         End If
         listbox_settings.SelectedItem = listbox_settings.Items(0)
     End Sub
@@ -83,7 +141,7 @@ Public Class settings
         End If
 
         System.IO.File.Create(".\settings.dat").Dispose()
-        Dim new_settings As String = settings(0) & vbNewLine & settings(1) & vbNewLine & "version=" & main.version_number & vbNewLine & settings(3) & vbNewLine & settings(4) & vbNewLine & settings(5) & vbNewLine & "firsttime=0" & vbNewLine & settings(7) & vbNewLine & settings(8)
+        Dim new_settings As String = settings(0) & vbNewLine & settings(1) & vbNewLine & "version=" & main.version_number & vbNewLine & settings(3) & vbNewLine & settings(4) & vbNewLine & settings(5) & vbNewLine & "firsttime=0" & vbNewLine & settings(7) & vbNewLine & settings(8) & vbNewLine & settings(9) & vbNewLine & settings(10)
         File.WriteAllText(".\settings.dat", new_settings)
         main.global_settings.Clear()
         main.global_settings.AddRange(File.ReadAllLines(".\settings.dat"))
@@ -95,6 +153,8 @@ Public Class settings
                     Try
                         dlanimations.DownloadFile("https://github.com/ParthK117/Emuloader/releases/download/r-dlanimations/wavyblack.gif", ".\resources\wavyblack.gif")
                         dlanimations.DownloadFile("https://github.com/ParthK117/Emuloader/releases/download/r-dlanimations/wavywhite.gif", ".\resources\wavywhite.gif")
+                        dlanimations.DownloadFile("https://github.com/ParthK117/Emuloader/releases/download/r-dlanimations/wavydarker.gif", ".\resources\wavydarker.gif")
+                        dlanimations.DownloadFile("https://github.com/ParthK117/Emuloader/releases/download/r-dlanimations/wavydarkest.gif", ".\resources\wavydarkest.gif")
                         dlanimations.Dispose()
                     Catch ex As Exception
                     End Try
@@ -104,12 +164,18 @@ Public Class settings
             End If
         Else
         End If
-        If load_skin.Checked = True Then
+        If combobox_theme.SelectedIndex = 1 Then
             Call darkmode()
-            main.dark = True
-        Else
+            main.dark = 1
+        ElseIf combobox_theme.SelectedIndex = 0 Then
             Call lightmode()
-            main.dark = False
+            main.dark = 0
+        ElseIf combobox_theme.SelectedIndex = 2 Then
+            Call darkermode()
+            main.dark = 2
+        ElseIf combobox_theme.SelectedIndex = 3 Then
+            Call darkestmode()
+            main.dark = 3
         End If
         If checkbox_topbar.Checked = True Then
             main.FormBorderStyle = FormBorderStyle.Sizable
@@ -123,13 +189,13 @@ Public Class settings
 
     End Sub
 
-    Private Sub load_skin_CheckedChanged(sender As Object, e As EventArgs) Handles load_skin.CheckedChanged
-        If load_skin.Checked = True Then
-            settings(1) = "dark=1"
-        Else
-            settings(1) = "dark=0"
-        End If
-    End Sub
+    ' Private Sub load_skin_CheckedChanged(sender As Object, e As EventArgs)
+    '  If load_skin.Checked = True Then
+    '           settings(1) = "dark=1"
+    '   Else
+    '           settings(1) = "dark=0"
+    '   End If
+    '  End Sub
 
 
     Private Sub btn_save_MouseEnter(sender As Object, e As EventArgs) Handles btn_save.MouseEnter
@@ -157,6 +223,9 @@ Public Class settings
         ElseIf listbox_settings.SelectedItem = "Instant Delivery" Then
             lbl_settingstitle.Text = "Instant Delivery"
             panel_delivery.BringToFront()
+        ElseIf listbox_settings.SelectedItem = "Theme" Then
+            lbl_settingstitle.Text = "Theme"
+            panel_theme.BringToFront()
         End If
     End Sub
 
@@ -197,6 +266,40 @@ Public Class settings
             settings(8) = "instantdelivery=1"
         Else
             settings(8) = "instantdelivery=0"
+        End If
+    End Sub
+
+    Private Sub combobox_theme_SelectedIndexChanged(sender As Object, e As EventArgs) Handles combobox_theme.SelectedIndexChanged
+        If combobox_theme.SelectedIndex = 1 Then
+            settings(1) = "dark=1"
+        ElseIf combobox_theme.SelectedIndex = 0 Then
+            settings(1) = "dark=0"
+        ElseIf combobox_theme.SelectedIndex = 2 Then
+            settings(1) = "dark=2"
+        ElseIf combobox_theme.SelectedIndex = 3 Then
+            settings(1) = "dark=3"
+        End If
+    End Sub
+
+    Private Sub combobox_provider_SelectedIndexChanged(sender As Object, e As EventArgs)
+        If combobox_provider.SelectedIndex = 0 Then
+            settings(9) = "shop=google"
+        ElseIf combobox_provider.SelectedIndex = 1 Then
+            settings(9) = "shop=amazon"
+        ElseIf combobox_provider.SelectedIndex = 2 Then
+            settings(9) = "shop=amazonuk"
+        ElseIf combobox_provider.SelectedIndex = 3 Then
+            settings(9) = "shop=ebay"
+        ElseIf combobox_provider.SelectedIndex = 4 Then
+            settings(9) = "shop=ebayuk"
+        End If
+    End Sub
+
+    Private Sub checkbox_affiliate_CheckedChanged(sender As Object, e As EventArgs)
+        If checkbox_affiliate.Checked = True Then
+            settings(10) = "affiliate=1"
+        Else
+            settings(10) = "affiliate=0"
         End If
     End Sub
 End Class

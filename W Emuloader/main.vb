@@ -16,8 +16,8 @@ Public Class main
     Public Shared spartan As New System.Drawing.Text.PrivateFontCollection()
     Public Shared labelgrey As Color
     Public Shared tab_index = 0
-    Public Shared dark = False
-    Public Shared version_number = "0.12.0"
+    Public Shared dark = 0
+    Public Shared version_number = "1.0.0"
     Public Shared global_settings As New List(Of String)
 
 
@@ -60,15 +60,21 @@ Public Class main
             End If
 
             System.IO.File.Create(".\settings.dat").Dispose()
-            Dim new_settings As String = global_settings(0) & vbNewLine & global_settings(1) & vbNewLine & global_settings(2) & vbNewLine & global_settings(3) & vbNewLine & global_settings(4) & vbNewLine & global_settings(5) & vbNewLine & global_settings(6) & vbNewLine & global_settings(7) & vbNewLine & global_settings(8)
+            Dim new_settings As String = global_settings(0) & vbNewLine & global_settings(1) & vbNewLine & global_settings(2) & vbNewLine & global_settings(3) & vbNewLine & global_settings(4) & vbNewLine & global_settings(5) & vbNewLine & global_settings(6) & vbNewLine & global_settings(7) & vbNewLine & global_settings(8) & vbNewLine & global_settings(9) & vbNewLine & global_settings(10)
             File.WriteAllText(".\settings.dat", new_settings)
         End If
         Dim checkbox_skin As String() = (global_settings(1).Split("="))
         If checkbox_skin(1) = "1" Then
             Call darkmode()
-            dark = True
-        Else
+            dark = 1
+        ElseIf checkbox_skin(1) = "2" Then
+            Call darkermode()
+            dark = 2
+        ElseIf checkbox_skin(1) = "0" Then
             Call lightmode()
+        ElseIf checkbox_skin(1) = "3" Then
+            Call darkestmode()
+            dark = 3
         End If
         Dim checkbox_topbar As String() = (global_settings(7).Split("="))
         If checkbox_topbar(1) = "1" Then
@@ -127,8 +133,12 @@ Public Class main
 
 
     Private Sub btn_maximise_MouseEnter(sender As Object, e As EventArgs) Handles btn_maximise.MouseEnter
-        If dark = "1" Then
+        If dark = 1 Then
             paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\greenclickdark.png")
+        ElseIf dark = 2 Then
+            paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\greenclickdarker.png")
+        ElseIf dark = 3 Then
+            paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\greenclickdarkest.png")
         Else
             paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\greenclick.png")
         End If
@@ -138,6 +148,10 @@ Public Class main
     Private Sub btn_maximise_MouseLeave(sender As Object, e As EventArgs) Handles btn_maximise.MouseLeave
         If dark = "1" Then
             paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\exitdark.png")
+        ElseIf dark = 2 Then
+            paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\exitdarker.png")
+        ElseIf dark = 3 Then
+            paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\exitdarkest.png")
         Else
             paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\exit.png")
         End If
@@ -146,6 +160,10 @@ Public Class main
     Private Sub btn_minimise_MouseEnter(sender As Object, e As EventArgs) Handles btn_minimise.MouseEnter
         If dark = "1" Then
             paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\yellowclickdark.png")
+        ElseIf dark = 2 Then
+            paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\yellowclickdarker.png")
+        ElseIf dark = 3 Then
+            paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\yellowclickdarkest.png")
         Else
             paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\yellowclick.png")
         End If
@@ -154,6 +172,10 @@ Public Class main
     Private Sub btn_minimise_MouseLeave(sender As Object, e As EventArgs) Handles btn_minimise.MouseLeave
         If dark = "1" Then
             paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\exitdark.png")
+        ElseIf dark = 2 Then
+            paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\exitdarker.png")
+        ElseIf dark = 3 Then
+            paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\exitdarkest.png")
         Else
             paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\exit.png")
         End If
@@ -163,6 +185,10 @@ Public Class main
     Private Sub btn_exit_MouseLeave(sender As Object, e As EventArgs) Handles btn_exit.MouseLeave
         If dark = "1" Then
             paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\exitdark.png")
+        ElseIf dark = 2 Then
+            paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\exitdarker.png")
+        ElseIf dark = 3 Then
+            paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\exitdarkest.png")
         Else
             paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\exit.png")
         End If
@@ -171,6 +197,10 @@ Public Class main
     Private Sub btn_exit_MouseEnter(sender As Object, e As EventArgs) Handles btn_exit.MouseEnter
         If dark = "1" Then
             paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\redclickdark.png")
+        ElseIf dark = 2 Then
+            paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\redclickdarker.png")
+        ElseIf dark = 3 Then
+            paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\redclickdarkest.png")
         Else
             paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\redclick.png")
         End If
@@ -181,17 +211,13 @@ Public Class main
     End Sub
 
     Private Sub btn_newemu_MouseLeave(sender As Object, e As EventArgs) Handles btn_newemu.MouseLeave
-        If dark = True Then
-            btn_newemu.Image = System.Drawing.Image.FromFile(".\resources\newemublackdark.gif")
-        Else
-            btn_newemu.Image = System.Drawing.Image.FromFile(".\resources\newemublacklight.gif")
-        End If
+        btn_newemu.Image = System.Drawing.Image.FromFile(".\resources\newemu.gif")
         GC.Collect()
 
     End Sub
 
     Private Sub btn_newemu_MouseDown(sender As Object, e As MouseEventArgs) Handles btn_newemu.MouseDown
-        GC.Collect()
+
         btn_newemu.Image = System.Drawing.Image.FromFile(".\resources\newemuclick.png")
         newemulator.Show()
 
@@ -205,9 +231,12 @@ Public Class main
     Private Sub emu_one_Click(sender As Object, e As EventArgs) Handles emu_one.Click
         tab_index = 0
         Call module_emutabs.load_emutab()
-        If dark = True Then
+        If dark = 1 Then
             emu_one.ForeColor = Color.FromArgb(23, 191, 99)
+        ElseIf dark = 2 Or dark = 3 Then
+            emu_one.ForeColor = Color.White
         Else
+
             emu_one.ForeColor = Color.Black
         End If
 
@@ -218,9 +247,12 @@ Public Class main
         tab_index = 1
         Call module_emutabs.load_emutab()
 
-        If dark = True Then
+        If dark = 1 Then
             emu_two.ForeColor = Color.FromArgb(23, 191, 99)
+        ElseIf dark = 2 Or dark = 3 Then
+            emu_two.ForeColor = Color.White
         Else
+
             emu_two.ForeColor = Color.Black
         End If
     End Sub
@@ -228,9 +260,12 @@ Public Class main
     Private Sub emu_three_Click(sender As Object, e As EventArgs) Handles emu_three.Click
         tab_index = 2
         Call module_emutabs.load_emutab()
-        If dark = True Then
+        If dark = 1 Then
             emu_three.ForeColor = Color.FromArgb(23, 191, 99)
+        ElseIf dark = 2 Or dark = 3 Then
+            emu_three.ForeColor = Color.White
         Else
+
             emu_three.ForeColor = Color.Black
         End If
     End Sub
@@ -238,9 +273,12 @@ Public Class main
     Private Sub emu_four_Click(sender As Object, e As EventArgs) Handles emu_four.Click
         tab_index = 3
         Call module_emutabs.load_emutab()
-        If dark = True Then
+        If dark = 1 Then
             emu_four.ForeColor = Color.FromArgb(23, 191, 99)
+        ElseIf dark = 2 Or dark = 3 Then
+            emu_four.ForeColor = Color.White
         Else
+
             emu_four.ForeColor = Color.Black
         End If
     End Sub
@@ -248,9 +286,12 @@ Public Class main
     Private Sub emu_five_Click(sender As Object, e As EventArgs) Handles emu_five.Click
         tab_index = 4
         Call module_emutabs.load_emutab()
-        If dark = True Then
+        If dark = 1 Then
             emu_five.ForeColor = Color.FromArgb(23, 191, 99)
+        ElseIf dark = 2 Or dark = 3 Then
+            emu_five.ForeColor = Color.White
         Else
+
             emu_five.ForeColor = Color.Black
         End If
     End Sub
@@ -258,9 +299,12 @@ Public Class main
     Private Sub emu_six_Click(sender As Object, e As EventArgs) Handles emu_six.Click
         tab_index = 5
         Call module_emutabs.load_emutab()
-        If dark = True Then
+        If dark = 1 Then
             emu_six.ForeColor = Color.FromArgb(23, 191, 99)
+        ElseIf dark = 2 Or dark = 3 Then
+            emu_six.ForeColor = Color.White
         Else
+
             emu_six.ForeColor = Color.Black
         End If
     End Sub
@@ -268,9 +312,12 @@ Public Class main
     Private Sub emu_seven_Click(sender As Object, e As EventArgs) Handles emu_seven.Click
         tab_index = 6
         Call module_emutabs.load_emutab()
-        If dark = True Then
+        If dark = 1 Then
             emu_seven.ForeColor = Color.FromArgb(23, 191, 99)
+        ElseIf dark = 2 Or dark = 3 Then
+            emu_seven.ForeColor = Color.White
         Else
+
             emu_seven.ForeColor = Color.Black
         End If
     End Sub
@@ -278,9 +325,12 @@ Public Class main
     Private Sub emu_eight_Click(sender As Object, e As EventArgs) Handles emu_eight.Click
         tab_index = 7
         Call module_emutabs.load_emutab()
-        If dark = True Then
+        If dark = 1 Then
             emu_eight.ForeColor = Color.FromArgb(23, 191, 99)
+        ElseIf dark = 2 Or dark = 3 Then
+            emu_eight.ForeColor = Color.White
         Else
+
             emu_eight.ForeColor = Color.Black
         End If
     End Sub
@@ -288,9 +338,12 @@ Public Class main
     Private Sub emu_nine_Click(sender As Object, e As EventArgs) Handles emu_nine.Click
         tab_index = 8
         Call module_emutabs.load_emutab()
-        If dark = True Then
+        If dark = 1 Then
             emu_nine.ForeColor = Color.FromArgb(23, 191, 99)
+        ElseIf dark = 2 Or dark = 3 Then
+            emu_nine.ForeColor = Color.White
         Else
+
             emu_nine.ForeColor = Color.Black
         End If
     End Sub
@@ -299,11 +352,7 @@ Public Class main
     End Sub
 
     Private Sub btn_play_MouseLeave(sender As Object, e As EventArgs) Handles btn_play.MouseLeave
-        If dark = True Then
-            btn_play.Image = System.Drawing.Image.FromFile(".\resources\playblackdark.gif")
-        Else
-            btn_play.Image = System.Drawing.Image.FromFile(".\resources\playblacklight.gif")
-        End If
+        btn_play.Image = System.Drawing.Image.FromFile(".\resources\playblack.gif")
         GC.Collect()
     End Sub
 
@@ -401,7 +450,7 @@ Public Class main
     End Sub
 
     Private Sub btn_play_MouseUp(sender As Object, e As MouseEventArgs) Handles btn_play.MouseUp
-        btn_play.BackgroundImage = System.Drawing.Image.FromFile(".\resources\playwhite.png")
+        btn_play.Image = System.Drawing.Image.FromFile(".\resources\playwhite.png")
     End Sub
 
     Private Sub lbl_about_Click(sender As Object, e As EventArgs) Handles lbl_about.Click
@@ -421,7 +470,6 @@ Public Class main
     End Sub
 
     Private Sub btn_import_MouseDown(sender As Object, e As MouseEventArgs) Handles btn_import.MouseDown
-        btn_import.BackgroundImage = System.Drawing.Image.FromFile(".\resources\importclick.png")
 
         panel_import_click.Visible = True
 
@@ -564,11 +612,7 @@ x.SubItems(4).Text, "Queued", timestamp}))
     End Sub
 
     Private Sub btn_queue_MouseLeave(sender As Object, e As EventArgs) Handles btn_queue.MouseLeave
-        If dark = True Then
-            btn_queue.Image = System.Drawing.Image.FromFile(".\resources\downloadblackdark.gif")
-        Else
-            btn_queue.Image = System.Drawing.Image.FromFile(".\resources\downloadblacklight.gif")
-        End If
+        btn_queue.Image = System.Drawing.Image.FromFile(".\resources\download.gif")
         GC.Collect()
     End Sub
 
@@ -625,7 +669,6 @@ x.SubItems(4).Text, "Queued", timestamp}))
     End Sub
 
     Private Sub btn_import_roms_MouseDown(sender As Object, e As MouseEventArgs) Handles btn_import_roms.MouseDown
-        btn_import_roms.BackgroundImage = System.Drawing.Image.FromFile(".\resources\importromsclick.png")
 
         Dim folderBrowser As New OpenFileDialog()
 
@@ -685,7 +728,7 @@ x.SubItems(4).Text, "Queued", timestamp}))
 
                 panel_rom_rightclick.Visible = True
 
-                panel_rom_rightclick.Location = New Point((e.X + 40), (e.Y + 120))
+                panel_rom_rightclick.Location = New Point((e.X + 40), (e.Y + 190))
             End If
         Else
             panel_rom_rightclick.Visible = False
@@ -743,8 +786,12 @@ x.SubItems(4).Text, "Queued", timestamp}))
     End Sub
 
     Private Sub btn_search_Click(sender As Object, e As EventArgs) Handles btn_search.Click
-        If dark = True Then
+        If dark = 1 Then
             btn_search.ForeColor = Color.FromArgb(23, 191, 99)
+        ElseIf dark = 2 Then
+            btn_search.ForeColor = Color.White
+        ElseIf dark = 3 Then
+            btn_search.ForeColor = Color.White
         Else
             btn_search.ForeColor = Color.Black
         End If
@@ -755,8 +802,12 @@ x.SubItems(4).Text, "Queued", timestamp}))
     End Sub
 
     Private Sub btn_all_Click(sender As Object, e As EventArgs) Handles btn_all.Click
-        If dark = True Then
+        If dark = 1 Then
             btn_all.ForeColor = Color.FromArgb(23, 191, 99)
+        ElseIf dark = 2 Then
+            btn_all.ForeColor = Color.White
+        ElseIf dark = 3 Then
+            btn_all.ForeColor = Color.White
         Else
             btn_all.ForeColor = Color.Black
         End If
@@ -1002,6 +1053,8 @@ x.SubItems(4).Text, "Queued", timestamp}))
             panel_blue_click.Visible = False
         Else
             panel_blue_click.Visible = True
+            btn_show_lists.BackColor = panel_top.BackColor
+            btn_settings.BackColor = panel_right.BackColor
         End If
 
 
@@ -1263,7 +1316,6 @@ x.SubItems(4).Text, "Queued", timestamp}))
     End Sub
 
     Private Sub btn_play_delete_MouseDown(sender As Object, e As MouseEventArgs) Handles btn_play_delete.MouseDown
-        btn_play_delete.BackgroundImage = System.Drawing.Image.FromFile(".\resources\deleteplayclick.png")
 
         Dim directoryName As String = ".\" & currenttab_metadata(4)
         For Each deleteFile In Directory.GetFiles(directoryName, "*.*", SearchOption.AllDirectories)
@@ -1320,7 +1372,7 @@ x.SubItems(4).Text, "Queued", timestamp}))
     End Sub
     Public Sub check_for_updates()
         If Not File.Exists(".\settings.dat") Then
-            Dim new_settings As String = "load=1" & vbNewLine & "dark=0" & vbNewLine & "version=" & version_number & vbNewLine & "autoupdate=1" & vbNewLine & "exitonx=0" & vbNewLine & "fancydl=0" & vbNewLine & "firstime=1" & vbNewLine & "windowsbar=0" & vbNewLine & "instantdelivery=1"
+            Dim new_settings As String = "load=1" & vbNewLine & "dark=0" & vbNewLine & "version=" & version_number & vbNewLine & "autoupdate=1" & vbNewLine & "exitonx=0" & vbNewLine & "fancydl=0" & vbNewLine & "firstime=1" & vbNewLine & "windowsbar=0" & vbNewLine & "instantdelivery=1" & vbNewLine & "shop=google" & vbNewLine & "affiliate=0"
             File.WriteAllText(".\settings.dat", new_settings)
         Else
             Dim settings As New List(Of String)
@@ -1333,7 +1385,7 @@ x.SubItems(4).Text, "Queued", timestamp}))
                     File.WriteAllText(".\settings.dat", new_settings)
                 Catch ex As Exception
                     MessageBox.Show("The new update is incompatible with your old settings, sorry. Launching first-time setup.")
-                    Dim new_settings As String = "load=1" & vbNewLine & "dark=0" & vbNewLine & "version=" & version_number & vbNewLine & "autoupdate=1" & vbNewLine & "exitonx=0" & vbNewLine & "fancydl=0" & vbNewLine & "firstime=1" & vbNewLine & "windowsbar=0" & vbNewLine & "instantdelivery=1"
+                    Dim new_settings As String = "load=1" & vbNewLine & "dark=0" & vbNewLine & "version=" & version_number & vbNewLine & "autoupdate=1" & vbNewLine & "exitonx=0" & vbNewLine & "fancydl=0" & vbNewLine & "firstime=1" & vbNewLine & "windowsbar=0" & vbNewLine & "instantdelivery=1" & vbNewLine & "shop=google" & vbNewLine & "affiliate=0"
                     File.WriteAllText(".\settings.dat", new_settings)
                 End Try
             End If
@@ -1389,9 +1441,12 @@ x.SubItems(4).Text, "Queued", timestamp}))
     Private Sub btn_platform_tags_Click(sender As Object, e As EventArgs) Handles btn_platform_tags.Click
         Call hide_region_tags()
         panel_platform_tags.Visible = True
-        If dark = True Then
+        If dark = 1 Then
             btn_platform_tags.ForeColor = Color.FromArgb(23, 191, 99)
+        ElseIf dark = 2 Or dark = 3 Then
+            btn_platform_tags.ForeColor = Color.White
         Else
+
             btn_platform_tags.ForeColor = Color.Black
         End If
 
@@ -1420,8 +1475,10 @@ x.SubItems(4).Text, "Queued", timestamp}))
         Call hide_platform_tags()
 
         panel_region_tags.Visible = True
-        If dark = True Then
+        If dark = 1 Then
             btn_region.ForeColor = Color.FromArgb(23, 191, 99)
+        ElseIf dark = 2 Or dark = 3 Then
+            btn_region.ForeColor = Color.White
         Else
             btn_region.ForeColor = Color.Black
         End If
@@ -1477,7 +1534,7 @@ x.SubItems(4).Text, "Queued", timestamp}))
     Private Sub btn_showdownloads_Click(sender As Object, e As EventArgs) Handles btn_showdownloads.Click
         panel_downloads.BringToFront()
         panel_cancel.Visible = True
-        If dark = True Then
+        If dark = 1 Or dark = 2 Or dark = 3 Then
             btn_showdownloads.ForeColor = Color.White
         Else
             btn_showdownloads.ForeColor = Color.Black
@@ -1678,7 +1735,7 @@ x.SubItems(4).Text, "Queued", timestamp}))
     Private Sub btn_parameters_Click(sender As Object, e As EventArgs) Handles btn_parameters.Click
         parameters.Show()
 
-        If dark = True Then
+        If dark = 1 Or dark = 2 Or dark = 3 Then
             btn_parameters.ForeColor = Color.White
         Else
             btn_parameters.ForeColor = Color.Black
@@ -1871,6 +1928,8 @@ x.SubItems(4).Text, "Queued", timestamp}))
         panel_downloads.Width += 250
         panel_drag_drop.Width += 250
         btn_openright.Visible = True
+        btn_openright_downloads.Visible = True
+        btn_openright_browse.Visible = True
     End Sub
 
     Private Sub btn_openright_Click(sender As Object, e As EventArgs) Handles btn_openright.Click
@@ -1879,12 +1938,15 @@ x.SubItems(4).Text, "Queued", timestamp}))
         panel_play.Width -= 250
         panel_downloads.Width -= 250
         panel_drag_drop.Width -= 250
+        btn_openright_downloads.Visible = False
+        btn_openright_browse.Visible = False
         btn_openright.Visible = False
     End Sub
 
     Private Sub btn_closetop_Click(sender As Object, e As EventArgs) Handles btn_closetop.Click
         picturebox_boxart_top.Visible = False
         panel_top_info.Height = 70
+        panel_banner.Height = 180
         panel_play_buttons.Anchor = AnchorStyles.Right And Not AnchorStyles.Top And Not AnchorStyles.Left And Not AnchorStyles.Bottom
         panel_play_buttons.Location = New Point(panel_top_info.Width - 228, 5)
         btn_opentop.Visible = True
@@ -1897,6 +1959,7 @@ x.SubItems(4).Text, "Queued", timestamp}))
     Private Sub btn_opentop_Click(sender As Object, e As EventArgs) Handles btn_opentop.Click
         picturebox_boxart_top.Visible = True
         panel_top_info.Height = 196
+        panel_banner.Height = 309
         panel_play_buttons.Anchor = AnchorStyles.Left And Not AnchorStyles.Top And Not AnchorStyles.Right And Not AnchorStyles.Bottom
         panel_play_buttons.Location = New Point(208, 144)
         btn_opentop.Visible = False
@@ -1924,6 +1987,182 @@ x.SubItems(4).Text, "Queued", timestamp}))
 
     Private Sub btn_extras_MouseUp(sender As Object, e As MouseEventArgs) Handles btn_extras.MouseUp
         btn_extras.BackgroundImage = System.Drawing.Image.FromFile(".\resources\extraswhite.png")
+    End Sub
+
+    Private Sub btn_opentop_MouseEnter(sender As Object, e As EventArgs) Handles btn_opentop.MouseEnter
+        If dark = 1 Or dark = 2 Or dark = 3 Then
+            btn_opentop.BackgroundImage = System.Drawing.Image.FromFile(".\resources\opentopclickdark.png")
+        Else
+            btn_opentop.BackgroundImage = System.Drawing.Image.FromFile(".\resources\opentopclick.png")
+        End If
+
+    End Sub
+
+    Private Sub btn_opentop_MouseLeave(sender As Object, e As EventArgs) Handles btn_opentop.MouseLeave
+        If dark = 1 Or dark = 2 Or dark = 3 Then
+            btn_opentop.BackgroundImage = System.Drawing.Image.FromFile(".\resources\opentopdark.png")
+        Else
+            btn_opentop.BackgroundImage = System.Drawing.Image.FromFile(".\resources\opentop.png")
+        End If
+    End Sub
+
+    Private Sub btn_closetop_MouseEnter(sender As Object, e As EventArgs) Handles btn_closetop.MouseEnter
+        If dark = 1 Or dark = 2 Or dark = 3 Then
+            btn_closetop.BackgroundImage = System.Drawing.Image.FromFile(".\resources\closetopclickdark.png")
+        Else
+            btn_closetop.BackgroundImage = System.Drawing.Image.FromFile(".\resources\closetopclick.png")
+        End If
+
+    End Sub
+
+    Private Sub btn_closetop_MouseLeave(sender As Object, e As EventArgs) Handles btn_closetop.MouseLeave
+        If dark = 1 Or dark = 2 Or dark = 3 Then
+            btn_closetop.BackgroundImage = System.Drawing.Image.FromFile(".\resources\closetopdark.png")
+        Else
+            btn_closetop.BackgroundImage = System.Drawing.Image.FromFile(".\resources\closetop.png")
+        End If
+    End Sub
+
+    Private Sub btn_openright_MouseEnter(sender As Object, e As EventArgs) Handles btn_openright.MouseEnter
+        If dark = 1 Or dark = 2 Or dark = 3 Then
+            btn_openright.BackgroundImage = System.Drawing.Image.FromFile(".\resources\openrightclickdark.png")
+        Else
+            btn_openright.BackgroundImage = System.Drawing.Image.FromFile(".\resources\openrightclick.png")
+        End If
+
+    End Sub
+
+    Private Sub btn_openright_MouseLeave(sender As Object, e As EventArgs) Handles btn_openright.MouseLeave
+        If dark = 1 Or dark = 2 Or dark = 3 Then
+            btn_openright.BackgroundImage = System.Drawing.Image.FromFile(".\resources\openrightdark.png")
+        Else
+            btn_openright.BackgroundImage = System.Drawing.Image.FromFile(".\resources\openright.png")
+        End If
+    End Sub
+
+    Private Sub btn_closeright_MouseEnter(sender As Object, e As EventArgs) Handles btn_closeright.MouseEnter
+        If dark = 1 Or dark = 2 Or dark = 3 Then
+            btn_closeright.BackgroundImage = System.Drawing.Image.FromFile(".\resources\closerightclickdark.png")
+        Else
+            btn_closeright.BackgroundImage = System.Drawing.Image.FromFile(".\resources\closerightclick.png")
+        End If
+
+    End Sub
+
+    Private Sub btn_closeright_MouseLeave(sender As Object, e As EventArgs) Handles btn_closeright.MouseLeave
+        If dark = 1 Or dark = 2 Or dark = 3 Then
+            btn_closeright.BackgroundImage = System.Drawing.Image.FromFile(".\resources\closerightdark.png")
+        Else
+            btn_closeright.BackgroundImage = System.Drawing.Image.FromFile(".\resources\closeright.png")
+        End If
+    End Sub
+
+    Private Sub btn_dropbox_Click(sender As Object, e As EventArgs) Handles btn_dropbox.Click
+        connectwithdropbox.Show()
+    End Sub
+
+    Private Sub btn_purchase_MouseEnter(sender As Object, e As EventArgs) Handles btn_purchase.MouseEnter
+        btn_purchase.BackgroundImage = System.Drawing.Image.FromFile(".\resources\purchasewhite.png")
+    End Sub
+
+    Private Sub btn_purchase_MouseLeave(sender As Object, e As EventArgs) Handles btn_purchase.MouseLeave
+        btn_purchase.BackgroundImage = System.Drawing.Image.FromFile(".\resources\purchaseblack.png")
+    End Sub
+
+    Private Sub btn_purchase_MouseDown(sender As Object, e As MouseEventArgs) Handles btn_purchase.MouseDown
+        If listbox_availableroms.SelectedItems IsNot Nothing And listbox_availableroms.FocusedItem IsNot Nothing Then
+            Dim searchterm As String = listbox_availableroms.FocusedItem.SubItems(0).Text.Replace(" ", "+").Replace(".7z", "").Replace(".zip", "").Replace("(", "").Replace(")", "").Replace("Ru", "").Replace("En", "").Replace("Jp", "").Replace("Europe", "").Replace("Ge", "").Replace("It", "").Replace("Fr", "").Replace("Es", "").Replace("Usa", "").Replace("Nl", "").Replace("Po", "").Replace("Sv", "").Replace("No", "").Replace("Da", "")
+            If global_settings(9).Contains("google") Then
+                Process.Start("https://www.google.com/search?q=" & searchterm & "+" & listbox_availableroms.FocusedItem.SubItems(2).Text & "&tbm=shop")
+            ElseIf global_settings(9).Contains("amazonuk") Then
+                Process.Start("https://www.amazon.co.uk/s?k=" & searchterm & "+" & listbox_availableroms.FocusedItem.SubItems(2).Text)
+            ElseIf global_settings(9).Contains("amazon") Then
+                Process.Start("https://www.amazon.com/s?k=" & searchterm & "+" & listbox_availableroms.FocusedItem.SubItems(2).Text)
+            ElseIf global_settings(9).Contains("ebayuk") Then
+                Process.Start("https://www.ebay.co.uk/sch/i.html?_nkw=" & searchterm & "+" & listbox_availableroms.FocusedItem.SubItems(2).Text)
+            ElseIf global_settings(9).Contains("ebay") Then
+                Process.Start("https://www.ebay.com/sch/i.html?_nkw=" & searchterm & "+" & listbox_availableroms.FocusedItem.SubItems(2).Text)
+            End If
+        End If
+    End Sub
+
+    Private Sub btn_soundtrack_MouseEnter(sender As Object, e As EventArgs) Handles btn_soundtrack.MouseEnter
+        btn_soundtrack.BackgroundImage = System.Drawing.Image.FromFile(".\resources\ostwhite.png")
+    End Sub
+
+    Private Sub btn_soundtrack_MouseLeave(sender As Object, e As EventArgs) Handles btn_soundtrack.MouseLeave
+        btn_soundtrack.BackgroundImage = System.Drawing.Image.FromFile(".\resources\ostblack.png")
+    End Sub
+
+    Private Sub btn_soundtrack_MouseDown(sender As Object, e As MouseEventArgs) Handles btn_soundtrack.MouseDown
+        Dim searchterm As String = listbox_availableroms.FocusedItem.SubItems(0).Text.Replace(" ", "+").Replace(".7z", "").Replace(".zip", "").Replace("(", "").Replace(")", "").Replace("Ru", "").Replace("En", "").Replace("Jp", "").Replace("Europe", "").Replace("Ge", "").Replace("It", "").Replace("Fr", "").Replace("Es", "").Replace("Usa", "").Replace("Nl", "").Replace("Po", "").Replace("Sv", "").Replace("No", "").Replace("Da", "")
+
+        If listbox_availableroms.SelectedItems IsNot Nothing And listbox_availableroms.FocusedItem IsNot Nothing Then
+            If global_settings(9).Contains("google") Then
+                Process.Start("https://www.google.com/search?q=" & searchterm & "+" & listbox_availableroms.FocusedItem.SubItems(2).Text & "+Official+Soundtrack" & "&tbm=shop")
+            ElseIf global_settings(9).Contains("amazonuk") Then
+                Process.Start("https://www.amazon.co.uk/s?k=" & searchterm & "+" & listbox_availableroms.FocusedItem.SubItems(2).Text & "+Official+Soundtrack")
+            ElseIf global_settings(9).Contains("amazon") Then
+                Process.Start("https://www.amazon.com/s?k=" & searchterm & "+" & listbox_availableroms.FocusedItem.SubItems(2).Text & "+Official+Soundtrack")
+            ElseIf global_settings(9).Contains("ebayuk") Then
+                Process.Start("https://www.ebay.co.uk/sch/i.html?_nkw=" & searchterm & "+" & listbox_availableroms.FocusedItem.SubItems(2).Text & "+Official+Soundtrack")
+            ElseIf global_settings(9).Contains("ebay") Then
+                Process.Start("https://www.ebay.com/sch/i.html?_nkw=" & searchterm & "+" & listbox_availableroms.FocusedItem.SubItems(2).Text & "+Official+Soundtrack")
+            End If
+        End If
+    End Sub
+    Private Sub btn_openright_downloads_MouseEnter(sender As Object, e As EventArgs) Handles btn_openright_downloads.MouseEnter
+        If dark = 1 Or dark = 2 Or dark = 3 Then
+            btn_openright_downloads.BackgroundImage = System.Drawing.Image.FromFile(".\resources\openrightclickdark.png")
+        Else
+            btn_openright_downloads.BackgroundImage = System.Drawing.Image.FromFile(".\resources\openrightclick.png")
+        End If
+
+    End Sub
+
+    Private Sub btn_openright_downloads_MouseLeave(sender As Object, e As EventArgs) Handles btn_openright_downloads.MouseLeave
+        If dark = 1 Or dark = 2 Or dark = 3 Then
+            btn_openright_downloads.BackgroundImage = System.Drawing.Image.FromFile(".\resources\openrightdark.png")
+        Else
+            btn_openright_downloads.BackgroundImage = System.Drawing.Image.FromFile(".\resources\openright.png")
+        End If
+    End Sub
+    Private Sub btn_openright_downloads_Click(sender As Object, e As EventArgs) Handles btn_openright_downloads.Click
+        panel_right.Visible = True
+        panel_browse.Width -= 250
+        panel_play.Width -= 250
+        panel_downloads.Width -= 250
+        panel_drag_drop.Width -= 250
+        btn_openright_downloads.Visible = False
+        btn_openright.Visible = False
+        btn_openright_browse.Visible = False
+    End Sub
+
+    Private Sub btn_openright_browse_MouseEnter(sender As Object, e As EventArgs) Handles btn_openright_browse.MouseEnter
+        If dark = 1 Or dark = 2 Or dark = 3 Then
+            btn_openright_browse.BackgroundImage = System.Drawing.Image.FromFile(".\resources\openrightclickdark.png")
+        Else
+            btn_openright_browse.BackgroundImage = System.Drawing.Image.FromFile(".\resources\openrightclick.png")
+        End If
+
+    End Sub
+
+    Private Sub btn_openright_browse_MouseLeave(sender As Object, e As EventArgs) Handles btn_openright_browse.MouseLeave
+        If dark = 1 Or dark = 2 Or dark = 3 Then
+            btn_openright_browse.BackgroundImage = System.Drawing.Image.FromFile(".\resources\openrightdark.png")
+        Else
+            btn_openright_browse.BackgroundImage = System.Drawing.Image.FromFile(".\resources\openright.png")
+        End If
+    End Sub
+    Private Sub btn_openright_browse_Click(sender As Object, e As EventArgs) Handles btn_openright_browse.Click
+        panel_right.Visible = True
+        panel_browse.Width -= 250
+        panel_play.Width -= 250
+        panel_downloads.Width -= 250
+        panel_drag_drop.Width -= 250
+        btn_openright_browse.Visible = False
+        btn_openright.Visible = False
+        btn_openright_browse.Visible = False
     End Sub
 
 

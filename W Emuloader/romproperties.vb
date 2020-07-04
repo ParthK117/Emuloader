@@ -2,7 +2,7 @@
     Dim name_rom As String = main.listbox_installedroms.FocusedItem.SubItems(0).Text
     Private Sub romproperties_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-        If main.dark = True Then
+        If main.dark = 1 Then
             lbl_properties.ForeColor = Color.FromArgb(23, 191, 99)
             Me.BackColor = Color.FromArgb(21, 32, 43)
             lbl_file_path_identifier.ForeColor = Color.White
@@ -10,6 +10,28 @@
             lbl_rom_name_identifier.ForeColor = Color.White
             textbox_rom_name.ForeColor = Color.White
             textbox_rom_name.BackColor = Color.FromArgb(21, 32, 43)
+            lbl_rom_name.ForeColor = Color.White
+            lbl_platform_identifier.ForeColor = Color.White
+            lbl_platform.ForeColor = Color.White
+        ElseIf main.dark = 2 Then
+            lbl_properties.ForeColor = Color.White
+            Me.BackColor = Color.FromArgb(25, 28, 40)
+            lbl_file_path_identifier.ForeColor = Color.White
+            lbl_file_path.ForeColor = Color.White
+            lbl_rom_name_identifier.ForeColor = Color.White
+            textbox_rom_name.ForeColor = Color.White
+            textbox_rom_name.BackColor = Color.FromArgb(25, 28, 40)
+            lbl_rom_name.ForeColor = Color.White
+            lbl_platform_identifier.ForeColor = Color.White
+            lbl_platform.ForeColor = Color.White
+        ElseIf main.dark = 3 Then
+            lbl_properties.ForeColor = Color.White
+            Me.BackColor = Color.FromArgb(12, 12, 12)
+            lbl_file_path_identifier.ForeColor = Color.White
+            lbl_file_path.ForeColor = Color.White
+            lbl_rom_name_identifier.ForeColor = Color.White
+            textbox_rom_name.ForeColor = Color.White
+            textbox_rom_name.BackColor = Color.FromArgb(12, 12, 12)
             lbl_rom_name.ForeColor = Color.White
             lbl_platform_identifier.ForeColor = Color.White
             lbl_platform.ForeColor = Color.White

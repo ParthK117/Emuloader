@@ -25,11 +25,11 @@ Partial Class settings
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(settings))
         Me.load_boxart_on_startup = New System.Windows.Forms.CheckBox()
         Me.btn_save = New System.Windows.Forms.PictureBox()
-        Me.load_skin = New System.Windows.Forms.CheckBox()
-        Me.btn_lightmode = New System.Windows.Forms.PictureBox()
-        Me.btn_darkmode = New System.Windows.Forms.PictureBox()
         Me.listbox_settings = New System.Windows.Forms.ListBox()
         Me.panel_general = New System.Windows.Forms.Panel()
+        Me.checkbox_affiliate = New System.Windows.Forms.CheckBox()
+        Me.combobox_provider = New System.Windows.Forms.ComboBox()
+        Me.lbl_provider = New System.Windows.Forms.Label()
         Me.checkbox_topbar = New System.Windows.Forms.CheckBox()
         Me.checkbox_exit_on_taskbar = New System.Windows.Forms.CheckBox()
         Me.lbl_settingstitle = New System.Windows.Forms.Label()
@@ -40,14 +40,20 @@ Partial Class settings
         Me.checkbox_autoupdate = New System.Windows.Forms.CheckBox()
         Me.panel_delivery = New System.Windows.Forms.Panel()
         Me.checkbox_delivery = New System.Windows.Forms.CheckBox()
+        Me.panel_theme = New System.Windows.Forms.Panel()
+        Me.combobox_theme = New System.Windows.Forms.ComboBox()
+        Me.load_skin = New System.Windows.Forms.CheckBox()
+        Me.btn_lightmode = New System.Windows.Forms.PictureBox()
+        Me.btn_darkmode = New System.Windows.Forms.PictureBox()
         CType(Me.btn_save, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.btn_lightmode, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.btn_darkmode, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panel_general.SuspendLayout()
         Me.panel_appearance.SuspendLayout()
         CType(Me.picturebox_wave, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panel_updates.SuspendLayout()
         Me.panel_delivery.SuspendLayout()
+        Me.panel_theme.SuspendLayout()
+        CType(Me.btn_lightmode, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.btn_darkmode, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'load_boxart_on_startup
@@ -70,41 +76,10 @@ Partial Class settings
         Me.btn_save.TabIndex = 1
         Me.btn_save.TabStop = False
         '
-        'load_skin
-        '
-        Me.load_skin.AutoSize = True
-        Me.load_skin.Font = New System.Drawing.Font("Spartan MB", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.load_skin.Location = New System.Drawing.Point(12, 13)
-        Me.load_skin.Name = "load_skin"
-        Me.load_skin.Size = New System.Drawing.Size(126, 30)
-        Me.load_skin.TabIndex = 2
-        Me.load_skin.Text = "Dark mode"
-        Me.load_skin.UseVisualStyleBackColor = True
-        '
-        'btn_lightmode
-        '
-        Me.btn_lightmode.BackgroundImage = CType(resources.GetObject("btn_lightmode.BackgroundImage"), System.Drawing.Image)
-        Me.btn_lightmode.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.btn_lightmode.Location = New System.Drawing.Point(12, 49)
-        Me.btn_lightmode.Name = "btn_lightmode"
-        Me.btn_lightmode.Size = New System.Drawing.Size(271, 152)
-        Me.btn_lightmode.TabIndex = 3
-        Me.btn_lightmode.TabStop = False
-        '
-        'btn_darkmode
-        '
-        Me.btn_darkmode.BackgroundImage = CType(resources.GetObject("btn_darkmode.BackgroundImage"), System.Drawing.Image)
-        Me.btn_darkmode.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.btn_darkmode.Location = New System.Drawing.Point(308, 49)
-        Me.btn_darkmode.Name = "btn_darkmode"
-        Me.btn_darkmode.Size = New System.Drawing.Size(271, 152)
-        Me.btn_darkmode.TabIndex = 4
-        Me.btn_darkmode.TabStop = False
-        '
         'listbox_settings
         '
         Me.listbox_settings.FormattingEnabled = True
-        Me.listbox_settings.Items.AddRange(New Object() {"General", "Appearance", "Updates", "Instant Delivery"})
+        Me.listbox_settings.Items.AddRange(New Object() {"General", "Theme", "Appearance", "Updates", "Instant Delivery"})
         Me.listbox_settings.Location = New System.Drawing.Point(12, 12)
         Me.listbox_settings.Name = "listbox_settings"
         Me.listbox_settings.Size = New System.Drawing.Size(201, 472)
@@ -112,6 +87,9 @@ Partial Class settings
         '
         'panel_general
         '
+        Me.panel_general.Controls.Add(Me.checkbox_affiliate)
+        Me.panel_general.Controls.Add(Me.combobox_provider)
+        Me.panel_general.Controls.Add(Me.lbl_provider)
         Me.panel_general.Controls.Add(Me.checkbox_topbar)
         Me.panel_general.Controls.Add(Me.checkbox_exit_on_taskbar)
         Me.panel_general.Controls.Add(Me.load_boxart_on_startup)
@@ -119,6 +97,35 @@ Partial Class settings
         Me.panel_general.Name = "panel_general"
         Me.panel_general.Size = New System.Drawing.Size(689, 372)
         Me.panel_general.TabIndex = 6
+        '
+        'checkbox_affiliate
+        '
+        Me.checkbox_affiliate.AutoSize = True
+        Me.checkbox_affiliate.Location = New System.Drawing.Point(12, 226)
+        Me.checkbox_affiliate.Name = "checkbox_affiliate"
+        Me.checkbox_affiliate.Size = New System.Drawing.Size(330, 17)
+        Me.checkbox_affiliate.TabIndex = 5
+        Me.checkbox_affiliate.Text = "Use our affiliate code when possible (help support development!)"
+        Me.checkbox_affiliate.UseVisualStyleBackColor = True
+        '
+        'combobox_provider
+        '
+        Me.combobox_provider.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.combobox_provider.FormattingEnabled = True
+        Me.combobox_provider.Items.AddRange(New Object() {"Google Shopping", "Amazon.com", "Amazon UK", "Ebay.com", "Ebay UK"})
+        Me.combobox_provider.Location = New System.Drawing.Point(12, 185)
+        Me.combobox_provider.Name = "combobox_provider"
+        Me.combobox_provider.Size = New System.Drawing.Size(218, 21)
+        Me.combobox_provider.TabIndex = 4
+        '
+        'lbl_provider
+        '
+        Me.lbl_provider.AutoSize = True
+        Me.lbl_provider.Location = New System.Drawing.Point(9, 152)
+        Me.lbl_provider.Name = "lbl_provider"
+        Me.lbl_provider.Size = New System.Drawing.Size(221, 13)
+        Me.lbl_provider.TabIndex = 3
+        Me.lbl_provider.Text = "Search provider for buying physical and OST:"
         '
         'checkbox_topbar
         '
@@ -156,9 +163,6 @@ Partial Class settings
         '
         Me.panel_appearance.Controls.Add(Me.picturebox_wave)
         Me.panel_appearance.Controls.Add(Me.checkbox_fancy)
-        Me.panel_appearance.Controls.Add(Me.load_skin)
-        Me.panel_appearance.Controls.Add(Me.btn_lightmode)
-        Me.panel_appearance.Controls.Add(Me.btn_darkmode)
         Me.panel_appearance.Location = New System.Drawing.Point(220, 60)
         Me.panel_appearance.Name = "panel_appearance"
         Me.panel_appearance.Size = New System.Drawing.Size(689, 372)
@@ -182,7 +186,7 @@ Partial Class settings
         Me.checkbox_fancy.Name = "checkbox_fancy"
         Me.checkbox_fancy.Size = New System.Drawing.Size(438, 30)
         Me.checkbox_fancy.TabIndex = 5
-        Me.checkbox_fancy.Text = "Fancy download animations (30MB download)"
+        Me.checkbox_fancy.Text = "Fancy download animations (80MB download)"
         Me.checkbox_fancy.UseVisualStyleBackColor = True
         '
         'panel_updates
@@ -222,6 +226,58 @@ Partial Class settings
         Me.checkbox_delivery.Text = "Enable Instant Delivery"
         Me.checkbox_delivery.UseVisualStyleBackColor = True
         '
+        'panel_theme
+        '
+        Me.panel_theme.Controls.Add(Me.combobox_theme)
+        Me.panel_theme.Controls.Add(Me.load_skin)
+        Me.panel_theme.Controls.Add(Me.btn_lightmode)
+        Me.panel_theme.Controls.Add(Me.btn_darkmode)
+        Me.panel_theme.Location = New System.Drawing.Point(220, 60)
+        Me.panel_theme.Name = "panel_theme"
+        Me.panel_theme.Size = New System.Drawing.Size(689, 372)
+        Me.panel_theme.TabIndex = 12
+        '
+        'combobox_theme
+        '
+        Me.combobox_theme.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.combobox_theme.FormattingEnabled = True
+        Me.combobox_theme.Items.AddRange(New Object() {"Light", "Dark Blue", "Darker Purple", "Lights Out"})
+        Me.combobox_theme.Location = New System.Drawing.Point(459, 171)
+        Me.combobox_theme.Name = "combobox_theme"
+        Me.combobox_theme.Size = New System.Drawing.Size(216, 21)
+        Me.combobox_theme.TabIndex = 8
+        '
+        'load_skin
+        '
+        Me.load_skin.AutoSize = True
+        Me.load_skin.Font = New System.Drawing.Font("Spartan MB", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.load_skin.Location = New System.Drawing.Point(289, 49)
+        Me.load_skin.Name = "load_skin"
+        Me.load_skin.Size = New System.Drawing.Size(126, 30)
+        Me.load_skin.TabIndex = 5
+        Me.load_skin.Text = "Dark mode"
+        Me.load_skin.UseVisualStyleBackColor = True
+        '
+        'btn_lightmode
+        '
+        Me.btn_lightmode.BackgroundImage = CType(resources.GetObject("btn_lightmode.BackgroundImage"), System.Drawing.Image)
+        Me.btn_lightmode.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.btn_lightmode.Location = New System.Drawing.Point(12, 13)
+        Me.btn_lightmode.Name = "btn_lightmode"
+        Me.btn_lightmode.Size = New System.Drawing.Size(271, 152)
+        Me.btn_lightmode.TabIndex = 6
+        Me.btn_lightmode.TabStop = False
+        '
+        'btn_darkmode
+        '
+        Me.btn_darkmode.BackgroundImage = CType(resources.GetObject("btn_darkmode.BackgroundImage"), System.Drawing.Image)
+        Me.btn_darkmode.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.btn_darkmode.Location = New System.Drawing.Point(404, 13)
+        Me.btn_darkmode.Name = "btn_darkmode"
+        Me.btn_darkmode.Size = New System.Drawing.Size(271, 152)
+        Me.btn_darkmode.TabIndex = 7
+        Me.btn_darkmode.TabStop = False
+        '
         'settings
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -231,18 +287,17 @@ Partial Class settings
         Me.Controls.Add(Me.lbl_settingstitle)
         Me.Controls.Add(Me.listbox_settings)
         Me.Controls.Add(Me.btn_save)
-        Me.Controls.Add(Me.panel_general)
-        Me.Controls.Add(Me.panel_updates)
         Me.Controls.Add(Me.panel_appearance)
         Me.Controls.Add(Me.panel_delivery)
+        Me.Controls.Add(Me.panel_general)
+        Me.Controls.Add(Me.panel_updates)
+        Me.Controls.Add(Me.panel_theme)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
         Me.Name = "settings"
         Me.Text = "Settings"
         CType(Me.btn_save, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.btn_lightmode, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.btn_darkmode, System.ComponentModel.ISupportInitialize).EndInit()
         Me.panel_general.ResumeLayout(False)
         Me.panel_general.PerformLayout()
         Me.panel_appearance.ResumeLayout(False)
@@ -252,6 +307,10 @@ Partial Class settings
         Me.panel_updates.PerformLayout()
         Me.panel_delivery.ResumeLayout(False)
         Me.panel_delivery.PerformLayout()
+        Me.panel_theme.ResumeLayout(False)
+        Me.panel_theme.PerformLayout()
+        CType(Me.btn_lightmode, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.btn_darkmode, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -259,9 +318,6 @@ Partial Class settings
 
     Friend WithEvents load_boxart_on_startup As CheckBox
     Friend WithEvents btn_save As PictureBox
-    Friend WithEvents load_skin As CheckBox
-    Friend WithEvents btn_lightmode As PictureBox
-    Friend WithEvents btn_darkmode As PictureBox
     Friend WithEvents listbox_settings As ListBox
     Friend WithEvents panel_general As Panel
     Friend WithEvents lbl_settingstitle As Label
@@ -274,4 +330,12 @@ Partial Class settings
     Friend WithEvents checkbox_topbar As CheckBox
     Friend WithEvents panel_delivery As Panel
     Friend WithEvents checkbox_delivery As CheckBox
+    Friend WithEvents panel_theme As Panel
+    Friend WithEvents combobox_theme As ComboBox
+    Friend WithEvents load_skin As CheckBox
+    Friend WithEvents btn_lightmode As PictureBox
+    Friend WithEvents btn_darkmode As PictureBox
+    Friend WithEvents checkbox_affiliate As CheckBox
+    Friend WithEvents combobox_provider As ComboBox
+    Friend WithEvents lbl_provider As Label
 End Class

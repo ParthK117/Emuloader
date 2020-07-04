@@ -3,9 +3,19 @@ Imports System.Net
 
 Public Class listlink
     Private Sub listlink_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        If main.dark = True Then
+        If main.dark = 1 Then
             BackColor = Color.FromArgb(21, 32, 43)
             textbox_url.BackColor = Color.FromArgb(31, 45, 58)
+            textbox_url.ForeColor = Color.White
+            lbl_disclaimer.ForeColor = Color.White
+        ElseIf main.dark = 2 Then
+            BackColor = Color.FromArgb(25, 28, 40)
+            textbox_url.BackColor = Color.FromArgb(32, 37, 52)
+            textbox_url.ForeColor = Color.White
+            lbl_disclaimer.ForeColor = Color.White
+        ElseIf main.dark = 3 Then
+            BackColor = Color.FromArgb(12, 12, 12)
+            textbox_url.BackColor = Color.FromArgb(40, 40, 40)
             textbox_url.ForeColor = Color.White
             lbl_disclaimer.ForeColor = Color.White
         End If

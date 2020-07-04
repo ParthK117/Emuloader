@@ -48,11 +48,13 @@ Partial Class main
         Me.panel_right = New System.Windows.Forms.Panel()
         Me.btn_closeright = New System.Windows.Forms.PictureBox()
         Me.panel_rom_info = New System.Windows.Forms.Panel()
+        Me.btn_soundtrack = New System.Windows.Forms.PictureBox()
         Me.panel_cancel = New System.Windows.Forms.Panel()
         Me.btn_cancel = New System.Windows.Forms.PictureBox()
         Me.lbl_rom_source = New System.Windows.Forms.Label()
         Me.lbl_rom_size = New System.Windows.Forms.Label()
         Me.btn_showdownloads = New System.Windows.Forms.Label()
+        Me.btn_purchase = New System.Windows.Forms.PictureBox()
         Me.btn_queue = New System.Windows.Forms.PictureBox()
         Me.lbl_rom_platform = New System.Windows.Forms.Label()
         Me.lbl_rom_name = New System.Windows.Forms.Label()
@@ -78,18 +80,22 @@ Partial Class main
         Me.btn_exit = New System.Windows.Forms.Panel()
         Me.btn_about = New System.Windows.Forms.PictureBox()
         Me.panel_play = New System.Windows.Forms.Panel()
-        Me.btn_play_delete = New System.Windows.Forms.PictureBox()
         Me.panel_rom_rightclick = New System.Windows.Forms.Panel()
         Me.btn_rom_viewfile = New System.Windows.Forms.PictureBox()
         Me.btn_rom_properties = New System.Windows.Forms.PictureBox()
         Me.btn_rom_delete = New System.Windows.Forms.PictureBox()
         Me.btn_rom_rename = New System.Windows.Forms.PictureBox()
-        Me.checkbox_filepath = New System.Windows.Forms.CheckBox()
-        Me.btn_import_roms = New System.Windows.Forms.PictureBox()
         Me.listbox_installedroms = New System.Windows.Forms.ListView()
         Me.installed_name = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.installed_platform = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.installed_directory = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.panel_banner = New System.Windows.Forms.Panel()
+        Me.btn_openright = New System.Windows.Forms.PictureBox()
+        Me.btn_play_delete = New System.Windows.Forms.PictureBox()
+        Me.btn_import_roms = New System.Windows.Forms.PictureBox()
+        Me.btn_dropbox = New System.Windows.Forms.PictureBox()
+        Me.panel_seperator_top = New System.Windows.Forms.Panel()
+        Me.checkbox_filepath = New System.Windows.Forms.CheckBox()
         Me.lbl_play = New System.Windows.Forms.Label()
         Me.panel_top_info = New System.Windows.Forms.Panel()
         Me.panel_play_buttons = New System.Windows.Forms.Panel()
@@ -100,6 +106,7 @@ Partial Class main
         Me.lbl_rom_top_name = New System.Windows.Forms.Label()
         Me.picturebox_boxart_top = New System.Windows.Forms.PictureBox()
         Me.panel_browse = New System.Windows.Forms.Panel()
+        Me.btn_openright_browse = New System.Windows.Forms.PictureBox()
         Me.picturebox_twitter = New System.Windows.Forms.PictureBox()
         Me.panel_import_click = New System.Windows.Forms.Panel()
         Me.btn_fromeldr = New System.Windows.Forms.PictureBox()
@@ -154,7 +161,6 @@ Partial Class main
         Me.lbl_browse = New System.Windows.Forms.Label()
         Me.btn_discord = New System.Windows.Forms.PictureBox()
         Me.picturebox_reddit = New System.Windows.Forms.PictureBox()
-        Me.btn_openright = New System.Windows.Forms.PictureBox()
         Me.import_list = New System.Windows.Forms.OpenFileDialog()
         Me.panel_drag_drop = New System.Windows.Forms.Panel()
         Me.picturebox_drag = New System.Windows.Forms.PictureBox()
@@ -170,6 +176,7 @@ Partial Class main
         Me.SettingsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ExitToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.panel_downloads = New System.Windows.Forms.Panel()
+        Me.btn_openright_downloads = New System.Windows.Forms.PictureBox()
         Me.lbl_total = New System.Windows.Forms.Label()
         Me.lbl_peak = New System.Windows.Forms.Label()
         Me.lbl_networkusage = New System.Windows.Forms.Label()
@@ -197,8 +204,10 @@ Partial Class main
         Me.panel_right.SuspendLayout()
         CType(Me.btn_closeright, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panel_rom_info.SuspendLayout()
+        CType(Me.btn_soundtrack, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panel_cancel.SuspendLayout()
         CType(Me.btn_cancel, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.btn_purchase, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btn_queue, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.picturebox_boxart, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btn_play, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -208,13 +217,16 @@ Partial Class main
         Me.paneL_menubar.SuspendLayout()
         CType(Me.btn_about, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panel_play.SuspendLayout()
-        CType(Me.btn_play_delete, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panel_rom_rightclick.SuspendLayout()
         CType(Me.btn_rom_viewfile, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btn_rom_properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btn_rom_delete, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btn_rom_rename, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.panel_banner.SuspendLayout()
+        CType(Me.btn_openright, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.btn_play_delete, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btn_import_roms, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.btn_dropbox, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panel_top_info.SuspendLayout()
         Me.panel_play_buttons.SuspendLayout()
         CType(Me.btn_extras, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -222,6 +234,7 @@ Partial Class main
         CType(Me.btn_closetop, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.picturebox_boxart_top, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panel_browse.SuspendLayout()
+        CType(Me.btn_openright_browse, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.picturebox_twitter, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panel_import_click.SuspendLayout()
         CType(Me.btn_fromeldr, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -255,7 +268,6 @@ Partial Class main
         CType(Me.btn_import, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btn_discord, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.picturebox_reddit, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.btn_openright, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panel_drag_drop.SuspendLayout()
         CType(Me.picturebox_drag, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panel_blue_click.SuspendLayout()
@@ -265,6 +277,7 @@ Partial Class main
         CType(Me.btn_show_folders, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.context_icon.SuspendLayout()
         Me.panel_downloads.SuspendLayout()
+        CType(Me.btn_openright_downloads, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panel_download_chart.SuspendLayout()
         CType(Me.picturebox_download, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -316,7 +329,7 @@ Partial Class main
         Me.picturebox_patreon.BackgroundImage = CType(resources.GetObject("picturebox_patreon.BackgroundImage"), System.Drawing.Image)
         Me.picturebox_patreon.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
         Me.picturebox_patreon.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.picturebox_patreon.Location = New System.Drawing.Point(48, 730)
+        Me.picturebox_patreon.Location = New System.Drawing.Point(37, 730)
         Me.picturebox_patreon.Name = "picturebox_patreon"
         Me.picturebox_patreon.Size = New System.Drawing.Size(176, 43)
         Me.picturebox_patreon.TabIndex = 26
@@ -563,10 +576,12 @@ Partial Class main
         '
         Me.panel_rom_info.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.panel_rom_info.Controls.Add(Me.btn_soundtrack)
         Me.panel_rom_info.Controls.Add(Me.panel_cancel)
         Me.panel_rom_info.Controls.Add(Me.lbl_rom_source)
         Me.panel_rom_info.Controls.Add(Me.lbl_rom_size)
         Me.panel_rom_info.Controls.Add(Me.btn_showdownloads)
+        Me.panel_rom_info.Controls.Add(Me.btn_purchase)
         Me.panel_rom_info.Controls.Add(Me.btn_queue)
         Me.panel_rom_info.Controls.Add(Me.lbl_rom_platform)
         Me.panel_rom_info.Controls.Add(Me.lbl_rom_name)
@@ -574,6 +589,17 @@ Partial Class main
         Me.panel_rom_info.Name = "panel_rom_info"
         Me.panel_rom_info.Size = New System.Drawing.Size(250, 800)
         Me.panel_rom_info.TabIndex = 6
+        '
+        'btn_soundtrack
+        '
+        Me.btn_soundtrack.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btn_soundtrack.BackgroundImage = CType(resources.GetObject("btn_soundtrack.BackgroundImage"), System.Drawing.Image)
+        Me.btn_soundtrack.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btn_soundtrack.Location = New System.Drawing.Point(36, 598)
+        Me.btn_soundtrack.Name = "btn_soundtrack"
+        Me.btn_soundtrack.Size = New System.Drawing.Size(176, 35)
+        Me.btn_soundtrack.TabIndex = 15
+        Me.btn_soundtrack.TabStop = False
         '
         'panel_cancel
         '
@@ -628,10 +654,22 @@ Partial Class main
         Me.btn_showdownloads.TabIndex = 10
         Me.btn_showdownloads.Text = "SHOW DOWNLOADS"
         '
+        'btn_purchase
+        '
+        Me.btn_purchase.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btn_purchase.BackgroundImage = CType(resources.GetObject("btn_purchase.BackgroundImage"), System.Drawing.Image)
+        Me.btn_purchase.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btn_purchase.Location = New System.Drawing.Point(36, 639)
+        Me.btn_purchase.Name = "btn_purchase"
+        Me.btn_purchase.Size = New System.Drawing.Size(176, 35)
+        Me.btn_purchase.TabIndex = 14
+        Me.btn_purchase.TabStop = False
+        '
         'btn_queue
         '
         Me.btn_queue.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btn_queue.BackgroundImage = CType(resources.GetObject("btn_queue.BackgroundImage"), System.Drawing.Image)
+        Me.btn_queue.Cursor = System.Windows.Forms.Cursors.Hand
         Me.btn_queue.Image = CType(resources.GetObject("btn_queue.Image"), System.Drawing.Image)
         Me.btn_queue.Location = New System.Drawing.Point(36, 680)
         Me.btn_queue.Name = "btn_queue"
@@ -881,32 +919,17 @@ Partial Class main
         Me.panel_play.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.panel_play.Controls.Add(Me.btn_play_delete)
-        Me.panel_play.Controls.Add(Me.btn_openright)
         Me.panel_play.Controls.Add(Me.panel_rom_rightclick)
-        Me.panel_play.Controls.Add(Me.checkbox_filepath)
-        Me.panel_play.Controls.Add(Me.btn_import_roms)
         Me.panel_play.Controls.Add(Me.listbox_installedroms)
-        Me.panel_play.Controls.Add(Me.lbl_play)
-        Me.panel_play.Controls.Add(Me.panel_top_info)
+        Me.panel_play.Controls.Add(Me.panel_banner)
         Me.panel_play.Location = New System.Drawing.Point(250, 40)
         Me.panel_play.Name = "panel_play"
         Me.panel_play.Size = New System.Drawing.Size(1100, 860)
         Me.panel_play.TabIndex = 4
         '
-        'btn_play_delete
-        '
-        Me.btn_play_delete.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btn_play_delete.BackgroundImage = CType(resources.GetObject("btn_play_delete.BackgroundImage"), System.Drawing.Image)
-        Me.btn_play_delete.Location = New System.Drawing.Point(980, 6)
-        Me.btn_play_delete.Name = "btn_play_delete"
-        Me.btn_play_delete.Size = New System.Drawing.Size(100, 36)
-        Me.btn_play_delete.TabIndex = 12
-        Me.btn_play_delete.TabStop = False
-        '
         'panel_rom_rightclick
         '
-        Me.panel_rom_rightclick.BackColor = System.Drawing.Color.White
+        Me.panel_rom_rightclick.BackColor = System.Drawing.Color.Transparent
         Me.panel_rom_rightclick.Controls.Add(Me.btn_rom_viewfile)
         Me.panel_rom_rightclick.Controls.Add(Me.btn_rom_properties)
         Me.panel_rom_rightclick.Controls.Add(Me.btn_rom_delete)
@@ -953,27 +976,6 @@ Partial Class main
         Me.btn_rom_rename.TabIndex = 0
         Me.btn_rom_rename.TabStop = False
         '
-        'checkbox_filepath
-        '
-        Me.checkbox_filepath.AutoSize = True
-        Me.checkbox_filepath.Font = New System.Drawing.Font("Gotham Bold", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.checkbox_filepath.Location = New System.Drawing.Point(40, 85)
-        Me.checkbox_filepath.Name = "checkbox_filepath"
-        Me.checkbox_filepath.Size = New System.Drawing.Size(167, 22)
-        Me.checkbox_filepath.TabIndex = 10
-        Me.checkbox_filepath.Text = "Show full file path"
-        Me.checkbox_filepath.UseVisualStyleBackColor = True
-        '
-        'btn_import_roms
-        '
-        Me.btn_import_roms.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btn_import_roms.BackgroundImage = CType(resources.GetObject("btn_import_roms.BackgroundImage"), System.Drawing.Image)
-        Me.btn_import_roms.Location = New System.Drawing.Point(835, 6)
-        Me.btn_import_roms.Name = "btn_import_roms"
-        Me.btn_import_roms.Size = New System.Drawing.Size(139, 36)
-        Me.btn_import_roms.TabIndex = 5
-        Me.btn_import_roms.TabStop = False
-        '
         'listbox_installedroms
         '
         Me.listbox_installedroms.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
@@ -1007,9 +1009,98 @@ Partial Class main
         Me.installed_directory.Text = ""
         Me.installed_directory.Width = 0
         '
+        'panel_banner
+        '
+        Me.panel_banner.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.panel_banner.BackgroundImage = CType(resources.GetObject("panel_banner.BackgroundImage"), System.Drawing.Image)
+        Me.panel_banner.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.panel_banner.Controls.Add(Me.btn_openright)
+        Me.panel_banner.Controls.Add(Me.btn_play_delete)
+        Me.panel_banner.Controls.Add(Me.btn_import_roms)
+        Me.panel_banner.Controls.Add(Me.btn_dropbox)
+        Me.panel_banner.Controls.Add(Me.panel_seperator_top)
+        Me.panel_banner.Controls.Add(Me.checkbox_filepath)
+        Me.panel_banner.Controls.Add(Me.lbl_play)
+        Me.panel_banner.Controls.Add(Me.panel_top_info)
+        Me.panel_banner.Location = New System.Drawing.Point(0, 0)
+        Me.panel_banner.Name = "panel_banner"
+        Me.panel_banner.Size = New System.Drawing.Size(1108, 309)
+        Me.panel_banner.TabIndex = 27
+        '
+        'btn_openright
+        '
+        Me.btn_openright.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btn_openright.BackColor = System.Drawing.Color.Transparent
+        Me.btn_openright.BackgroundImage = CType(resources.GetObject("btn_openright.BackgroundImage"), System.Drawing.Image)
+        Me.btn_openright.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.btn_openright.Location = New System.Drawing.Point(1084, 3)
+        Me.btn_openright.Name = "btn_openright"
+        Me.btn_openright.Size = New System.Drawing.Size(11, 20)
+        Me.btn_openright.TabIndex = 25
+        Me.btn_openright.TabStop = False
+        Me.btn_openright.Visible = False
+        '
+        'btn_play_delete
+        '
+        Me.btn_play_delete.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btn_play_delete.BackColor = System.Drawing.Color.Transparent
+        Me.btn_play_delete.BackgroundImage = CType(resources.GetObject("btn_play_delete.BackgroundImage"), System.Drawing.Image)
+        Me.btn_play_delete.Location = New System.Drawing.Point(980, 6)
+        Me.btn_play_delete.Name = "btn_play_delete"
+        Me.btn_play_delete.Size = New System.Drawing.Size(100, 36)
+        Me.btn_play_delete.TabIndex = 12
+        Me.btn_play_delete.TabStop = False
+        '
+        'btn_import_roms
+        '
+        Me.btn_import_roms.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btn_import_roms.BackColor = System.Drawing.Color.Transparent
+        Me.btn_import_roms.BackgroundImage = CType(resources.GetObject("btn_import_roms.BackgroundImage"), System.Drawing.Image)
+        Me.btn_import_roms.Location = New System.Drawing.Point(835, 6)
+        Me.btn_import_roms.Name = "btn_import_roms"
+        Me.btn_import_roms.Size = New System.Drawing.Size(139, 36)
+        Me.btn_import_roms.TabIndex = 5
+        Me.btn_import_roms.TabStop = False
+        '
+        'btn_dropbox
+        '
+        Me.btn_dropbox.BackColor = System.Drawing.Color.Transparent
+        Me.btn_dropbox.BackgroundImage = CType(resources.GetObject("btn_dropbox.BackgroundImage"), System.Drawing.Image)
+        Me.btn_dropbox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
+        Me.btn_dropbox.Location = New System.Drawing.Point(630, 6)
+        Me.btn_dropbox.Name = "btn_dropbox"
+        Me.btn_dropbox.Size = New System.Drawing.Size(199, 36)
+        Me.btn_dropbox.TabIndex = 26
+        Me.btn_dropbox.TabStop = False
+        Me.btn_dropbox.Visible = False
+        '
+        'panel_seperator_top
+        '
+        Me.panel_seperator_top.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.panel_seperator_top.BackColor = System.Drawing.Color.White
+        Me.panel_seperator_top.Location = New System.Drawing.Point(0, 307)
+        Me.panel_seperator_top.Name = "panel_seperator_top"
+        Me.panel_seperator_top.Size = New System.Drawing.Size(1350, 2)
+        Me.panel_seperator_top.TabIndex = 14
+        '
+        'checkbox_filepath
+        '
+        Me.checkbox_filepath.AutoSize = True
+        Me.checkbox_filepath.BackColor = System.Drawing.Color.Transparent
+        Me.checkbox_filepath.Font = New System.Drawing.Font("Gotham Bold", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.checkbox_filepath.Location = New System.Drawing.Point(40, 85)
+        Me.checkbox_filepath.Name = "checkbox_filepath"
+        Me.checkbox_filepath.Size = New System.Drawing.Size(167, 22)
+        Me.checkbox_filepath.TabIndex = 10
+        Me.checkbox_filepath.Text = "Show full file path"
+        Me.checkbox_filepath.UseVisualStyleBackColor = False
+        '
         'lbl_play
         '
         Me.lbl_play.AutoSize = True
+        Me.lbl_play.BackColor = System.Drawing.Color.Transparent
         Me.lbl_play.Font = New System.Drawing.Font("Gotham Bold", 27.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl_play.Location = New System.Drawing.Point(30, 38)
         Me.lbl_play.Name = "lbl_play"
@@ -1021,6 +1112,7 @@ Partial Class main
         '
         Me.panel_top_info.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.panel_top_info.BackColor = System.Drawing.Color.Transparent
         Me.panel_top_info.Controls.Add(Me.panel_play_buttons)
         Me.panel_top_info.Controls.Add(Me.btn_opentop)
         Me.panel_top_info.Controls.Add(Me.btn_closetop)
@@ -1055,7 +1147,7 @@ Partial Class main
         Me.btn_opentop.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btn_opentop.BackgroundImage = CType(resources.GetObject("btn_opentop.BackgroundImage"), System.Drawing.Image)
         Me.btn_opentop.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.btn_opentop.Location = New System.Drawing.Point(1035, 178)
+        Me.btn_opentop.Location = New System.Drawing.Point(1035, 180)
         Me.btn_opentop.Name = "btn_opentop"
         Me.btn_opentop.Size = New System.Drawing.Size(15, 15)
         Me.btn_opentop.TabIndex = 18
@@ -1107,6 +1199,7 @@ Partial Class main
         Me.panel_browse.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.panel_browse.Controls.Add(Me.btn_openright_browse)
         Me.panel_browse.Controls.Add(Me.picturebox_twitter)
         Me.panel_browse.Controls.Add(Me.panel_import_click)
         Me.panel_browse.Controls.Add(Me.panel_search)
@@ -1124,13 +1217,26 @@ Partial Class main
         Me.panel_browse.Size = New System.Drawing.Size(1100, 860)
         Me.panel_browse.TabIndex = 5
         '
+        'btn_openright_browse
+        '
+        Me.btn_openright_browse.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btn_openright_browse.BackColor = System.Drawing.Color.Transparent
+        Me.btn_openright_browse.BackgroundImage = CType(resources.GetObject("btn_openright_browse.BackgroundImage"), System.Drawing.Image)
+        Me.btn_openright_browse.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.btn_openright_browse.Location = New System.Drawing.Point(1084, 3)
+        Me.btn_openright_browse.Name = "btn_openright_browse"
+        Me.btn_openright_browse.Size = New System.Drawing.Size(11, 20)
+        Me.btn_openright_browse.TabIndex = 27
+        Me.btn_openright_browse.TabStop = False
+        Me.btn_openright_browse.Visible = False
+        '
         'picturebox_twitter
         '
         Me.picturebox_twitter.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.picturebox_twitter.BackColor = System.Drawing.Color.Transparent
         Me.picturebox_twitter.BackgroundImage = CType(resources.GetObject("picturebox_twitter.BackgroundImage"), System.Drawing.Image)
         Me.picturebox_twitter.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.picturebox_twitter.Location = New System.Drawing.Point(664, 6)
+        Me.picturebox_twitter.Location = New System.Drawing.Point(660, 6)
         Me.picturebox_twitter.Name = "picturebox_twitter"
         Me.picturebox_twitter.Size = New System.Drawing.Size(120, 36)
         Me.picturebox_twitter.TabIndex = 24
@@ -1139,9 +1245,10 @@ Partial Class main
         'panel_import_click
         '
         Me.panel_import_click.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.panel_import_click.BackColor = System.Drawing.Color.Transparent
         Me.panel_import_click.Controls.Add(Me.btn_fromeldr)
         Me.panel_import_click.Controls.Add(Me.btn_fromlink)
-        Me.panel_import_click.Location = New System.Drawing.Point(886, 42)
+        Me.panel_import_click.Location = New System.Drawing.Point(882, 42)
         Me.panel_import_click.Name = "panel_import_click"
         Me.panel_import_click.Size = New System.Drawing.Size(125, 60)
         Me.panel_import_click.TabIndex = 11
@@ -1609,7 +1716,7 @@ Partial Class main
         '
         Me.btn_import.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btn_import.BackgroundImage = CType(resources.GetObject("btn_import.BackgroundImage"), System.Drawing.Image)
-        Me.btn_import.Location = New System.Drawing.Point(984, 6)
+        Me.btn_import.Location = New System.Drawing.Point(980, 6)
         Me.btn_import.Name = "btn_import"
         Me.btn_import.Size = New System.Drawing.Size(100, 36)
         Me.btn_import.TabIndex = 2
@@ -1631,7 +1738,7 @@ Partial Class main
         Me.btn_discord.BackColor = System.Drawing.Color.Transparent
         Me.btn_discord.BackgroundImage = CType(resources.GetObject("btn_discord.BackgroundImage"), System.Drawing.Image)
         Me.btn_discord.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btn_discord.Location = New System.Drawing.Point(886, 6)
+        Me.btn_discord.Location = New System.Drawing.Point(882, 6)
         Me.btn_discord.Name = "btn_discord"
         Me.btn_discord.Size = New System.Drawing.Size(94, 36)
         Me.btn_discord.TabIndex = 7
@@ -1643,23 +1750,11 @@ Partial Class main
         Me.picturebox_reddit.BackColor = System.Drawing.Color.Transparent
         Me.picturebox_reddit.BackgroundImage = CType(resources.GetObject("picturebox_reddit.BackgroundImage"), System.Drawing.Image)
         Me.picturebox_reddit.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.picturebox_reddit.Location = New System.Drawing.Point(788, 6)
+        Me.picturebox_reddit.Location = New System.Drawing.Point(784, 6)
         Me.picturebox_reddit.Name = "picturebox_reddit"
         Me.picturebox_reddit.Size = New System.Drawing.Size(94, 36)
         Me.picturebox_reddit.TabIndex = 23
         Me.picturebox_reddit.TabStop = False
-        '
-        'btn_openright
-        '
-        Me.btn_openright.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btn_openright.BackgroundImage = CType(resources.GetObject("btn_openright.BackgroundImage"), System.Drawing.Image)
-        Me.btn_openright.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.btn_openright.Location = New System.Drawing.Point(1084, 3)
-        Me.btn_openright.Name = "btn_openright"
-        Me.btn_openright.Size = New System.Drawing.Size(11, 20)
-        Me.btn_openright.TabIndex = 25
-        Me.btn_openright.TabStop = False
-        Me.btn_openright.Visible = False
         '
         'import_list
         '
@@ -1689,6 +1784,7 @@ Partial Class main
         'panel_blue_click
         '
         Me.panel_blue_click.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.panel_blue_click.BackColor = System.Drawing.Color.Transparent
         Me.panel_blue_click.Controls.Add(Me.btn_show_lists)
         Me.panel_blue_click.Controls.Add(Me.btn_settings)
         Me.panel_blue_click.Controls.Add(Me.btn_prettify)
@@ -1774,6 +1870,7 @@ Partial Class main
         Me.panel_downloads.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.panel_downloads.Controls.Add(Me.btn_openright_downloads)
         Me.panel_downloads.Controls.Add(Me.lbl_total)
         Me.panel_downloads.Controls.Add(Me.lbl_peak)
         Me.panel_downloads.Controls.Add(Me.lbl_networkusage)
@@ -1786,6 +1883,19 @@ Partial Class main
         Me.panel_downloads.Name = "panel_downloads"
         Me.panel_downloads.Size = New System.Drawing.Size(1100, 860)
         Me.panel_downloads.TabIndex = 23
+        '
+        'btn_openright_downloads
+        '
+        Me.btn_openright_downloads.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btn_openright_downloads.BackColor = System.Drawing.Color.Transparent
+        Me.btn_openright_downloads.BackgroundImage = CType(resources.GetObject("btn_openright_downloads.BackgroundImage"), System.Drawing.Image)
+        Me.btn_openright_downloads.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.btn_openright_downloads.Location = New System.Drawing.Point(1084, 3)
+        Me.btn_openright_downloads.Name = "btn_openright_downloads"
+        Me.btn_openright_downloads.Size = New System.Drawing.Size(11, 20)
+        Me.btn_openright_downloads.TabIndex = 26
+        Me.btn_openright_downloads.TabStop = False
+        Me.btn_openright_downloads.Visible = False
         '
         'lbl_total
         '
@@ -1974,8 +2084,10 @@ Partial Class main
         CType(Me.btn_closeright, System.ComponentModel.ISupportInitialize).EndInit()
         Me.panel_rom_info.ResumeLayout(False)
         Me.panel_rom_info.PerformLayout()
+        CType(Me.btn_soundtrack, System.ComponentModel.ISupportInitialize).EndInit()
         Me.panel_cancel.ResumeLayout(False)
         CType(Me.btn_cancel, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.btn_purchase, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btn_queue, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.picturebox_boxart, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btn_play, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1986,14 +2098,17 @@ Partial Class main
         Me.paneL_menubar.ResumeLayout(False)
         CType(Me.btn_about, System.ComponentModel.ISupportInitialize).EndInit()
         Me.panel_play.ResumeLayout(False)
-        Me.panel_play.PerformLayout()
-        CType(Me.btn_play_delete, System.ComponentModel.ISupportInitialize).EndInit()
         Me.panel_rom_rightclick.ResumeLayout(False)
         CType(Me.btn_rom_viewfile, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btn_rom_properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btn_rom_delete, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btn_rom_rename, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.panel_banner.ResumeLayout(False)
+        Me.panel_banner.PerformLayout()
+        CType(Me.btn_openright, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.btn_play_delete, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btn_import_roms, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.btn_dropbox, System.ComponentModel.ISupportInitialize).EndInit()
         Me.panel_top_info.ResumeLayout(False)
         Me.panel_top_info.PerformLayout()
         Me.panel_play_buttons.ResumeLayout(False)
@@ -2003,6 +2118,7 @@ Partial Class main
         CType(Me.picturebox_boxart_top, System.ComponentModel.ISupportInitialize).EndInit()
         Me.panel_browse.ResumeLayout(False)
         Me.panel_browse.PerformLayout()
+        CType(Me.btn_openright_browse, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.picturebox_twitter, System.ComponentModel.ISupportInitialize).EndInit()
         Me.panel_import_click.ResumeLayout(False)
         CType(Me.btn_fromeldr, System.ComponentModel.ISupportInitialize).EndInit()
@@ -2040,7 +2156,6 @@ Partial Class main
         CType(Me.btn_import, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btn_discord, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.picturebox_reddit, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.btn_openright, System.ComponentModel.ISupportInitialize).EndInit()
         Me.panel_drag_drop.ResumeLayout(False)
         CType(Me.picturebox_drag, System.ComponentModel.ISupportInitialize).EndInit()
         Me.panel_blue_click.ResumeLayout(False)
@@ -2051,6 +2166,7 @@ Partial Class main
         Me.context_icon.ResumeLayout(False)
         Me.panel_downloads.ResumeLayout(False)
         Me.panel_downloads.PerformLayout()
+        CType(Me.btn_openright_downloads, System.ComponentModel.ISupportInitialize).EndInit()
         Me.panel_download_chart.ResumeLayout(False)
         CType(Me.picturebox_download, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
@@ -2220,4 +2336,11 @@ Partial Class main
     Friend WithEvents btn_opentop As PictureBox
     Friend WithEvents btn_extras As PictureBox
     Friend WithEvents panel_play_buttons As Panel
+    Friend WithEvents btn_dropbox As PictureBox
+    Friend WithEvents panel_banner As Panel
+    Friend WithEvents panel_seperator_top As Panel
+    Friend WithEvents btn_purchase As PictureBox
+    Friend WithEvents btn_soundtrack As PictureBox
+    Friend WithEvents btn_openright_downloads As PictureBox
+    Friend WithEvents btn_openright_browse As PictureBox
 End Class

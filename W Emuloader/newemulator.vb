@@ -36,10 +36,30 @@ Public Class newemulator
         End Using
         listbox_emulators.SelectedItem = listbox_emulators.Items(0)
 
-        If main.dark = True Then
+        If main.dark = 1 Then
             BackColor = Color.FromArgb(21, 32, 43)
             listbox_emulators.BackColor = Color.FromArgb(31, 45, 58)
             textbox_search.BackColor = Color.FromArgb(31, 45, 58)
+            listbox_emulators.ForeColor = Color.White
+            textbox_search.ForeColor = Color.White
+            lbl_emulator_name.ForeColor = Color.White
+            lbl_platform.ForeColor = Color.White
+            lbl_source.ForeColor = Color.White
+            lbl_version_number.ForeColor = Color.White
+        ElseIf main.dark = 2 Then
+            BackColor = Color.FromArgb(25, 28, 40)
+            listbox_emulators.BackColor = Color.FromArgb(32, 37, 52)
+            textbox_search.BackColor = Color.FromArgb(32, 37, 52)
+            listbox_emulators.ForeColor = Color.White
+            textbox_search.ForeColor = Color.White
+            lbl_emulator_name.ForeColor = Color.White
+            lbl_platform.ForeColor = Color.White
+            lbl_source.ForeColor = Color.White
+            lbl_version_number.ForeColor = Color.White
+        ElseIf main.dark = 3 Then
+            BackColor = Color.FromArgb(12, 12, 12)
+            listbox_emulators.BackColor = Color.FromArgb(40, 40, 40)
+            textbox_search.BackColor = Color.FromArgb(40, 40, 40)
             listbox_emulators.ForeColor = Color.White
             textbox_search.ForeColor = Color.White
             lbl_emulator_name.ForeColor = Color.White
