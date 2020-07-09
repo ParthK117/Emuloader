@@ -1,11 +1,12 @@
 load=1
-dark=2
+dark=3
 version=1.0.0
 autoupdate=1
 exitonx=0
 fancydl=0
 firsttime=0
-windowsbar=0
+windowsbar=1
 instantdelivery=1
 shop=google
 affiliate=0
+boxartod=0

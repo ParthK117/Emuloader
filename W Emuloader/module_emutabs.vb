@@ -27,6 +27,7 @@
 
 
         main.currenttab_metadata = emu_tab_metadata_list.emutabs_metadata(main.tab_index)
+
         main.panel_rom_info.Visible = False
         main.panel_import_click.Visible = False
         Call main.hide_platform_tags()
@@ -104,7 +105,7 @@
         If emu_tab_metadata_list.tag_index = "EUR" Then
             For Each line In main.listbox_availableroms.Items
                 If line.subitems(0).text.contains("Europe") Or line.subitems(0).text.contains("(E)") Or line.subitems(0).text.contains("EUR") Or line.subitems(0).text.contains("Europe") Or line.subitems(0).text.contains("(F)") Or line.subitems(0).text.contains("(e)") Then
-                    Dim linestring As String() = {line.subitems(0).text, line.subitems(1).text, line.subitems(2).text, line.subitems(3).text, line.subitems(4).text}
+                    Dim linestring As String() = {line.subitems(0).text, line.subitems(1).text, line.subitems(2).text, line.subitems(3).text, line.subitems(4).text, "Europe"}
                     main.listbox_search.Items.Add(New ListViewItem(linestring))
                 End If
 
@@ -114,7 +115,7 @@
         If emu_tab_metadata_list.tag_index = "USA" Then
             For Each line In main.listbox_availableroms.Items
                 If line.subitems(0).text.contains("USA") Or line.subitems(0).text.contains("(U)") Or line.subitems(0).text.contains("usa") Or line.subitems(0).text.contains("(u)") Or line.subitems(0).text.contains("(usa)") Then
-                    Dim linestring As String() = {line.subitems(0).text, line.subitems(1).text, line.subitems(2).text, line.subitems(3).text, line.subitems(4).text}
+                    Dim linestring As String() = {line.subitems(0).text, line.subitems(1).text, line.subitems(2).text, line.subitems(3).text, line.subitems(4).text, "USA"}
                     main.listbox_search.Items.Add(New ListViewItem(linestring))
                 End If
 
@@ -124,7 +125,7 @@
         If emu_tab_metadata_list.tag_index = "JPN" Then
             For Each line In main.listbox_availableroms.Items
                 If line.subitems(0).text.contains("JPN") Or line.subitems(0).text.contains("(J)") Or line.subitems(0).text.contains("japan") Or line.subitems(0).text.contains("(j)") Or line.subitems(0).text.contains("(Japan)") Then
-                    Dim linestring As String() = {line.subitems(0).text, line.subitems(1).text, line.subitems(2).text, line.subitems(3).text, line.subitems(4).text}
+                    Dim linestring As String() = {line.subitems(0).text, line.subitems(1).text, line.subitems(2).text, line.subitems(3).text, line.subitems(4).text, "Japan"}
                     main.listbox_search.Items.Add(New ListViewItem(linestring))
                 End If
 

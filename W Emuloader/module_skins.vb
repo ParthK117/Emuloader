@@ -197,7 +197,7 @@ Module module_skins
         main.panel_top.BackColor = Color.FromArgb(32, 37, 52)
         main.paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\exitdarker.png")
         main.lbl_status.ForeColor = Color.White
-        main.picturebox_loading.Image = System.Drawing.Image.FromFile(".\resources\loadingdark.gif")
+        main.picturebox_loading.Image = System.Drawing.Image.FromFile(".\resources\loadingdarker.gif")
         newemulator.BackColor = Color.FromArgb(25, 28, 40)
         newemulator.listbox_emulators.BackColor = Color.FromArgb(25, 28, 40)
         newemulator.textbox_search.BackColor = Color.FromArgb(25, 28, 40)
@@ -284,7 +284,7 @@ Module module_skins
         main.panel_top.BackColor = Color.FromArgb(12, 12, 12)
         main.paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\exitdarkest.png")
         main.lbl_status.ForeColor = Color.White
-        main.picturebox_loading.Image = System.Drawing.Image.FromFile(".\resources\loadingdark.gif")
+        main.picturebox_loading.Image = System.Drawing.Image.FromFile(".\resources\loadingdarkest.gif")
         newemulator.BackColor = Color.FromArgb(25, 28, 40)
         newemulator.listbox_emulators.BackColor = Color.FromArgb(40, 40, 40)
         newemulator.textbox_search.BackColor = Color.FromArgb(40, 40, 40)

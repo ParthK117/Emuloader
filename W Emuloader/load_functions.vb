@@ -8,26 +8,28 @@ Module load_functions
         End If
 
         Dim customromlist As String() = File.ReadAllLines(".\custom.eldr")
+        Try
+            Dim myFiles As New List(Of String)
+            If main.dark = 1 Or main.dark = 2 Or main.dark = 3 Then
+                For Each file As String In My.Computer.FileSystem.GetFiles(".\resources\banners\dark\" & main.currenttab_metadata(1))
+                    myFiles.Add(file)
+                Next
+            Else
+                For Each file As String In My.Computer.FileSystem.GetFiles(".\resources\banners\light\" & main.currenttab_metadata(1))
+                    myFiles.Add(file)
+                Next
+            End If
 
-        Dim myFiles As New List(Of String)
-        If main.dark = 1 Or main.dark = 2 Or main.dark = 3 Then
-            For Each file As String In My.Computer.FileSystem.GetFiles(".\resources\banners\dark\" & main.currenttab_metadata(1))
-                myFiles.Add(file)
-            Next
-        Else
-            For Each file As String In My.Computer.FileSystem.GetFiles(".\resources\banners\light\" & main.currenttab_metadata(1))
-                myFiles.Add(file)
-            Next
-        End If
-
-        Dim rnd As New Random
-        main.panel_banner.BackgroundImage = System.Drawing.Image.FromFile((myFiles(rnd.Next(0, myFiles.Count))))
-
+            Dim rnd As New Random
+            main.panel_banner.BackgroundImage = System.Drawing.Image.FromFile((myFiles(rnd.Next(0, myFiles.Count))))
+        Catch ex As Exception
+        End Try
         If Directory.Exists(".\roms\" & main.currenttab_metadata(1)) = False Then
             Directory.CreateDirectory(".\roms\" & main.currenttab_metadata(1))
         End If
 
         If File.Exists(".\roms\" & main.currenttab_metadata(1) & "\metadata\lastplayed.dat") = False Then
+            System.IO.Directory.CreateDirectory(".\roms\" & main.currenttab_metadata(1) & "\metadata\")
             System.IO.File.Create(".\roms\" & main.currenttab_metadata(1) & "\metadata\lastplayed.dat").Dispose()
         End If
 
@@ -436,7 +438,6 @@ Module load_functions
                 emu_tab_metadata_list.emutabs_metadata(index) = currentmetadata
                 index = index + 1
             Next
-
 
         End If
     End Sub

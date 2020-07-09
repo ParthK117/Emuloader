@@ -57,6 +57,13 @@ Public Class settings
             combobox_provider.SelectedIndex = 4
         End If
 
+        Dim checkbox_boxart As String() = (settings(11).Split("="))
+        If checkbox_boxart(1) = "0" Then
+            combobox_boxart_method.SelectedIndex = 0
+        ElseIf checkbox_boxart(1) = "1" Then
+            combobox_boxart_method.SelectedIndex = 1
+        End If
+
         Dim spartanfont14 As New System.Drawing.Font(main.spartan.Families(0), 14)
         load_boxart_on_startup.Font = spartanfont14
         load_skin.Font = spartanfont14
@@ -69,6 +76,7 @@ Public Class settings
         combobox_theme.Font = spartanfont14
         combobox_provider.Font = spartanfont14
         checkbox_affiliate.Font = spartanfont14
+        combobox_boxart_method.Font = spartanfont14
         Dim spartanfont16 As New System.Drawing.Font(main.spartan.Families(0), 16)
         listbox_settings.Font = spartanfont16
 
@@ -141,7 +149,7 @@ Public Class settings
         End If
 
         System.IO.File.Create(".\settings.dat").Dispose()
-        Dim new_settings As String = settings(0) & vbNewLine & settings(1) & vbNewLine & "version=" & main.version_number & vbNewLine & settings(3) & vbNewLine & settings(4) & vbNewLine & settings(5) & vbNewLine & "firsttime=0" & vbNewLine & settings(7) & vbNewLine & settings(8) & vbNewLine & settings(9) & vbNewLine & settings(10)
+        Dim new_settings As String = settings(0) & vbNewLine & settings(1) & vbNewLine & "version=" & main.version_number & vbNewLine & settings(3) & vbNewLine & settings(4) & vbNewLine & settings(5) & vbNewLine & "firsttime=0" & vbNewLine & settings(7) & vbNewLine & settings(8) & vbNewLine & settings(9) & vbNewLine & settings(10) & vbNewLine & settings(11)
         File.WriteAllText(".\settings.dat", new_settings)
         main.global_settings.Clear()
         main.global_settings.AddRange(File.ReadAllLines(".\settings.dat"))
@@ -300,6 +308,14 @@ Public Class settings
             settings(10) = "affiliate=1"
         Else
             settings(10) = "affiliate=0"
+        End If
+    End Sub
+
+    Private Sub combobox_boxart_method_SelectedIndexChanged(sender As Object, e As EventArgs) Handles combobox_boxart_method.SelectedIndexChanged
+        If combobox_boxart_method.SelectedIndex = 1 Then
+            settings(11) = "boxartod=1"
+        Else
+            settings(11) = "boxartod=0"
         End If
     End Sub
 End Class

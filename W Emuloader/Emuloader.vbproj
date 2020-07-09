@@ -133,6 +133,7 @@
     <Compile Include="mainux.xaml.vb">
       <DependentUpon>mainux.xaml</DependentUpon>
     </Compile>
+    <Compile Include="module_emulatorupdater.vb" />
     <Compile Include="module_emutabs.vb" />
     <Compile Include="module_loadfonts.vb" />
     <Compile Include="module_skins.vb" />

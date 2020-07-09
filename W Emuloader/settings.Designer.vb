@@ -27,6 +27,7 @@ Partial Class settings
         Me.btn_save = New System.Windows.Forms.PictureBox()
         Me.listbox_settings = New System.Windows.Forms.ListBox()
         Me.panel_general = New System.Windows.Forms.Panel()
+        Me.combobox_boxart_method = New System.Windows.Forms.ComboBox()
         Me.checkbox_affiliate = New System.Windows.Forms.CheckBox()
         Me.combobox_provider = New System.Windows.Forms.ComboBox()
         Me.lbl_provider = New System.Windows.Forms.Label()
@@ -87,6 +88,7 @@ Partial Class settings
         '
         'panel_general
         '
+        Me.panel_general.Controls.Add(Me.combobox_boxart_method)
         Me.panel_general.Controls.Add(Me.checkbox_affiliate)
         Me.panel_general.Controls.Add(Me.combobox_provider)
         Me.panel_general.Controls.Add(Me.lbl_provider)
@@ -98,10 +100,20 @@ Partial Class settings
         Me.panel_general.Size = New System.Drawing.Size(689, 372)
         Me.panel_general.TabIndex = 6
         '
+        'combobox_boxart_method
+        '
+        Me.combobox_boxart_method.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.combobox_boxart_method.FormattingEnabled = True
+        Me.combobox_boxart_method.Items.AddRange(New Object() {"Download Boxart per game.", "Download all Boxart for platform."})
+        Me.combobox_boxart_method.Location = New System.Drawing.Point(12, 49)
+        Me.combobox_boxart_method.Name = "combobox_boxart_method"
+        Me.combobox_boxart_method.Size = New System.Drawing.Size(330, 21)
+        Me.combobox_boxart_method.TabIndex = 6
+        '
         'checkbox_affiliate
         '
         Me.checkbox_affiliate.AutoSize = True
-        Me.checkbox_affiliate.Location = New System.Drawing.Point(12, 226)
+        Me.checkbox_affiliate.Location = New System.Drawing.Point(12, 262)
         Me.checkbox_affiliate.Name = "checkbox_affiliate"
         Me.checkbox_affiliate.Size = New System.Drawing.Size(330, 17)
         Me.checkbox_affiliate.TabIndex = 5
@@ -113,7 +125,7 @@ Partial Class settings
         Me.combobox_provider.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.combobox_provider.FormattingEnabled = True
         Me.combobox_provider.Items.AddRange(New Object() {"Google Shopping", "Amazon.com", "Amazon UK", "Ebay.com", "Ebay UK"})
-        Me.combobox_provider.Location = New System.Drawing.Point(12, 185)
+        Me.combobox_provider.Location = New System.Drawing.Point(12, 221)
         Me.combobox_provider.Name = "combobox_provider"
         Me.combobox_provider.Size = New System.Drawing.Size(218, 21)
         Me.combobox_provider.TabIndex = 4
@@ -121,7 +133,7 @@ Partial Class settings
         'lbl_provider
         '
         Me.lbl_provider.AutoSize = True
-        Me.lbl_provider.Location = New System.Drawing.Point(9, 152)
+        Me.lbl_provider.Location = New System.Drawing.Point(9, 188)
         Me.lbl_provider.Name = "lbl_provider"
         Me.lbl_provider.Size = New System.Drawing.Size(221, 13)
         Me.lbl_provider.TabIndex = 3
@@ -131,7 +143,7 @@ Partial Class settings
         '
         Me.checkbox_topbar.AutoSize = True
         Me.checkbox_topbar.Font = New System.Drawing.Font("Spartan MB", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.checkbox_topbar.Location = New System.Drawing.Point(12, 111)
+        Me.checkbox_topbar.Location = New System.Drawing.Point(12, 147)
         Me.checkbox_topbar.Name = "checkbox_topbar"
         Me.checkbox_topbar.Size = New System.Drawing.Size(253, 30)
         Me.checkbox_topbar.TabIndex = 2
@@ -142,7 +154,7 @@ Partial Class settings
         '
         Me.checkbox_exit_on_taskbar.AutoSize = True
         Me.checkbox_exit_on_taskbar.Font = New System.Drawing.Font("Spartan MB", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.checkbox_exit_on_taskbar.Location = New System.Drawing.Point(12, 49)
+        Me.checkbox_exit_on_taskbar.Location = New System.Drawing.Point(12, 85)
         Me.checkbox_exit_on_taskbar.Name = "checkbox_exit_on_taskbar"
         Me.checkbox_exit_on_taskbar.Size = New System.Drawing.Size(386, 56)
         Me.checkbox_exit_on_taskbar.TabIndex = 1
@@ -287,11 +299,11 @@ Partial Class settings
         Me.Controls.Add(Me.lbl_settingstitle)
         Me.Controls.Add(Me.listbox_settings)
         Me.Controls.Add(Me.btn_save)
-        Me.Controls.Add(Me.panel_appearance)
-        Me.Controls.Add(Me.panel_delivery)
         Me.Controls.Add(Me.panel_general)
         Me.Controls.Add(Me.panel_updates)
         Me.Controls.Add(Me.panel_theme)
+        Me.Controls.Add(Me.panel_appearance)
+        Me.Controls.Add(Me.panel_delivery)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
@@ -338,4 +350,5 @@ Partial Class settings
     Friend WithEvents checkbox_affiliate As CheckBox
     Friend WithEvents combobox_provider As ComboBox
     Friend WithEvents lbl_provider As Label
+    Friend WithEvents combobox_boxart_method As ComboBox
 End Class

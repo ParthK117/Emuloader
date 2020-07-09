@@ -147,6 +147,7 @@ Partial Class main
         Me.search_platform = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.search_source = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.search_url = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.search_region = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.tab_search = New System.Windows.Forms.PictureBox()
         Me.tab_all = New System.Windows.Forms.PictureBox()
         Me.btn_search = New System.Windows.Forms.Label()
@@ -157,6 +158,7 @@ Partial Class main
         Me.column_platform = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.column_source = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.column_url = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.column_region = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.btn_import = New System.Windows.Forms.PictureBox()
         Me.lbl_browse = New System.Windows.Forms.Label()
         Me.btn_discord = New System.Windows.Forms.PictureBox()
@@ -195,6 +197,9 @@ Partial Class main
         Me.lbl_nothing = New System.Windows.Forms.Label()
         Me.timer_updateprogress = New System.Windows.Forms.Timer(Me.components)
         Me.downloader = New System.ComponentModel.BackgroundWorker()
+        Me.thread_emulator_update = New System.ComponentModel.BackgroundWorker()
+        Me.panel_home = New System.Windows.Forms.Panel()
+        Me.lbl_home = New System.Windows.Forms.Label()
         CType(Me.image_logo, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panel_left.SuspendLayout()
         CType(Me.picturebox_patreon, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -280,6 +285,7 @@ Partial Class main
         CType(Me.btn_openright_downloads, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panel_download_chart.SuspendLayout()
         CType(Me.picturebox_download, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.panel_home.SuspendLayout()
         Me.SuspendLayout()
         '
         'image_logo
@@ -1593,7 +1599,7 @@ Partial Class main
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.listbox_search.BackColor = System.Drawing.Color.White
         Me.listbox_search.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.listbox_search.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.search_name, Me.search_size, Me.search_platform, Me.search_source, Me.search_url})
+        Me.listbox_search.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.search_name, Me.search_size, Me.search_platform, Me.search_source, Me.search_url, Me.search_region})
         Me.listbox_search.Font = New System.Drawing.Font("Gotham Bold", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.listbox_search.ForeColor = System.Drawing.Color.Black
         Me.listbox_search.HideSelection = False
@@ -1622,13 +1628,21 @@ Partial Class main
         '
         'search_source
         '
+        Me.search_source.DisplayIndex = 4
         Me.search_source.Text = "Source"
         Me.search_source.Width = 120
         '
         'search_url
         '
+        Me.search_url.DisplayIndex = 5
         Me.search_url.Text = ""
         Me.search_url.Width = 0
+        '
+        'search_region
+        '
+        Me.search_region.DisplayIndex = 3
+        Me.search_region.Text = "Region"
+        Me.search_region.Width = 90
         '
         'tab_search
         '
@@ -1675,7 +1689,7 @@ Partial Class main
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.listbox_availableroms.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.listbox_availableroms.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.column_name, Me.column_size, Me.column_platform, Me.column_source, Me.column_url})
+        Me.listbox_availableroms.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.column_name, Me.column_size, Me.column_platform, Me.column_source, Me.column_url, Me.column_region})
         Me.listbox_availableroms.Font = New System.Drawing.Font("Gotham Bold", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.listbox_availableroms.ForeColor = System.Drawing.Color.Black
         Me.listbox_availableroms.HideSelection = False
@@ -1711,6 +1725,11 @@ Partial Class main
         '
         Me.column_url.Text = ""
         Me.column_url.Width = 0
+        '
+        'column_region
+        '
+        Me.column_region.Text = "Region"
+        Me.column_region.Width = 90
         '
         'btn_import
         '
@@ -2051,6 +2070,32 @@ Partial Class main
         'downloader
         '
         '
+        'thread_emulator_update
+        '
+        Me.thread_emulator_update.WorkerReportsProgress = True
+        Me.thread_emulator_update.WorkerSupportsCancellation = True
+        '
+        'panel_home
+        '
+        Me.panel_home.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.panel_home.Controls.Add(Me.lbl_home)
+        Me.panel_home.Location = New System.Drawing.Point(250, 40)
+        Me.panel_home.Name = "panel_home"
+        Me.panel_home.Size = New System.Drawing.Size(1100, 860)
+        Me.panel_home.TabIndex = 27
+        '
+        'lbl_home
+        '
+        Me.lbl_home.AutoSize = True
+        Me.lbl_home.Font = New System.Drawing.Font("Gotham Bold", 27.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_home.Location = New System.Drawing.Point(30, 38)
+        Me.lbl_home.Name = "lbl_home"
+        Me.lbl_home.Size = New System.Drawing.Size(131, 44)
+        Me.lbl_home.TabIndex = 2
+        Me.lbl_home.Text = "Home"
+        '
         'main
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -2064,6 +2109,7 @@ Partial Class main
         Me.Controls.Add(Me.panel_left)
         Me.Controls.Add(Me.panel_play)
         Me.Controls.Add(Me.panel_drag_drop)
+        Me.Controls.Add(Me.panel_home)
         Me.Controls.Add(Me.panel_downloads)
         Me.Controls.Add(Me.panel_browse)
         Me.DoubleBuffered = True
@@ -2169,6 +2215,8 @@ Partial Class main
         CType(Me.btn_openright_downloads, System.ComponentModel.ISupportInitialize).EndInit()
         Me.panel_download_chart.ResumeLayout(False)
         CType(Me.picturebox_download, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.panel_home.ResumeLayout(False)
+        Me.panel_home.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -2343,4 +2391,9 @@ Partial Class main
     Friend WithEvents btn_soundtrack As PictureBox
     Friend WithEvents btn_openright_downloads As PictureBox
     Friend WithEvents btn_openright_browse As PictureBox
+    Friend WithEvents search_region As ColumnHeader
+    Friend WithEvents column_region As ColumnHeader
+    Friend WithEvents thread_emulator_update As System.ComponentModel.BackgroundWorker
+    Friend WithEvents panel_home As Panel
+    Friend WithEvents lbl_home As Label
 End Class

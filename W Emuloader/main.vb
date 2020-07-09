@@ -60,7 +60,7 @@ Public Class main
             End If
 
             System.IO.File.Create(".\settings.dat").Dispose()
-            Dim new_settings As String = global_settings(0) & vbNewLine & global_settings(1) & vbNewLine & global_settings(2) & vbNewLine & global_settings(3) & vbNewLine & global_settings(4) & vbNewLine & global_settings(5) & vbNewLine & global_settings(6) & vbNewLine & global_settings(7) & vbNewLine & global_settings(8) & vbNewLine & global_settings(9) & vbNewLine & global_settings(10)
+            Dim new_settings As String = global_settings(0) & vbNewLine & global_settings(1) & vbNewLine & global_settings(2) & vbNewLine & global_settings(3) & vbNewLine & global_settings(4) & vbNewLine & global_settings(5) & vbNewLine & global_settings(6) & vbNewLine & global_settings(7) & vbNewLine & global_settings(8) & vbNewLine & global_settings(9) & vbNewLine & global_settings(10) & vbNewLine & global_settings(11)
             File.WriteAllText(".\settings.dat", new_settings)
         End If
         Dim checkbox_skin As String() = (global_settings(1).Split("="))
@@ -352,105 +352,26 @@ Public Class main
     End Sub
 
     Private Sub btn_play_MouseLeave(sender As Object, e As EventArgs) Handles btn_play.MouseLeave
-        btn_play.Image = System.Drawing.Image.FromFile(".\resources\playblack.gif")
+        If thread_emulator_update.IsBusy = False Then
+            btn_play.Image = System.Drawing.Image.FromFile(".\resources\playblack.gif")
+        End If
+
         GC.Collect()
     End Sub
 
     Private Sub btn_play_MouseDown(sender As Object, e As MouseEventArgs) Handles btn_play.MouseDown
         btn_play.Image = System.Drawing.Image.FromFile(".\resources\playclick.png")
+        Call module_emulatorupdater.emulator_updater()
 
-        Dim timestamp As String = Date.Now.ToString("dd/MM/yyyy")
-        Dim existing As String = File.ReadAllText(".\roms\" & currenttab_metadata(1) & "\metadata\lastplayed.dat")
-        File.WriteAllText(".\roms\" & currenttab_metadata(1) & "\metadata\lastplayed.dat", (existing & vbNewLine & listbox_installedroms.FocusedItem.SubItems(0).Text & "," & timestamp))
-
-        Dim emulator As Process
-        Dim p As New ProcessStartInfo
-
-        Dim params As String = File.ReadAllText(".\" & currenttab_metadata(4) & "\cmdlineargs.ini")
-        p.FileName = (".\" & currenttab_metadata(4) & "\" & currenttab_metadata(3))
-
-        If currenttab_metadata(1) = "GBA" Then
-
-            Dim rom_path As String = System.IO.Path.GetFullPath(listbox_installedroms.FocusedItem.SubItems(2).Text)
-            p.Arguments = ("""" & rom_path & """ " & params)
-        ElseIf currenttab_metadata(1) = "3DS" Then
-
-
-            Dim rom_path As String = System.IO.Path.GetFullPath(listbox_installedroms.FocusedItem.SubItems(2).Text)
-            p.Arguments = ("""" & rom_path & """ " & params)
-        ElseIf currenttab_metadata(1) = "NDS" Then
-
-
-            Dim rom_path As String = System.IO.Path.GetFullPath(listbox_installedroms.FocusedItem.SubItems(2).Text)
-            p.Arguments = ("""" & rom_path & """ " & params)
-        ElseIf currenttab_metadata(1) = "N64" Then
-
-
-            Dim rom_path As String = System.IO.Path.GetFullPath(listbox_installedroms.FocusedItem.SubItems(2).Text)
-            p.Arguments = ("""" & rom_path & """ " & params)
-        ElseIf currenttab_metadata(1) = "PSP" Then
-
-
-            Dim rom_path As String = System.IO.Path.GetFullPath(listbox_installedroms.FocusedItem.SubItems(2).Text)
-            p.Arguments = ("""" & rom_path & """ " & params)
-        ElseIf currenttab_metadata(1) = "WII" Then
-
-
-            Dim rom_path As String = System.IO.Path.GetFullPath(listbox_installedroms.FocusedItem.SubItems(2).Text)
-            p.Arguments = ("""" & rom_path & """ " & params)
-        ElseIf currenttab_metadata(1) = "WIIU" Then
-
-
-            Dim rom_path As String = System.IO.Path.GetFullPath(listbox_installedroms.FocusedItem.SubItems(2).Text)
-            p.Arguments = ("-g" & """" & rom_path & """ " & params)
-        ElseIf currenttab_metadata(1) = "SNES" Then
-
-
-            Dim rom_path As String = System.IO.Path.GetFullPath(listbox_installedroms.FocusedItem.SubItems(2).Text)
-            p.Arguments = ("""" & rom_path & """ " & params)
-        ElseIf currenttab_metadata(1) = "NES" Then
-
-
-            Dim rom_path As String = System.IO.Path.GetFullPath(listbox_installedroms.FocusedItem.SubItems(2).Text)
-            p.Arguments = ("Mesen " & """" & rom_path & """ " & params)
-        ElseIf currenttab_metadata(1) = "NES" Then
-
-
-            Dim rom_path As String = System.IO.Path.GetFullPath(listbox_installedroms.FocusedItem.SubItems(2).Text)
-            p.Arguments = ("-loadbin " & """" & rom_path & """ " & params)
-        ElseIf currenttab_metadata(1) = "MGD" Then
-
-
-            Dim rom_path As String = System.IO.Path.GetFullPath(listbox_installedroms.FocusedItem.SubItems(2).Text)
-            p.Arguments = ("""" & rom_path & """ " & params)
-        ElseIf currenttab_metadata(1) = "DC" Then
-
-
-            Dim rom_path As String = System.IO.Path.GetFullPath(listbox_installedroms.FocusedItem.SubItems(2).Text)
-            p.Arguments = ("""" & rom_path & """ " & params)
-        ElseIf currenttab_metadata(1) = "PS2" Then
-
-
-            Dim rom_path As String = System.IO.Path.GetFullPath(listbox_installedroms.FocusedItem.SubItems(2).Text)
-            p.Arguments = ("""" & rom_path & """ " & params)
-        End If
-
-
-
-
-        If checkbox_fullscreen.Checked = True Then
-            p.WindowStyle = ProcessWindowStyle.Maximized
-
-        Else
-            p.WindowStyle = ProcessWindowStyle.Normal
-
-        End If
-
-        emulator = Process.Start(p)
     End Sub
 
     Private Sub btn_play_MouseUp(sender As Object, e As MouseEventArgs) Handles btn_play.MouseUp
-        btn_play.Image = System.Drawing.Image.FromFile(".\resources\playwhite.png")
+        If thread_emulator_update.IsBusy = True Then
+            btn_play.Image = System.Drawing.Image.FromFile(".\resources\updatingplay.png")
+        Else
+            btn_play.Image = System.Drawing.Image.FromFile(".\resources\playwhite.png")
+        End If
+
     End Sub
 
     Private Sub lbl_about_Click(sender As Object, e As EventArgs) Handles lbl_about.Click
@@ -491,7 +412,7 @@ Public Class main
     End Sub
 
     Private Sub listbox_availableroms_SelectedIndexChanged(sender As Object, e As EventArgs) Handles listbox_availableroms.SelectedIndexChanged
-        If listbox_availableroms.SelectedItems IsNot Nothing Then
+        If listbox_availableroms.SelectedItems IsNot Nothing And listbox_availableroms.FocusedItem IsNot Nothing Then
             lbl_rom_source.Visible = True
             lbl_rom_size.Visible = True
             lbl_rom_platform.Visible = True
@@ -503,7 +424,7 @@ Public Class main
     End Sub
 
     Private Sub listbox_search_SelectedIndexChanged(sender As Object, e As EventArgs) Handles listbox_search.SelectedIndexChanged
-        If listbox_search.SelectedItems IsNot Nothing Then
+        If listbox_search.SelectedItems IsNot Nothing And listbox_search.FocusedItem IsNot Nothing Then
             lbl_rom_source.Visible = True
             lbl_rom_size.Visible = True
             lbl_rom_platform.Visible = True
@@ -546,7 +467,7 @@ Public Class main
             End If
 
 
-
+            Dim region As String
             For Each x In imported_list_downloads
                 If Not x.Contains("#") Then
                     Dim x_split As String() = Split(x, ",")
@@ -559,7 +480,16 @@ Public Class main
                     Else
                         file_source = "Other"
                     End If
-                    listbox_availableroms.Items.Add(New ListViewItem(New String() {x_split(0), x_split(1), x_split(2), file_source, x_split(3)}))
+                    If x_split(0).Contains("Europe") Or x_split(0).Contains("(E)") Or x_split(0).Contains("EUR") Or x_split(0).Contains("Europe") Or x_split(0).Contains("(F)") Or x_split(0).Contains("(e)") Or x_split(0).Contains("Ge") Or x_split(0).Contains("Fr") Or x_split(0).Contains("It") Or x_split(0).Contains("Es") Then
+                        region = "Europe"
+                    ElseIf x_split(0).contains("USA") Or x_split(0).contains("(U)") Or x_split(0).contains("usa") Or x_split(0).contains("(u)") Or x_split(0).contains("(usa)") Then
+                        region = "USA"
+                    ElseIf x_split(0).contains("JPN") Or x_split(0).contains("(J)") Or x_split(0).contains("japan") Or x_split(0).contains("(j)") Or x_split(0).contains("(Japan)") Then
+                        region = "Japan"
+                    Else
+                        region = "Unknown"
+                    End If
+                    listbox_availableroms.Items.Add(New ListViewItem(New String() {x_split(0), x_split(1), x_split(2), file_source, x_split(3), region}))
                 End If
             Next
             listbox_availableroms.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent)
@@ -1083,9 +1013,16 @@ x.SubItems(4).Text, "Queued", timestamp}))
                 Dim current_name As String() = x.Split("#")
                 If listbox_installedroms.FocusedItem IsNot Nothing = True Then
                     If listbox_installedroms.FocusedItem.SubItems(0).Text.Contains(current_name(0)) Then
-                        picturebox_boxart.BackgroundImage = System.Drawing.Image.FromFile(current_name(1))
-                        romproperties.picturebox_boxart.BackgroundImage = System.Drawing.Image.FromFile(current_name(1))
-                        picturebox_boxart_top.BackgroundImage = System.Drawing.Image.FromFile(current_name(1))
+                        Try
+                            picturebox_boxart.BackgroundImage = System.Drawing.Image.FromFile(current_name(1))
+                            romproperties.picturebox_boxart.BackgroundImage = System.Drawing.Image.FromFile(current_name(1))
+                            picturebox_boxart_top.BackgroundImage = System.Drawing.Image.FromFile(current_name(1))
+                        Catch ex As Exception
+                            picturebox_boxart.BackgroundImage = System.Drawing.Image.FromFile(".\modules\noimage.png")
+                            romproperties.picturebox_boxart.BackgroundImage = System.Drawing.Image.FromFile(".\modules\noimage.png")
+                            picturebox_boxart_top.BackgroundImage = System.Drawing.Image.FromFile(".\modules\noimage.png")
+                        End Try
+
                     End If
                 End If
             Next
@@ -1137,7 +1074,8 @@ x.SubItems(4).Text, "Queued", timestamp}))
         Dim settings As New List(Of String)
         settings.AddRange(File.ReadAllLines(".\settings.dat"))
         Dim checkbox_loadart As String() = (settings(0).Split("="))
-        If checkbox_loadart(1) = "1" Then
+        Dim checkbox_od As String() = (settings(11).Split("="))
+        If checkbox_loadart(1) = "1" And checkbox_od(1) = "1" Then
 
 
             If File.Exists(".\roms\" & currenttab_metadata(1) & "\metadata\boxartmatches.eldr") Then
@@ -1151,7 +1089,7 @@ x.SubItems(4).Text, "Queued", timestamp}))
                         If thread_getboxart.IsBusy = False Then
 
                             Dim arguments As String()
-                            arguments = {currenttab_metadata(1)}
+                            arguments = {currenttab_metadata(1), "boxartatonce"}
 
                             thread_getboxart.RunWorkerAsync(arguments)
 
@@ -1167,12 +1105,46 @@ x.SubItems(4).Text, "Queued", timestamp}))
                 If thread_getboxart.IsBusy = False Then
 
                     Dim arguments As String()
-                    arguments = {currenttab_metadata(1), System.IO.Path.GetFullPath(".\roms\" & currenttab_metadata(1))}
+                    arguments = {currenttab_metadata(1), "boxartatonce"}
 
                     thread_getboxart.RunWorkerAsync(arguments)
                 End If
 
 
+            End If
+        ElseIf checkbox_loadart(1) = "1" And checkbox_od(1) = "0" Then
+
+            If File.Exists(".\roms\" & currenttab_metadata(1) & "\metadata\boxartmatches.eldr") Then
+                Dim boxartmatches As String = File.ReadAllText(".\roms\" & currenttab_metadata(1) & "\metadata\boxartmatches.eldr")
+
+                For Each x In listbox_installedroms.Items
+                    If Not (boxartmatches.Replace(" ", "")).Contains((x.subitems(0).text).replace(" ", "")) Then
+                        lbl_status.Text = "Downloading Boxart"
+                        lbl_status.Location = New Point((panel_top.Width - lbl_status.Width) \ 2, (panel_top.Height - lbl_status.Height) \ 2)
+                        picturebox_loading.Visible = True
+                        If thread_getboxart.IsBusy = False Then
+
+                            Dim arguments As String()
+                            arguments = {currenttab_metadata(1), "boxartod"}
+
+                            thread_getboxart.RunWorkerAsync(arguments)
+
+                        End If
+                        Exit For
+                    End If
+                Next
+            Else
+                lbl_status.Text = "Downloading Boxart"
+                picturebox_loading.Visible = True
+                lbl_status.Location = New Point((panel_top.Width - lbl_status.Width) \ 2, (panel_top.Height - lbl_status.Height) \ 2)
+
+                If thread_getboxart.IsBusy = False Then
+
+                    Dim arguments As String()
+                    arguments = {currenttab_metadata(1), "boxartod"}
+
+                    thread_getboxart.RunWorkerAsync(arguments)
+                End If
             End If
         End If
     End Sub
@@ -1187,7 +1159,7 @@ x.SubItems(4).Text, "Queued", timestamp}))
         '   p.UseShellExecute = True
         p.WindowStyle = ProcessWindowStyle.Hidden
         p.WorkingDirectory = ".\modules\"
-        p.Arguments = (arguments(0) & " " & Chr(34) & Path.GetFullPath(".\boxart") & Chr(34) & " " & Chr(34) & Path.GetFullPath(".\roms\" & currenttab_metadata(1) & "\metadata\romnamelist.eldr") & Chr(34) & " " & Chr(34) & Path.GetFullPath(".\roms\" & currenttab_metadata(1) & "\metadata") & Chr(34))
+        p.Arguments = (arguments(1) & " " & arguments(0) & " " & Chr(34) & Path.GetFullPath(".\boxart") & Chr(34) & " " & Chr(34) & Path.GetFullPath(".\roms\" & currenttab_metadata(1) & "\metadata\romnamelist.eldr") & Chr(34) & " " & Chr(34) & Path.GetFullPath(".\roms\" & currenttab_metadata(1) & "\metadata") & Chr(34))
         getart = Process.Start(p)
         getart.WaitForExit()
     End Sub
@@ -1316,55 +1288,56 @@ x.SubItems(4).Text, "Queued", timestamp}))
     End Sub
 
     Private Sub btn_play_delete_MouseDown(sender As Object, e As MouseEventArgs) Handles btn_play_delete.MouseDown
-
-        Dim directoryName As String = ".\" & currenttab_metadata(4)
-        For Each deleteFile In Directory.GetFiles(directoryName, "*.*", SearchOption.AllDirectories)
-            File.Delete(deleteFile)
-        Next
-        Directory.Delete(".\" & currenttab_metadata(4), True)
-
-        Dim custom As New List(Of String)
-        Dim custom2 As New List(Of String)
-        custom.AddRange(File.ReadAllLines(".\installed.eldr"))
-        custom2.AddRange(File.ReadAllLines(".\installed.eldr"))
-        Dim newindex = 0
-        For Each x In custom2
-            If x.Contains(currenttab_metadata(4)) Then
-                custom.RemoveAt(newindex)
-            End If
-            newindex = newindex + 1
-        Next
-        If File.Exists(".\installed.eldr") Then
-            My.Computer.FileSystem.DeleteFile(".\installed.eldr")
-        End If
-        If Not custom.Count = 0 Then
-            System.IO.File.Create(".\installed.eldr").Dispose()
-
-
-            Dim writenew = New StreamWriter(".\installed.eldr", False)
-            For Each x In custom
-                If x Is custom.Last Then
-                    writenew.Write(x)
-                Else
-                    writenew.Write(x & vbNewLine)
-                End If
-
+        Dim result = MessageBox.Show("Are you sure you want to delete this emulator instance? Your roms for this platform will not be deleted.", "Deleting " & currenttab_metadata(0), MessageBoxButtons.YesNo)
+        If result = DialogResult.Yes Then
+            Dim directoryName As String = ".\" & currenttab_metadata(4)
+            For Each deleteFile In Directory.GetFiles(directoryName, "*.*", SearchOption.AllDirectories)
+                File.Delete(deleteFile)
             Next
+            Directory.Delete(".\" & currenttab_metadata(4), True)
 
-            writenew.Flush()
-            writenew.Close()
+            Dim custom As New List(Of String)
+            Dim custom2 As New List(Of String)
+            custom.AddRange(File.ReadAllLines(".\installed.eldr"))
+            custom2.AddRange(File.ReadAllLines(".\installed.eldr"))
+            Dim newindex = 0
+            For Each x In custom2
+                If x.Contains(currenttab_metadata(4)) Then
+                    custom.RemoveAt(newindex)
+                End If
+                newindex = newindex + 1
+            Next
+            If File.Exists(".\installed.eldr") Then
+                My.Computer.FileSystem.DeleteFile(".\installed.eldr")
+            End If
+            If Not custom.Count = 0 Then
+                System.IO.File.Create(".\installed.eldr").Dispose()
+
+
+                Dim writenew = New StreamWriter(".\installed.eldr", False)
+                For Each x In custom
+                    If x Is custom.Last Then
+                        writenew.Write(x)
+                    Else
+                        writenew.Write(x & vbNewLine)
+                    End If
+
+                Next
+
+                writenew.Flush()
+                writenew.Close()
+            End If
+            Dim emutabs = {emu_one, emu_two, emu_three, emu_four, emu_five, emu_six, emu_seven, emu_eight, emu_nine}
+            For Each x In emutabs
+                x.Visible = False
+                x.ForeColor = labelgrey
+            Next
+            tab_browse.Visible = True
+            panel_browse.BringToFront()
+            panel_rom_info.Visible = True
+            panel_rom_rightclick.Visible = False
+            Call loadconfig()
         End If
-        Dim emutabs = {emu_one, emu_two, emu_three, emu_four, emu_five, emu_six, emu_seven, emu_eight, emu_nine}
-        For Each x In emutabs
-            x.Visible = False
-            x.ForeColor = labelgrey
-        Next
-        tab_browse.Visible = True
-        panel_browse.BringToFront()
-        panel_rom_info.Visible = True
-        panel_rom_rightclick.Visible = False
-        Call loadconfig()
-
     End Sub
 
     Private Sub btn_play_delete_MouseUp(sender As Object, e As MouseEventArgs) Handles btn_play_delete.MouseUp
@@ -1372,7 +1345,7 @@ x.SubItems(4).Text, "Queued", timestamp}))
     End Sub
     Public Sub check_for_updates()
         If Not File.Exists(".\settings.dat") Then
-            Dim new_settings As String = "load=1" & vbNewLine & "dark=0" & vbNewLine & "version=" & version_number & vbNewLine & "autoupdate=1" & vbNewLine & "exitonx=0" & vbNewLine & "fancydl=0" & vbNewLine & "firstime=1" & vbNewLine & "windowsbar=0" & vbNewLine & "instantdelivery=1" & vbNewLine & "shop=google" & vbNewLine & "affiliate=0"
+            Dim new_settings As String = "load=1" & vbNewLine & "dark=0" & vbNewLine & "version=" & version_number & vbNewLine & "autoupdate=1" & vbNewLine & "exitonx=0" & vbNewLine & "fancydl=0" & vbNewLine & "firstime=1" & vbNewLine & "windowsbar=0" & vbNewLine & "instantdelivery=1" & vbNewLine & "shop=google" & vbNewLine & "affiliate=0" & vbNewLine & "boxartod=0"
             File.WriteAllText(".\settings.dat", new_settings)
         Else
             Dim settings As New List(Of String)
@@ -1381,11 +1354,11 @@ x.SubItems(4).Text, "Queued", timestamp}))
             If Not settings(2).Contains(version_number) Then
                 File.Delete(".\settings.dat")
                 Try
-                    Dim new_settings As String = settings(0) & vbNewLine & settings(1) & vbNewLine & "version=" & version_number & vbNewLine & settings(3) & vbNewLine & settings(4) & vbNewLine & settings(5) & vbNewLine & settings(6) & vbNewLine & settings(7) & vbNewLine & settings(8)
+                    Dim new_settings As String = settings(0) & vbNewLine & settings(1) & vbNewLine & "version=" & version_number & vbNewLine & settings(3) & vbNewLine & settings(4) & vbNewLine & settings(5) & vbNewLine & settings(6) & vbNewLine & settings(7) & vbNewLine & settings(8) & vbNewLine & settings(9) & vbNewLine & settings(10) & vbNewLine & settings(11)
                     File.WriteAllText(".\settings.dat", new_settings)
                 Catch ex As Exception
                     MessageBox.Show("The new update is incompatible with your old settings, sorry. Launching first-time setup.")
-                    Dim new_settings As String = "load=1" & vbNewLine & "dark=0" & vbNewLine & "version=" & version_number & vbNewLine & "autoupdate=1" & vbNewLine & "exitonx=0" & vbNewLine & "fancydl=0" & vbNewLine & "firstime=1" & vbNewLine & "windowsbar=0" & vbNewLine & "instantdelivery=1" & vbNewLine & "shop=google" & vbNewLine & "affiliate=0"
+                    Dim new_settings As String = "load=1" & vbNewLine & "dark=0" & vbNewLine & "version=" & version_number & vbNewLine & "autoupdate=1" & vbNewLine & "exitonx=0" & vbNewLine & "fancydl=0" & vbNewLine & "firstime=1" & vbNewLine & "windowsbar=0" & vbNewLine & "instantdelivery=1" & vbNewLine & "shop=google" & vbNewLine & "affiliate=0" & vbNewLine & "boxartod=0"
                     File.WriteAllText(".\settings.dat", new_settings)
                 End Try
             End If
@@ -1828,7 +1801,35 @@ x.SubItems(4).Text, "Queued", timestamp}))
     End Sub
 
     Private Sub ExitToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ExitToolStripMenuItem.Click
-        Application.Exit()
+        If Not listbox_queue.Items.Count = 0 Then
+            If listbox_queue.Items(0).SubItems(5).Text = "Downloading" Then
+                Dim result = MessageBox.Show("Are you sure you want to cancel all queued and current downloads?", "Currently downloading", MessageBoxButtons.YesNo)
+                If result = DialogResult.Yes Then
+
+                    If Not File.Exists(".\downloadlog.dat") Then
+                        File.Create(".\downloadlog.dat")
+                        File.WriteAllText(".\downloadlog.dat", listbox_queue.Items(0).SubItems(0).Text & "," & listbox_queue.Items(0).SubItems(1).Text & "," & listbox_queue.Items(0).SubItems(2).Text & "," & listbox_queue.Items(0).SubItems(3).Text & "," & "removed" & "," & "Cancelled" & "," & listbox_queue.Items(0).SubItems(6).Text)
+
+                    Else
+                        Dim log As String = File.ReadAllText(".\downloadlog.dat")
+                        File.WriteAllText(".\downloadlog.dat", listbox_queue.Items(0).SubItems(0).Text & "," & listbox_queue.Items(0).SubItems(1).Text & "," & listbox_queue.Items(0).SubItems(2).Text & "," & listbox_queue.Items(0).SubItems(3).Text & "," & "removed" & "," & "Cancelled" & "," & listbox_queue.Items(0).SubItems(6).Text & vbNewLine & log)
+                    End If
+
+                    For Each x In listbox_queue.Items
+                        If x.subitems(5).text = "Queued" Then
+                            Dim log As String = File.ReadAllText(".\downloadlog.dat")
+                            File.WriteAllText(".\downloadlog.dat", x.SubItems(0).Text & "," & x.SubItems(1).Text & "," & x.SubItems(2).Text & "," & x.SubItems(3).Text & "," & "removed" & "," & "Cancelled" & "," & x.SubItems(6).Text & vbNewLine & log)
+                        End If
+                    Next
+                    Application.Exit()
+                End If
+
+            Else
+                Application.Exit()
+            End If
+        Else
+            Application.Exit()
+        End If
     End Sub
 
     Private Sub ShowDownloadsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ShowDownloadsToolStripMenuItem.Click
@@ -1906,6 +1907,37 @@ x.SubItems(4).Text, "Queued", timestamp}))
     Private Sub main_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
         Dim checkbox_exit As String() = (global_settings(4).Split("="))
         If checkbox_exit(1) = "0" Then
+            If Not listbox_queue.Items.Count = 0 Then
+                If listbox_queue.Items(0).SubItems(5).Text = "Downloading" Then
+                    Dim result = MessageBox.Show("Are you sure you want to cancel all queued and current downloads?", "Currently downloading", MessageBoxButtons.YesNo)
+                    If result = DialogResult.Yes Then
+
+                        If Not File.Exists(".\downloadlog.dat") Then
+                            File.Create(".\downloadlog.dat")
+                            File.WriteAllText(".\downloadlog.dat", listbox_queue.Items(0).SubItems(0).Text & "," & listbox_queue.Items(0).SubItems(1).Text & "," & listbox_queue.Items(0).SubItems(2).Text & "," & listbox_queue.Items(0).SubItems(3).Text & "," & "removed" & "," & "Cancelled" & "," & listbox_queue.Items(0).SubItems(6).Text)
+
+                        Else
+                            Dim log As String = File.ReadAllText(".\downloadlog.dat")
+                            File.WriteAllText(".\downloadlog.dat", listbox_queue.Items(0).SubItems(0).Text & "," & listbox_queue.Items(0).SubItems(1).Text & "," & listbox_queue.Items(0).SubItems(2).Text & "," & listbox_queue.Items(0).SubItems(3).Text & "," & "removed" & "," & "Cancelled" & "," & listbox_queue.Items(0).SubItems(6).Text & vbNewLine & log)
+                        End If
+
+                        For Each x In listbox_queue.Items
+                            If x.subitems(5).text = "Queued" Then
+                                Dim log As String = File.ReadAllText(".\downloadlog.dat")
+                                File.WriteAllText(".\downloadlog.dat", x.SubItems(0).Text & "," & x.SubItems(1).Text & "," & x.SubItems(2).Text & "," & x.SubItems(3).Text & "," & "removed" & "," & "Cancelled" & "," & x.SubItems(6).Text & vbNewLine & log)
+                            End If
+                        Next
+                        Application.Exit()
+                    Else
+                        e.Cancel = True
+                    End If
+
+                Else
+                    Application.Exit()
+                End If
+            Else
+                Application.Exit()
+            End If
         Else
             e.Cancel = True
             Me.ShowInTaskbar = False
@@ -2165,7 +2197,131 @@ x.SubItems(4).Text, "Queued", timestamp}))
         btn_openright_browse.Visible = False
     End Sub
 
+    Private Sub thread_emulator_update_DoWork(sender As Object, e As DoWorkEventArgs) Handles thread_emulator_update.DoWork
 
+        Dim arguments As String() = (e.Argument)
+        Using vba_m = New WebClient()
+            Try
+                vba_m.DownloadFile(arguments(0), ".\" & main.currenttab_metadata(4) & "\update.zip")
+                vba_m.Dispose()
+            Catch ex As Exception
+                vba_m.Dispose()
+                MessageBox.Show("Can't find Download, exiting.")
+            End Try
+        End Using
+
+        If File.Exists(".\" & main.currenttab_metadata(4) & "\update.zip") Then
+            Dim zipfilepath As String = ".\" & main.currenttab_metadata(4) & "\update.zip"
+            Dim extractto As String = ".\" & main.currenttab_metadata(4)
+            Using zipfile3 = ZipFile.OpenRead(zipfilepath)
+                For Each entry As ZipArchiveEntry In zipfile3.Entries
+
+
+                    entry.ExtractToFile(Path.Combine(extractto, entry.FullName), True)
+
+                Next
+            End Using
+        End If
+    End Sub
+
+    Private Sub thread_emulator_update_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles thread_emulator_update.RunWorkerCompleted
+
+        Call launch_emulator()
+
+    End Sub
+
+    Public Sub launch_emulator()
+        btn_play.Image = System.Drawing.Image.FromFile(".\resources\playblack.gif")
+        GC.Collect()
+        Dim timestamp As String = Date.Now.ToString("dd/MM/yyyy")
+        Dim existing As String = File.ReadAllText(".\roms\" & currenttab_metadata(1) & "\metadata\lastplayed.dat")
+        File.WriteAllText(".\roms\" & currenttab_metadata(1) & "\metadata\lastplayed.dat", (existing & vbNewLine & listbox_installedroms.FocusedItem.SubItems(0).Text & "," & timestamp))
+
+        Dim emulator As Process
+        Dim p As New ProcessStartInfo
+
+        Dim params As String = File.ReadAllText(".\" & currenttab_metadata(4) & "\cmdlineargs.ini")
+        p.FileName = (".\" & currenttab_metadata(4) & "\" & currenttab_metadata(3))
+
+        If currenttab_metadata(1) = "GBA" Then
+
+            Dim rom_path As String = System.IO.Path.GetFullPath(listbox_installedroms.FocusedItem.SubItems(2).Text)
+            p.Arguments = ("""" & rom_path & """ " & params)
+        ElseIf currenttab_metadata(1) = "3DS" Then
+
+
+            Dim rom_path As String = System.IO.Path.GetFullPath(listbox_installedroms.FocusedItem.SubItems(2).Text)
+            p.Arguments = ("""" & rom_path & """ " & params)
+        ElseIf currenttab_metadata(1) = "NDS" Then
+
+
+            Dim rom_path As String = System.IO.Path.GetFullPath(listbox_installedroms.FocusedItem.SubItems(2).Text)
+            p.Arguments = ("""" & rom_path & """ " & params)
+        ElseIf currenttab_metadata(1) = "N64" Then
+
+
+            Dim rom_path As String = System.IO.Path.GetFullPath(listbox_installedroms.FocusedItem.SubItems(2).Text)
+            p.Arguments = ("""" & rom_path & """ " & params)
+        ElseIf currenttab_metadata(1) = "PSP" Then
+
+
+            Dim rom_path As String = System.IO.Path.GetFullPath(listbox_installedroms.FocusedItem.SubItems(2).Text)
+            p.Arguments = ("""" & rom_path & """ " & params)
+        ElseIf currenttab_metadata(1) = "WII" Then
+
+
+            Dim rom_path As String = System.IO.Path.GetFullPath(listbox_installedroms.FocusedItem.SubItems(2).Text)
+            p.Arguments = ("""" & rom_path & """ " & params)
+        ElseIf currenttab_metadata(1) = "WIIU" Then
+
+
+            Dim rom_path As String = System.IO.Path.GetFullPath(listbox_installedroms.FocusedItem.SubItems(2).Text)
+            p.Arguments = ("-g" & """" & rom_path & """ " & params)
+        ElseIf currenttab_metadata(1) = "SNES" Then
+
+
+            Dim rom_path As String = System.IO.Path.GetFullPath(listbox_installedroms.FocusedItem.SubItems(2).Text)
+            p.Arguments = ("""" & rom_path & """ " & params)
+        ElseIf currenttab_metadata(1) = "NES" Then
+
+
+            Dim rom_path As String = System.IO.Path.GetFullPath(listbox_installedroms.FocusedItem.SubItems(2).Text)
+            p.Arguments = ("Mesen " & """" & rom_path & """ " & params)
+        ElseIf currenttab_metadata(1) = "NES" Then
+
+
+            Dim rom_path As String = System.IO.Path.GetFullPath(listbox_installedroms.FocusedItem.SubItems(2).Text)
+            p.Arguments = ("-loadbin " & """" & rom_path & """ " & params)
+        ElseIf currenttab_metadata(1) = "MGD" Then
+
+
+            Dim rom_path As String = System.IO.Path.GetFullPath(listbox_installedroms.FocusedItem.SubItems(2).Text)
+            p.Arguments = ("""" & rom_path & """ " & params)
+        ElseIf currenttab_metadata(1) = "DC" Then
+
+
+            Dim rom_path As String = System.IO.Path.GetFullPath(listbox_installedroms.FocusedItem.SubItems(2).Text)
+            p.Arguments = ("""" & rom_path & """ " & params)
+        ElseIf currenttab_metadata(1) = "PS2" Then
+
+
+            Dim rom_path As String = System.IO.Path.GetFullPath(listbox_installedroms.FocusedItem.SubItems(2).Text)
+            p.Arguments = ("""" & rom_path & """ " & params)
+        End If
+
+
+
+
+        If checkbox_fullscreen.Checked = True Then
+            p.WindowStyle = ProcessWindowStyle.Maximized
+
+        Else
+            p.WindowStyle = ProcessWindowStyle.Normal
+
+        End If
+
+        emulator = Process.Start(p)
+    End Sub
     ' Private Sub Main_Maximise(ByVal sender As Object, ByVal e As EventArgs) Handles Me.w
     '     lbl_nothing.Location = New Point((panel_downloads.Width - lbl_nothing.Width) \ 2, (panel_downloads.Height - lbl_nothing.Height) \ 2)
     '     lbl_status.Location = New Point((panel_top.Width - lbl_status.Width) \ 2, (panel_top.Height - lbl_status.Height) \ 2)
