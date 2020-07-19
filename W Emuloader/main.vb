@@ -19,6 +19,7 @@ Public Class main
     Public Shared dark = 0
     Public Shared version_number = "1.0.0"
     Public Shared global_settings As New List(Of String)
+    Public Shared boxart_url As String
 
 
     '0.1.0
@@ -83,14 +84,13 @@ Public Class main
         End If
         lbl_version.Text = "v" & version_number
         lbl_networkusage.ForeColor = labelgrey
-
         lbl_nothing.Location = New Point((panel_downloads.Width - lbl_nothing.Width) \ 2, (panel_downloads.Height - lbl_nothing.Height) \ 2)
         picturebox_patreon.Location = New Point((panel_left.Width - picturebox_patreon.Width) \ 2, 730)
         picturebox_tungsten.Location = New Point((panel_left.Width - picturebox_tungsten.Width) \ 2, 675)
 
         '    Dim wpfwindow = New mainux()
         '   wpfwindow.Show()
-
+        Call jumpin_updater()
     End Sub
 
     Private Sub panel_top_MouseDown(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles panel_top.MouseDown
@@ -228,7 +228,7 @@ Public Class main
 
     End Sub
 
-    Private Sub emu_one_Click(sender As Object, e As EventArgs) Handles emu_one.Click
+    Public Sub emu_one_Click(sender As Object, e As EventArgs) Handles emu_one.Click
         tab_index = 0
         Call module_emutabs.load_emutab()
         If dark = 1 Then
@@ -243,7 +243,7 @@ Public Class main
 
     End Sub
 
-    Private Sub emu_two_Click(sender As Object, e As EventArgs) Handles emu_two.Click
+    Public Sub emu_two_Click(sender As Object, e As EventArgs) Handles emu_two.Click
         tab_index = 1
         Call module_emutabs.load_emutab()
 
@@ -257,7 +257,7 @@ Public Class main
         End If
     End Sub
 
-    Private Sub emu_three_Click(sender As Object, e As EventArgs) Handles emu_three.Click
+    Public Sub emu_three_Click(sender As Object, e As EventArgs) Handles emu_three.Click
         tab_index = 2
         Call module_emutabs.load_emutab()
         If dark = 1 Then
@@ -270,7 +270,7 @@ Public Class main
         End If
     End Sub
 
-    Private Sub emu_four_Click(sender As Object, e As EventArgs) Handles emu_four.Click
+    Public Sub emu_four_Click(sender As Object, e As EventArgs) Handles emu_four.Click
         tab_index = 3
         Call module_emutabs.load_emutab()
         If dark = 1 Then
@@ -283,7 +283,7 @@ Public Class main
         End If
     End Sub
 
-    Private Sub emu_five_Click(sender As Object, e As EventArgs) Handles emu_five.Click
+    Public Sub emu_five_Click(sender As Object, e As EventArgs) Handles emu_five.Click
         tab_index = 4
         Call module_emutabs.load_emutab()
         If dark = 1 Then
@@ -296,7 +296,7 @@ Public Class main
         End If
     End Sub
 
-    Private Sub emu_six_Click(sender As Object, e As EventArgs) Handles emu_six.Click
+    Public Sub emu_six_Click(sender As Object, e As EventArgs) Handles emu_six.Click
         tab_index = 5
         Call module_emutabs.load_emutab()
         If dark = 1 Then
@@ -309,7 +309,7 @@ Public Class main
         End If
     End Sub
 
-    Private Sub emu_seven_Click(sender As Object, e As EventArgs) Handles emu_seven.Click
+    Public Sub emu_seven_Click(sender As Object, e As EventArgs) Handles emu_seven.Click
         tab_index = 6
         Call module_emutabs.load_emutab()
         If dark = 1 Then
@@ -322,7 +322,7 @@ Public Class main
         End If
     End Sub
 
-    Private Sub emu_eight_Click(sender As Object, e As EventArgs) Handles emu_eight.Click
+    Public Sub emu_eight_Click(sender As Object, e As EventArgs) Handles emu_eight.Click
         tab_index = 7
         Call module_emutabs.load_emutab()
         If dark = 1 Then
@@ -335,7 +335,7 @@ Public Class main
         End If
     End Sub
 
-    Private Sub emu_nine_Click(sender As Object, e As EventArgs) Handles emu_nine.Click
+    Public Sub emu_nine_Click(sender As Object, e As EventArgs) Handles emu_nine.Click
         tab_index = 8
         Call module_emutabs.load_emutab()
         If dark = 1 Then
@@ -359,10 +359,11 @@ Public Class main
         GC.Collect()
     End Sub
 
-    Private Sub btn_play_MouseDown(sender As Object, e As MouseEventArgs) Handles btn_play.MouseDown
+    Public Sub btn_play_MouseDown(sender As Object, e As MouseEventArgs) Handles btn_play.MouseDown
         btn_play.Image = System.Drawing.Image.FromFile(".\resources\playclick.png")
         Call module_emulatorupdater.emulator_updater()
-
+        Call jumpin_updater()
+        Call lastplayed()
     End Sub
 
     Private Sub btn_play_MouseUp(sender As Object, e As MouseEventArgs) Handles btn_play.MouseUp
@@ -1007,44 +1008,39 @@ x.SubItems(4).Text, "Queued", timestamp}))
     End Sub
 
     Private Sub listbox_installedroms_SelectedIndexChanged(sender As Object, e As EventArgs) Handles listbox_installedroms.SelectedIndexChanged
-        If File.Exists(".\roms\" & currenttab_metadata(1) & "\metadata\boxartmatches.eldr") Then
-            Dim find_art As String() = File.ReadAllLines(".\roms\" & currenttab_metadata(1) & "\metadata\boxartmatches.eldr")
-            For Each x In find_art
-                Dim current_name As String() = x.Split("#")
-                If listbox_installedroms.FocusedItem IsNot Nothing = True Then
-                    If listbox_installedroms.FocusedItem.SubItems(0).Text.Contains(current_name(0)) Then
-                        Try
-                            picturebox_boxart.BackgroundImage = System.Drawing.Image.FromFile(current_name(1))
-                            romproperties.picturebox_boxart.BackgroundImage = System.Drawing.Image.FromFile(current_name(1))
-                            picturebox_boxart_top.BackgroundImage = System.Drawing.Image.FromFile(current_name(1))
-                        Catch ex As Exception
-                            picturebox_boxart.BackgroundImage = System.Drawing.Image.FromFile(".\modules\noimage.png")
-                            romproperties.picturebox_boxart.BackgroundImage = System.Drawing.Image.FromFile(".\modules\noimage.png")
-                            picturebox_boxart_top.BackgroundImage = System.Drawing.Image.FromFile(".\modules\noimage.png")
-                        End Try
+        Try
+            If File.Exists(".\roms\" & currenttab_metadata(1) & "\metadata\boxartmatches.eldr") Then
+                Dim find_art As String() = File.ReadAllLines(".\roms\" & currenttab_metadata(1) & "\metadata\boxartmatches.eldr")
+                For Each x In find_art
+                    Dim current_name As String() = x.Split("#")
+                    If listbox_installedroms.FocusedItem IsNot Nothing = True Then
+                        If listbox_installedroms.FocusedItem.SubItems(0).Text.Contains(current_name(0)) Then
+                            Try
+                                picturebox_boxart.BackgroundImage = System.Drawing.Image.FromFile(current_name(1))
+                                romproperties.picturebox_boxart.BackgroundImage = System.Drawing.Image.FromFile(current_name(1))
+                                picturebox_boxart_top.BackgroundImage = System.Drawing.Image.FromFile(current_name(1))
+                                boxart_url = current_name(1)
+                            Catch ex As Exception
+                                picturebox_boxart.BackgroundImage = System.Drawing.Image.FromFile(".\modules\noimage.png")
+                                romproperties.picturebox_boxart.BackgroundImage = System.Drawing.Image.FromFile(".\modules\noimage.png")
+                                picturebox_boxart_top.BackgroundImage = System.Drawing.Image.FromFile(".\modules\noimage.png")
+                                boxart_url = current_name(".\modules\noimage.png")
+                            End Try
 
+                        End If
                     End If
-                End If
-            Next
+                Next
 
-        End If
-
+            End If
+        Catch ex As Exception
+        End Try
         If listbox_installedroms.FocusedItem IsNot Nothing = True Then
             lbl_installed_name.Text = listbox_installedroms.FocusedItem.SubItems(0).Text
             Dim size_rom As New IO.FileInfo(listbox_installedroms.FocusedItem.SubItems(2).Text)
             lbl_installed_size.Text = "Size: " & Math.Round((size_rom.Length / 1000000), 2) & " MB"
             lbl_installed_downloadtime.Text = "Downloaded on " & File.GetCreationTime(listbox_installedroms.FocusedItem.SubItems(2).Text)
             lbl_rom_top_name.Text = listbox_installedroms.FocusedItem.SubItems(0).Text
-            Dim lastplayed As String() = File.ReadAllLines(".\roms\" & main.currenttab_metadata(1) & "\metadata\lastplayed.dat")
-            For Each x In lastplayed
-                Dim current_played As String() = x.Split(",")
-                If current_played(0) = listbox_installedroms.FocusedItem.SubItems(0).Text Then
-                    lbl_last_played.Text = "Last played on " & current_played(1)
-                    Exit For
-                Else
-                    lbl_last_played.Text = "Last played never"
-                End If
-            Next
+            Call lastplayed()
             GC.Collect()
         End If
     End Sub
@@ -2127,9 +2123,10 @@ x.SubItems(4).Text, "Queued", timestamp}))
     End Sub
 
     Private Sub btn_soundtrack_MouseDown(sender As Object, e As MouseEventArgs) Handles btn_soundtrack.MouseDown
-        Dim searchterm As String = listbox_availableroms.FocusedItem.SubItems(0).Text.Replace(" ", "+").Replace(".7z", "").Replace(".zip", "").Replace("(", "").Replace(")", "").Replace("Ru", "").Replace("En", "").Replace("Jp", "").Replace("Europe", "").Replace("Ge", "").Replace("It", "").Replace("Fr", "").Replace("Es", "").Replace("Usa", "").Replace("Nl", "").Replace("Po", "").Replace("Sv", "").Replace("No", "").Replace("Da", "")
-
         If listbox_availableroms.SelectedItems IsNot Nothing And listbox_availableroms.FocusedItem IsNot Nothing Then
+            Dim searchterm As String = listbox_availableroms.FocusedItem.SubItems(0).Text.Replace(" ", "+").Replace(".7z", "").Replace(".zip", "").Replace("(", "").Replace(")", "").Replace("Ru", "").Replace("En", "").Replace("Jp", "").Replace("Europe", "").Replace("Ge", "").Replace("It", "").Replace("Fr", "").Replace("Es", "").Replace("Usa", "").Replace("Nl", "").Replace("Po", "").Replace("Sv", "").Replace("No", "").Replace("Da", "")
+
+
             If global_settings(9).Contains("google") Then
                 Process.Start("https://www.google.com/search?q=" & searchterm & "+" & listbox_availableroms.FocusedItem.SubItems(2).Text & "+Official+Soundtrack" & "&tbm=shop")
             ElseIf global_settings(9).Contains("amazonuk") Then
@@ -2234,8 +2231,21 @@ x.SubItems(4).Text, "Queued", timestamp}))
         btn_play.Image = System.Drawing.Image.FromFile(".\resources\playblack.gif")
         GC.Collect()
         Dim timestamp As String = Date.Now.ToString("dd/MM/yyyy")
-        Dim existing As String = File.ReadAllText(".\roms\" & currenttab_metadata(1) & "\metadata\lastplayed.dat")
-        File.WriteAllText(".\roms\" & currenttab_metadata(1) & "\metadata\lastplayed.dat", (existing & vbNewLine & listbox_installedroms.FocusedItem.SubItems(0).Text & "," & timestamp))
+        Dim existing As String() = File.ReadAllLines(".\roms\" & currenttab_metadata(1) & "\metadata\lastplayed.dat")
+        Dim existing2 As String = File.ReadAllText(".\roms\" & currenttab_metadata(1) & "\metadata\lastplayed.dat")
+        Dim canary As Boolean = False
+        For Each x In existing
+            Dim y As String() = x.Split(",")
+            If y(0) = listbox_installedroms.FocusedItem.SubItems(0).Text Then
+                File.WriteAllText(".\roms\" & currenttab_metadata(1) & "\metadata\lastplayed.dat", (existing2.Replace(x, listbox_installedroms.FocusedItem.SubItems(0).Text & "," & timestamp)))
+                canary = True
+                Exit For
+            End If
+        Next
+        If canary = False Then
+            File.WriteAllText(".\roms\" & currenttab_metadata(1) & "\metadata\lastplayed.dat", (existing2 & vbNewLine & listbox_installedroms.FocusedItem.SubItems(0).Text & "," & timestamp))
+
+        End If
 
         Dim emulator As Process
         Dim p As New ProcessStartInfo
@@ -2321,6 +2331,75 @@ x.SubItems(4).Text, "Queued", timestamp}))
         End If
 
         emulator = Process.Start(p)
+
+        If File.Exists(".\lastplayed.dat") = True Then
+            File.Delete(".\lastplayed.dat")
+        End If
+        File.Create(".\lastplayed.dat").Dispose()
+        File.WriteAllText(".\lastplayed.dat", currenttab_metadata(0) & vbNewLine & listbox_installedroms.FocusedItem.SubItems(0).Text & vbNewLine & timestamp & vbNewLine & boxart_url)
+    End Sub
+
+    Private Sub image_logo_Click(sender As Object, e As EventArgs) Handles image_logo.Click
+        panel_home.BringToFront()
+    End Sub
+
+    Private Sub btn_play_jumpin_Click(sender As Object, e As EventArgs) Handles btn_play_jumpin.Click
+
+    End Sub
+
+    Private Sub btn_play_jumpin_MouseDown(sender As Object, e As MouseEventArgs) Handles btn_play_jumpin.MouseDown
+        btn_play_jumpin.Image = System.Drawing.Image.FromFile(".\resources\playclick.png")
+        Call jumpin_play()
+    End Sub
+
+    Private Sub btn_play_jumpin_MouseEnter(sender As Object, e As EventArgs) Handles btn_play_jumpin.MouseEnter
+        btn_play_jumpin.Image = System.Drawing.Image.FromFile(".\resources\playwhite.png")
+    End Sub
+
+    Private Sub btn_play_jumpin_MouseLeave(sender As Object, e As EventArgs) Handles btn_play_jumpin.MouseLeave
+        btn_play_jumpin.Image = System.Drawing.Image.FromFile(".\resources\playblack.gif")
+        GC.Collect()
+    End Sub
+
+    Public Sub jumpin_play()
+        panel_banner.Visible = False
+        Dim index As Integer = 0
+        For Each x In emu_tab_metadata_list.emutabs_metadata
+            If (x(0)) = lbl_jumpin_emuname.Text Then
+                Select Case index
+                    Case 0
+                        emu_one_Click(Nothing, Nothing)
+                    Case 1
+                        emu_two_Click(Nothing, Nothing)
+                    Case 2
+                        emu_three_Click(Nothing, Nothing)
+                    Case 3
+                        emu_four_Click(Nothing, Nothing)
+                    Case 4
+                        emu_five_Click(Nothing, Nothing)
+                    Case 5
+                        emu_six_Click(Nothing, Nothing)
+                    Case 6
+                        emu_seven_Click(Nothing, Nothing)
+                    Case 7
+                        emu_eight_Click(Nothing, Nothing)
+                    Case 8
+                        emu_nine_Click(Nothing, Nothing)
+                End Select
+                Exit For
+            End If
+            index += 1
+        Next
+
+        For Each y In listbox_installedroms.Items
+            If y.subitems(0).text = lbl_jumpin_romname.Text Then
+                y.Focused = True
+                y.Selected = True
+                y.EnsureVisible()
+                btn_play_MouseDown(Nothing, Nothing)
+                panel_banner.Visible = True
+            End If
+        Next
     End Sub
     ' Private Sub Main_Maximise(ByVal sender As Object, ByVal e As EventArgs) Handles Me.w
     '     lbl_nothing.Location = New Point((panel_downloads.Width - lbl_nothing.Width) \ 2, (panel_downloads.Height - lbl_nothing.Height) \ 2)

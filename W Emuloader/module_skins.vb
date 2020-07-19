@@ -56,12 +56,29 @@ Module module_skins
         settings.checkbox_fancy.ForeColor = Color.White
         main.lbl_last_played.ForeColor = Color.White
         main.lbl_rom_top_name.ForeColor = Color.White
+        main.lbl_jumpin.ForeColor = Color.FromArgb(23, 191, 99)
         main.btn_opentop.BackgroundImage = System.Drawing.Image.FromFile(".\resources\opentopdark.png")
         main.btn_openright.BackgroundImage = System.Drawing.Image.FromFile(".\resources\openrightdark.png")
         main.btn_openright_downloads.BackgroundImage = System.Drawing.Image.FromFile(".\resources\openrightdark.png")
         main.btn_openright_browse.BackgroundImage = System.Drawing.Image.FromFile(".\resources\openrightdark.png")
         main.btn_closetop.BackgroundImage = System.Drawing.Image.FromFile(".\resources\closetopdark.png")
         main.btn_closeright.BackgroundImage = System.Drawing.Image.FromFile(".\resources\closerightdark.png")
+        main.lbl_home.ForeColor = Color.FromArgb(23, 191, 99)
+
+        main.panel_jumpin_middle.BackColor = Color.FromArgb(31, 45, 58)
+        main.picturebox_boxart_jumpin.BackColor = Color.FromArgb(31, 45, 58)
+        main.lbl_jumpin_lastplayed.BackColor = Color.FromArgb(31, 45, 58)
+        main.lbl_jumpin_romname.BackColor = Color.FromArgb(31, 45, 58)
+        main.lbl_jumpin.BackColor = Color.FromArgb(31, 45, 58)
+        main.lbl_jumpin_emuname.BackColor = Color.FromArgb(31, 45, 58)
+        main.picturebox_jumpin_left.BackgroundImage = System.Drawing.Image.FromFile(".\resources\jumpinbackground_left_dark.png")
+        main.picturebox_jumpin_right.BackgroundImage = System.Drawing.Image.FromFile(".\resources\jumpinbackground_right_dark.png")
+        main.lbl_jumpin.ForeColor = Color.White
+        main.lbl_jumpin_emuname.ForeColor = Color.White
+        main.lbl_jumpin_lastplayed.ForeColor = Color.White
+        main.lbl_jumpin_romname.ForeColor = Color.White
+
+
         Dim settings2 As New List(Of String)
         settings2.AddRange(File.ReadAllLines(".\settings.dat"))
         If settings2(5).Contains("1") Then
@@ -141,12 +158,30 @@ Module module_skins
         settings.checkbox_fancy.ForeColor = Color.Black
         main.lbl_last_played.ForeColor = Color.Black
         main.lbl_rom_top_name.ForeColor = Color.Black
+        main.lbl_jumpin.ForeColor = Color.White
+
+
+        main.panel_jumpin_middle.BackColor = Color.FromArgb(238, 238, 238)
+        main.picturebox_boxart_jumpin.BackColor = Color.FromArgb(238, 238, 238)
+        main.lbl_jumpin_lastplayed.BackColor = Color.FromArgb(238, 238, 238)
+        main.lbl_jumpin_romname.BackColor = Color.FromArgb(238, 238, 238)
+        main.lbl_jumpin.BackColor = Color.FromArgb(238, 238, 238)
+        main.lbl_jumpin_emuname.BackColor = Color.FromArgb(238, 238, 238)
+        main.picturebox_jumpin_left.BackgroundImage = System.Drawing.Image.FromFile(".\resources\jumpinbackground_left.png")
+        main.picturebox_jumpin_right.BackgroundImage = System.Drawing.Image.FromFile(".\resources\jumpinbackground_right.png")
+        main.lbl_jumpin.ForeColor = Color.Black
+        main.lbl_jumpin_emuname.ForeColor = Color.Black
+        main.lbl_jumpin_lastplayed.ForeColor = Color.Black
+        main.lbl_jumpin_romname.ForeColor = Color.Black
+
+
         main.btn_opentop.BackgroundImage = System.Drawing.Image.FromFile(".\resources\opentop.png")
         main.btn_openright.BackgroundImage = System.Drawing.Image.FromFile(".\resources\openright.png")
         main.btn_openright_downloads.BackgroundImage = System.Drawing.Image.FromFile(".\resources\openright.png")
         main.btn_openright_browse.BackgroundImage = System.Drawing.Image.FromFile(".\resources\openright.png")
         main.btn_closetop.BackgroundImage = System.Drawing.Image.FromFile(".\resources\closetop.png")
         main.btn_closeright.BackgroundImage = System.Drawing.Image.FromFile(".\resources\closeright.png")
+        main.lbl_home.ForeColor = Color.Black
         Dim settings2 As New List(Of String)
         settings2.AddRange(File.ReadAllLines(".\settings.dat"))
         If settings2(5).Contains("1") Then
@@ -235,6 +270,23 @@ Module module_skins
         main.btn_openright_browse.BackgroundImage = System.Drawing.Image.FromFile(".\resources\openrightdark.png")
         main.btn_closetop.BackgroundImage = System.Drawing.Image.FromFile(".\resources\closetopdark.png")
         main.btn_closeright.BackgroundImage = System.Drawing.Image.FromFile(".\resources\closerightdark.png")
+        main.lbl_home.ForeColor = Color.White
+        main.lbl_jumpin.ForeColor = Color.White
+
+
+        main.panel_jumpin_middle.BackColor = Color.FromArgb(32, 37, 52)
+        main.picturebox_boxart_jumpin.BackColor = Color.FromArgb(32, 37, 52)
+        main.lbl_jumpin_lastplayed.BackColor = Color.FromArgb(32, 37, 52)
+        main.lbl_jumpin_romname.BackColor = Color.FromArgb(32, 37, 52)
+        main.lbl_jumpin.BackColor = Color.FromArgb(32, 37, 52)
+        main.lbl_jumpin_emuname.BackColor = Color.FromArgb(32, 37, 52)
+        main.picturebox_jumpin_left.BackgroundImage = System.Drawing.Image.FromFile(".\resources\jumpinbackground_left_darker.png")
+        main.picturebox_jumpin_right.BackgroundImage = System.Drawing.Image.FromFile(".\resources\jumpinbackground_right_darker.png")
+        main.lbl_jumpin.ForeColor = Color.White
+        main.lbl_jumpin_emuname.ForeColor = Color.White
+        main.lbl_jumpin_lastplayed.ForeColor = Color.White
+        main.lbl_jumpin_romname.ForeColor = Color.White
+
         Dim settings2 As New List(Of String)
         settings2.AddRange(File.ReadAllLines(".\settings.dat"))
         If settings2(5).Contains("1") Then
@@ -316,12 +368,28 @@ Module module_skins
         settings.checkbox_fancy.ForeColor = Color.White
         main.lbl_last_played.ForeColor = Color.White
         main.lbl_rom_top_name.ForeColor = Color.White
+        main.lbl_home.ForeColor = Color.White
+        main.lbl_jumpin.ForeColor = Color.White
         main.btn_opentop.BackgroundImage = System.Drawing.Image.FromFile(".\resources\opentopdark.png")
         main.btn_openright.BackgroundImage = System.Drawing.Image.FromFile(".\resources\openrightdark.png")
         main.btn_openright_downloads.BackgroundImage = System.Drawing.Image.FromFile(".\resources\openrightdark.png")
         main.btn_openright_browse.BackgroundImage = System.Drawing.Image.FromFile(".\resources\openrightdark.png")
         main.btn_closetop.BackgroundImage = System.Drawing.Image.FromFile(".\resources\closetopdark.png")
         main.btn_closeright.BackgroundImage = System.Drawing.Image.FromFile(".\resources\closerightdark.png")
+
+        main.panel_jumpin_middle.BackColor = Color.FromArgb(6, 6, 6)
+        main.picturebox_boxart_jumpin.BackColor = Color.FromArgb(6, 6, 6)
+        main.lbl_jumpin_lastplayed.BackColor = Color.FromArgb(6, 6, 6)
+        main.lbl_jumpin_romname.BackColor = Color.FromArgb(6, 6, 6)
+        main.lbl_jumpin.BackColor = Color.FromArgb(6, 6, 6)
+        main.lbl_jumpin_emuname.BackColor = Color.FromArgb(6, 6, 6)
+        main.picturebox_jumpin_left.BackgroundImage = System.Drawing.Image.FromFile(".\resources\jumpinbackground_left_darkest.png")
+        main.picturebox_jumpin_right.BackgroundImage = System.Drawing.Image.FromFile(".\resources\jumpinbackground_right_darkest.png")
+        main.lbl_jumpin.ForeColor = Color.White
+        main.lbl_jumpin_emuname.ForeColor = Color.White
+        main.lbl_jumpin_lastplayed.ForeColor = Color.White
+        main.lbl_jumpin_romname.ForeColor = Color.White
+
         Dim settings2 As New List(Of String)
         settings2.AddRange(File.ReadAllLines(".\settings.dat"))
         If settings2(5).Contains("1") Then

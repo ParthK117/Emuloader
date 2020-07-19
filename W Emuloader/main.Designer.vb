@@ -199,6 +199,16 @@ Partial Class main
         Me.downloader = New System.ComponentModel.BackgroundWorker()
         Me.thread_emulator_update = New System.ComponentModel.BackgroundWorker()
         Me.panel_home = New System.Windows.Forms.Panel()
+        Me.panel_jumpin = New System.Windows.Forms.Panel()
+        Me.lbl_jumpin_emuname = New System.Windows.Forms.Label()
+        Me.btn_play_jumpin = New System.Windows.Forms.PictureBox()
+        Me.lbl_jumpin_lastplayed = New System.Windows.Forms.Label()
+        Me.lbl_jumpin_romname = New System.Windows.Forms.Label()
+        Me.picturebox_boxart_jumpin = New System.Windows.Forms.PictureBox()
+        Me.lbl_jumpin = New System.Windows.Forms.Label()
+        Me.panel_jumpin_middle = New System.Windows.Forms.PictureBox()
+        Me.picturebox_jumpin_right = New System.Windows.Forms.PictureBox()
+        Me.picturebox_jumpin_left = New System.Windows.Forms.PictureBox()
         Me.lbl_home = New System.Windows.Forms.Label()
         CType(Me.image_logo, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panel_left.SuspendLayout()
@@ -286,6 +296,12 @@ Partial Class main
         Me.panel_download_chart.SuspendLayout()
         CType(Me.picturebox_download, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panel_home.SuspendLayout()
+        Me.panel_jumpin.SuspendLayout()
+        CType(Me.btn_play_jumpin, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.picturebox_boxart_jumpin, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.panel_jumpin_middle, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.picturebox_jumpin_right, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.picturebox_jumpin_left, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'image_logo
@@ -715,6 +731,7 @@ Partial Class main
         Me.checkbox_fullscreen.TabIndex = 9
         Me.checkbox_fullscreen.Text = "Launch in fullscreen"
         Me.checkbox_fullscreen.UseVisualStyleBackColor = True
+        Me.checkbox_fullscreen.Visible = False
         '
         'lbl_installed_size
         '
@@ -2080,11 +2097,130 @@ Partial Class main
         Me.panel_home.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.panel_home.Controls.Add(Me.panel_jumpin)
         Me.panel_home.Controls.Add(Me.lbl_home)
         Me.panel_home.Location = New System.Drawing.Point(250, 40)
         Me.panel_home.Name = "panel_home"
         Me.panel_home.Size = New System.Drawing.Size(1100, 860)
         Me.panel_home.TabIndex = 27
+        '
+        'panel_jumpin
+        '
+        Me.panel_jumpin.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.panel_jumpin.BackColor = System.Drawing.Color.Transparent
+        Me.panel_jumpin.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.panel_jumpin.Controls.Add(Me.lbl_jumpin_emuname)
+        Me.panel_jumpin.Controls.Add(Me.btn_play_jumpin)
+        Me.panel_jumpin.Controls.Add(Me.lbl_jumpin_lastplayed)
+        Me.panel_jumpin.Controls.Add(Me.lbl_jumpin_romname)
+        Me.panel_jumpin.Controls.Add(Me.picturebox_boxart_jumpin)
+        Me.panel_jumpin.Controls.Add(Me.lbl_jumpin)
+        Me.panel_jumpin.Controls.Add(Me.panel_jumpin_middle)
+        Me.panel_jumpin.Controls.Add(Me.picturebox_jumpin_right)
+        Me.panel_jumpin.Controls.Add(Me.picturebox_jumpin_left)
+        Me.panel_jumpin.Location = New System.Drawing.Point(37, 92)
+        Me.panel_jumpin.Name = "panel_jumpin"
+        Me.panel_jumpin.Size = New System.Drawing.Size(1028, 300)
+        Me.panel_jumpin.TabIndex = 3
+        '
+        'lbl_jumpin_emuname
+        '
+        Me.lbl_jumpin_emuname.AutoSize = True
+        Me.lbl_jumpin_emuname.BackColor = System.Drawing.Color.DarkRed
+        Me.lbl_jumpin_emuname.Font = New System.Drawing.Font("Gotham Bold", 20.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_jumpin_emuname.ForeColor = System.Drawing.Color.White
+        Me.lbl_jumpin_emuname.Location = New System.Drawing.Point(278, 117)
+        Me.lbl_jumpin_emuname.Name = "lbl_jumpin_emuname"
+        Me.lbl_jumpin_emuname.Size = New System.Drawing.Size(256, 32)
+        Me.lbl_jumpin_emuname.TabIndex = 11
+        Me.lbl_jumpin_emuname.Text = "Last played never"
+        '
+        'btn_play_jumpin
+        '
+        Me.btn_play_jumpin.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.btn_play_jumpin.Image = CType(resources.GetObject("btn_play_jumpin.Image"), System.Drawing.Image)
+        Me.btn_play_jumpin.Location = New System.Drawing.Point(279, 242)
+        Me.btn_play_jumpin.Name = "btn_play_jumpin"
+        Me.btn_play_jumpin.Size = New System.Drawing.Size(176, 48)
+        Me.btn_play_jumpin.TabIndex = 10
+        Me.btn_play_jumpin.TabStop = False
+        '
+        'lbl_jumpin_lastplayed
+        '
+        Me.lbl_jumpin_lastplayed.AutoSize = True
+        Me.lbl_jumpin_lastplayed.BackColor = System.Drawing.Color.DarkRed
+        Me.lbl_jumpin_lastplayed.Font = New System.Drawing.Font("Gotham Bold", 20.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_jumpin_lastplayed.ForeColor = System.Drawing.Color.White
+        Me.lbl_jumpin_lastplayed.Location = New System.Drawing.Point(278, 84)
+        Me.lbl_jumpin_lastplayed.Name = "lbl_jumpin_lastplayed"
+        Me.lbl_jumpin_lastplayed.Size = New System.Drawing.Size(256, 32)
+        Me.lbl_jumpin_lastplayed.TabIndex = 9
+        Me.lbl_jumpin_lastplayed.Text = "Last played never"
+        '
+        'lbl_jumpin_romname
+        '
+        Me.lbl_jumpin_romname.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.lbl_jumpin_romname.BackColor = System.Drawing.Color.DarkRed
+        Me.lbl_jumpin_romname.Font = New System.Drawing.Font("Gotham Bold", 20.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_jumpin_romname.ForeColor = System.Drawing.Color.White
+        Me.lbl_jumpin_romname.Location = New System.Drawing.Point(278, 51)
+        Me.lbl_jumpin_romname.Name = "lbl_jumpin_romname"
+        Me.lbl_jumpin_romname.Size = New System.Drawing.Size(697, 32)
+        Me.lbl_jumpin_romname.TabIndex = 8
+        Me.lbl_jumpin_romname.Text = "Rom name"
+        '
+        'picturebox_boxart_jumpin
+        '
+        Me.picturebox_boxart_jumpin.BackgroundImage = CType(resources.GetObject("picturebox_boxart_jumpin.BackgroundImage"), System.Drawing.Image)
+        Me.picturebox_boxart_jumpin.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.picturebox_boxart_jumpin.Location = New System.Drawing.Point(32, 50)
+        Me.picturebox_boxart_jumpin.Name = "picturebox_boxart_jumpin"
+        Me.picturebox_boxart_jumpin.Size = New System.Drawing.Size(240, 240)
+        Me.picturebox_boxart_jumpin.TabIndex = 7
+        Me.picturebox_boxart_jumpin.TabStop = False
+        '
+        'lbl_jumpin
+        '
+        Me.lbl_jumpin.AutoSize = True
+        Me.lbl_jumpin.BackColor = System.Drawing.Color.Transparent
+        Me.lbl_jumpin.Font = New System.Drawing.Font("Gotham Bold", 20.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_jumpin.Location = New System.Drawing.Point(26, 15)
+        Me.lbl_jumpin.Name = "lbl_jumpin"
+        Me.lbl_jumpin.Size = New System.Drawing.Size(266, 32)
+        Me.lbl_jumpin.TabIndex = 3
+        Me.lbl_jumpin.Text = "Where you left off"
+        '
+        'panel_jumpin_middle
+        '
+        Me.panel_jumpin_middle.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.panel_jumpin_middle.Location = New System.Drawing.Point(47, 0)
+        Me.panel_jumpin_middle.Name = "panel_jumpin_middle"
+        Me.panel_jumpin_middle.Size = New System.Drawing.Size(935, 300)
+        Me.panel_jumpin_middle.TabIndex = 6
+        Me.panel_jumpin_middle.TabStop = False
+        '
+        'picturebox_jumpin_right
+        '
+        Me.picturebox_jumpin_right.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.picturebox_jumpin_right.BackgroundImage = CType(resources.GetObject("picturebox_jumpin_right.BackgroundImage"), System.Drawing.Image)
+        Me.picturebox_jumpin_right.Location = New System.Drawing.Point(982, 0)
+        Me.picturebox_jumpin_right.Name = "picturebox_jumpin_right"
+        Me.picturebox_jumpin_right.Size = New System.Drawing.Size(46, 300)
+        Me.picturebox_jumpin_right.TabIndex = 5
+        Me.picturebox_jumpin_right.TabStop = False
+        '
+        'picturebox_jumpin_left
+        '
+        Me.picturebox_jumpin_left.BackgroundImage = CType(resources.GetObject("picturebox_jumpin_left.BackgroundImage"), System.Drawing.Image)
+        Me.picturebox_jumpin_left.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
+        Me.picturebox_jumpin_left.Location = New System.Drawing.Point(1, 0)
+        Me.picturebox_jumpin_left.Name = "picturebox_jumpin_left"
+        Me.picturebox_jumpin_left.Size = New System.Drawing.Size(46, 300)
+        Me.picturebox_jumpin_left.TabIndex = 4
+        Me.picturebox_jumpin_left.TabStop = False
         '
         'lbl_home
         '
@@ -2103,13 +2239,13 @@ Partial Class main
         Me.BackColor = System.Drawing.Color.White
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.ClientSize = New System.Drawing.Size(1600, 900)
+        Me.Controls.Add(Me.panel_home)
         Me.Controls.Add(Me.panel_blue_click)
         Me.Controls.Add(Me.panel_top)
         Me.Controls.Add(Me.panel_right)
         Me.Controls.Add(Me.panel_left)
         Me.Controls.Add(Me.panel_play)
         Me.Controls.Add(Me.panel_drag_drop)
-        Me.Controls.Add(Me.panel_home)
         Me.Controls.Add(Me.panel_downloads)
         Me.Controls.Add(Me.panel_browse)
         Me.DoubleBuffered = True
@@ -2217,6 +2353,13 @@ Partial Class main
         CType(Me.picturebox_download, System.ComponentModel.ISupportInitialize).EndInit()
         Me.panel_home.ResumeLayout(False)
         Me.panel_home.PerformLayout()
+        Me.panel_jumpin.ResumeLayout(False)
+        Me.panel_jumpin.PerformLayout()
+        CType(Me.btn_play_jumpin, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.picturebox_boxart_jumpin, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.panel_jumpin_middle, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.picturebox_jumpin_right, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.picturebox_jumpin_left, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -2396,4 +2539,14 @@ Partial Class main
     Friend WithEvents thread_emulator_update As System.ComponentModel.BackgroundWorker
     Friend WithEvents panel_home As Panel
     Friend WithEvents lbl_home As Label
+    Friend WithEvents panel_jumpin As Panel
+    Friend WithEvents lbl_jumpin As Label
+    Friend WithEvents picturebox_jumpin_right As PictureBox
+    Friend WithEvents picturebox_jumpin_left As PictureBox
+    Friend WithEvents panel_jumpin_middle As PictureBox
+    Friend WithEvents picturebox_boxart_jumpin As PictureBox
+    Friend WithEvents lbl_jumpin_lastplayed As Label
+    Friend WithEvents lbl_jumpin_romname As Label
+    Friend WithEvents btn_play_jumpin As PictureBox
+    Friend WithEvents lbl_jumpin_emuname As Label
 End Class

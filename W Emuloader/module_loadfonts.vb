@@ -70,7 +70,8 @@
         main.listbox_installedroms.Font = spartanfont16
         main.listbox_search.Font = spartanfont16
         main.lbl_last_played.Font = spartanfont16
-
+        main.lbl_jumpin_emuname.Font = spartanfont16
+        main.lbl_jumpin_lastplayed.Font = spartanfont16
         Dim spartanfont12 As New System.Drawing.Font(main.spartan.Families(0), 12)
         main.listbox_queue.Font = spartanfont12
 
@@ -111,6 +112,9 @@
         main.btn_all.Font = gothamfont14
         main.btn_region.Font = gothamfont14
 
+        Dim gothamfont20 As New System.Drawing.Font(main.gotham.Families(0), 20)
+        main.lbl_jumpin.Font = gothamfont20
+        main.lbl_jumpin_romname.Font = gothamfont20
         Dim gothamfont10 As New System.Drawing.Font(main.gotham.Families(0), 10)
         main.lbl_information.Font = gothamfont10
 
@@ -118,7 +122,7 @@
         main.lbl_play.Font = gothamfont28
         main.lbl_browse.Font = gothamfont28
         main.lbl_downloads.Font = gothamfont28
-
+        main.lbl_home.Font = gothamfont28
         Dim gothamfont11 As New System.Drawing.Font(main.gotham.Families(0), 11)
         main.lbl_about.Font = gothamfont11
         main.lbl_github.Font = gothamfont11
