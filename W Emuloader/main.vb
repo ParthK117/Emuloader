@@ -21,25 +21,26 @@ Public Class main
     Public Shared global_settings As New List(Of String)
     Public Shared boxart_url As String
 
-
-    '0.1.0
-
     Private Sub main_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        'Check if windows version is above 7
         If Environment.OSVersion.ToString.Contains("6.1") Then
             MessageBox.Show("Windows 7 and lower are not supported, Sorry.")
             Application.Exit()
         End If
         ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12
+        'Call check_for_updates sub which also builds and applies settings
         Call check_for_updates()
-        panel_play.SendToBack()
+        'Loads fonts fro module_loadfonts
         Call main_loadfonts()
+        'Loads loadconfig from load_functions
         Call loadconfig()
-
+        'Call from module_loadfonts
         Call main_loadcolours()
-
+        'Adds roms to browse menu
         Call load_roms_list()
+        'Enables drag and drop
         Me.AllowDrop = True
-
+        'Download log for download queue listview
         If File.Exists(".\downloadlog.dat") Then
             Dim history As String() = File.ReadAllLines(".\downloadlog.dat")
             For Each x In history
@@ -50,7 +51,7 @@ Public Class main
             listbox_queue.AutoResizeColumn(2, ColumnHeaderAutoResizeStyle.HeaderSize)
             listbox_queue.Columns.Item(4).Width = 0
         End If
-
+        'add settings.dat to global variable
         global_settings.AddRange(File.ReadAllLines(".\settings.dat"))
         Dim firsttime As String() = (global_settings(6).Split("="))
         If firsttime(1).Contains("1") Then
@@ -61,38 +62,50 @@ Public Class main
             End If
 
             System.IO.File.Create(".\settings.dat").Dispose()
-            Dim new_settings As String = global_settings(0) & vbNewLine & global_settings(1) & vbNewLine & global_settings(2) & vbNewLine & global_settings(3) & vbNewLine & global_settings(4) & vbNewLine & global_settings(5) & vbNewLine & global_settings(6) & vbNewLine & global_settings(7) & vbNewLine & global_settings(8) & vbNewLine & global_settings(9) & vbNewLine & global_settings(10) & vbNewLine & global_settings(11)
+            Dim new_settings As String = global_settings(0) & vbNewLine & global_settings(1) & vbNewLine & global_settings(2) & vbNewLine & global_settings(3) & vbNewLine & global_settings(4) & vbNewLine & global_settings(5) & vbNewLine & global_settings(6) & vbNewLine & global_settings(7) & vbNewLine & global_settings(8) & vbNewLine & global_settings(9) & vbNewLine & global_settings(10) & vbNewLine & global_settings(11) & vbNewLine & global_settings(12)
             File.WriteAllText(".\settings.dat", new_settings)
         End If
+        'Calls skin function to set a skin
         Dim checkbox_skin As String() = (global_settings(1).Split("="))
-        If checkbox_skin(1) = "1" Then
-            Call darkmode()
-            dark = 1
-        ElseIf checkbox_skin(1) = "2" Then
-            Call darkermode()
-            dark = 2
-        ElseIf checkbox_skin(1) = "0" Then
-            Call lightmode()
-        ElseIf checkbox_skin(1) = "3" Then
-            Call darkestmode()
-            dark = 3
-        End If
+        Select Case checkbox_skin(1)
+            Case 0
+                Call lightmode()
+            Case 1
+                Call darkmode()
+                dark = 1
+            Case 2
+                Call darkermode()
+                dark = 2
+            Case 3
+                Call darkestmode()
+                dark = 3
+        End Select
+        'Checks if windows bar or mac bar should be shown
         Dim checkbox_topbar As String() = (global_settings(7).Split("="))
         If checkbox_topbar(1) = "1" Then
             Me.FormBorderStyle = FormBorderStyle.Sizable
             paneL_menubar.Visible = False
         End If
+
+        'Sets version number label using version_number global variable
         lbl_version.Text = "v" & version_number
+
+        'sets network usage title forecolor
         lbl_networkusage.ForeColor = labelgrey
+
+        'sets labels to the middle of their panels
         lbl_nothing.Location = New Point((panel_downloads.Width - lbl_nothing.Width) \ 2, (panel_downloads.Height - lbl_nothing.Height) \ 2)
         picturebox_patreon.Location = New Point((panel_left.Width - picturebox_patreon.Width) \ 2, 730)
         picturebox_tungsten.Location = New Point((panel_left.Width - picturebox_tungsten.Width) \ 2, 675)
-
+        'To show big picture mode
         '    Dim wpfwindow = New mainux()
         '   wpfwindow.Show()
+
+        'Calls jumpin updater from emulator updaters which populates the lastplayed section on the home panel.
         Call jumpin_updater()
     End Sub
 
+    'dragging of borderless panel
     Private Sub panel_top_MouseDown(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles panel_top.MouseDown
         drag = True
         mousex = Windows.Forms.Cursor.Position.X - Me.Left
@@ -106,13 +119,6 @@ Public Class main
     End Sub
     Private Sub panel_top_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles panel_top.MouseUp
         drag = False
-    End Sub
-
-
-
-    'About button
-    Private Sub btn_about_Click(sender As Object, e As EventArgs) Handles btn_about.Click
-
     End Sub
 
     Private Sub btn_about_MouseEnter(sender As Object, e As EventArgs) Handles btn_about.MouseEnter
@@ -133,77 +139,83 @@ Public Class main
 
 
     Private Sub btn_maximise_MouseEnter(sender As Object, e As EventArgs) Handles btn_maximise.MouseEnter
-        If dark = 1 Then
-            paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\greenclickdark.png")
-        ElseIf dark = 2 Then
-            paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\greenclickdarker.png")
-        ElseIf dark = 3 Then
-            paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\greenclickdarkest.png")
-        Else
-            paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\greenclick.png")
-        End If
+        Select Case dark
+            Case 0
+                paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\greenclick.png")
+            Case 1
+                paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\greenclickdark.png")
+            Case 2
+                paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\greenclickdarker.png")
+            Case 3
+                paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\greenclickdarkest.png")
+        End Select
 
     End Sub
 
     Private Sub btn_maximise_MouseLeave(sender As Object, e As EventArgs) Handles btn_maximise.MouseLeave
-        If dark = "1" Then
-            paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\exitdark.png")
-        ElseIf dark = 2 Then
-            paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\exitdarker.png")
-        ElseIf dark = 3 Then
-            paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\exitdarkest.png")
-        Else
-            paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\exit.png")
-        End If
+        Select Case dark
+            Case 0
+                paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\exit.png")
+            Case 1
+                paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\exitdark.png")
+            Case 2
+                paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\exitdarker.png")
+            Case 3
+                paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\exitdarkest.png")
+        End Select
     End Sub
 
     Private Sub btn_minimise_MouseEnter(sender As Object, e As EventArgs) Handles btn_minimise.MouseEnter
-        If dark = "1" Then
-            paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\yellowclickdark.png")
-        ElseIf dark = 2 Then
-            paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\yellowclickdarker.png")
-        ElseIf dark = 3 Then
-            paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\yellowclickdarkest.png")
-        Else
-            paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\yellowclick.png")
-        End If
+        Select Case dark
+            Case 0
+                paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\yellowclick.png")
+            Case 1
+                paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\yellowclickdark.png")
+            Case 2
+                paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\yellowclickdarker.png")
+            Case 3
+                paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\yellowclickdarkest.png")
+        End Select
     End Sub
 
     Private Sub btn_minimise_MouseLeave(sender As Object, e As EventArgs) Handles btn_minimise.MouseLeave
-        If dark = "1" Then
-            paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\exitdark.png")
-        ElseIf dark = 2 Then
-            paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\exitdarker.png")
-        ElseIf dark = 3 Then
-            paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\exitdarkest.png")
-        Else
-            paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\exit.png")
-        End If
+        Select Case dark
+            Case 0
+                paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\exit.png")
+            Case 1
+                paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\exitdark.png")
+            Case 2
+                paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\exitdarker.png")
+            Case 3
+                paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\exitdarkest.png")
+        End Select
     End Sub
 
 
     Private Sub btn_exit_MouseLeave(sender As Object, e As EventArgs) Handles btn_exit.MouseLeave
-        If dark = "1" Then
-            paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\exitdark.png")
-        ElseIf dark = 2 Then
-            paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\exitdarker.png")
-        ElseIf dark = 3 Then
-            paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\exitdarkest.png")
-        Else
-            paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\exit.png")
-        End If
+        Select Case dark
+            Case 0
+                paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\exit.png")
+            Case 1
+                paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\exitdark.png")
+            Case 2
+                paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\exitdarker.png")
+            Case 3
+                paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\exitdarkest.png")
+        End Select
     End Sub
 
     Private Sub btn_exit_MouseEnter(sender As Object, e As EventArgs) Handles btn_exit.MouseEnter
-        If dark = "1" Then
-            paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\redclickdark.png")
-        ElseIf dark = 2 Then
-            paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\redclickdarker.png")
-        ElseIf dark = 3 Then
-            paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\redclickdarkest.png")
-        Else
-            paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\redclick.png")
-        End If
+        Select Case dark
+            Case 0
+                paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\redclick.png")
+            Case 1
+                paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\redclickdark.png")
+            Case 2
+                paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\redclickdarker.png")
+            Case 3
+                paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\redclickdarkest.png")
+        End Select
     End Sub
 
     Private Sub btn_newemu_MouseEnter(sender As Object, e As EventArgs) Handles btn_newemu.MouseEnter
@@ -217,15 +229,16 @@ Public Class main
     End Sub
 
     Private Sub btn_newemu_MouseDown(sender As Object, e As MouseEventArgs) Handles btn_newemu.MouseDown
-
+        If ((global_settings(12).Split("="))(1)) = "1" Then
+            MessageBox.Show("You cannot download new emulators in offline mode.")
+        Else
+            newemulator.Show()
+        End If
         btn_newemu.Image = System.Drawing.Image.FromFile(".\resources\newemuclick.png")
-        newemulator.Show()
-
     End Sub
 
     Private Sub btn_newemu_MouseUp(sender As Object, e As MouseEventArgs) Handles btn_newemu.MouseUp
         btn_newemu.Image = System.Drawing.Image.FromFile(".\resources\newemuwhite.png")
-
     End Sub
 
     Public Sub emu_one_Click(sender As Object, e As EventArgs) Handles emu_one.Click
@@ -236,23 +249,18 @@ Public Class main
         ElseIf dark = 2 Or dark = 3 Then
             emu_one.ForeColor = Color.White
         Else
-
             emu_one.ForeColor = Color.Black
         End If
-
-
     End Sub
 
     Public Sub emu_two_Click(sender As Object, e As EventArgs) Handles emu_two.Click
         tab_index = 1
         Call module_emutabs.load_emutab()
-
         If dark = 1 Then
             emu_two.ForeColor = Color.FromArgb(23, 191, 99)
         ElseIf dark = 2 Or dark = 3 Then
             emu_two.ForeColor = Color.White
         Else
-
             emu_two.ForeColor = Color.Black
         End If
     End Sub
@@ -265,7 +273,6 @@ Public Class main
         ElseIf dark = 2 Or dark = 3 Then
             emu_three.ForeColor = Color.White
         Else
-
             emu_three.ForeColor = Color.Black
         End If
     End Sub
@@ -278,7 +285,6 @@ Public Class main
         ElseIf dark = 2 Or dark = 3 Then
             emu_four.ForeColor = Color.White
         Else
-
             emu_four.ForeColor = Color.Black
         End If
     End Sub
@@ -291,7 +297,6 @@ Public Class main
         ElseIf dark = 2 Or dark = 3 Then
             emu_five.ForeColor = Color.White
         Else
-
             emu_five.ForeColor = Color.Black
         End If
     End Sub
@@ -304,7 +309,6 @@ Public Class main
         ElseIf dark = 2 Or dark = 3 Then
             emu_six.ForeColor = Color.White
         Else
-
             emu_six.ForeColor = Color.Black
         End If
     End Sub
@@ -317,7 +321,6 @@ Public Class main
         ElseIf dark = 2 Or dark = 3 Then
             emu_seven.ForeColor = Color.White
         Else
-
             emu_seven.ForeColor = Color.Black
         End If
     End Sub
@@ -330,7 +333,6 @@ Public Class main
         ElseIf dark = 2 Or dark = 3 Then
             emu_eight.ForeColor = Color.White
         Else
-
             emu_eight.ForeColor = Color.Black
         End If
     End Sub
@@ -343,7 +345,6 @@ Public Class main
         ElseIf dark = 2 Or dark = 3 Then
             emu_nine.ForeColor = Color.White
         Else
-
             emu_nine.ForeColor = Color.Black
         End If
     End Sub
@@ -355,7 +356,6 @@ Public Class main
         If thread_emulator_update.IsBusy = False Then
             btn_play.Image = System.Drawing.Image.FromFile(".\resources\playblack.gif")
         End If
-
         GC.Collect()
     End Sub
 
@@ -379,24 +379,16 @@ Public Class main
         about.Show()
     End Sub
 
-    Private Sub lbl_twitter_Click(sender As Object, e As EventArgs)
-        Process.Start("https://twitter.com/drgreenboys")
-    End Sub
-
-    Private Sub lbl_patreon_Click(sender As Object, e As EventArgs)
-        Process.Start("https://patreon.com/emuloader")
-    End Sub
-
     Private Sub lbl_github_Click(sender As Object, e As EventArgs) Handles lbl_github.Click
-        Process.Start("https://github.com/ParthK117/W-Emuloader")
+        If ((global_settings(12).Split("="))(1)) = "1" Then
+            MessageBox.Show("This feature is not available in offline mode.")
+        Else
+            Process.Start("https://github.com/ParthK117/W-Emuloader")
+        End If
     End Sub
 
     Private Sub btn_import_MouseDown(sender As Object, e As MouseEventArgs) Handles btn_import.MouseDown
-
         panel_import_click.Visible = True
-
-
-
     End Sub
 
     Private Sub btn_import_MouseEnter(sender As Object, e As EventArgs) Handles btn_import.MouseEnter
@@ -437,62 +429,74 @@ Public Class main
     End Sub
 
     Private Sub btn_browse_Click(sender As Object, e As EventArgs) Handles btn_browse.Click
-        tab_browse.Visible = True
-        panel_cancel.Visible = False
-        panel_browse.BringToFront()
-        Dim emutabs = {emu_one, emu_two, emu_three, emu_four, emu_five, emu_six, emu_seven, emu_eight, emu_nine}
-        For Each x In emutabs
-            x.ForeColor = labelgrey
-        Next
-        panel_rom_info.Visible = True
-        panel_rom_rightclick.Visible = False
-        panel_import_click.Visible = False
-        btn_showdownloads.ForeColor = main.labelgrey
-        btn_parameters.ForeColor = main.labelgrey
+        If ((global_settings(12).Split("="))(1)) = "1" Then
+            MessageBox.Show("You cannot download new games in offline mode.")
+        Else
+            tab_browse.Visible = True
+            panel_cancel.Visible = False
+            panel_browse.BringToFront()
+            Dim emutabs = {emu_one, emu_two, emu_three, emu_four, emu_five, emu_six, emu_seven, emu_eight, emu_nine}
+            For Each x In emutabs
+                x.ForeColor = labelgrey
+            Next
+            panel_rom_info.Visible = True
+            panel_rom_rightclick.Visible = False
+            panel_import_click.Visible = False
+            btn_showdownloads.ForeColor = main.labelgrey
+            btn_parameters.ForeColor = main.labelgrey
+        End If
+
     End Sub
 
     Private Sub load_roms_list()
+        'This loads roms into the browse menu and is loaded in on main_load.
+        'If lists directory doesn't exist the directory is made.
         If Directory.Exists(".\lists\") = False Then
             Directory.CreateDirectory(".\lists")
-
         End If
+        'For every list file in the \lists\ directory, add the contents of the list file into imported_list_downloads, one entry for each game. 
+        'Afterwards, Split the first entry (list metadata) on every occurance of #, and if # is contained then set showsource to true. This allows backwards compatibility with older lists that contained no metadata.
         Dim list_directory As New DirectoryInfo(".\lists\")
-        For Each f In list_directory.GetFiles()
-            Dim imported_list_downloads As String() = File.ReadAllLines(".\lists\" & f.ToString)
+        For Each list In list_directory.GetFiles()
+            Dim imported_list_downloads As New List(Of String)
+            imported_list_downloads.AddRange(File.ReadAllLines(".\lists\" & list.ToString))
             Dim showsource As Boolean = False
             Dim metadata As String()
             If imported_list_downloads(0).Contains("#") Then
                 metadata = Split(imported_list_downloads(0), "#")
-
+                'If source metadata is found, showsource is flipped to true
                 showsource = True
+                imported_list_downloads.RemoveAt(0)
             End If
 
 
             Dim region As String
-            For Each x In imported_list_downloads
-                If Not x.Contains("#") Then
-                    Dim x_split As String() = Split(x, ",")
-                    '  listbox_availableroms.Items.Add(x_split(0))
-                    Dim file_source As String = x_split(3)
-                    If file_source.Contains("google") Then
-                        file_source = "Google Drive"
-                    ElseIf showsource = True Then
-                        file_source = metadata(0)
-                    Else
-                        file_source = "Other"
-                    End If
-                    If x_split(0).Contains("Europe") Or x_split(0).Contains("(E)") Or x_split(0).Contains("EUR") Or x_split(0).Contains("Europe") Or x_split(0).Contains("(F)") Or x_split(0).Contains("(e)") Or x_split(0).Contains("Ge") Or x_split(0).Contains("Fr") Or x_split(0).Contains("It") Or x_split(0).Contains("Es") Then
-                        region = "Europe"
-                    ElseIf x_split(0).contains("USA") Or x_split(0).contains("(U)") Or x_split(0).contains("usa") Or x_split(0).contains("(u)") Or x_split(0).contains("(usa)") Then
-                        region = "USA"
-                    ElseIf x_split(0).contains("JPN") Or x_split(0).contains("(J)") Or x_split(0).contains("japan") Or x_split(0).contains("(j)") Or x_split(0).contains("(Japan)") Then
-                        region = "Japan"
-                    Else
-                        region = "Unknown"
-                    End If
-                    listbox_availableroms.Items.Add(New ListViewItem(New String() {x_split(0), x_split(1), x_split(2), file_source, x_split(3), region}))
+            'For every entry in imported list downloads (x), import into listview
+            For Each entry In imported_list_downloads
+                Dim entry_split As String() = Split(entry, ",")
+                Dim file_source As String = entry_split(3)
+                If file_source.Contains("google") Then
+                    'Hardcode google drive recognition from url.
+                    file_source = "Google Drive"
+                ElseIf showsource = True Then
+                    file_source = metadata(0)
+                Else
+                    file_source = "Other"
                 End If
+                'If keywords are found in the title of the game, the region string is changed accordingly.
+                If entry_split(0).Contains("Europe") Or entry_split(0).Contains("(E)") Or entry_split(0).Contains("EUR") Or entry_split(0).Contains("Europe") Or entry_split(0).Contains("(F)") Or entry_split(0).Contains("(e)") Or entry_split(0).Contains("Ge") Or entry_split(0).Contains("Fr") Or entry_split(0).Contains("It") Or entry_split(0).Contains("Es") Then
+                    region = "Europe"
+                ElseIf entry_split(0).Contains("USA") Or entry_split(0).Contains("(U)") Or entry_split(0).Contains("usa") Or entry_split(0).Contains("(u)") Or entry_split(0).Contains("(usa)") Then
+                    region = "USA"
+                ElseIf entry_split(0).Contains("JPN") Or entry_split(0).Contains("(J)") Or entry_split(0).Contains("japan") Or entry_split(0).Contains("(j)") Or entry_split(0).Contains("(Japan)") Then
+                    region = "Japan"
+                Else
+                    region = "Unknown"
+                End If
+                'The game is added to the listview.
+                listbox_availableroms.Items.Add(New ListViewItem(New String() {entry_split(0), entry_split(1), entry_split(2), file_source, entry_split(3), region}))
             Next
+            'The listvie is autosized first by the content of each column, then the size column is resized to how big 'size' appears, and lastly the url column width is set to 0
             listbox_availableroms.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent)
             listbox_availableroms.AutoResizeColumn(2, ColumnHeaderAutoResizeStyle.HeaderSize)
             listbox_availableroms.Columns.Item(4).Width = 0
@@ -1071,7 +1075,8 @@ x.SubItems(4).Text, "Queued", timestamp}))
         settings.AddRange(File.ReadAllLines(".\settings.dat"))
         Dim checkbox_loadart As String() = (settings(0).Split("="))
         Dim checkbox_od As String() = (settings(11).Split("="))
-        If checkbox_loadart(1) = "1" And checkbox_od(1) = "1" Then
+        Dim checkbox_offline As String() = (settings(12).Split("="))
+        If checkbox_loadart(1) = "1" And checkbox_od(1) = "1" And Not checkbox_offline(1) = "1" Then
 
 
             If File.Exists(".\roms\" & currenttab_metadata(1) & "\metadata\boxartmatches.eldr") Then
@@ -1108,7 +1113,7 @@ x.SubItems(4).Text, "Queued", timestamp}))
 
 
             End If
-        ElseIf checkbox_loadart(1) = "1" And checkbox_od(1) = "0" Then
+        ElseIf checkbox_loadart(1) = "1" And checkbox_od(1) = "0" And Not checkbox_offline(1) = "1" Then
 
             If File.Exists(".\roms\" & currenttab_metadata(1) & "\metadata\boxartmatches.eldr") Then
                 Dim boxartmatches As String = File.ReadAllText(".\roms\" & currenttab_metadata(1) & "\metadata\boxartmatches.eldr")
@@ -1341,7 +1346,7 @@ x.SubItems(4).Text, "Queued", timestamp}))
     End Sub
     Public Sub check_for_updates()
         If Not File.Exists(".\settings.dat") Then
-            Dim new_settings As String = "load=1" & vbNewLine & "dark=0" & vbNewLine & "version=" & version_number & vbNewLine & "autoupdate=1" & vbNewLine & "exitonx=0" & vbNewLine & "fancydl=0" & vbNewLine & "firstime=1" & vbNewLine & "windowsbar=0" & vbNewLine & "instantdelivery=1" & vbNewLine & "shop=google" & vbNewLine & "affiliate=0" & vbNewLine & "boxartod=0"
+            Dim new_settings As String = "load=1" & vbNewLine & "dark=0" & vbNewLine & "version=" & version_number & vbNewLine & "autoupdate=1" & vbNewLine & "exitonx=0" & vbNewLine & "fancydl=0" & vbNewLine & "firstime=1" & vbNewLine & "windowsbar=0" & vbNewLine & "instantdelivery=1" & vbNewLine & "shop=google" & vbNewLine & "affiliate=0" & vbNewLine & "boxartod=0" & vbNewLine & "offline=0"
             File.WriteAllText(".\settings.dat", new_settings)
         Else
             Dim settings As New List(Of String)
@@ -1350,18 +1355,18 @@ x.SubItems(4).Text, "Queued", timestamp}))
             If Not settings(2).Contains(version_number) Then
                 File.Delete(".\settings.dat")
                 Try
-                    Dim new_settings As String = settings(0) & vbNewLine & settings(1) & vbNewLine & "version=" & version_number & vbNewLine & settings(3) & vbNewLine & settings(4) & vbNewLine & settings(5) & vbNewLine & settings(6) & vbNewLine & settings(7) & vbNewLine & settings(8) & vbNewLine & settings(9) & vbNewLine & settings(10) & vbNewLine & settings(11)
+                    Dim new_settings As String = settings(0) & vbNewLine & settings(1) & vbNewLine & "version=" & version_number & vbNewLine & settings(3) & vbNewLine & settings(4) & vbNewLine & settings(5) & vbNewLine & settings(6) & vbNewLine & settings(7) & vbNewLine & settings(8) & vbNewLine & settings(9) & vbNewLine & settings(10) & vbNewLine & settings(11) & vbNewLine & settings(12)
                     File.WriteAllText(".\settings.dat", new_settings)
                 Catch ex As Exception
                     MessageBox.Show("The new update is incompatible with your old settings, sorry. Launching first-time setup.")
-                    Dim new_settings As String = "load=1" & vbNewLine & "dark=0" & vbNewLine & "version=" & version_number & vbNewLine & "autoupdate=1" & vbNewLine & "exitonx=0" & vbNewLine & "fancydl=0" & vbNewLine & "firstime=1" & vbNewLine & "windowsbar=0" & vbNewLine & "instantdelivery=1" & vbNewLine & "shop=google" & vbNewLine & "affiliate=0" & vbNewLine & "boxartod=0"
+                    Dim new_settings As String = "load=1" & vbNewLine & "dark=0" & vbNewLine & "version=" & version_number & vbNewLine & "autoupdate=1" & vbNewLine & "exitonx=0" & vbNewLine & "fancydl=0" & vbNewLine & "firstime=1" & vbNewLine & "windowsbar=0" & vbNewLine & "instantdelivery=1" & vbNewLine & "shop=google" & vbNewLine & "affiliate=0" & vbNewLine & "boxartod=0" & vbNewLine & "offline=0"
                     File.WriteAllText(".\settings.dat", new_settings)
                 End Try
             End If
         End If
         Dim settings2 As New List(Of String)
         settings2.AddRange(File.ReadAllLines(".\settings.dat"))
-        If settings2(3).Contains("1") Then
+        If settings2(3).Contains("1") And Not settings2(12).Contains("1") Then
             Try
                 Dim getupdate As Process
                 Dim p As New ProcessStartInfo
@@ -2195,29 +2200,30 @@ x.SubItems(4).Text, "Queued", timestamp}))
     End Sub
 
     Private Sub thread_emulator_update_DoWork(sender As Object, e As DoWorkEventArgs) Handles thread_emulator_update.DoWork
-
-        Dim arguments As String() = (e.Argument)
-        Using vba_m = New WebClient()
-            Try
-                vba_m.DownloadFile(arguments(0), ".\" & main.currenttab_metadata(4) & "\update.zip")
-                vba_m.Dispose()
-            Catch ex As Exception
-                vba_m.Dispose()
-                MessageBox.Show("Can't find Download, exiting.")
-            End Try
-        End Using
-
-        If File.Exists(".\" & main.currenttab_metadata(4) & "\update.zip") Then
-            Dim zipfilepath As String = ".\" & main.currenttab_metadata(4) & "\update.zip"
-            Dim extractto As String = ".\" & main.currenttab_metadata(4)
-            Using zipfile3 = ZipFile.OpenRead(zipfilepath)
-                For Each entry As ZipArchiveEntry In zipfile3.Entries
-
-
-                    entry.ExtractToFile(Path.Combine(extractto, entry.FullName), True)
-
-                Next
+        If Not global_settings(12).Split("=")(1) = "1" Then
+            Dim arguments As String() = (e.Argument)
+            Using vba_m = New WebClient()
+                Try
+                    vba_m.DownloadFile(arguments(0), ".\" & main.currenttab_metadata(4) & "\update.zip")
+                    vba_m.Dispose()
+                Catch ex As Exception
+                    vba_m.Dispose()
+                    MessageBox.Show("Can't find Download, exiting.")
+                End Try
             End Using
+
+            If File.Exists(".\" & main.currenttab_metadata(4) & "\update.zip") Then
+                Dim zipfilepath As String = ".\" & main.currenttab_metadata(4) & "\update.zip"
+                Dim extractto As String = ".\" & main.currenttab_metadata(4)
+                Using zipfile3 = ZipFile.OpenRead(zipfilepath)
+                    For Each entry As ZipArchiveEntry In zipfile3.Entries
+
+
+                        entry.ExtractToFile(Path.Combine(extractto, entry.FullName), True)
+
+                    Next
+                End Using
+            End If
         End If
     End Sub
 

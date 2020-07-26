@@ -27,6 +27,7 @@ Partial Class settings
         Me.btn_save = New System.Windows.Forms.PictureBox()
         Me.listbox_settings = New System.Windows.Forms.ListBox()
         Me.panel_general = New System.Windows.Forms.Panel()
+        Me.checkbox_offline = New System.Windows.Forms.CheckBox()
         Me.combobox_boxart_method = New System.Windows.Forms.ComboBox()
         Me.checkbox_affiliate = New System.Windows.Forms.CheckBox()
         Me.combobox_provider = New System.Windows.Forms.ComboBox()
@@ -46,6 +47,7 @@ Partial Class settings
         Me.load_skin = New System.Windows.Forms.CheckBox()
         Me.btn_lightmode = New System.Windows.Forms.PictureBox()
         Me.btn_darkmode = New System.Windows.Forms.PictureBox()
+        Me.CheckBox1 = New System.Windows.Forms.CheckBox()
         CType(Me.btn_save, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panel_general.SuspendLayout()
         Me.panel_appearance.SuspendLayout()
@@ -88,6 +90,8 @@ Partial Class settings
         '
         'panel_general
         '
+        Me.panel_general.Controls.Add(Me.CheckBox1)
+        Me.panel_general.Controls.Add(Me.checkbox_offline)
         Me.panel_general.Controls.Add(Me.combobox_boxart_method)
         Me.panel_general.Controls.Add(Me.checkbox_affiliate)
         Me.panel_general.Controls.Add(Me.combobox_provider)
@@ -99,6 +103,17 @@ Partial Class settings
         Me.panel_general.Name = "panel_general"
         Me.panel_general.Size = New System.Drawing.Size(689, 372)
         Me.panel_general.TabIndex = 6
+        '
+        'checkbox_offline
+        '
+        Me.checkbox_offline.AutoSize = True
+        Me.checkbox_offline.Font = New System.Drawing.Font("Aileron", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.checkbox_offline.Location = New System.Drawing.Point(12, 295)
+        Me.checkbox_offline.Name = "checkbox_offline"
+        Me.checkbox_offline.Size = New System.Drawing.Size(138, 27)
+        Me.checkbox_offline.TabIndex = 7
+        Me.checkbox_offline.Text = "Offline mode"
+        Me.checkbox_offline.UseVisualStyleBackColor = True
         '
         'combobox_boxart_method
         '
@@ -113,9 +128,10 @@ Partial Class settings
         'checkbox_affiliate
         '
         Me.checkbox_affiliate.AutoSize = True
+        Me.checkbox_affiliate.Font = New System.Drawing.Font("Aileron", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.checkbox_affiliate.Location = New System.Drawing.Point(12, 262)
         Me.checkbox_affiliate.Name = "checkbox_affiliate"
-        Me.checkbox_affiliate.Size = New System.Drawing.Size(330, 17)
+        Me.checkbox_affiliate.Size = New System.Drawing.Size(581, 27)
         Me.checkbox_affiliate.TabIndex = 5
         Me.checkbox_affiliate.Text = "Use our affiliate code when possible (help support development!)"
         Me.checkbox_affiliate.UseVisualStyleBackColor = True
@@ -290,6 +306,17 @@ Partial Class settings
         Me.btn_darkmode.TabIndex = 7
         Me.btn_darkmode.TabStop = False
         '
+        'CheckBox1
+        '
+        Me.CheckBox1.AutoSize = True
+        Me.CheckBox1.Font = New System.Drawing.Font("Aileron", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CheckBox1.Location = New System.Drawing.Point(12, 326)
+        Me.CheckBox1.Name = "CheckBox1"
+        Me.CheckBox1.Size = New System.Drawing.Size(191, 27)
+        Me.CheckBox1.TabIndex = 8
+        Me.CheckBox1.Text = "Data hoarder mode"
+        Me.CheckBox1.UseVisualStyleBackColor = True
+        '
         'settings
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -351,4 +378,6 @@ Partial Class settings
     Friend WithEvents combobox_provider As ComboBox
     Friend WithEvents lbl_provider As Label
     Friend WithEvents combobox_boxart_method As ComboBox
+    Friend WithEvents checkbox_offline As CheckBox
+    Friend WithEvents CheckBox1 As CheckBox
 End Class

@@ -539,6 +539,7 @@ Partial Class main
         Me.tab_browse.Size = New System.Drawing.Size(6, 40)
         Me.tab_browse.TabIndex = 4
         Me.tab_browse.TabStop = False
+        Me.tab_browse.Visible = False
         '
         'btn_browse
         '

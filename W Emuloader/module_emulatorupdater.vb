@@ -8,8 +8,11 @@ Module module_emulatorupdater
         Dim uptodate_list As String()
         Using currentlinks = New WebClient()
             Try
-                currentlinks.DownloadFile("https://tungstencore.com/cdn/emulatorlinks.txt", ".\modules\emulatorlinks.txt")
-                currentlinks.Dispose()
+                If Not main.global_settings(12).Split("=")(1) = "1" Then
+                    currentlinks.DownloadFile("https://tungstencore.com/cdn/emulatorlinks.txt", ".\modules\emulatorlinks.txt")
+                    currentlinks.Dispose()
+                End If
+
                 uptodate_list = File.ReadAllLines(".\modules\emulatorlinks.txt")
             Catch ex As Exception
             End Try
@@ -32,6 +35,78 @@ Module module_emulatorupdater
 
 
             If Not main.currenttab_metadata(5) = newversion(4) Then
+                Dim arguments As String()
+                arguments = {newversion(0)}
+
+                main.thread_emulator_update.RunWorkerAsync(arguments)
+            Else
+                Call main.launch_emulator()
+            End If
+        ElseIf main.currenttab_metadata(0) = "Citra" Then
+            Dim newversion As String() = uptodate_list(1).Split(",")
+
+
+            If Not main.currenttab_metadata(5) = newversion(4) Then
+                Dim arguments As String()
+                arguments = {newversion(0)}
+
+                main.thread_emulator_update.RunWorkerAsync(arguments)
+            Else
+                Call main.launch_emulator()
+            End If
+        ElseIf main.currenttab_metadata(0) = "DeSmuME" Then
+            Dim newversion As String() = uptodate_list(2).Split(",")
+
+
+            If Not main.currenttab_metadata(5) = newversion(4) Then
+                Dim arguments As String()
+                arguments = {newversion(0)}
+
+                main.thread_emulator_update.RunWorkerAsync(arguments)
+            Else
+                Call main.launch_emulator()
+            End If
+        ElseIf main.currenttab_metadata(0) = "Project64" Then
+            Dim newversion As String() = uptodate_list(3).Split(",")
+
+
+            If Not main.currenttab_metadata(5) = newversion(4) Then
+                Dim arguments As String()
+                arguments = {newversion(0)}
+
+                main.thread_emulator_update.RunWorkerAsync(arguments)
+            Else
+                Call main.launch_emulator()
+            End If
+        ElseIf main.currenttab_metadata(0) = "PPSSPP" Then
+            Dim newversion As String() = uptodate_list(4).Split(",")
+
+
+            If Not main.currenttab_metadata(5) = newversion(4) Then
+                Dim arguments As String()
+                arguments = {newversion(0)}
+
+                main.thread_emulator_update.RunWorkerAsync(arguments)
+            Else
+                Call main.launch_emulator()
+            End If
+        ElseIf main.currenttab_metadata(0) = "Dolphin" Then
+            Dim newversion As String() = uptodate_list(4).Split(",")
+
+
+            If Not main.currenttab_metadata(5) = newversion(5) Then
+                Dim arguments As String()
+                arguments = {newversion(0)}
+
+                main.thread_emulator_update.RunWorkerAsync(arguments)
+            Else
+                Call main.launch_emulator()
+            End If
+        ElseIf main.currenttab_metadata(0) = "Cemu" Then
+            Dim newversion As String() = uptodate_list(4).Split(",")
+
+
+            If Not main.currenttab_metadata(5) = newversion(6) Then
                 Dim arguments As String()
                 arguments = {newversion(0)}
 

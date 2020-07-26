@@ -64,6 +64,10 @@ Public Class settings
             combobox_boxart_method.SelectedIndex = 1
         End If
 
+        Dim offline As String() = (settings(12).Split("="))
+        If offline(1) = "1" Then
+            checkbox_offline.Checked = True
+        End If
         Dim spartanfont14 As New System.Drawing.Font(main.spartan.Families(0), 14)
         load_boxart_on_startup.Font = spartanfont14
         load_skin.Font = spartanfont14
@@ -77,6 +81,7 @@ Public Class settings
         combobox_provider.Font = spartanfont14
         checkbox_affiliate.Font = spartanfont14
         combobox_boxart_method.Font = spartanfont14
+        checkbox_offline.Font = spartanfont14
         Dim spartanfont16 As New System.Drawing.Font(main.spartan.Families(0), 16)
         listbox_settings.Font = spartanfont16
 
@@ -98,6 +103,7 @@ Public Class settings
             picturebox_wave.BackgroundImage = System.Drawing.Image.FromFile(".\resources\egwavedark.png")
             lbl_provider.ForeColor = Color.White
             checkbox_affiliate.ForeColor = Color.White
+            checkbox_offline.ForeColor = Color.White
         ElseIf main.dark = 2 Then
             Me.BackColor = Color.FromArgb(25, 28, 40)
             load_boxart_on_startup.ForeColor = Color.White
@@ -113,6 +119,7 @@ Public Class settings
             picturebox_wave.BackgroundImage = System.Drawing.Image.FromFile(".\resources\egwavedarker.png")
             lbl_provider.ForeColor = Color.White
             checkbox_affiliate.ForeColor = Color.White
+            checkbox_offline.ForeColor = Color.White
         ElseIf main.dark = 3 Then
             Me.BackColor = Color.FromArgb(12, 12, 12)
             load_boxart_on_startup.ForeColor = Color.White
@@ -128,6 +135,7 @@ Public Class settings
             picturebox_wave.BackgroundImage = System.Drawing.Image.FromFile(".\resources\egwavedarkest.png")
             lbl_provider.ForeColor = Color.White
             checkbox_affiliate.ForeColor = Color.White
+            checkbox_offline.ForeColor = Color.White
         End If
         listbox_settings.SelectedItem = listbox_settings.Items(0)
     End Sub
@@ -149,7 +157,7 @@ Public Class settings
         End If
 
         System.IO.File.Create(".\settings.dat").Dispose()
-        Dim new_settings As String = settings(0) & vbNewLine & settings(1) & vbNewLine & "version=" & main.version_number & vbNewLine & settings(3) & vbNewLine & settings(4) & vbNewLine & settings(5) & vbNewLine & "firsttime=0" & vbNewLine & settings(7) & vbNewLine & settings(8) & vbNewLine & settings(9) & vbNewLine & settings(10) & vbNewLine & settings(11)
+        Dim new_settings As String = settings(0) & vbNewLine & settings(1) & vbNewLine & "version=" & main.version_number & vbNewLine & settings(3) & vbNewLine & settings(4) & vbNewLine & settings(5) & vbNewLine & "firsttime=0" & vbNewLine & settings(7) & vbNewLine & settings(8) & vbNewLine & settings(9) & vbNewLine & settings(10) & vbNewLine & settings(11) & vbNewLine & settings(12)
         File.WriteAllText(".\settings.dat", new_settings)
         main.global_settings.Clear()
         main.global_settings.AddRange(File.ReadAllLines(".\settings.dat"))
@@ -316,6 +324,13 @@ Public Class settings
             settings(11) = "boxartod=1"
         Else
             settings(11) = "boxartod=0"
+        End If
+    End Sub
+    Private Sub checkbox_offline_CheckedChanged(sender As Object, e As EventArgs) Handles checkbox_offline.CheckedChanged
+        If checkbox_offline.Checked = True Then
+            settings(12) = "offline=1"
+        Else
+            settings(12) = "offline=0"
         End If
     End Sub
 End Class
