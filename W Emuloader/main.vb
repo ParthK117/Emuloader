@@ -191,7 +191,6 @@ Public Class main
         End Select
     End Sub
 
-
     Private Sub btn_exit_MouseLeave(sender As Object, e As EventArgs) Handles btn_exit.MouseLeave
         Select Case dark
             Case 0
@@ -704,15 +703,16 @@ x.SubItems(4).Text, "Queued", timestamp}))
     End Sub
 
     Private Sub btn_search_Click(sender As Object, e As EventArgs) Handles btn_search.Click
-        If dark = 1 Then
-            btn_search.ForeColor = Color.FromArgb(23, 191, 99)
-        ElseIf dark = 2 Then
-            btn_search.ForeColor = Color.White
-        ElseIf dark = 3 Then
-            btn_search.ForeColor = Color.White
-        Else
-            btn_search.ForeColor = Color.Black
-        End If
+        Select Case dark
+            Case 0
+                btn_search.ForeColor = Color.Black
+            Case 1
+                btn_search.ForeColor = Color.FromArgb(23, 191, 99)
+            Case 2
+                btn_search.ForeColor = Color.White
+            Case 3
+                btn_search.ForeColor = Color.White
+        End Select
         btn_all.ForeColor = labelgrey
         tab_all.Visible = False
         tab_search.Visible = True
@@ -720,15 +720,16 @@ x.SubItems(4).Text, "Queued", timestamp}))
     End Sub
 
     Private Sub btn_all_Click(sender As Object, e As EventArgs) Handles btn_all.Click
-        If dark = 1 Then
-            btn_all.ForeColor = Color.FromArgb(23, 191, 99)
-        ElseIf dark = 2 Then
-            btn_all.ForeColor = Color.White
-        ElseIf dark = 3 Then
-            btn_all.ForeColor = Color.White
-        Else
-            btn_all.ForeColor = Color.Black
-        End If
+        Select Case dark
+            Case 0
+                btn_all.ForeColor = Color.Black
+            Case 1
+                btn_all.ForeColor = Color.FromArgb(23, 191, 99)
+            Case 2
+                btn_all.ForeColor = Color.White
+            Case 3
+                btn_all.ForeColor = Color.White
+        End Select
         panel_platform_tags.Visible = False
         btn_search.ForeColor = labelgrey
         tab_all.Visible = True
@@ -739,14 +740,12 @@ x.SubItems(4).Text, "Queued", timestamp}))
     Private Sub textbox_search_KeyDown(sender As Object, e As KeyEventArgs) Handles textbox_search.KeyDown
         If e.KeyCode = Keys.Enter Then
             listbox_search.Items.Clear()
-
             For Each line In listbox_availableroms.Items
                 If line.Subitems(0).text.IndexOf(textbox_search.Text, 0, StringComparison.CurrentCultureIgnoreCase) > -1 Then
                     Dim linestring As String() = {line.subitems(0).text, line.subitems(1).text, line.subitems(2).text, line.subitems(3).text, line.subitems(4).text}
                     listbox_search.Items.Add(New ListViewItem(linestring))
                 End If
             Next
-
             listbox_search.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent)
             listbox_search.AutoResizeColumn(2, ColumnHeaderAutoResizeStyle.HeaderSize)
             listbox_search.Columns.Item(4).Width = 0
@@ -778,59 +777,47 @@ x.SubItems(4).Text, "Queued", timestamp}))
         Call hide_region_tags()
         btn_platform_tags.ForeColor = labelgrey
     End Sub
-
+    'Maximises window if top bar clicked.
     Private Sub panel_top_DoubleClick(sender As Object, e As EventArgs) Handles panel_top.DoubleClick
         If Me.WindowState = FormWindowState.Normal Then
-
             Me.WindowState = FormWindowState.Maximized
             lbl_status.Location = New Point((panel_top.Width - lbl_status.Width) \ 2, (panel_top.Height - lbl_status.Height) \ 2)
             lbl_nothing.Location = New Point((panel_downloads.Width - lbl_nothing.Width) \ 2, (panel_downloads.Height - lbl_nothing.Height) \ 2)
         Else
-
             Me.WindowState = FormWindowState.Normal
             lbl_status.Location = New Point((panel_top.Width - lbl_status.Width) \ 2, (panel_top.Height - lbl_status.Height) \ 2)
             lbl_nothing.Location = New Point((panel_downloads.Width - lbl_nothing.Width) \ 2, (panel_downloads.Height - lbl_nothing.Height) \ 2)
         End If
     End Sub
 
-
-
     Private Sub btn_search_gba_click(sender As Object, e As MouseEventArgs) Handles btn_search_gba.Click
         emu_tab_metadata_list.tag_index = "GBA"
         Call module_emutabs.button_tags()
         btn_search_gba.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchgbawhite.png")
-
-
     End Sub
 
     Private Sub btn_search_gbc_click(sender As Object, e As MouseEventArgs) Handles btn_search_gbc.Click
         emu_tab_metadata_list.tag_index = "GBC"
         Call module_emutabs.button_tags()
         btn_search_gbc.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchgbcwhite.png")
-
-
     End Sub
 
     Private Sub btn_search_gb_click(sender As Object, e As MouseEventArgs) Handles btn_search_gb.Click
         emu_tab_metadata_list.tag_index = "GB"
         Call module_emutabs.button_tags()
         btn_search_gb.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchgbwhite.png")
-
     End Sub
 
     Private Sub btn_search_wii_click(sender As Object, e As MouseEventArgs) Handles btn_search_wii.Click
         emu_tab_metadata_list.tag_index = "WII"
         Call module_emutabs.button_tags()
         btn_search_wii.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchwiiwhite.png")
-
     End Sub
 
     Private Sub btn_search_nds_click(sender As Object, e As MouseEventArgs) Handles btn_search_nds.Click
         emu_tab_metadata_list.tag_index = "NDS"
         Call module_emutabs.button_tags()
         btn_search_nds.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchndswhite.png")
-
-
     End Sub
 
     Private Sub btn_search_3ds_click(sender As Object, e As MouseEventArgs) Handles btn_search_3ds.Click
@@ -843,23 +830,20 @@ x.SubItems(4).Text, "Queued", timestamp}))
         emu_tab_metadata_list.tag_index = "N64"
         Call module_emutabs.button_tags()
         btn_search_n64.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchn64white.png")
-
     End Sub
 
     Private Sub btn_search_psp_click(sender As Object, e As MouseEventArgs) Handles btn_search_psp.Click
         emu_tab_metadata_list.tag_index = "PSP"
         Call module_emutabs.button_tags()
         btn_search_psp.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchpspwhite.png")
-
     End Sub
+
     Private Sub main_DragDrop(sender As System.Object, e As System.Windows.Forms.DragEventArgs) Handles Me.DragDrop
+        'files is a list with the data of each item dropped in.
         Dim files() As String = e.Data.GetData(DataFormats.FileDrop)
+        'For each item (drop_path) in the files list
         For Each drop_path In files
-
-
             If File.Exists(drop_path.ToString) = True AndAlso drop_path.ToString.Contains(".eldr") Then
-
-
                 Dim imported_list_downloads As String() = File.ReadAllLines(drop_path.ToString)
                 Dim showsource As Boolean = False
                 Dim metadata As String()
