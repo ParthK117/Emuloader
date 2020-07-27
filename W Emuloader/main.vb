@@ -844,35 +844,34 @@ x.SubItems(4).Text, "Queued", timestamp}))
         'For each item (drop_path) in the files list
         For Each drop_path In files
             If File.Exists(drop_path.ToString) = True AndAlso drop_path.ToString.Contains(".eldr") Then
-                Dim imported_list_downloads As String() = File.ReadAllLines(drop_path.ToString)
+                Dim imported_list_downloads As New List(Of String)
+                imported_list_downloads.AddRange(File.ReadAllLines(drop_path.ToString))
                 Dim showsource As Boolean = False
                 Dim metadata As String()
+                'Check first line in eldr.
                 If imported_list_downloads(0).Contains("#") Then
                     metadata = Split(imported_list_downloads(0), "#")
                     If metadata(2) = "verify" Then
+                        'Launch website to whitelist.
                         Process.Start(metadata(3))
                     End If
+                    imported_list_downloads.RemoveAt(0)
                     showsource = True
-
                 End If
-
-
-
-                For Each x In imported_list_downloads
-                    If Not x.Contains("#") Then
-                        Dim x_split As String() = Split(x, ",")
-                        '  listbox_availableroms.Items.Add(x_split(0))
-                        Dim file_source As String = x_split(3)
-                        If file_source.Contains("google") Then
-                            file_source = "Google Drive"
-                        ElseIf showsource = True Then
-                            file_source = metadata(0)
-                        Else
-                            file_source = "Other"
-                        End If
-                        listbox_availableroms.Items.Add(New ListViewItem(New String() {x_split(0), x_split(1), x_split(2), file_source, x_split(3)}))
+                For Each entry In imported_list_downloads
+                    Dim entry_split As String() = Split(entry, ",")
+                    '  listbox_availableroms.Items.Add(x_split(0))
+                    Dim file_source As String = entry_split(3)
+                    If file_source.Contains("google") Then
+                        file_source = "Google Drive"
+                    ElseIf showsource = True Then
+                        file_source = metadata(0)
+                    Else
+                        file_source = "Other"
                     End If
+                    listbox_availableroms.Items.Add(New ListViewItem(New String() {entry_split(0), entry_split(1), entry_split(2), file_source, entry_split(3)}))
                 Next
+                'Resize listview
                 listbox_availableroms.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent)
                 listbox_availableroms.AutoResizeColumn(2, ColumnHeaderAutoResizeStyle.HeaderSize)
                 listbox_availableroms.Columns.Item(4).Width = 0
@@ -880,17 +879,10 @@ x.SubItems(4).Text, "Queued", timestamp}))
                 Else
                     My.Computer.FileSystem.CreateDirectory(".\lists\")
                 End If
-
-
-
                 System.IO.File.Copy(drop_path.ToString, ".\lists\" & System.IO.Path.GetFileName(drop_path.ToString))
-
-
-
+                'If the file is a rom and not an eldr
             ElseIf File.Exists(drop_path.ToString) = True AndAlso Not drop_path.ToString.Contains(".eldr") Then
                 Dim folderPath As String = Path.GetDirectoryName(drop_path.ToString)
-
-
                 If File.Exists(".\custom.eldr") And (New FileInfo(".\custom.eldr").Length > 0) Then
                     Dim check As Boolean = False
                     Dim check_directory As String() = File.ReadAllLines(".\custom.eldr")
@@ -899,7 +891,6 @@ x.SubItems(4).Text, "Queued", timestamp}))
                             MessageBox.Show("You've already imported this rom/directory")
                             check = True
                             Exit For
-
                         End If
                     Next
                     If check = False Then
@@ -909,25 +900,11 @@ x.SubItems(4).Text, "Queued", timestamp}))
                     System.IO.File.Create(".\custom.eldr").Dispose()
                     My.Computer.FileSystem.WriteAllText(".\custom.eldr", folderPath, False)
                 End If
-
-
-
-
-
-
-
-
-
                 Call load_installed_roms()
             Else
                 MessageBox.Show("Could not import")
             End If
-
-
-
-
         Next
-
         Me.Opacity = 1
         panel_drag_drop.Visible = False
         panel_drag_drop.SendToBack()
@@ -938,19 +915,16 @@ x.SubItems(4).Text, "Queued", timestamp}))
         If e.Data.GetDataPresent(DataFormats.FileDrop) Then
             e.Effect = DragDropEffects.Copy
         End If
-        Me.Opacity = 0.9
         panel_drag_drop.Visible = True
         panel_drag_drop.BringToFront()
     End Sub
 
     Private Sub main_DragLeave(sender As Object, e As EventArgs) Handles Me.DragLeave
-        Me.Opacity = 1
         panel_drag_drop.Visible = False
         panel_drag_drop.SendToBack()
     End Sub
 
     Private Sub btn_expand_Click(sender As Object, e As EventArgs) Handles btn_expand.Click
-
         If panel_blue_click.Visible = True Then
             panel_blue_click.Visible = False
         Else
@@ -958,13 +932,10 @@ x.SubItems(4).Text, "Queued", timestamp}))
             btn_show_lists.BackColor = panel_top.BackColor
             btn_settings.BackColor = panel_right.BackColor
         End If
-
-
     End Sub
 
     Private Sub btn_expand_MouseEnter(sender As Object, e As EventArgs) Handles btn_expand.MouseEnter
-
-        If dark = "1" Then
+        If dark = 1 Or dark = 2 Or dark = 3 Then
             btn_expand.BackgroundImage = System.Drawing.Image.FromFile(".\resources\blueclickdark.png")
         Else
             btn_expand.BackgroundImage = System.Drawing.Image.FromFile(".\resources\blueclick.png")
@@ -975,16 +946,17 @@ x.SubItems(4).Text, "Queued", timestamp}))
         If panel_blue_click.Visible = False Then
             btn_expand.BackgroundImage = System.Drawing.Image.FromFile(".\resources\blue.png")
         End If
-
     End Sub
 
     Private Sub listbox_installedroms_SelectedIndexChanged(sender As Object, e As EventArgs) Handles listbox_installedroms.SelectedIndexChanged
         Try
             If File.Exists(".\roms\" & currenttab_metadata(1) & "\metadata\boxartmatches.eldr") Then
+                'Read each entry in format 'name#path' and add it to find_art
                 Dim find_art As String() = File.ReadAllLines(".\roms\" & currenttab_metadata(1) & "\metadata\boxartmatches.eldr")
-                For Each x In find_art
-                    Dim current_name As String() = x.Split("#")
+                For Each entry In find_art
+                    Dim current_name As String() = entry.Split("#")
                     If listbox_installedroms.FocusedItem IsNot Nothing = True Then
+                        'Match rom entries in listbox with rom entries in boxartmatches metadata.
                         If listbox_installedroms.FocusedItem.SubItems(0).Text.Contains(current_name(0)) Then
                             Try
                                 picturebox_boxart.BackgroundImage = System.Drawing.Image.FromFile(current_name(1))
@@ -992,20 +964,20 @@ x.SubItems(4).Text, "Queued", timestamp}))
                                 picturebox_boxart_top.BackgroundImage = System.Drawing.Image.FromFile(current_name(1))
                                 boxart_url = current_name(1)
                             Catch ex As Exception
+                                'If error occurs for whatever reason or boxart is missing show missing boxart png.
                                 picturebox_boxart.BackgroundImage = System.Drawing.Image.FromFile(".\modules\noimage.png")
                                 romproperties.picturebox_boxart.BackgroundImage = System.Drawing.Image.FromFile(".\modules\noimage.png")
                                 picturebox_boxart_top.BackgroundImage = System.Drawing.Image.FromFile(".\modules\noimage.png")
                                 boxart_url = current_name(".\modules\noimage.png")
                             End Try
-
                         End If
                     End If
                 Next
-
             End If
         Catch ex As Exception
         End Try
         If listbox_installedroms.FocusedItem IsNot Nothing = True Then
+            'Fill in metadata labels
             lbl_installed_name.Text = listbox_installedroms.FocusedItem.SubItems(0).Text
             Dim size_rom As New IO.FileInfo(listbox_installedroms.FocusedItem.SubItems(2).Text)
             lbl_installed_size.Text = "Size: " & Math.Round((size_rom.Length / 1000000), 2) & " MB"
