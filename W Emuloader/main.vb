@@ -496,7 +496,9 @@ Public Class main
                 'The game is added to the listview.
                 listbox_availableroms.Items.Add(New ListViewItem(New String() {entry_split(0), entry_split(1), entry_split(2), file_source, entry_split(3), region}))
             Next
-            'The listvie is autosized first by the content of each column, then the size column is resized to how big 'size' appears, and lastly the url column width is set to 0
+
+
+            'The listview is autosized first by the content of each column, then the size column is resized to how big 'size' appears, and lastly the url column width is set to 0
             listbox_availableroms.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent)
             listbox_availableroms.AutoResizeColumn(2, ColumnHeaderAutoResizeStyle.HeaderSize)
             listbox_availableroms.Columns.Item(4).Width = 0
@@ -504,13 +506,17 @@ Public Class main
     End Sub
 
     Private Sub download_roms()
+        'First function to be called to set up the queue listbox, which will then call launch_downloader
         Dim timestamp As String = Date.Now.ToString("dd-MM-yyyy")
+        'Index is used to insert the currently selected item at the end of the queue, whilst keeping the currently downloading at the top, and completed downloads at the end.
         Dim index As Double = 0
-        For Each x In listbox_queue.Items
-            If x.subitems(5).text = "Queued" Or x.subitems(5).text = "Downloading" Then
+        'Iterate on index every time a download status is queued or downloading.
+        For Each entry In listbox_queue.Items
+            If entry.subitems(5).text = "Queued" Or entry.subitems(5).text = "Downloading" Then
                 index += 1
             End If
         Next
+        'Check whether an entry from the search menu or all menu is used when pressing add to queue.
         If panel_search.Visible = True Then
             listbox_queue.Visible = True
             For Each x In listbox_search.SelectedItems
@@ -533,14 +539,9 @@ x.SubItems(4).Text, "Queued", timestamp}))
             Next
             index += 1
         End If
-
+        'Call launch_downloader from downloads.vb module.
         Call launch_downloader()
-
-
-
-
     End Sub
-
 
     Private Sub btn_queue_MouseEnter(sender As Object, e As EventArgs) Handles btn_queue.MouseEnter
         btn_queue.Image = System.Drawing.Image.FromFile(".\resources\queuewhite.png")
@@ -555,6 +556,7 @@ x.SubItems(4).Text, "Queued", timestamp}))
         btn_queue.Image = System.Drawing.Image.FromFile(".\resources\queueclick.png")
         If listbox_availableroms.FocusedItem IsNot Nothing = True Or listbox_search.FocusedItem IsNot Nothing = True Then
             panel_download_chart.Visible = True
+            'Call download_roms sub from above.
             Call download_roms()
         Else
             MsgBox("Pick something to download first")
@@ -564,7 +566,6 @@ x.SubItems(4).Text, "Queued", timestamp}))
     Private Sub btn_queue_MouseUp(sender As Object, e As MouseEventArgs) Handles btn_queue.MouseUp
         btn_queue.Image = System.Drawing.Image.FromFile(".\resources\queuewhite.png")
     End Sub
-
 
     Private Sub btn_exit_MouseDown(sender As Object, e As MouseEventArgs) Handles btn_exit.MouseDown
         Dim checkbox_exit As String() = (global_settings(4).Split("="))
@@ -586,14 +587,11 @@ x.SubItems(4).Text, "Queued", timestamp}))
             lbl_status.Location = New Point((panel_top.Width - lbl_status.Width) \ 2, (panel_top.Height - lbl_status.Height) \ 2)
             lbl_nothing.Location = New Point((panel_downloads.Width - lbl_nothing.Width) \ 2, (panel_downloads.Height - lbl_nothing.Height) \ 2)
         Else
-
             Me.WindowState = FormWindowState.Normal
             lbl_status.Location = New Point((panel_top.Width - lbl_status.Width) \ 2, (panel_top.Height - lbl_status.Height) \ 2)
             lbl_nothing.Location = New Point((panel_downloads.Width - lbl_nothing.Width) \ 2, (panel_downloads.Height - lbl_nothing.Height) \ 2)
         End If
     End Sub
-
-
 
     Private Sub btn_import_roms_MouseEnter(sender As Object, e As EventArgs) Handles btn_import_roms.MouseEnter
         btn_import_roms.BackgroundImage = System.Drawing.Image.FromFile(".\resources\importromswhite.png")
@@ -604,38 +602,25 @@ x.SubItems(4).Text, "Queued", timestamp}))
     End Sub
 
     Private Sub btn_import_roms_MouseDown(sender As Object, e As MouseEventArgs) Handles btn_import_roms.MouseDown
-
+        'Folderbrowser is a hack to select a folder even though openfolderdialog does not support it.
         Dim folderBrowser As New OpenFileDialog()
-
         folderBrowser.ValidateNames = False
         folderBrowser.CheckFileExists = False
         folderBrowser.CheckPathExists = True
-        folderBrowser.FileName = "This folder."
+        folderBrowser.FileName = "(This folder)"
         If folderBrowser.ShowDialog() = DialogResult.OK Then
-
+            'Gets the directory name of the folder or file.
             Dim folderPath As String = Path.GetDirectoryName(folderBrowser.FileName)
-
-
+            'Adds the folderPath string to custom.eldr
             If File.Exists(".\custom.eldr") And (New FileInfo(".\custom.eldr").Length > 0) Then
-
                 My.Computer.FileSystem.WriteAllText(".\custom.eldr", vbNewLine & folderPath, True)
-
             Else
                 System.IO.File.Create(".\custom.eldr").Dispose()
                 My.Computer.FileSystem.WriteAllText(".\custom.eldr", folderPath, False)
             End If
-
-
-
-
-
-
-
-
-
+            'Calls load_installed_roms.
             Call load_installed_roms()
         End If
-
     End Sub
 
     Private Sub btn_import_roms_MouseUp(sender As Object, e As MouseEventArgs) Handles btn_import_roms.MouseUp
@@ -651,18 +636,15 @@ x.SubItems(4).Text, "Queued", timestamp}))
         End If
     End Sub
 
-
-
     Private Sub listbox_installedroms_MouseDown(sender As Object, e As MouseEventArgs) Handles listbox_installedroms.MouseDown
 
     End Sub
 
     Private Sub listbox_installedroms_MouseUp(sender As Object, e As MouseEventArgs) Handles listbox_installedroms.MouseUp
+        'If the listbox is rightclicked it opens context menu for roms.
         If e.Button = MouseButtons.Right Then
             If listbox_installedroms.SelectedItems.Count > 0 Then
-
                 panel_rom_rightclick.Visible = True
-
                 panel_rom_rightclick.Location = New Point((e.X + 40), (e.Y + 190))
             End If
         Else
@@ -696,18 +678,19 @@ x.SubItems(4).Text, "Queued", timestamp}))
     End Sub
 
     Private Sub btn_rom_delete_Click(sender As Object, e As EventArgs) Handles btn_rom_delete.Click
-
+        'If a file exists at the installed roms path, first save the path to a string, then remove the entry from the listview and finally remove the file.
         If File.Exists(listbox_installedroms.FocusedItem.SubItems(2).Text) Then
             Dim file_to_delete As String = listbox_installedroms.FocusedItem.SubItems(2).Text
             listbox_installedroms.FocusedItem.Remove()
             My.Computer.FileSystem.DeleteFile(file_to_delete)
-
+            'Hide the context menu.
             panel_rom_rightclick.Visible = False
         End If
     End Sub
 
     Private Sub btn_rom_properties_Click(sender As Object, e As EventArgs) Handles btn_rom_properties.Click
         romproperties.Show()
+        'Call sub in romproperties form.
         Call romproperties.load_rom_properties()
         panel_rom_rightclick.Visible = False
     End Sub
