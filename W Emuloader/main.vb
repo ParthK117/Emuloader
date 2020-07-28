@@ -989,100 +989,79 @@ x.SubItems(4).Text, "Queued", timestamp}))
     End Sub
 
     Public Sub retrieveboxart()
-
-
-        If Directory.Exists(".\roms\" & currenttab_metadata(1) & "\metadata\") = False Then
-            Directory.CreateDirectory(".\roms\" & currenttab_metadata(1) & "\metadata\")
-        End If
-
-        If Directory.Exists(".\boxart") = False Then
-            Directory.CreateDirectory(".\boxart\")
-        End If
-
+        'Check if directories exist and create them if thy don't
+        Directory.CreateDirectory(".\roms\" & currenttab_metadata(1) & "\metadata\")
+        Directory.CreateDirectory(".\boxart\")
+        'Check if romnamelist.eldr exists and delete if it does.
         If File.Exists(".\roms\" & currenttab_metadata(1) & "\metadata\romnamelist.eldr") Then
             My.Computer.FileSystem.DeleteFile(".\roms\" & currenttab_metadata(1) & "\metadata\romnamelist.eldr")
         End If
-
         System.IO.File.Create(".\roms\" & currenttab_metadata(1) & "\metadata\romnamelist.eldr").Dispose()
         Dim romnamelist As New List(Of String)
-        For Each x In listbox_installedroms.Items
-            romnamelist.Add(x.subitems(0).text)
+        'For every entry in the listview, add the first column to a list, and then save it to romnamelist.eldr
+        For Each entry In listbox_installedroms.Items
+            romnamelist.Add(entry.subitems(0).text)
         Next
         File.WriteAllLines((".\roms\" & currenttab_metadata(1) & "\metadata\romnamelist.eldr"), romnamelist)
 
-        Dim settings As New List(Of String)
-        settings.AddRange(File.ReadAllLines(".\settings.dat"))
-        Dim checkbox_loadart As String() = (settings(0).Split("="))
-        Dim checkbox_od As String() = (settings(11).Split("="))
-        Dim checkbox_offline As String() = (settings(12).Split("="))
+        'If box art downloading is enabled and boxart downloading on a pergame basis is DISABLED and emuloader is not in offline mode.
+        Dim checkbox_loadart As String() = (global_settings(0).Split("="))
+        Dim checkbox_od As String() = (global_settings(11).Split("="))
+        Dim checkbox_offline As String() = (global_settings(12).Split("="))
         If checkbox_loadart(1) = "1" And checkbox_od(1) = "1" And Not checkbox_offline(1) = "1" Then
-
-
             If File.Exists(".\roms\" & currenttab_metadata(1) & "\metadata\boxartmatches.eldr") Then
                 Dim boxartmatches As String = File.ReadAllText(".\roms\" & currenttab_metadata(1) & "\metadata\boxartmatches.eldr")
-
-                For Each x In listbox_installedroms.Items
-                    If Not (boxartmatches.Replace(" ", "")).Contains((x.subitems(0).text).replace(" ", "")) Then
+                For Each game In listbox_installedroms.Items
+                    'If boxartmatches.eldr doesn't have a piece of boxart for a game, download the boxart.
+                    If Not (boxartmatches.Replace(" ", "")).Contains((game.subitems(0).text).replace(" ", "")) Then
                         lbl_status.Text = "Downloading Boxart"
                         lbl_status.Location = New Point((panel_top.Width - lbl_status.Width) \ 2, (panel_top.Height - lbl_status.Height) \ 2)
                         picturebox_loading.Visible = True
                         If thread_getboxart.IsBusy = False Then
-
                             Dim arguments As String()
                             arguments = {currenttab_metadata(1), "boxartatonce"}
-
                             thread_getboxart.RunWorkerAsync(arguments)
-
                         End If
                         Exit For
                     End If
                 Next
             Else
+                'But if boxartmatches.eldr doesn't exist, download boxart.
                 lbl_status.Text = "Downloading Boxart"
                 picturebox_loading.Visible = True
                 lbl_status.Location = New Point((panel_top.Width - lbl_status.Width) \ 2, (panel_top.Height - lbl_status.Height) \ 2)
-
                 If thread_getboxart.IsBusy = False Then
-
                     Dim arguments As String()
                     arguments = {currenttab_metadata(1), "boxartatonce"}
-
                     thread_getboxart.RunWorkerAsync(arguments)
                 End If
-
-
             End If
+            'If box art downloading is enabled and boxart downloading on a pergame basis is ENABLED and emuloader is not in offline mode.
         ElseIf checkbox_loadart(1) = "1" And checkbox_od(1) = "0" And Not checkbox_offline(1) = "1" Then
-
             If File.Exists(".\roms\" & currenttab_metadata(1) & "\metadata\boxartmatches.eldr") Then
                 Dim boxartmatches As String = File.ReadAllText(".\roms\" & currenttab_metadata(1) & "\metadata\boxartmatches.eldr")
-
-                For Each x In listbox_installedroms.Items
-                    If Not (boxartmatches.Replace(" ", "")).Contains((x.subitems(0).text).replace(" ", "")) Then
+                For Each game In listbox_installedroms.Items
+                    'If boxartmatches.eldr doesn't have a piece of boxart for a game, download the boxart.
+                    If Not (boxartmatches.Replace(" ", "")).Contains((game.subitems(0).text).replace(" ", "")) Then
                         lbl_status.Text = "Downloading Boxart"
                         lbl_status.Location = New Point((panel_top.Width - lbl_status.Width) \ 2, (panel_top.Height - lbl_status.Height) \ 2)
                         picturebox_loading.Visible = True
                         If thread_getboxart.IsBusy = False Then
-
                             Dim arguments As String()
                             arguments = {currenttab_metadata(1), "boxartod"}
-
                             thread_getboxart.RunWorkerAsync(arguments)
-
                         End If
                         Exit For
                     End If
                 Next
             Else
+                'But if boxartmatches.eldr doesn't exist, download boxart.
                 lbl_status.Text = "Downloading Boxart"
                 picturebox_loading.Visible = True
                 lbl_status.Location = New Point((panel_top.Width - lbl_status.Width) \ 2, (panel_top.Height - lbl_status.Height) \ 2)
-
                 If thread_getboxart.IsBusy = False Then
-
                     Dim arguments As String()
                     arguments = {currenttab_metadata(1), "boxartod"}
-
                     thread_getboxart.RunWorkerAsync(arguments)
                 End If
             End If
@@ -1090,13 +1069,11 @@ x.SubItems(4).Text, "Queued", timestamp}))
     End Sub
 
     Private Sub thread_getboxart_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles thread_getboxart.DoWork
+        'Arguments in the format 'platform, boxartmode'.
         Dim arguments As String() = (e.Argument)
-
         Dim getart As Process
         Dim p As New ProcessStartInfo
         p.FileName = ".\getboxart.exe"
-
-        '   p.UseShellExecute = True
         p.WindowStyle = ProcessWindowStyle.Hidden
         p.WorkingDirectory = ".\modules\"
         p.Arguments = (arguments(1) & " " & arguments(0) & " " & Chr(34) & Path.GetFullPath(".\boxart") & Chr(34) & " " & Chr(34) & Path.GetFullPath(".\roms\" & currenttab_metadata(1) & "\metadata\romnamelist.eldr") & Chr(34) & " " & Chr(34) & Path.GetFullPath(".\roms\" & currenttab_metadata(1) & "\metadata") & Chr(34))
@@ -1114,14 +1091,12 @@ x.SubItems(4).Text, "Queued", timestamp}))
         emu_tab_metadata_list.tag_index = "GC"
         Call module_emutabs.button_tags()
         btn_search_gc.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchgcwhite.png")
-
     End Sub
 
     Private Sub btn_search_wiiu_Click(sender As Object, e As EventArgs) Handles btn_search_wiiu.Click
         emu_tab_metadata_list.tag_index = "WIIU"
         Call module_emutabs.button_tags()
         btn_search_wiiu.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchwiiuwhite.png")
-
     End Sub
 
     Private Sub btn_show_folders_Click(sender As Object, e As EventArgs) Handles btn_show_folders.Click
@@ -1165,30 +1140,28 @@ x.SubItems(4).Text, "Queued", timestamp}))
     Private Sub btn_settings_MouseLeave(sender As Object, e As EventArgs) Handles btn_settings.MouseLeave
         btn_settings.BackgroundImage = System.Drawing.Image.FromFile(".\resources\settingswhite.png")
     End Sub
-    Public Sub prettify()
 
+    Public Sub prettify()
+        'Run prettify python module.
         If File.Exists(".\modules\gamepaths.dat") Then
             My.Computer.FileSystem.DeleteFile(".\modules\gamepaths.dat")
         End If
-
         System.IO.File.Create(".\modules\gamepaths.dat").Dispose()
         Dim gamepaths As New List(Of String)
-        For Each x In listbox_installedroms.Items
-            gamepaths.Add(System.IO.Path.GetFileName(x.subitems(2).text) + "#" + x.subitems(2).text + "#" + System.IO.Path.GetDirectoryName(x.subitems(2).text))
+        For Each entry In listbox_installedroms.Items
+            gamepaths.Add(System.IO.Path.GetFileName(entry.subitems(2).text) + "#" + entry.subitems(2).text + "#" + System.IO.Path.GetDirectoryName(entry.subitems(2).text))
         Next
         File.WriteAllLines((".\modules\gamepaths.dat"), gamepaths)
         Dim arguments As String = (currenttab_metadata(1))
-
         Dim prettifypy As Process
         Dim p As New ProcessStartInfo
         p.FileName = ".\prettify.exe"
-
-        '   p.UseShellExecute = True
         p.WindowStyle = ProcessWindowStyle.Hidden
         p.WorkingDirectory = ".\modules\"
         p.Arguments = (arguments)
         prettifypy = Process.Start(p)
         prettifypy.WaitForExit()
+        'From load functions
         Call load_installed_roms()
     End Sub
 
@@ -1218,7 +1191,6 @@ x.SubItems(4).Text, "Queued", timestamp}))
         btn_show_lists.BackgroundImage = System.Drawing.Image.FromFile(".\resources\listsblack.png")
     End Sub
 
-
     Private Sub btn_play_delete_MouseEnter(sender As Object, e As EventArgs) Handles btn_play_delete.MouseEnter
         btn_play_delete.BackgroundImage = System.Drawing.Image.FromFile(".\resources\deleteplaywhite.png")
     End Sub
@@ -1230,6 +1202,7 @@ x.SubItems(4).Text, "Queued", timestamp}))
     Private Sub btn_play_delete_MouseDown(sender As Object, e As MouseEventArgs) Handles btn_play_delete.MouseDown
         Dim result = MessageBox.Show("Are you sure you want to delete this emulator instance? Your roms for this platform will not be deleted.", "Deleting " & currenttab_metadata(0), MessageBoxButtons.YesNo)
         If result = DialogResult.Yes Then
+            'Deletes everything in folder then deleted folder.
             Dim directoryName As String = ".\" & currenttab_metadata(4)
             For Each deleteFile In Directory.GetFiles(directoryName, "*.*", SearchOption.AllDirectories)
                 File.Delete(deleteFile)
@@ -1241,9 +1214,10 @@ x.SubItems(4).Text, "Queued", timestamp}))
             custom.AddRange(File.ReadAllLines(".\installed.eldr"))
             custom2.AddRange(File.ReadAllLines(".\installed.eldr"))
             Dim newindex = 0
-            For Each x In custom2
-                If x.Contains(currenttab_metadata(4)) Then
+            For Each entry In custom2
+                If entry.Contains(currenttab_metadata(4)) Then
                     custom.RemoveAt(newindex)
+                    Exit For
                 End If
                 newindex = newindex + 1
             Next
@@ -1252,8 +1226,6 @@ x.SubItems(4).Text, "Queued", timestamp}))
             End If
             If Not custom.Count = 0 Then
                 System.IO.File.Create(".\installed.eldr").Dispose()
-
-
                 Dim writenew = New StreamWriter(".\installed.eldr", False)
                 For Each x In custom
                     If x Is custom.Last Then
