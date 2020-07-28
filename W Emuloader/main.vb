@@ -1209,14 +1209,14 @@ x.SubItems(4).Text, "Queued", timestamp}))
             Next
             Directory.Delete(".\" & currenttab_metadata(4), True)
 
-            Dim custom As New List(Of String)
-            Dim custom2 As New List(Of String)
-            custom.AddRange(File.ReadAllLines(".\installed.eldr"))
-            custom2.AddRange(File.ReadAllLines(".\installed.eldr"))
+            Dim installed As New List(Of String)
+            Dim installed_copy As New List(Of String)
+            installed.AddRange(File.ReadAllLines(".\installed.eldr"))
+            installed_copy.AddRange(File.ReadAllLines(".\installed.eldr"))
             Dim newindex = 0
-            For Each entry In custom2
+            For Each entry In installed_copy
                 If entry.Contains(currenttab_metadata(4)) Then
-                    custom.RemoveAt(newindex)
+                    installed.RemoveAt(newindex)
                     Exit For
                 End If
                 newindex = newindex + 1
@@ -1224,25 +1224,23 @@ x.SubItems(4).Text, "Queued", timestamp}))
             If File.Exists(".\installed.eldr") Then
                 My.Computer.FileSystem.DeleteFile(".\installed.eldr")
             End If
-            If Not custom.Count = 0 Then
+            If Not installed.Count = 0 Then
                 System.IO.File.Create(".\installed.eldr").Dispose()
                 Dim writenew = New StreamWriter(".\installed.eldr", False)
-                For Each x In custom
-                    If x Is custom.Last Then
+                For Each x In installed
+                    If x Is installed.Last Then
                         writenew.Write(x)
                     Else
                         writenew.Write(x & vbNewLine)
                     End If
-
                 Next
-
                 writenew.Flush()
                 writenew.Close()
             End If
             Dim emutabs = {emu_one, emu_two, emu_three, emu_four, emu_five, emu_six, emu_seven, emu_eight, emu_nine}
-            For Each x In emutabs
-                x.Visible = False
-                x.ForeColor = labelgrey
+            For Each bartab In emutabs
+                bartab.Visible = False
+                bartab.ForeColor = labelgrey
             Next
             tab_browse.Visible = True
             panel_browse.BringToFront()
@@ -1255,28 +1253,35 @@ x.SubItems(4).Text, "Queued", timestamp}))
     Private Sub btn_play_delete_MouseUp(sender As Object, e As MouseEventArgs) Handles btn_play_delete.MouseUp
         btn_play_delete.BackgroundImage = System.Drawing.Image.FromFile(".\resources\deleteplaywhite.png")
     End Sub
+
     Public Sub check_for_updates()
+        'If settings.dat doesn't exist, create a new one.
         If Not File.Exists(".\settings.dat") Then
             Dim new_settings As String = "load=1" & vbNewLine & "dark=0" & vbNewLine & "version=" & version_number & vbNewLine & "autoupdate=1" & vbNewLine & "exitonx=0" & vbNewLine & "fancydl=0" & vbNewLine & "firstime=1" & vbNewLine & "windowsbar=0" & vbNewLine & "instantdelivery=1" & vbNewLine & "shop=google" & vbNewLine & "affiliate=0" & vbNewLine & "boxartod=0" & vbNewLine & "offline=0"
             File.WriteAllText(".\settings.dat", new_settings)
         Else
+            'But if it does, open it in the settings string.
             Dim settings As New List(Of String)
             settings.AddRange(File.ReadAllLines(".\settings.dat"))
-
+            'If settings doesn't contain the same version number as emuloader has hardcoded in, update version specified in settings.
             If Not settings(2).Contains(version_number) Then
                 File.Delete(".\settings.dat")
                 Try
                     Dim new_settings As String = settings(0) & vbNewLine & settings(1) & vbNewLine & "version=" & version_number & vbNewLine & settings(3) & vbNewLine & settings(4) & vbNewLine & settings(5) & vbNewLine & settings(6) & vbNewLine & settings(7) & vbNewLine & settings(8) & vbNewLine & settings(9) & vbNewLine & settings(10) & vbNewLine & settings(11) & vbNewLine & settings(12)
                     File.WriteAllText(".\settings.dat", new_settings)
                 Catch ex As Exception
-                    MessageBox.Show("The new update is incompatible with your old settings, sorry. Launching first-time setup.")
+                    'If settings string is bigger than settings file then rewrite settings.
+                    MessageBox.Show("The new update is incompatible with your old settings, Sorry. Re-launching first-time setup.")
                     Dim new_settings As String = "load=1" & vbNewLine & "dark=0" & vbNewLine & "version=" & version_number & vbNewLine & "autoupdate=1" & vbNewLine & "exitonx=0" & vbNewLine & "fancydl=0" & vbNewLine & "firstime=1" & vbNewLine & "windowsbar=0" & vbNewLine & "instantdelivery=1" & vbNewLine & "shop=google" & vbNewLine & "affiliate=0" & vbNewLine & "boxartod=0" & vbNewLine & "offline=0"
                     File.WriteAllText(".\settings.dat", new_settings)
                 End Try
             End If
         End If
+
+
         Dim settings2 As New List(Of String)
         settings2.AddRange(File.ReadAllLines(".\settings.dat"))
+        'Check if automatic updates is enabled and offline mode is not enabled
         If settings2(3).Contains("1") And Not settings2(12).Contains("1") Then
             Try
                 Dim getupdate As Process
@@ -1294,6 +1299,7 @@ x.SubItems(4).Text, "Queued", timestamp}))
             End Try
         End If
         If File.Exists(".\Emuload.exe") Then
+            'Delete small installer if it exists.
             File.Delete(".\Emuload.exe")
         End If
 
@@ -1326,16 +1332,16 @@ x.SubItems(4).Text, "Queued", timestamp}))
     Private Sub btn_platform_tags_Click(sender As Object, e As EventArgs) Handles btn_platform_tags.Click
         Call hide_region_tags()
         panel_platform_tags.Visible = True
-        If dark = 1 Then
-            btn_platform_tags.ForeColor = Color.FromArgb(23, 191, 99)
-        ElseIf dark = 2 Or dark = 3 Then
-            btn_platform_tags.ForeColor = Color.White
-        Else
-
-            btn_platform_tags.ForeColor = Color.Black
-        End If
-
-
+        Select Case dark
+            Case 0
+                btn_platform_tags.ForeColor = Color.Black
+            Case 1
+                btn_platform_tags.ForeColor = Color.FromArgb(23, 191, 99)
+            Case 2
+                btn_platform_tags.ForeColor = Color.White
+            Case 3
+                btn_platform_tags.ForeColor = Color.White
+        End Select
     End Sub
 
     Private Sub panel_browse_MouseDown(sender As Object, e As MouseEventArgs) Handles panel_browse.MouseDown
@@ -1347,10 +1353,12 @@ x.SubItems(4).Text, "Queued", timestamp}))
         Call hide_platform_tags()
         Call hide_region_tags()
     End Sub
+
     Public Sub hide_platform_tags()
         panel_platform_tags.Visible = False
         btn_platform_tags.ForeColor = labelgrey
     End Sub
+
     Public Sub hide_region_tags()
         panel_region_tags.Visible = False
         btn_region.ForeColor = labelgrey
@@ -1358,15 +1366,17 @@ x.SubItems(4).Text, "Queued", timestamp}))
 
     Private Sub btn_region_Click(sender As Object, e As EventArgs) Handles btn_region.Click
         Call hide_platform_tags()
-
         panel_region_tags.Visible = True
-        If dark = 1 Then
-            btn_region.ForeColor = Color.FromArgb(23, 191, 99)
-        ElseIf dark = 2 Or dark = 3 Then
-            btn_region.ForeColor = Color.White
-        Else
-            btn_region.ForeColor = Color.Black
-        End If
+        Select Case dark
+            Case 0
+                btn_region.ForeColor = Color.Black
+            Case 1
+                btn_region.ForeColor = Color.FromArgb(23, 191, 99)
+            Case 2
+                btn_region.ForeColor = Color.White
+            Case 3
+                btn_region.ForeColor = Color.White
+        End Select
     End Sub
 
     Private Sub btn_search_europe_Click(sender As Object, e As EventArgs) Handles btn_search_europe.Click
@@ -1409,11 +1419,6 @@ x.SubItems(4).Text, "Queued", timestamp}))
         Me.WindowState = FormWindowState.Normal
         Me.ShowInTaskbar = True
         panel_blue_click.BringToFront()
-    End Sub
-
-    Private Sub notify_emuloader_Click(sender As Object, e As EventArgs) Handles notify_emuloader.Click
-
-
     End Sub
 
     Private Sub btn_showdownloads_Click(sender As Object, e As EventArgs) Handles btn_showdownloads.Click
@@ -1687,6 +1692,7 @@ x.SubItems(4).Text, "Queued", timestamp}))
     Private Sub btn_fromeldr_MouseLeave(sender As Object, e As EventArgs) Handles btn_fromeldr.MouseLeave
         btn_fromeldr.BackgroundImage = System.Drawing.Image.FromFile(".\resources\fromeldrwhite.png")
     End Sub
+
     Private Sub panel_browse_Click(sender As Object, e As EventArgs) Handles panel_browse.Click
         panel_import_click.Visible = False
     End Sub
