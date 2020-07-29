@@ -1432,94 +1432,41 @@ x.SubItems(4).Text, "Queued", timestamp}))
     End Sub
 
     Private Sub downloader_DoWork(sender As Object, e As DoWorkEventArgs) Handles downloader.DoWork
+        'Allow connection to Tungsten CDN through SSL
         ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12
         Dim arguments As String() = (e.Argument)
-        Dim iszip = False
-
+        'downloadqueue.arguments = {corrected_name & platform_id, main.listbox_queue.Items(0).SubItems(2).Text, main.listbox_queue.Items(0).SubItems(4).Text}
         Try
             Dim downloader_proc As Process
-            Dim p2 As New ProcessStartInfo
-            p2.FileName = "anylink.exe"
-
-            '   p.UseShellExecute = True
-            p2.WindowStyle = ProcessWindowStyle.Hidden
-            p2.WorkingDirectory = ".\modules\"
-            p2.Arguments = (Chr(34) & arguments(2) & Chr(34) & " " & Chr(34) & System.IO.Path.GetFullPath(".\roms\" & arguments(1)) & "\" & arguments(0) & Chr(34))
-            downloader_proc = Process.Start(p2)
+            Dim downloader_py As New ProcessStartInfo
+            downloader_py.FileName = "anylink.exe"
+            downloader_py.WindowStyle = ProcessWindowStyle.Hidden
+            downloader_py.WorkingDirectory = ".\modules\"
+            downloader_py.Arguments = (Chr(34) & arguments(2) & Chr(34) & " " & Chr(34) & System.IO.Path.GetFullPath(".\roms\" & arguments(1)) & "\" & arguments(0) & Chr(34))
+            downloader_proc = Process.Start(downloader_py)
             downloader_proc.WaitForExit()
+            'Only after the downloader module has finished does it start the unzipping process
             My.Computer.FileSystem.RenameFile(".\roms\" & arguments(1) & "\" & arguments(0), arguments(0).Replace("$", " "))
-
             Try
-
-
-                Using zipFile2 = ZipFile.OpenRead(".\roms\" & arguments(1) & "\" & arguments(0).Replace("$", " "))
-                    Dim entries = zipFile2.Entries
-                    iszip = True
-
-                End Using
-
-
-
-
-                If iszip = True Then
-
-                    'unzip file
-                    If File.Exists(".\roms\" & arguments(1) & "\temp.zip") Then
-                        My.Computer.FileSystem.DeleteFile(".\roms\" & arguments(1) & "\temp.zip")
+                If arguments(0).Contains(".7z") Or arguments(0).Contains(".rar") Or arguments(0).Contains(".zip") And Not arguments(0).Contains(".iso") Then
+                    Dim un7z As Process
+                    Dim un7zip As New ProcessStartInfo
+                    un7zip.FileName = ".\7z.exe"
+                    un7zip.WindowStyle = ProcessWindowStyle.Hidden
+                    un7zip.WorkingDirectory = ".\modules\7zip"
+                    un7zip.Arguments = ("e" & " " & Chr(34) & System.IO.Path.GetFullPath(".\roms\" & arguments(1) & "\" & arguments(0).Replace("$", " ")) & Chr(34) & " -y -o" & Chr(34) & System.IO.Path.GetFullPath(".\roms\" & arguments(1) & "\") & Chr(34))
+                    un7z = Process.Start(un7zip)
+                    un7z.WaitForExit()
+                    If File.Exists(System.IO.Path.GetFullPath(".\roms\" & arguments(1) & "\" & arguments(0).Replace("$", " "))) Then
+                        File.Delete(System.IO.Path.GetFullPath(".\roms\" & arguments(1) & "\" & arguments(0).Replace("$", " ")))
                     End If
-                    My.Computer.FileSystem.RenameFile(".\roms\" & arguments(1) & "\" & arguments(0).Replace("$", " "), "temp.zip")
-
-                    '  ZipFile.ExtractToDirectory(".\roms\" & arguments(1) & "\temp.zip", ".\roms\" & arguments(1) & "\")
-
-                    Using zipfile3 = ZipFile.OpenRead(".\roms\" & arguments(1) & "\temp.zip")
-                        For Each entry As ZipArchiveEntry In zipfile3.Entries
-
-
-                            entry.ExtractToFile(Path.Combine(".\roms\" & arguments(1) & "\", entry.FullName), True)
-
-                        Next
-                    End Using
-
-                    My.Computer.FileSystem.DeleteFile(".\roms\" & arguments(1) & "\temp.zip")
                 End If
-
-
-
-            Catch __unusedInvalidDataException1__ As InvalidDataException
-
-            Catch ex As IOException
-
-                MessageBox.Show("Error unzipping")
+            Catch ex As Exception
+                'Incase 7zip is broken.
             End Try
-
-
-            If arguments(0).Contains(".7z") Or arguments(0).Contains(".rar") Then
-
-                Dim un7z As Process
-                Dim p As New ProcessStartInfo
-                p.FileName = ".\7z.exe"
-
-                '   p.UseShellExecute = True
-                p.WindowStyle = ProcessWindowStyle.Hidden
-                p.WorkingDirectory = ".\modules\7zip"
-                p.Arguments = ("e" & " " & Chr(34) & System.IO.Path.GetFullPath(".\roms\" & arguments(1) & "\" & arguments(0).Replace("$", " ")) & Chr(34) & " -y -o" & Chr(34) & System.IO.Path.GetFullPath(".\roms\" & arguments(1) & "\") & Chr(34))
-                '   MessageBox.Show("e" & " " & Chr(34) & System.IO.Path.GetFullPath(".\roms\" & arguments(1) & "\" & arguments(0).Replace("$", " ")) & Chr(34) & "-aoa -o" & Chr(34) & System.IO.Path.GetFullPath(".\roms\" & arguments(1) & "\") & Chr(34))
-                un7z = Process.Start(p)
-                un7z.WaitForExit()
-                If File.Exists(System.IO.Path.GetFullPath(".\roms\" & arguments(1) & "\" & arguments(0).Replace("$", " "))) Then
-                    File.Delete(System.IO.Path.GetFullPath(".\roms\" & arguments(1) & "\" & arguments(0).Replace("$", " ")))
-                End If
-            End If
-
-
-
         Catch ex As Exception
-
-            MessageBox.Show("Error downloading")
-
-
+                MessageBox.Show("Error downloading")
         End Try
-
     End Sub
 
     Private Sub downloader_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles downloader.RunWorkerCompleted
@@ -1528,39 +1475,40 @@ x.SubItems(4).Text, "Queued", timestamp}))
             File.Create(".\downloadlog.dat")
         End If
         Try
+            'Incase downloadlog is being populated.
             Dim log As String = File.ReadAllText(".\downloadlog.dat")
             File.WriteAllText(".\downloadlog.dat", listbox_queue.Items(0).SubItems(0).Text & "," & listbox_queue.Items(0).SubItems(1).Text & "," & listbox_queue.Items(0).SubItems(2).Text & "," & listbox_queue.Items(0).SubItems(3).Text & "," & "removed" & "," & listbox_queue.Items(0).SubItems(5).Text & "," & listbox_queue.Items(0).SubItems(6).Text & vbNewLine & log)
         Catch ex As Exception
         End Try
+        'No need to update percentage once the download is complete.
         timer_updateprogress.Enabled = False
             lbl_status.Text = "Downloaded " & listbox_queue.Items(0).SubItems(0).Text
         lbl_status.Location = New Point((panel_top.Width - lbl_status.Width) \ 2, (panel_top.Height - lbl_status.Height) \ 2)
         Call load_installed_roms()
-
         Dim index As Double = 0
-        For Each x In listbox_queue.Items
-            If x.subitems(5).text = "Queued" Or x.subitems(5).text = "Downloading" Then
+        For Each entry In listbox_queue.Items
+            If entry.subitems(5).text = "Queued" Or entry.subitems(5).text = "Downloading" Then
                 index += 1
             End If
         Next
         Dim item = listbox_queue.Items(0)
         listbox_queue.Items.RemoveAt(0)
         listbox_queue.Items.Insert(index, item)
-        For Each x In listbox_queue.Items
-            If Not x.subitems(5).text = "Queued" Then
+        For Each entry In listbox_queue.Items
+            If Not entry.subitems(5).text = "Queued" Then
+                'If no pending downloads, reset labels.
                 picturebox_loading.Visible = False
                 panel_download_chart.Visible = False
                 lbl_speed.Text = "0 MB/s CURRENT"
                 timer_updateprogress.Enabled = False
                 notify_emuloader.Text = "Emuloader"
             Else
-
+                'Launch next instance of downloader.
                 picturebox_loading.Visible = True
                 Call launch_downloader()
                 Exit For
             End If
         Next
-
     End Sub
 
     Private Sub timer_updateprogress_Tick(sender As Object, e As EventArgs) Handles timer_updateprogress.Tick
@@ -1584,18 +1532,14 @@ x.SubItems(4).Text, "Queued", timestamp}))
                 lbl_status.Location = New Point((panel_top.Width - lbl_status.Width) \ 2, (panel_top.Height - lbl_status.Height) \ 2)
             End If
 
-
-
-
+            'Switches betwen KB and MB for download speeds.
             Dim difference As Long = metadata(2) - speed
             If Math.Round((difference / 1000000), 2) > 1 Then
                 lbl_speed.Text = Math.Round((difference / 1000000), 2) & " MB/s CURRENT"
             ElseIf Math.Round((difference / 1000), 2) > 0 Then
                 lbl_speed.Text = Math.Round((difference / 1000), 2) & " KB/s CURRENT"
             End If
-
             If difference > peak Then
-
                 If Math.Round((difference / 1000000), 2) > 1 Then
                     lbl_peak.Text = Math.Round((difference / 1000000), 2) & " MB/s PEAK"
                 Else
@@ -1607,7 +1551,6 @@ x.SubItems(4).Text, "Queued", timestamp}))
             If difference > 0 Then
                 total += difference
             End If
-
             If Math.Round((total / 1000000000), 2) > 1 Then
                 lbl_total.Text = Math.Round((total / 1000000000), 2) & " GB TOTAL"
             ElseIf Math.Round((total / 1000000), 2) > 1 Then
@@ -1616,15 +1559,12 @@ x.SubItems(4).Text, "Queued", timestamp}))
                 lbl_total.Text = Math.Round((total / 1000), 2) & " KB TOTAL"
             End If
         Catch ex As Exception
-            'file being used by python
+            'File being used by downloader module.
         End Try
-
-
     End Sub
 
     Private Sub btn_parameters_Click(sender As Object, e As EventArgs) Handles btn_parameters.Click
         parameters.Show()
-
         If dark = 1 Or dark = 2 Or dark = 3 Then
             btn_parameters.ForeColor = Color.White
         Else
@@ -1635,37 +1575,32 @@ x.SubItems(4).Text, "Queued", timestamp}))
     Private Sub btn_fromeldr_Click(sender As Object, e As EventArgs) Handles btn_fromeldr.Click
         panel_import_click.Visible = False
         import_list.Filter = "Emuloader Files (*.eldr*)|*.eldr"
+        'Same system as drag and drop.
         If import_list.ShowDialog = Windows.Forms.DialogResult.OK AndAlso File.Exists(".\lists\" & System.IO.Path.GetFileName(import_list.FileName)) = False Then
-
-
-            Dim imported_list_downloads As String() = File.ReadAllLines(import_list.FileName)
+            Dim imported_list_downloads As New List(Of String)
+            imported_list_downloads.AddRange(File.ReadAllLines(import_list.FileName))
             Dim showsource As Boolean = False
             Dim metadata As String()
             If imported_list_downloads(0).Contains("#") Then
-
                 metadata = Split(imported_list_downloads(0), "#")
                 If metadata(2) = "verify" Then
                     Process.Start(metadata(3))
                 End If
                 showsource = True
+                imported_list_downloads.RemoveAt(0)
             End If
-
-
-
-            For Each x In imported_list_downloads
-                If Not x.Contains("#") Then
-                    Dim x_split As String() = Split(x, ",")
-                    '  listbox_availableroms.Items.Add(x_split(0))
-                    Dim file_source As String = x_split(3)
-                    If file_source.Contains("google") Then
-                        file_source = "Google Drive"
-                    ElseIf showsource = True Then
-                        file_source = metadata(0)
-                    Else
-                        file_source = "Other"
-                    End If
-                    listbox_availableroms.Items.Add(New ListViewItem(New String() {x_split(0), x_split(1), x_split(2), file_source, x_split(3)}))
+            For Each item In imported_list_downloads
+                Dim item_split As String() = Split(item, ",")
+                '  listbox_availableroms.Items.Add(x_split(0))
+                Dim file_source As String = item_split(3)
+                If file_source.Contains("google") Then
+                    file_source = "Google Drive"
+                ElseIf showsource = True Then
+                    file_source = metadata(0)
+                Else
+                    file_source = "Other"
                 End If
+                listbox_availableroms.Items.Add(New ListViewItem(New String() {item_split(0), item_split(1), item_split(2), file_source, item_split(3)}))
             Next
             listbox_availableroms.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent)
             listbox_availableroms.AutoResizeColumn(2, ColumnHeaderAutoResizeStyle.HeaderSize)
@@ -1674,15 +1609,11 @@ x.SubItems(4).Text, "Queued", timestamp}))
             Else
                 My.Computer.FileSystem.CreateDirectory(".\lists\")
             End If
-
-
-
             System.IO.File.Copy(import_list.FileName, ".\lists\" & System.IO.Path.GetFileName(import_list.FileName))
         ElseIf Windows.Forms.DialogResult.Cancel Then
         Else
             MessageBox.Show("List already imported")
         End If
-
     End Sub
 
     Private Sub btn_fromeldr_MouseEnter(sender As Object, e As EventArgs) Handles btn_fromeldr.MouseEnter
@@ -1719,32 +1650,10 @@ x.SubItems(4).Text, "Queued", timestamp}))
     End Sub
 
     Private Sub ExitToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ExitToolStripMenuItem.Click
-        If Not listbox_queue.Items.Count = 0 Then
-            If listbox_queue.Items(0).SubItems(5).Text = "Downloading" Then
-                Dim result = MessageBox.Show("Are you sure you want to cancel all queued and current downloads?", "Currently downloading", MessageBoxButtons.YesNo)
-                If result = DialogResult.Yes Then
-
-                    If Not File.Exists(".\downloadlog.dat") Then
-                        File.Create(".\downloadlog.dat")
-                        File.WriteAllText(".\downloadlog.dat", listbox_queue.Items(0).SubItems(0).Text & "," & listbox_queue.Items(0).SubItems(1).Text & "," & listbox_queue.Items(0).SubItems(2).Text & "," & listbox_queue.Items(0).SubItems(3).Text & "," & "removed" & "," & "Cancelled" & "," & listbox_queue.Items(0).SubItems(6).Text)
-
-                    Else
-                        Dim log As String = File.ReadAllText(".\downloadlog.dat")
-                        File.WriteAllText(".\downloadlog.dat", listbox_queue.Items(0).SubItems(0).Text & "," & listbox_queue.Items(0).SubItems(1).Text & "," & listbox_queue.Items(0).SubItems(2).Text & "," & listbox_queue.Items(0).SubItems(3).Text & "," & "removed" & "," & "Cancelled" & "," & listbox_queue.Items(0).SubItems(6).Text & vbNewLine & log)
-                    End If
-
-                    For Each x In listbox_queue.Items
-                        If x.subitems(5).text = "Queued" Then
-                            Dim log As String = File.ReadAllText(".\downloadlog.dat")
-                            File.WriteAllText(".\downloadlog.dat", x.SubItems(0).Text & "," & x.SubItems(1).Text & "," & x.SubItems(2).Text & "," & x.SubItems(3).Text & "," & "removed" & "," & "Cancelled" & "," & x.SubItems(6).Text & vbNewLine & log)
-                        End If
-                    Next
-                    Application.Exit()
-                End If
-
-            Else
-                Application.Exit()
-            End If
+        Dim checkbox_exit As String() = (global_settings(4).Split("="))
+        'Checks if you want to exit while something is downloading.
+        If Not listbox_queue.Items.Count = 0 And checkbox_exit(1) = "1" AndAlso listbox_queue.Items(0).SubItems(5).Text = "Downloading" Then
+            Call check_exit()
         Else
             Application.Exit()
         End If
@@ -1773,7 +1682,6 @@ x.SubItems(4).Text, "Queued", timestamp}))
         Else
             Me.MaximumSize = New Size(4320, 4320)
         End If
-
     End Sub
 
     Private Sub button_cancel_MouseEnter(sender As Object, e As EventArgs) Handles btn_cancel.MouseEnter
@@ -1824,38 +1732,10 @@ x.SubItems(4).Text, "Queued", timestamp}))
 
     Private Sub main_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
         Dim checkbox_exit As String() = (global_settings(4).Split("="))
-        If checkbox_exit(1) = "0" Then
-            If Not listbox_queue.Items.Count = 0 Then
-                If listbox_queue.Items(0).SubItems(5).Text = "Downloading" Then
-                    Dim result = MessageBox.Show("Are you sure you want to cancel all queued and current downloads?", "Currently downloading", MessageBoxButtons.YesNo)
-                    If result = DialogResult.Yes Then
-
-                        If Not File.Exists(".\downloadlog.dat") Then
-                            File.Create(".\downloadlog.dat")
-                            File.WriteAllText(".\downloadlog.dat", listbox_queue.Items(0).SubItems(0).Text & "," & listbox_queue.Items(0).SubItems(1).Text & "," & listbox_queue.Items(0).SubItems(2).Text & "," & listbox_queue.Items(0).SubItems(3).Text & "," & "removed" & "," & "Cancelled" & "," & listbox_queue.Items(0).SubItems(6).Text)
-
-                        Else
-                            Dim log As String = File.ReadAllText(".\downloadlog.dat")
-                            File.WriteAllText(".\downloadlog.dat", listbox_queue.Items(0).SubItems(0).Text & "," & listbox_queue.Items(0).SubItems(1).Text & "," & listbox_queue.Items(0).SubItems(2).Text & "," & listbox_queue.Items(0).SubItems(3).Text & "," & "removed" & "," & "Cancelled" & "," & listbox_queue.Items(0).SubItems(6).Text & vbNewLine & log)
-                        End If
-
-                        For Each x In listbox_queue.Items
-                            If x.subitems(5).text = "Queued" Then
-                                Dim log As String = File.ReadAllText(".\downloadlog.dat")
-                                File.WriteAllText(".\downloadlog.dat", x.SubItems(0).Text & "," & x.SubItems(1).Text & "," & x.SubItems(2).Text & "," & x.SubItems(3).Text & "," & "removed" & "," & "Cancelled" & "," & x.SubItems(6).Text & vbNewLine & log)
-                            End If
-                        Next
-                        Application.Exit()
-                    Else
-                        e.Cancel = True
-                    End If
-
-                Else
-                    Application.Exit()
-                End If
-            Else
-                Application.Exit()
-            End If
+        If Not listbox_queue.Items.Count = 0 And checkbox_exit(1) = "0" AndAlso listbox_queue.Items(0).SubItems(5).Text = "Downloading" Then
+            Call check_exit()
+        ElseIf checkbox_exit(1) = "0" Then
+            Application.Exit()
         Else
             e.Cancel = True
             Me.ShowInTaskbar = False
@@ -1877,6 +1757,7 @@ x.SubItems(4).Text, "Queued", timestamp}))
         panel_play.Width += 250
         panel_downloads.Width += 250
         panel_drag_drop.Width += 250
+        panel_home.Width += 250
         btn_openright.Visible = True
         btn_openright_downloads.Visible = True
         btn_openright_browse.Visible = True
@@ -1888,6 +1769,7 @@ x.SubItems(4).Text, "Queued", timestamp}))
         panel_play.Width -= 250
         panel_downloads.Width -= 250
         panel_drag_drop.Width -= 250
+        panel_home.Width -= 250
         btn_openright_downloads.Visible = False
         btn_openright_browse.Visible = False
         btn_openright.Visible = False
@@ -1945,7 +1827,6 @@ x.SubItems(4).Text, "Queued", timestamp}))
         Else
             btn_opentop.BackgroundImage = System.Drawing.Image.FromFile(".\resources\opentopclick.png")
         End If
-
     End Sub
 
     Private Sub btn_opentop_MouseLeave(sender As Object, e As EventArgs) Handles btn_opentop.MouseLeave
@@ -1962,7 +1843,6 @@ x.SubItems(4).Text, "Queued", timestamp}))
         Else
             btn_closetop.BackgroundImage = System.Drawing.Image.FromFile(".\resources\closetopclick.png")
         End If
-
     End Sub
 
     Private Sub btn_closetop_MouseLeave(sender As Object, e As EventArgs) Handles btn_closetop.MouseLeave
@@ -2047,8 +1927,6 @@ x.SubItems(4).Text, "Queued", timestamp}))
     Private Sub btn_soundtrack_MouseDown(sender As Object, e As MouseEventArgs) Handles btn_soundtrack.MouseDown
         If listbox_availableroms.SelectedItems IsNot Nothing And listbox_availableroms.FocusedItem IsNot Nothing Then
             Dim searchterm As String = listbox_availableroms.FocusedItem.SubItems(0).Text.Replace(" ", "+").Replace(".7z", "").Replace(".zip", "").Replace("(", "").Replace(")", "").Replace("Ru", "").Replace("En", "").Replace("Jp", "").Replace("Europe", "").Replace("Ge", "").Replace("It", "").Replace("Fr", "").Replace("Es", "").Replace("Usa", "").Replace("Nl", "").Replace("Po", "").Replace("Sv", "").Replace("No", "").Replace("Da", "")
-
-
             If global_settings(9).Contains("google") Then
                 Process.Start("https://www.google.com/search?q=" & searchterm & "+" & listbox_availableroms.FocusedItem.SubItems(2).Text & "+Official+Soundtrack" & "&tbm=shop")
             ElseIf global_settings(9).Contains("amazonuk") Then
@@ -2078,12 +1956,14 @@ x.SubItems(4).Text, "Queued", timestamp}))
             btn_openright_downloads.BackgroundImage = System.Drawing.Image.FromFile(".\resources\openright.png")
         End If
     End Sub
+
     Private Sub btn_openright_downloads_Click(sender As Object, e As EventArgs) Handles btn_openright_downloads.Click
         panel_right.Visible = True
         panel_browse.Width -= 250
         panel_play.Width -= 250
         panel_downloads.Width -= 250
         panel_drag_drop.Width -= 250
+        panel_home.Width -= 250
         btn_openright_downloads.Visible = False
         btn_openright.Visible = False
         btn_openright_browse.Visible = False
@@ -2095,7 +1975,6 @@ x.SubItems(4).Text, "Queued", timestamp}))
         Else
             btn_openright_browse.BackgroundImage = System.Drawing.Image.FromFile(".\resources\openrightclick.png")
         End If
-
     End Sub
 
     Private Sub btn_openright_browse_MouseLeave(sender As Object, e As EventArgs) Handles btn_openright_browse.MouseLeave
@@ -2105,12 +1984,14 @@ x.SubItems(4).Text, "Queued", timestamp}))
             btn_openright_browse.BackgroundImage = System.Drawing.Image.FromFile(".\resources\openright.png")
         End If
     End Sub
+
     Private Sub btn_openright_browse_Click(sender As Object, e As EventArgs) Handles btn_openright_browse.Click
         panel_right.Visible = True
         panel_browse.Width -= 250
         panel_play.Width -= 250
         panel_downloads.Width -= 250
         panel_drag_drop.Width -= 250
+        panel_home.Width -= 250
         btn_openright_browse.Visible = False
         btn_openright.Visible = False
         btn_openright_browse.Visible = False
@@ -2145,9 +2026,7 @@ x.SubItems(4).Text, "Queued", timestamp}))
     End Sub
 
     Private Sub thread_emulator_update_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles thread_emulator_update.RunWorkerCompleted
-
         Call launch_emulator()
-
     End Sub
 
     Public Sub launch_emulator()
@@ -2266,10 +2145,6 @@ x.SubItems(4).Text, "Queued", timestamp}))
         panel_home.BringToFront()
     End Sub
 
-    Private Sub btn_play_jumpin_Click(sender As Object, e As EventArgs) Handles btn_play_jumpin.Click
-
-    End Sub
-
     Private Sub btn_play_jumpin_MouseDown(sender As Object, e As MouseEventArgs) Handles btn_play_jumpin.MouseDown
         btn_play_jumpin.Image = System.Drawing.Image.FromFile(".\resources\playclick.png")
         Call jumpin_play()
@@ -2323,6 +2198,22 @@ x.SubItems(4).Text, "Queued", timestamp}))
                 panel_banner.Visible = True
             End If
         Next
+    End Sub
+    Private Sub check_exit()
+        Dim result = MessageBox.Show("Are you sure you want to cancel all queued and current downloads?", "Currently downloading", MessageBoxButtons.YesNo)
+        If result = DialogResult.Yes Then
+            'If the file doesnt exist make a new one and add the new entries, otherwise add the new entries to the existing one.
+            If Not File.Exists(".\downloadlog.dat") Then
+                File.Create(".\downloadlog.dat").Dispose()
+            End If
+            For Each entry In listbox_queue.Items
+                If entry.subitems(5).text = "Queued" Or entry.subitems(5).text = "Downloading" Then
+                    Dim log As String = File.ReadAllText(".\downloadlog.dat")
+                    File.WriteAllText(".\downloadlog.dat", entry.SubItems(0).Text & "," & entry.SubItems(1).Text & "," & entry.SubItems(2).Text & "," & entry.SubItems(3).Text & "," & "removed" & "," & "Cancelled" & "," & entry.SubItems(6).Text & vbNewLine & log)
+                End If
+            Next
+            Application.Exit()
+        End If
     End Sub
     ' Private Sub Main_Maximise(ByVal sender As Object, ByVal e As EventArgs) Handles Me.w
     '     lbl_nothing.Location = New Point((panel_downloads.Width - lbl_nothing.Width) \ 2, (panel_downloads.Height - lbl_nothing.Height) \ 2)
