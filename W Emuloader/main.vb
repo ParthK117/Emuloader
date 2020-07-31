@@ -1669,7 +1669,9 @@ x.SubItems(4).Text, "Queued", timestamp}))
     Private Sub SettingsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SettingsToolStripMenuItem.Click
         settings.Show()
     End Sub
+
     Private Sub Main_ResizeEnd(ByVal sender As Object, ByVal e As EventArgs) Handles Me.SizeChanged
+        'Force 16:9
         lbl_nothing.Location = New Point((panel_downloads.Width - lbl_nothing.Width) \ 2, (panel_downloads.Height - lbl_nothing.Height) \ 2)
         lbl_status.Location = New Point((panel_top.Width - lbl_status.Width) \ 2, (panel_top.Height - lbl_status.Height) \ 2)
         If Me.WindowState = FormWindowState.Maximized Then
@@ -1693,27 +1695,24 @@ x.SubItems(4).Text, "Queued", timestamp}))
     End Sub
 
     Private Sub button_cancel_MouseDown(sender As Object, e As MouseEventArgs) Handles btn_cancel.MouseDown
-
         btn_cancel.BackgroundImage = System.Drawing.Image.FromFile(".\resources\cancelclick.png")
+        'Cancel a queued download.
         If listbox_queue.SelectedItems IsNot Nothing And listbox_queue.FocusedItem IsNot Nothing Then
-            If listbox_queue.SelectedItems IsNot Nothing And listbox_queue.FocusedItem.SubItems(5).Text = "Queued" Or listbox_queue.FocusedItem.SubItems(5).Text = "Downloading" And Not listbox_queue.FocusedItem.SubItems(5).Text = "Downloading" Then
+            If listbox_queue.SelectedItems IsNot Nothing And listbox_queue.FocusedItem.SubItems(5).Text = "Queued" Then
                 listbox_queue.FocusedItem.SubItems(5).Text = "Cancelled"
                 If Not File.Exists(".\downloadlog.dat") Then
-                    File.Create(".\downloadlog.dat")
+                    File.Create(".\downloadlog.dat").Dispose()
                     File.WriteAllText(".\downloadlog.dat", listbox_queue.Items(0).SubItems(0).Text & "," & listbox_queue.Items(0).SubItems(1).Text & "," & listbox_queue.Items(0).SubItems(2).Text & "," & listbox_queue.Items(0).SubItems(3).Text & "," & "removed" & "," & listbox_queue.Items(0).SubItems(5).Text & "," & listbox_queue.Items(0).SubItems(6).Text)
 
                 Else
                     Dim log As String = File.ReadAllText(".\downloadlog.dat")
                     File.WriteAllText(".\downloadlog.dat", listbox_queue.Items(0).SubItems(0).Text & "," & listbox_queue.Items(0).SubItems(1).Text & "," & listbox_queue.Items(0).SubItems(2).Text & "," & listbox_queue.Items(0).SubItems(3).Text & "," & "removed" & "," & listbox_queue.Items(0).SubItems(5).Text & "," & listbox_queue.Items(0).SubItems(6).Text & vbNewLine & log)
                 End If
-
             ElseIf listbox_queue.FocusedItem.SubItems(5).Text = "Downloading" Then
                 MessageBox.Show("Cannot cancel currently downloading file.")
             Else
                 MessageBox.Show("Cannot cancel a past download.")
             End If
-
-
         Else
             MessageBox.Show("Nothing selected to cancel!")
         End If
@@ -2000,140 +1999,99 @@ x.SubItems(4).Text, "Queued", timestamp}))
     Private Sub thread_emulator_update_DoWork(sender As Object, e As DoWorkEventArgs) Handles thread_emulator_update.DoWork
         If Not global_settings(12).Split("=")(1) = "1" Then
             Dim arguments As String() = (e.Argument)
-            Using vba_m = New WebClient()
+            Using new_update = New WebClient()
                 Try
-                    vba_m.DownloadFile(arguments(0), ".\" & main.currenttab_metadata(4) & "\update.zip")
-                    vba_m.Dispose()
+                    new_update.DownloadFile(arguments(0), ".\" & main.currenttab_metadata(4) & "\update.zip")
+                    new_update.Dispose()
                 Catch ex As Exception
-                    vba_m.Dispose()
-                    MessageBox.Show("Can't find Download, exiting.")
+                    new_update.Dispose()
+                    MessageBox.Show("Update failed, you can attempt relaunching in offline mode.")
                 End Try
             End Using
-
             If File.Exists(".\" & main.currenttab_metadata(4) & "\update.zip") Then
                 Dim zipfilepath As String = ".\" & main.currenttab_metadata(4) & "\update.zip"
                 Dim extractto As String = ".\" & main.currenttab_metadata(4)
                 Using zipfile3 = ZipFile.OpenRead(zipfilepath)
                     For Each entry As ZipArchiveEntry In zipfile3.Entries
-
-
                         entry.ExtractToFile(Path.Combine(extractto, entry.FullName), True)
-
                     Next
                 End Using
             End If
         End If
     End Sub
-
     Private Sub thread_emulator_update_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles thread_emulator_update.RunWorkerCompleted
         Call launch_emulator()
     End Sub
-
     Public Sub launch_emulator()
         btn_play.Image = System.Drawing.Image.FromFile(".\resources\playblack.gif")
         GC.Collect()
         Dim timestamp As String = Date.Now.ToString("dd/MM/yyyy")
         Dim existing As String() = File.ReadAllLines(".\roms\" & currenttab_metadata(1) & "\metadata\lastplayed.dat")
-        Dim existing2 As String = File.ReadAllText(".\roms\" & currenttab_metadata(1) & "\metadata\lastplayed.dat")
+        Dim existing_copy As String = File.ReadAllText(".\roms\" & currenttab_metadata(1) & "\metadata\lastplayed.dat")
         Dim canary As Boolean = False
-        For Each x In existing
-            Dim y As String() = x.Split(",")
-            If y(0) = listbox_installedroms.FocusedItem.SubItems(0).Text Then
-                File.WriteAllText(".\roms\" & currenttab_metadata(1) & "\metadata\lastplayed.dat", (existing2.Replace(x, listbox_installedroms.FocusedItem.SubItems(0).Text & "," & timestamp)))
+        For Each existing_title In existing
+            Dim entry As String() = existing_title.Split(",")
+            If entry(0) = listbox_installedroms.FocusedItem.SubItems(0).Text Then
+                File.WriteAllText(".\roms\" & currenttab_metadata(1) & "\metadata\lastplayed.dat", (existing_copy.Replace(existing_title, listbox_installedroms.FocusedItem.SubItems(0).Text & "," & timestamp)))
                 canary = True
                 Exit For
             End If
         Next
         If canary = False Then
-            File.WriteAllText(".\roms\" & currenttab_metadata(1) & "\metadata\lastplayed.dat", (existing2 & vbNewLine & listbox_installedroms.FocusedItem.SubItems(0).Text & "," & timestamp))
-
+            File.WriteAllText(".\roms\" & currenttab_metadata(1) & "\metadata\lastplayed.dat", (existing_copy & vbNewLine & listbox_installedroms.FocusedItem.SubItems(0).Text & "," & timestamp))
         End If
-
         Dim emulator As Process
-        Dim p As New ProcessStartInfo
-
+        Dim emulator_exe As New ProcessStartInfo
         Dim params As String = File.ReadAllText(".\" & currenttab_metadata(4) & "\cmdlineargs.ini")
-        p.FileName = (".\" & currenttab_metadata(4) & "\" & currenttab_metadata(3))
-
-        If currenttab_metadata(1) = "GBA" Then
-
-            Dim rom_path As String = System.IO.Path.GetFullPath(listbox_installedroms.FocusedItem.SubItems(2).Text)
-            p.Arguments = ("""" & rom_path & """ " & params)
-        ElseIf currenttab_metadata(1) = "3DS" Then
-
-
-            Dim rom_path As String = System.IO.Path.GetFullPath(listbox_installedroms.FocusedItem.SubItems(2).Text)
-            p.Arguments = ("""" & rom_path & """ " & params)
-        ElseIf currenttab_metadata(1) = "NDS" Then
-
-
-            Dim rom_path As String = System.IO.Path.GetFullPath(listbox_installedroms.FocusedItem.SubItems(2).Text)
-            p.Arguments = ("""" & rom_path & """ " & params)
-        ElseIf currenttab_metadata(1) = "N64" Then
-
-
-            Dim rom_path As String = System.IO.Path.GetFullPath(listbox_installedroms.FocusedItem.SubItems(2).Text)
-            p.Arguments = ("""" & rom_path & """ " & params)
-        ElseIf currenttab_metadata(1) = "PSP" Then
-
-
-            Dim rom_path As String = System.IO.Path.GetFullPath(listbox_installedroms.FocusedItem.SubItems(2).Text)
-            p.Arguments = ("""" & rom_path & """ " & params)
-        ElseIf currenttab_metadata(1) = "WII" Then
-
-
-            Dim rom_path As String = System.IO.Path.GetFullPath(listbox_installedroms.FocusedItem.SubItems(2).Text)
-            p.Arguments = ("""" & rom_path & """ " & params)
-        ElseIf currenttab_metadata(1) = "WIIU" Then
-
-
-            Dim rom_path As String = System.IO.Path.GetFullPath(listbox_installedroms.FocusedItem.SubItems(2).Text)
-            p.Arguments = ("-g" & """" & rom_path & """ " & params)
-        ElseIf currenttab_metadata(1) = "SNES" Then
-
-
-            Dim rom_path As String = System.IO.Path.GetFullPath(listbox_installedroms.FocusedItem.SubItems(2).Text)
-            p.Arguments = ("""" & rom_path & """ " & params)
-        ElseIf currenttab_metadata(1) = "NES" Then
-
-
-            Dim rom_path As String = System.IO.Path.GetFullPath(listbox_installedroms.FocusedItem.SubItems(2).Text)
-            p.Arguments = ("Mesen " & """" & rom_path & """ " & params)
-        ElseIf currenttab_metadata(1) = "NES" Then
-
-
-            Dim rom_path As String = System.IO.Path.GetFullPath(listbox_installedroms.FocusedItem.SubItems(2).Text)
-            p.Arguments = ("-loadbin " & """" & rom_path & """ " & params)
-        ElseIf currenttab_metadata(1) = "MGD" Then
-
-
-            Dim rom_path As String = System.IO.Path.GetFullPath(listbox_installedroms.FocusedItem.SubItems(2).Text)
-            p.Arguments = ("""" & rom_path & """ " & params)
-        ElseIf currenttab_metadata(1) = "DC" Then
-
-
-            Dim rom_path As String = System.IO.Path.GetFullPath(listbox_installedroms.FocusedItem.SubItems(2).Text)
-            p.Arguments = ("""" & rom_path & """ " & params)
-        ElseIf currenttab_metadata(1) = "PS2" Then
-
-
-            Dim rom_path As String = System.IO.Path.GetFullPath(listbox_installedroms.FocusedItem.SubItems(2).Text)
-            p.Arguments = ("""" & rom_path & """ " & params)
-        End If
-
-
-
-
+        emulator_exe.FileName = (".\" & currenttab_metadata(4) & "\" & currenttab_metadata(3))
+        Dim rom_path As String = ""
+        Select Case currenttab_metadata(1)
+            Case "GBA"
+                rom_path = System.IO.Path.GetFullPath(listbox_installedroms.FocusedItem.SubItems(2).Text)
+                emulator_exe.Arguments = ("""" & rom_path & """ " & params)
+            Case "3DS"
+                rom_path = System.IO.Path.GetFullPath(listbox_installedroms.FocusedItem.SubItems(2).Text)
+                emulator_exe.Arguments = ("""" & rom_path & """ " & params)
+            Case "NDS"
+                rom_path = System.IO.Path.GetFullPath(listbox_installedroms.FocusedItem.SubItems(2).Text)
+                emulator_exe.Arguments = ("""" & rom_path & """ " & params)
+            Case "N64"
+                rom_path = System.IO.Path.GetFullPath(listbox_installedroms.FocusedItem.SubItems(2).Text)
+                emulator_exe.Arguments = ("""" & rom_path & """ " & params)
+            Case "PSP"
+                rom_path = System.IO.Path.GetFullPath(listbox_installedroms.FocusedItem.SubItems(2).Text)
+                emulator_exe.Arguments = ("""" & rom_path & """ " & params)
+            Case "WII"
+                rom_path = System.IO.Path.GetFullPath(listbox_installedroms.FocusedItem.SubItems(2).Text)
+                emulator_exe.Arguments = ("""" & rom_path & """ " & params)
+            Case "WIIU"
+                rom_path = System.IO.Path.GetFullPath(listbox_installedroms.FocusedItem.SubItems(2).Text)
+                emulator_exe.Arguments = ("-g" & """" & rom_path & """ " & params)
+            Case "SNES"
+                rom_path = System.IO.Path.GetFullPath(listbox_installedroms.FocusedItem.SubItems(2).Text)
+                emulator_exe.Arguments = ("""" & rom_path & """ " & params)
+            Case "NES"
+                rom_path = System.IO.Path.GetFullPath(listbox_installedroms.FocusedItem.SubItems(2).Text)
+                emulator_exe.Arguments = ("Mesen " & """" & rom_path & """ " & params)
+            Case "PSX"
+                rom_path = System.IO.Path.GetFullPath(listbox_installedroms.FocusedItem.SubItems(2).Text)
+                emulator_exe.Arguments = ("-loadbin " & """" & rom_path & """ " & params)
+            Case "MGD"
+                rom_path = System.IO.Path.GetFullPath(listbox_installedroms.FocusedItem.SubItems(2).Text)
+                emulator_exe.Arguments = ("""" & rom_path & """ " & params)
+            Case "DC"
+                rom_path = System.IO.Path.GetFullPath(listbox_installedroms.FocusedItem.SubItems(2).Text)
+                emulator_exe.Arguments = ("""" & rom_path & """ " & params)
+            Case "PS2"
+                rom_path = System.IO.Path.GetFullPath(listbox_installedroms.FocusedItem.SubItems(2).Text)
+                emulator_exe.Arguments = ("""" & rom_path & """ " & params)
+        End Select
         If checkbox_fullscreen.Checked = True Then
-            p.WindowStyle = ProcessWindowStyle.Maximized
-
+            emulator_exe.WindowStyle = ProcessWindowStyle.Maximized
         Else
-            p.WindowStyle = ProcessWindowStyle.Normal
-
+            emulator_exe.WindowStyle = ProcessWindowStyle.Normal
         End If
-
-        emulator = Process.Start(p)
-
+        emulator = Process.Start(emulator_exe)
         If File.Exists(".\lastplayed.dat") = True Then
             File.Delete(".\lastplayed.dat")
         End If
@@ -2162,8 +2120,8 @@ x.SubItems(4).Text, "Queued", timestamp}))
     Public Sub jumpin_play()
         panel_banner.Visible = False
         Dim index As Integer = 0
-        For Each x In emu_tab_metadata_list.emutabs_metadata
-            If (x(0)) = lbl_jumpin_emuname.Text Then
+        For Each entry In emu_tab_metadata_list.emutabs_metadata
+            If (entry(0)) = lbl_jumpin_emuname.Text Then
                 Select Case index
                     Case 0
                         emu_one_Click(Nothing, Nothing)
@@ -2189,16 +2147,17 @@ x.SubItems(4).Text, "Queued", timestamp}))
             index += 1
         Next
 
-        For Each y In listbox_installedroms.Items
-            If y.subitems(0).text = lbl_jumpin_romname.Text Then
-                y.Focused = True
-                y.Selected = True
-                y.EnsureVisible()
+        For Each entry In listbox_installedroms.Items
+            If entry.subitems(0).text = lbl_jumpin_romname.Text Then
+                entry.Focused = True
+                entry.Selected = True
+                entry.EnsureVisible()
                 btn_play_MouseDown(Nothing, Nothing)
                 panel_banner.Visible = True
             End If
         Next
     End Sub
+
     Private Sub check_exit()
         Dim result = MessageBox.Show("Are you sure you want to cancel all queued and current downloads?", "Currently downloading", MessageBoxButtons.YesNo)
         If result = DialogResult.Yes Then
@@ -2215,8 +2174,4 @@ x.SubItems(4).Text, "Queued", timestamp}))
             Application.Exit()
         End If
     End Sub
-    ' Private Sub Main_Maximise(ByVal sender As Object, ByVal e As EventArgs) Handles Me.w
-    '     lbl_nothing.Location = New Point((panel_downloads.Width - lbl_nothing.Width) \ 2, (panel_downloads.Height - lbl_nothing.Height) \ 2)
-    '     lbl_status.Location = New Point((panel_top.Width - lbl_status.Width) \ 2, (panel_top.Height - lbl_status.Height) \ 2)
-    ' End Sub
 End Class
