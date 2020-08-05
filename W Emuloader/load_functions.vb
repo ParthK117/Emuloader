@@ -196,7 +196,6 @@ Module load_functions
                         If f.ToString.Contains(".smc") Or f.ToString.Contains(".sfc") Or f.ToString.Contains(".bin") Then
                             main.listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString, platform_id, System.IO.Path.GetFullPath(f.FullName)}))
                         End If
-
                     Next
                 Next
 
@@ -217,94 +216,72 @@ Module load_functions
                 Next
 
             Case "PSX"
-
-        End Select
-        If main.currenttab_metadata(1) = "PSX" Then
-            For Each f In rom_directory.GetFiles
-                If f.ToString.Contains("XT") Then
-                ElseIf f.ToString.Contains(".bin") Or f.ToString.Contains(".img") Or f.ToString.Contains(".iso") Then
-                    main.listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString.Replace(".iso", "").Replace(".img", "").Replace(".bin", ""), "PSX", System.IO.Path.GetFullPath(f.FullName)}))
-                End If
-
-            Next
-
-            For Each x In customromlist
-                Dim custom_directory As New DirectoryInfo(x)
-                For Each f In custom_directory.GetFiles
-                    If f.ToString.Contains(".img") Or f.ToString.Contains(".iso") Or f.ToString.Contains(".bin") Then
-
-                        main.listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString.Replace(".img", "").Replace(".iso", "").Replace(".bin", ""), "PSX", System.IO.Path.GetFullPath(f.FullName)}))
+                platform_id = "PSX"
+                For Each f In rom_directory.GetFiles
+                    If f.ToString.Contains(".bin") Or f.ToString.Contains(".img") Or f.ToString.Contains(".iso") Then
+                        main.listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString, platform_id, System.IO.Path.GetFullPath(f.FullName)}))
                     End If
-
                 Next
-            Next
-        ElseIf main.currenttab_metadata(1) = "MGD" Then
-            For Each f In rom_directory.GetFiles
-                If f.ToString.Contains(".md") Or f.ToString.Contains(".gen") Or f.ToString.Contains(".bin") Then
-                    main.listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString.Replace(".gen", "").Replace(".md", "").Replace(".bin", ""), "MGD", System.IO.Path.GetFullPath(f.FullName)}))
-                End If
+                For Each custom_directory_entry In customromlist
+                    Dim custom_directory As New DirectoryInfo(custom_directory_entry)
+                    For Each f In custom_directory.GetFiles
+                        If f.ToString.Contains(".img") Or f.ToString.Contains(".iso") Or f.ToString.Contains(".bin") Then
+                            main.listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString, platform_id, System.IO.Path.GetFullPath(f.FullName)}))
+                        End If
+                    Next
+                Next
 
-            Next
-
-            For Each x In customromlist
-                Dim custom_directory As New DirectoryInfo(x)
-                For Each f In custom_directory.GetFiles
+            Case "MGD"
+                platform_id = "MGD"
+                For Each f In rom_directory.GetFiles
                     If f.ToString.Contains(".md") Or f.ToString.Contains(".gen") Or f.ToString.Contains(".bin") Then
-
-                        main.listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString.Replace(".gen", "").Replace(".md", "").Replace(".bin", ""), "MGD", System.IO.Path.GetFullPath(f.FullName)}))
+                        main.listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString, platform_id, System.IO.Path.GetFullPath(f.FullName)}))
                     End If
-
                 Next
-            Next
-        ElseIf main.currenttab_metadata(1) = "DC" Then
-            For Each f In rom_directory.GetFiles
-                If f.ToString.Contains("XT") Then
-                ElseIf f.ToString.Contains(".gdi") Or f.ToString.Contains(".cdi") Or f.ToString.Contains(".chd") Then
-                    main.listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString.Replace(".gdi", "").Replace(".cdi", "").Replace(".chd", ""), "DC", System.IO.Path.GetFullPath(f.FullName)}))
-                End If
+                For Each custom_directory_entry In customromlist
+                    Dim custom_directory As New DirectoryInfo(custom_directory_entry)
+                    For Each f In custom_directory.GetFiles
+                        If f.ToString.Contains(".md") Or f.ToString.Contains(".gen") Or f.ToString.Contains(".bin") Then
+                            main.listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString, platform_id, System.IO.Path.GetFullPath(f.FullName)}))
+                        End If
+                    Next
+                Next
 
-            Next
-
-            For Each x In customromlist
-                Dim custom_directory As New DirectoryInfo(x)
-                For Each f In custom_directory.GetFiles
-                    If f.ToString.Contains(".gdi") Or f.ToString.Contains(".cdi") Or f.ToString.Contains(".ghd") Then
-
-                        main.listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString.Replace(".gdi", "").Replace(".cdi", "").Replace(".ghd", ""), "DC", System.IO.Path.GetFullPath(f.FullName)}))
+            Case "DC"
+                platform_id = "DC"
+                For Each f In rom_directory.GetFiles
+                    If f.ToString.Contains(".gdi") Or f.ToString.Contains(".cdi") Or f.ToString.Contains(".chd") Then
+                        main.listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString, platform_id, System.IO.Path.GetFullPath(f.FullName)}))
                     End If
-
                 Next
-            Next
-        ElseIf main.currenttab_metadata(1) = "PS2" Then
-            For Each f In rom_directory.GetFiles
-                If f.ToString.Contains("XT") Then
-                ElseIf f.ToString.Contains(".iso") Or f.ToString.Contains(".bin") Then
-                    main.listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString.Replace(".iso", "").Replace(".bin", ""), "PS2", System.IO.Path.GetFullPath(f.FullName)}))
-                End If
+                For Each custom_directory_entry In customromlist
+                    Dim custom_directory As New DirectoryInfo(custom_directory_entry)
+                    For Each f In custom_directory.GetFiles
+                        If f.ToString.Contains(".gdi") Or f.ToString.Contains(".cdi") Or f.ToString.Contains(".ghd") Then
+                            main.listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString, platform_id, System.IO.Path.GetFullPath(f.FullName)}))
+                        End If
+                    Next
+                Next
 
-            Next
-
-            For Each x In customromlist
-                Dim custom_directory As New DirectoryInfo(x)
-                For Each f In custom_directory.GetFiles
+            Case "PS2"
+                platform_id = "PS2"
+                For Each f In rom_directory.GetFiles
                     If f.ToString.Contains(".iso") Or f.ToString.Contains(".bin") Then
-
-                        main.listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString.Replace(".iso", "").Replace(".bin", ""), "PS2", System.IO.Path.GetFullPath(f.FullName)}))
+                        main.listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString, platform_id, System.IO.Path.GetFullPath(f.FullName)}))
                     End If
-
                 Next
-            Next
-        End If
-
+                For Each custom_directory_entry In customromlist
+                    Dim custom_directory As New DirectoryInfo(custom_directory_entry)
+                    For Each f In custom_directory.GetFiles
+                        If f.ToString.Contains(".iso") Or f.ToString.Contains(".bin") Then
+                            main.listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString, platform_id, System.IO.Path.GetFullPath(f.FullName)}))
+                        End If
+                    Next
+                Next
+        End Select
         Call main.retrieveboxart()
-
-
-
-
-
         If main.listbox_installedroms.Items.Count = 0 Then
             main.listbox_installedroms.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize)
-
         Else
             main.listbox_installedroms.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent)
         End If
@@ -317,79 +294,64 @@ Module load_functions
             Dim installedeldr As String() = File.ReadAllLines(".\installed.eldr")
             Dim index As Integer = 0
             Dim emutabs = {main.emu_one, main.emu_two, main.emu_three, main.emu_four, main.emu_five, main.emu_six, main.emu_seven, main.emu_eight, main.emu_nine}
-
-            For Each x In installedeldr
+            For Each eldr_entry In installedeldr
                 Dim currentmetadata As String()
-                If x.Contains("VBAM") Then
+                If eldr_entry.Contains("VBAM") Then
                     emutabs(index).Text = "VBA-M"
                     emutabs(index).Visible = True
-                    currentmetadata = File.ReadAllLines(".\" & x & "\vbam.eldr")
-                End If
-
-                If x.Contains("CITRA") Then
+                    currentmetadata = File.ReadAllLines(".\" & eldr_entry & "\vbam.eldr")
+                ElseIf eldr_entry.Contains("CITRA") Then
                     emutabs(index).Text = "Citra"
                     emutabs(index).Visible = True
-                    currentmetadata = File.ReadAllLines(".\" & x & "\citra.eldr")
-                End If
-                If x.Contains("DESMUME") Then
+                    currentmetadata = File.ReadAllLines(".\" & eldr_entry & "\citra.eldr")
+                ElseIf eldr_entry.Contains("DESMUME") Then
                     emutabs(index).Text = "DeSmuME"
                     emutabs(index).Visible = True
-                    currentmetadata = File.ReadAllLines(".\" & x & "\desmume.eldr")
-                End If
-                If x.Contains("PROJECT64") Then
+                    currentmetadata = File.ReadAllLines(".\" & eldr_entry & "\desmume.eldr")
+                ElseIf eldr_entry.Contains("PROJECT64") Then
                     emutabs(index).Text = "Project64"
                     emutabs(index).Visible = True
-                    currentmetadata = File.ReadAllLines(".\" & x & "\project64.eldr")
-                End If
-                If x.Contains("PPSSPP") Then
+                    currentmetadata = File.ReadAllLines(".\" & eldr_entry & "\project64.eldr")
+                ElseIf eldr_entry.Contains("PPSSPP") Then
                     emutabs(index).Text = "PPSSPP"
                     emutabs(index).Visible = True
-                    currentmetadata = File.ReadAllLines(".\" & x & "\ppsspp.eldr")
-                End If
-                If x.Contains("DOLPHIN") Then
+                    currentmetadata = File.ReadAllLines(".\" & eldr_entry & "\ppsspp.eldr")
+                ElseIf eldr_entry.Contains("DOLPHIN") Then
                     emutabs(index).Text = "Dolphin"
                     emutabs(index).Visible = True
-                    currentmetadata = File.ReadAllLines(".\" & x & "\dolphin.eldr")
-                End If
-                If x.Contains("CEMU") Then
+                    currentmetadata = File.ReadAllLines(".\" & eldr_entry & "\dolphin.eldr")
+                ElseIf eldr_entry.Contains("CEMU") Then
                     emutabs(index).Text = "Cemu"
                     emutabs(index).Visible = True
-                    currentmetadata = File.ReadAllLines(".\" & x & "\cemu.eldr")
-                End If
-                If x.Contains("SNES9X") Then
+                    currentmetadata = File.ReadAllLines(".\" & eldr_entry & "\cemu.eldr")
+                ElseIf eldr_entry.Contains("SNES9X") Then
                     emutabs(index).Text = "Snes9x"
                     emutabs(index).Visible = True
-                    currentmetadata = File.ReadAllLines(".\" & x & "\snes9x.eldr")
-                End If
-                If x.Contains("MESEN") Then
+                    currentmetadata = File.ReadAllLines(".\" & eldr_entry & "\snes9x.eldr")
+                ElseIf eldr_entry.Contains("MESEN") Then
                     emutabs(index).Text = "Mesen"
                     emutabs(index).Visible = True
-                    currentmetadata = File.ReadAllLines(".\" & x & "\mesen.eldr")
-                End If
-                If x.Contains("EPSXE") Then
+                    currentmetadata = File.ReadAllLines(".\" & eldr_entry & "\mesen.eldr")
+                elseIf eldr_entry.Contains("EPSXE") Then
                     emutabs(index).Text = "ePSXe"
                     emutabs(index).Visible = True
-                    currentmetadata = File.ReadAllLines(".\" & x & "\epsxe.eldr")
-                End If
-                If x.Contains("FUSION") Then
+                    currentmetadata = File.ReadAllLines(".\" & eldr_entry & "\epsxe.eldr")
+                elseIf eldr_entry.Contains("FUSION") Then
                     emutabs(index).Text = "Fusion"
                     emutabs(index).Visible = True
-                    currentmetadata = File.ReadAllLines(".\" & x & "\fusion.eldr")
-                End If
-                If x.Contains("REDREAM") Then
+                    currentmetadata = File.ReadAllLines(".\" & eldr_entry & "\fusion.eldr")
+                elseIf eldr_entry.Contains("REDREAM") Then
                     emutabs(index).Text = "Redream"
                     emutabs(index).Visible = True
-                    currentmetadata = File.ReadAllLines(".\" & x & "\redream.eldr")
-                End If
-                If x.Contains("PCSX2") Then
+                    currentmetadata = File.ReadAllLines(".\" & eldr_entry & "\redream.eldr")
+                elseIf eldr_entry.Contains("PCSX2") Then
                     emutabs(index).Text = "PCSX2"
                     emutabs(index).Visible = True
-                    currentmetadata = File.ReadAllLines(".\" & x & "\pcsx2.eldr")
+                    currentmetadata = File.ReadAllLines(".\" & eldr_entry & "\pcsx2.eldr")
                 End If
                 emu_tab_metadata_list.emutabs_metadata(index) = currentmetadata
                 index = index + 1
             Next
-
         End If
     End Sub
 End Module
