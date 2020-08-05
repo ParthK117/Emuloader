@@ -1,51 +1,46 @@
 ﻿Public Class romproperties
     Dim name_rom As String = main.listbox_installedroms.FocusedItem.SubItems(0).Text
     Private Sub romproperties_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
-        If main.dark = 1 Then
-            lbl_properties.ForeColor = Color.FromArgb(23, 191, 99)
-            Me.BackColor = Color.FromArgb(21, 32, 43)
-            lbl_file_path_identifier.ForeColor = Color.White
-            lbl_file_path.ForeColor = Color.White
-            lbl_rom_name_identifier.ForeColor = Color.White
-            textbox_rom_name.ForeColor = Color.White
-            textbox_rom_name.BackColor = Color.FromArgb(21, 32, 43)
-            lbl_rom_name.ForeColor = Color.White
-            lbl_platform_identifier.ForeColor = Color.White
-            lbl_platform.ForeColor = Color.White
-        ElseIf main.dark = 2 Then
-            lbl_properties.ForeColor = Color.White
-            Me.BackColor = Color.FromArgb(25, 28, 40)
-            lbl_file_path_identifier.ForeColor = Color.White
-            lbl_file_path.ForeColor = Color.White
-            lbl_rom_name_identifier.ForeColor = Color.White
-            textbox_rom_name.ForeColor = Color.White
-            textbox_rom_name.BackColor = Color.FromArgb(25, 28, 40)
-            lbl_rom_name.ForeColor = Color.White
-            lbl_platform_identifier.ForeColor = Color.White
-            lbl_platform.ForeColor = Color.White
-        ElseIf main.dark = 3 Then
-            lbl_properties.ForeColor = Color.White
-            Me.BackColor = Color.FromArgb(12, 12, 12)
-            lbl_file_path_identifier.ForeColor = Color.White
-            lbl_file_path.ForeColor = Color.White
-            lbl_rom_name_identifier.ForeColor = Color.White
-            textbox_rom_name.ForeColor = Color.White
-            textbox_rom_name.BackColor = Color.FromArgb(12, 12, 12)
-            lbl_rom_name.ForeColor = Color.White
-            lbl_platform_identifier.ForeColor = Color.White
-            lbl_platform.ForeColor = Color.White
-        End If
-
+        Select Case main.dark
+            Case 1
+                lbl_properties.ForeColor = Color.FromArgb(23, 191, 99)
+                Me.BackColor = Color.FromArgb(21, 32, 43)
+                lbl_file_path_identifier.ForeColor = Color.White
+                lbl_file_path.ForeColor = Color.White
+                lbl_rom_name_identifier.ForeColor = Color.White
+                textbox_rom_name.ForeColor = Color.White
+                textbox_rom_name.BackColor = Color.FromArgb(21, 32, 43)
+                lbl_rom_name.ForeColor = Color.White
+                lbl_platform_identifier.ForeColor = Color.White
+                lbl_platform.ForeColor = Color.White
+            Case 2
+                lbl_properties.ForeColor = Color.White
+                Me.BackColor = Color.FromArgb(25, 28, 40)
+                lbl_file_path_identifier.ForeColor = Color.White
+                lbl_file_path.ForeColor = Color.White
+                lbl_rom_name_identifier.ForeColor = Color.White
+                textbox_rom_name.ForeColor = Color.White
+                textbox_rom_name.BackColor = Color.FromArgb(25, 28, 40)
+                lbl_rom_name.ForeColor = Color.White
+                lbl_platform_identifier.ForeColor = Color.White
+                lbl_platform.ForeColor = Color.White
+            Case 3
+                lbl_properties.ForeColor = Color.White
+                Me.BackColor = Color.FromArgb(12, 12, 12)
+                lbl_file_path_identifier.ForeColor = Color.White
+                lbl_file_path.ForeColor = Color.White
+                lbl_rom_name_identifier.ForeColor = Color.White
+                textbox_rom_name.ForeColor = Color.White
+                textbox_rom_name.BackColor = Color.FromArgb(12, 12, 12)
+                lbl_rom_name.ForeColor = Color.White
+                lbl_platform_identifier.ForeColor = Color.White
+                lbl_platform.ForeColor = Color.White
+        End Select
         Dim grey As Color
         grey = Color.FromArgb(247, 249, 250)
-
         Dim lightgrey As Color
         lightgrey = Color.FromArgb(238, 238, 238)
-
         Dim labelgrey As Color = Color.FromArgb(120, 127, 142)
-
-
 
         Dim spartanfont10 As New System.Drawing.Font(main.spartan.Families(0), 10)
 
@@ -66,8 +61,6 @@
         lbl_rom_name_identifier.ForeColor = labelgrey
         lbl_platform_identifier.Font = gothamfont12
         lbl_platform_identifier.ForeColor = labelgrey
-
-
     End Sub
     Public Sub load_rom_properties()
         name_rom = main.listbox_installedroms.FocusedItem.SubItems(0).Text
@@ -94,10 +87,7 @@
                 MsgBox("Cannot rename WII-U game")
                 textbox_rom_name.Text = main.listbox_installedroms.FocusedItem.SubItems(0).Text
             End If
-
-
             Me.Text = textbox_rom_name.Text & " Properties"
-
             lbl_rom_name.Text = textbox_rom_name.Text
             lbl_rom_name.Visible = True
             textbox_rom_name.Visible = False
@@ -118,7 +108,6 @@
     Private Sub romproperties_Click(sender As Object, e As EventArgs) Handles Me.Click
         lbl_rom_name.Visible = True
         textbox_rom_name.Visible = False
-
         textbox_rom_name.Text = name_rom
     End Sub
 End Class

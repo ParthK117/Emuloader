@@ -1039,21 +1039,24 @@ x.SubItems(4).Text, "Queued", timestamp}))
             'If box art downloading is enabled and boxart downloading on a pergame basis is ENABLED and emuloader is not in offline mode.
         ElseIf checkbox_loadart(1) = "1" And checkbox_od(1) = "0" And Not checkbox_offline(1) = "1" Then
             If File.Exists(".\roms\" & currenttab_metadata(1) & "\metadata\boxartmatches.eldr") Then
-                Dim boxartmatches As String = File.ReadAllText(".\roms\" & currenttab_metadata(1) & "\metadata\boxartmatches.eldr")
-                For Each game In listbox_installedroms.Items
-                    'If boxartmatches.eldr doesn't have a piece of boxart for a game, download the boxart.
-                    If Not (boxartmatches.Replace(" ", "")).Contains((game.subitems(0).text).replace(" ", "")) Then
-                        lbl_status.Text = "Downloading Boxart"
-                        lbl_status.Location = New Point((panel_top.Width - lbl_status.Width) \ 2, (panel_top.Height - lbl_status.Height) \ 2)
-                        picturebox_loading.Visible = True
-                        If thread_getboxart.IsBusy = False Then
-                            Dim arguments As String()
-                            arguments = {currenttab_metadata(1), "boxartod"}
-                            thread_getboxart.RunWorkerAsync(arguments)
+                Try
+                    Dim boxartmatches As String = File.ReadAllText(".\roms\" & currenttab_metadata(1) & "\metadata\boxartmatches.eldr")
+                    For Each game In listbox_installedroms.Items
+                        'If boxartmatches.eldr doesn't have a piece of boxart for a game, download the boxart.
+                        If Not (boxartmatches.Replace(" ", "")).Contains((game.subitems(0).text).replace(" ", "")) Then
+                            lbl_status.Text = "Downloading Boxart"
+                            lbl_status.Location = New Point((panel_top.Width - lbl_status.Width) \ 2, (panel_top.Height - lbl_status.Height) \ 2)
+                            picturebox_loading.Visible = True
+                            If thread_getboxart.IsBusy = False Then
+                                Dim arguments As String()
+                                arguments = {currenttab_metadata(1), "boxartod"}
+                                thread_getboxart.RunWorkerAsync(arguments)
+                            End If
+                            Exit For
                         End If
-                        Exit For
-                    End If
-                Next
+                    Next
+                Catch ex As Exception
+                End Try
             Else
                 'But if boxartmatches.eldr doesn't exist, download boxart.
                 lbl_status.Text = "Downloading Boxart"

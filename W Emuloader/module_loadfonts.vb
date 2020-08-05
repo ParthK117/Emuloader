@@ -12,8 +12,6 @@
         main.panel_right.BackColor = grey
         main.panel_top.BackColor = lightgrey
         main.panel_seperator.BackColor = lightgrey
-
-
         main.lbl_library.ForeColor = main.labelgrey
         main.btn_search.ForeColor = main.labelgrey
         main.emu_one.ForeColor = main.labelgrey
@@ -25,8 +23,6 @@
         main.emu_seven.ForeColor = main.labelgrey
         main.emu_eight.ForeColor = main.labelgrey
         main.emu_nine.ForeColor = main.labelgrey
-
-
         main.lbl_information.ForeColor = main.labelgrey
         main.lbl_name.ForeColor = main.labelgrey
         main.lbl_installedon.ForeColor = main.labelgrey
@@ -53,17 +49,15 @@
     End Sub
 
     Public Sub main_loadfonts()
-
         main.gotham.AddFontFile(".\resources\gotham.otf")
         main.spartan.AddFontFile(".\resources\spartanmb.otf")
+
         Dim gothamfont12 As New System.Drawing.Font(main.gotham.Families(0), 12)
         main.lbl_status.Font = gothamfont12
         main.lbl_library.Font = gothamfont12
 
-
         Dim gothamfont16 As New System.Drawing.Font(main.gotham.Families(0), 16)
         main.btn_browse.Font = gothamfont16
-
 
         Dim spartanfont16 As New System.Drawing.Font(main.spartan.Families(0), 16)
         main.listbox_availableroms.Font = spartanfont16
@@ -72,6 +66,7 @@
         main.lbl_last_played.Font = spartanfont16
         main.lbl_jumpin_emuname.Font = spartanfont16
         main.lbl_jumpin_lastplayed.Font = spartanfont16
+
         Dim spartanfont12 As New System.Drawing.Font(main.spartan.Families(0), 12)
         main.listbox_queue.Font = spartanfont12
 

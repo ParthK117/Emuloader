@@ -34,7 +34,7 @@ Partial Class listlink
         Me.btn_import.BackgroundImage = CType(resources.GetObject("btn_import.BackgroundImage"), System.Drawing.Image)
         Me.btn_import.Location = New System.Drawing.Point(402, 171)
         Me.btn_import.Name = "btn_import"
-        Me.btn_import.Size = New System.Drawing.Size(100, 38)
+        Me.btn_import.Size = New System.Drawing.Size(100, 36)
         Me.btn_import.TabIndex = 1
         Me.btn_import.TabStop = False
         '

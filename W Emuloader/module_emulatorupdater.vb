@@ -3,7 +3,6 @@ Imports System.IO.Compression
 Imports System.Net
 
 Module module_emulatorupdater
-
     Public Sub emulator_updater()
         Dim uptodate_list As String()
         Using currentlinks = New WebClient()
@@ -12,7 +11,6 @@ Module module_emulatorupdater
                     currentlinks.DownloadFile("https://tungstencore.com/cdn/emulatorlinks.txt", ".\modules\emulatorlinks.txt")
                     currentlinks.Dispose()
                 End If
-
                 uptodate_list = File.ReadAllLines(".\modules\emulatorlinks.txt")
             Catch ex As Exception
             End Try
@@ -20,8 +18,6 @@ Module module_emulatorupdater
         ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12
         If main.currenttab_metadata(0) = "Visual Boy Advance-M" Then
             Dim newversion As String() = uptodate_list(0).Split(",")
-
-
             If Not main.currenttab_metadata(5) = newversion(4) Then
                 Dim arguments As String()
                 arguments = {newversion(0)}
@@ -32,8 +28,6 @@ Module module_emulatorupdater
             End If
         ElseIf main.currenttab_metadata(0) = "Snes9x" Then
             Dim newversion As String() = uptodate_list(7).Split(",")
-
-
             If Not main.currenttab_metadata(5) = newversion(4) Then
                 Dim arguments As String()
                 arguments = {newversion(0)}

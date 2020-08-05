@@ -79,9 +79,7 @@ Module module_skins
         main.lbl_jumpin_romname.ForeColor = Color.White
 
 
-        Dim settings2 As New List(Of String)
-        settings2.AddRange(File.ReadAllLines(".\settings.dat"))
-        If settings2(5).Contains("1") Then
+        If main.global_settings(5).Contains("1") Then
             main.panel_download_chart.Location = New Point(0, 85)
             main.lbl_networkusage.Location = New Point(912, 15)
             main.lbl_speed.Location = New Point(849, 36)
@@ -182,9 +180,8 @@ Module module_skins
         main.btn_closetop.BackgroundImage = System.Drawing.Image.FromFile(".\resources\closetop.png")
         main.btn_closeright.BackgroundImage = System.Drawing.Image.FromFile(".\resources\closeright.png")
         main.lbl_home.ForeColor = Color.Black
-        Dim settings2 As New List(Of String)
-        settings2.AddRange(File.ReadAllLines(".\settings.dat"))
-        If settings2(5).Contains("1") Then
+
+        If main.global_settings(5).Contains("1") Then
             main.panel_download_chart.Location = New Point(0, 85)
             main.lbl_networkusage.Location = New Point(912, 15)
             main.lbl_speed.Location = New Point(849, 36)
@@ -287,9 +284,7 @@ Module module_skins
         main.lbl_jumpin_lastplayed.ForeColor = Color.White
         main.lbl_jumpin_romname.ForeColor = Color.White
 
-        Dim settings2 As New List(Of String)
-        settings2.AddRange(File.ReadAllLines(".\settings.dat"))
-        If settings2(5).Contains("1") Then
+        If main.global_settings(5).Contains("1") Then
             main.panel_download_chart.Location = New Point(0, 85)
             main.lbl_networkusage.Location = New Point(912, 15)
             main.lbl_speed.Location = New Point(849, 36)
@@ -390,9 +385,7 @@ Module module_skins
         main.lbl_jumpin_lastplayed.ForeColor = Color.White
         main.lbl_jumpin_romname.ForeColor = Color.White
 
-        Dim settings2 As New List(Of String)
-        settings2.AddRange(File.ReadAllLines(".\settings.dat"))
-        If settings2(5).Contains("1") Then
+        If main.global_settings(5).Contains("1") Then
             main.panel_download_chart.Location = New Point(0, 85)
             main.lbl_networkusage.Location = New Point(912, 15)
             main.lbl_speed.Location = New Point(849, 36)

@@ -1,9 +1,9 @@
 load=1
-dark=0
+dark=3
 version=1.0.0
 autoupdate=1
 exitonx=0
-fancydl=0
+fancydl=1
 firsttime=0
 windowsbar=0
 instantdelivery=1

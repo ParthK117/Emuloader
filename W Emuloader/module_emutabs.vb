@@ -24,10 +24,7 @@
         main.emu_seven.ForeColor = main.labelgrey
         main.emu_eight.ForeColor = main.labelgrey
         main.emu_nine.ForeColor = main.labelgrey
-
-
         main.currenttab_metadata = emu_tab_metadata_list.emutabs_metadata(main.tab_index)
-
         main.panel_rom_info.Visible = False
         main.panel_import_click.Visible = False
         Call main.hide_platform_tags()
@@ -36,7 +33,6 @@
         main.btn_showdownloads.ForeColor = main.labelgrey
         main.btn_parameters.ForeColor = main.labelgrey
         main.panel_play.BringToFront()
-
         main.lbl_name.Text = main.currenttab_metadata(0)
         main.lbl_installedon.Text = "Installed on " & main.currenttab_metadata(2)
         main.lbl_platform.Text = "Platform: " & main.currenttab_metadata(1)
@@ -65,20 +61,17 @@
         main.btn_search_europe.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searcheuropeblack.png")
         main.btn_search_usa.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchusablack.png")
         main.btn_search_japan.BackgroundImage = System.Drawing.Image.FromFile(".\resources\searchjapanblack.png")
-
-
         For Each line In main.listbox_availableroms.Items
             If line.subitems(2).text = emu_tab_metadata_list.tag_index Then
                 Dim linestring As String() = {line.subitems(0).text, line.subitems(1).text, line.subitems(2).text, line.subitems(3).text, line.subitems(4).text}
                 main.listbox_search.Items.Add(New ListViewItem(linestring))
             End If
-
         Next
-
         main.listbox_search.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent)
         main.listbox_search.AutoResizeColumn(2, ColumnHeaderAutoResizeStyle.HeaderSize)
         main.listbox_search.Columns.Item(4).Width = 0
     End Sub
+
     Public Sub button_regions()
         main.textbox_search.Text = "Search"
         main.listbox_search.Items.Clear()
@@ -108,7 +101,6 @@
                     Dim linestring As String() = {line.subitems(0).text, line.subitems(1).text, line.subitems(2).text, line.subitems(3).text, line.subitems(4).text, "Europe"}
                     main.listbox_search.Items.Add(New ListViewItem(linestring))
                 End If
-
             Next
         End If
 
@@ -118,7 +110,6 @@
                     Dim linestring As String() = {line.subitems(0).text, line.subitems(1).text, line.subitems(2).text, line.subitems(3).text, line.subitems(4).text, "USA"}
                     main.listbox_search.Items.Add(New ListViewItem(linestring))
                 End If
-
             Next
         End If
 

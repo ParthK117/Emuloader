@@ -3,22 +3,23 @@ Imports System.Net
 
 Public Class listlink
     Private Sub listlink_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        If main.dark = 1 Then
-            BackColor = Color.FromArgb(21, 32, 43)
-            textbox_url.BackColor = Color.FromArgb(31, 45, 58)
-            textbox_url.ForeColor = Color.White
-            lbl_disclaimer.ForeColor = Color.White
-        ElseIf main.dark = 2 Then
-            BackColor = Color.FromArgb(25, 28, 40)
-            textbox_url.BackColor = Color.FromArgb(32, 37, 52)
-            textbox_url.ForeColor = Color.White
-            lbl_disclaimer.ForeColor = Color.White
-        ElseIf main.dark = 3 Then
-            BackColor = Color.FromArgb(12, 12, 12)
-            textbox_url.BackColor = Color.FromArgb(40, 40, 40)
-            textbox_url.ForeColor = Color.White
-            lbl_disclaimer.ForeColor = Color.White
-        End If
+        Select Case main.dark
+            Case 1
+                BackColor = Color.FromArgb(21, 32, 43)
+                textbox_url.BackColor = Color.FromArgb(31, 45, 58)
+                textbox_url.ForeColor = Color.White
+                lbl_disclaimer.ForeColor = Color.White
+            Case 2
+                BackColor = Color.FromArgb(25, 28, 40)
+                textbox_url.BackColor = Color.FromArgb(32, 37, 52)
+                textbox_url.ForeColor = Color.White
+                lbl_disclaimer.ForeColor = Color.White
+            Case 3
+                BackColor = Color.FromArgb(12, 12, 12)
+                textbox_url.BackColor = Color.FromArgb(40, 40, 40)
+                textbox_url.ForeColor = Color.White
+                lbl_disclaimer.ForeColor = Color.White
+        End Select
     End Sub
 
     Private Sub btn_import_MouseDown(sender As Object, e As MouseEventArgs) Handles btn_import.MouseDown
@@ -31,8 +32,8 @@ Public Class listlink
                 Try
                     importlinks.DownloadFile(line, ".\lists\" & timestamp & ".eldr")
                     importlinks.Dispose()
-                    For Each x In Directory.GetFiles(".\lists")
-                        Dim currfile As New FileInfo(x)
+                    For Each listfile In Directory.GetFiles(".\lists")
+                        Dim currfile As New FileInfo(listfile)
                         Dim currentsize As Double = (currfile.Length)
                         Dim newlist As New FileInfo(".\lists\" & timestamp & ".eldr")
                         Dim newlistsize As Double = (newlist.Length)
@@ -47,44 +48,34 @@ Public Class listlink
                         Else
                             My.Computer.FileSystem.CreateDirectory(".\lists\")
                         End If
-                        Dim imported_list_downloads As String() = File.ReadAllLines(".\lists\" & timestamp & ".eldr")
+                        Dim imported_list_downloads As New List(Of String)
+                        imported_list_downloads.AddRange(File.ReadAllLines(".\lists\" & timestamp & ".eldr"))
                         Dim showsource As Boolean = False
                         Dim metadata As String()
                         If imported_list_downloads(0).Contains("#") Then
-
                             metadata = Split(imported_list_downloads(0), "#")
                             If metadata(2) = "verify" Then
                                 Process.Start(metadata(3))
                             End If
+                            imported_list_downloads.RemoveAt(0)
                             showsource = True
                         End If
-
-
-
-                        For Each x In imported_list_downloads
-                            If Not x.Contains("#") Then
-                                Dim x_split As String() = Split(x, ",")
-                                '  listbox_availableroms.Items.Add(x_split(0))
-                                Dim file_source As String = x_split(3)
-                                If file_source.Contains("google") Then
+                        For Each entry In imported_list_downloads
+                            Dim entry_split As String() = Split(entry, ",")
+                            Dim file_source As String = entry_split(3)
+                            If file_source.Contains("google") Then
                                     file_source = "Google Drive"
                                 ElseIf showsource = True Then
                                     file_source = metadata(0)
                                 Else
                                     file_source = "Other"
                                 End If
-                                main.listbox_availableroms.Items.Add(New ListViewItem(New String() {x_split(0), x_split(1), x_split(2), file_source, x_split(3)}))
-                            End If
+                            main.listbox_availableroms.Items.Add(New ListViewItem(New String() {entry_split(0), entry_split(1), entry_split(2), file_source, entry_split(3)}))
                         Next
                         main.listbox_availableroms.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent)
                         main.listbox_availableroms.AutoResizeColumn(2, ColumnHeaderAutoResizeStyle.HeaderSize)
                         main.listbox_availableroms.Columns.Item(4).Width = 0
                     End If
-
-
-
-
-
                 Catch ex As Exception
                     MsgBox("Invalid Link or already indexed this before.")
                     File.Delete(".\lists\" & timestamp & ".eldr")
@@ -101,7 +92,6 @@ Public Class listlink
     Private Sub btn_import_MouseLeave(sender As Object, e As EventArgs) Handles btn_import.MouseLeave
         btn_import.BackgroundImage = System.Drawing.Image.FromFile(".\resources\importblack.png")
     End Sub
-
 
     Private Sub btn_import_MouseUp(sender As Object, e As MouseEventArgs) Handles btn_import.MouseUp
         btn_import.BackgroundImage = System.Drawing.Image.FromFile(".\resources\importwhite.png")
