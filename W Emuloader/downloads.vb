@@ -59,6 +59,9 @@ Module downloads
             Case "DC"
                 platform_id = ".gdi"
                 Directory.CreateDirectory(".\roms\DC")
+            Case "SWH"
+                platform_id = ".nsp"
+                Directory.CreateDirectory(".\roms\SWH")
         End Select
 
         main.listbox_queue.Items(0).SubItems(5).Text = "Downloading"
@@ -72,7 +75,7 @@ Module downloads
             Dim b As Byte() = Convert.FromBase64String(main.listbox_queue.Items(0).SubItems(4).Text)
             main.listbox_queue.Items(0).SubItems(4).Text = System.Text.Encoding.UTF8.GetString(b)
         End If
-        downloadqueue.arguments = {corrected_name & platform_id, main.listbox_queue.Items(0).SubItems(2).Text, main.listbox_queue.Items(0).SubItems(4).Text}
+        downloadqueue.arguments = {corrected_name & platform_id, main.listbox_queue.Items(0).SubItems(2).Text, main.listbox_queue.Items(0).SubItems(4).Text, platform_id}
         main.listbox_queue.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent)
         main.listbox_queue.AutoResizeColumn(2, ColumnHeaderAutoResizeStyle.HeaderSize)
         main.listbox_queue.Columns.Item(4).Width = 0

@@ -41,6 +41,7 @@ Module module_skins
         main.listbox_queue.BackColor = Color.FromArgb(21, 32, 43)
         main.listbox_queue.ForeColor = Color.White
         main.lbl_speed.ForeColor = Color.White
+        main.checkbox_extensions.ForeColor = Color.White
         main.lbl_peak.ForeColor = Color.White
         main.lbl_total.ForeColor = Color.White
         settings.BackColor = Color.FromArgb(21, 32, 43)
@@ -129,6 +130,7 @@ Module module_skins
         newemulator.BackColor = Color.White
         newemulator.listbox_emulators.BackColor = Color.White
         newemulator.textbox_search.BackColor = Color.White
+        main.checkbox_extensions.ForeColor = Color.Black
         newemulator.listbox_emulators.ForeColor = Color.Black
         newemulator.textbox_search.ForeColor = Color.Black
         newemulator.lbl_emulator_name.ForeColor = Color.Black
@@ -247,6 +249,7 @@ Module module_skins
         main.listbox_queue.ForeColor = Color.White
         main.lbl_speed.ForeColor = Color.White
         main.lbl_peak.ForeColor = Color.White
+        main.checkbox_extensions.ForeColor = Color.White
         main.lbl_total.ForeColor = Color.White
         settings.BackColor = Color.FromArgb(25, 28, 40)
         settings.load_boxart_on_startup.ForeColor = Color.White
@@ -350,6 +353,7 @@ Module module_skins
         main.lbl_speed.ForeColor = Color.White
         main.lbl_peak.ForeColor = Color.White
         main.lbl_total.ForeColor = Color.White
+        main.checkbox_extensions.ForeColor = Color.White
         settings.BackColor = Color.FromArgb(12, 12, 12)
         settings.load_boxart_on_startup.ForeColor = Color.White
         settings.load_skin.ForeColor = Color.White

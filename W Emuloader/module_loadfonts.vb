@@ -123,6 +123,7 @@
         main.lbl_github.Font = gothamfont11
         main.checkbox_fullscreen.Font = gothamfont11
         main.checkbox_filepath.Font = gothamfont11
+        main.checkbox_extensions.Font = gothamfont11
         main.btn_showdownloads.Font = gothamfont11
 
     End Sub

@@ -90,6 +90,7 @@ Partial Class main
         Me.installed_platform = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.installed_directory = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.panel_banner = New System.Windows.Forms.Panel()
+        Me.checkbox_extensions = New System.Windows.Forms.CheckBox()
         Me.btn_openright = New System.Windows.Forms.PictureBox()
         Me.btn_play_delete = New System.Windows.Forms.PictureBox()
         Me.btn_import_roms = New System.Windows.Forms.PictureBox()
@@ -121,6 +122,7 @@ Partial Class main
         Me.btn_platform_tags = New System.Windows.Forms.Label()
         Me.lbl_sortby = New System.Windows.Forms.Label()
         Me.panel_platform_tags = New System.Windows.Forms.Panel()
+        Me.btn_search_swh = New System.Windows.Forms.PictureBox()
         Me.lbl_tags = New System.Windows.Forms.Label()
         Me.btn_search_gb = New System.Windows.Forms.PictureBox()
         Me.btn_search_dc = New System.Windows.Forms.PictureBox()
@@ -210,6 +212,7 @@ Partial Class main
         Me.picturebox_jumpin_right = New System.Windows.Forms.PictureBox()
         Me.picturebox_jumpin_left = New System.Windows.Forms.PictureBox()
         Me.lbl_home = New System.Windows.Forms.Label()
+        Me.timer_waitforexit = New System.Windows.Forms.Timer(Me.components)
         CType(Me.image_logo, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panel_left.SuspendLayout()
         CType(Me.picturebox_patreon, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -260,6 +263,7 @@ Partial Class main
         CType(Me.btn_search_usa, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btn_search_japan, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panel_platform_tags.SuspendLayout()
+        CType(Me.btn_search_swh, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btn_search_gb, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btn_search_dc, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btn_search_gba, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -1039,6 +1043,7 @@ Partial Class main
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.panel_banner.BackgroundImage = CType(resources.GetObject("panel_banner.BackgroundImage"), System.Drawing.Image)
         Me.panel_banner.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.panel_banner.Controls.Add(Me.checkbox_extensions)
         Me.panel_banner.Controls.Add(Me.btn_openright)
         Me.panel_banner.Controls.Add(Me.btn_play_delete)
         Me.panel_banner.Controls.Add(Me.btn_import_roms)
@@ -1051,6 +1056,18 @@ Partial Class main
         Me.panel_banner.Name = "panel_banner"
         Me.panel_banner.Size = New System.Drawing.Size(1108, 309)
         Me.panel_banner.TabIndex = 27
+        '
+        'checkbox_extensions
+        '
+        Me.checkbox_extensions.AutoSize = True
+        Me.checkbox_extensions.BackColor = System.Drawing.Color.Transparent
+        Me.checkbox_extensions.Font = New System.Drawing.Font("Gotham Bold", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.checkbox_extensions.Location = New System.Drawing.Point(236, 86)
+        Me.checkbox_extensions.Name = "checkbox_extensions"
+        Me.checkbox_extensions.Size = New System.Drawing.Size(185, 22)
+        Me.checkbox_extensions.TabIndex = 27
+        Me.checkbox_extensions.Text = "Show file extensions"
+        Me.checkbox_extensions.UseVisualStyleBackColor = False
         '
         'btn_openright
         '
@@ -1211,6 +1228,7 @@ Partial Class main
         '
         'picturebox_boxart_top
         '
+        Me.picturebox_boxart_top.BackgroundImage = CType(resources.GetObject("picturebox_boxart_top.BackgroundImage"), System.Drawing.Image)
         Me.picturebox_boxart_top.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
         Me.picturebox_boxart_top.Location = New System.Drawing.Point(0, 0)
         Me.picturebox_boxart_top.Name = "picturebox_boxart_top"
@@ -1398,6 +1416,7 @@ Partial Class main
         '
         Me.panel_platform_tags.BackColor = System.Drawing.Color.Transparent
         Me.panel_platform_tags.BackgroundImage = CType(resources.GetObject("panel_platform_tags.BackgroundImage"), System.Drawing.Image)
+        Me.panel_platform_tags.Controls.Add(Me.btn_search_swh)
         Me.panel_platform_tags.Controls.Add(Me.lbl_tags)
         Me.panel_platform_tags.Controls.Add(Me.btn_search_gb)
         Me.panel_platform_tags.Controls.Add(Me.btn_search_dc)
@@ -1420,6 +1439,15 @@ Partial Class main
         Me.panel_platform_tags.Size = New System.Drawing.Size(216, 246)
         Me.panel_platform_tags.TabIndex = 22
         Me.panel_platform_tags.Visible = False
+        '
+        'btn_search_swh
+        '
+        Me.btn_search_swh.BackgroundImage = CType(resources.GetObject("btn_search_swh.BackgroundImage"), System.Drawing.Image)
+        Me.btn_search_swh.Location = New System.Drawing.Point(78, 208)
+        Me.btn_search_swh.Name = "btn_search_swh"
+        Me.btn_search_swh.Size = New System.Drawing.Size(60, 30)
+        Me.btn_search_swh.TabIndex = 21
+        Me.btn_search_swh.TabStop = False
         '
         'lbl_tags
         '
@@ -2233,6 +2261,10 @@ Partial Class main
         Me.lbl_home.TabIndex = 2
         Me.lbl_home.Text = "Home"
         '
+        'timer_waitforexit
+        '
+        Me.timer_waitforexit.Interval = 2000
+        '
         'main
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -2240,11 +2272,11 @@ Partial Class main
         Me.BackColor = System.Drawing.Color.White
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.ClientSize = New System.Drawing.Size(1600, 900)
-        Me.Controls.Add(Me.panel_home)
         Me.Controls.Add(Me.panel_blue_click)
         Me.Controls.Add(Me.panel_top)
         Me.Controls.Add(Me.panel_right)
         Me.Controls.Add(Me.panel_left)
+        Me.Controls.Add(Me.panel_home)
         Me.Controls.Add(Me.panel_play)
         Me.Controls.Add(Me.panel_drag_drop)
         Me.Controls.Add(Me.panel_downloads)
@@ -2315,6 +2347,7 @@ Partial Class main
         CType(Me.btn_search_japan, System.ComponentModel.ISupportInitialize).EndInit()
         Me.panel_platform_tags.ResumeLayout(False)
         Me.panel_platform_tags.PerformLayout()
+        CType(Me.btn_search_swh, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btn_search_gb, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btn_search_dc, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btn_search_gba, System.ComponentModel.ISupportInitialize).EndInit()
@@ -2550,4 +2583,7 @@ Partial Class main
     Friend WithEvents lbl_jumpin_romname As Label
     Friend WithEvents btn_play_jumpin As PictureBox
     Friend WithEvents lbl_jumpin_emuname As Label
+    Friend WithEvents checkbox_extensions As CheckBox
+    Friend WithEvents btn_search_swh As PictureBox
+    Friend WithEvents timer_waitforexit As Timer
 End Class

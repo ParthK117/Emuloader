@@ -177,6 +177,12 @@
     <Compile Include="settings.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="updates.Designer.vb">
+      <DependentUpon>updates.vb</DependentUpon>
+    </Compile>
+    <Compile Include="updates.vb">
+      <SubType>Form</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="about.resx">
@@ -212,6 +218,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="settings.resx">
       <DependentUpon>settings.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="updates.resx">
+      <DependentUpon>updates.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

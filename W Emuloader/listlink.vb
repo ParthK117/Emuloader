@@ -27,60 +27,65 @@ Public Class listlink
         Dim urls As String() = textbox_url.Lines
         Dim index As Boolean = False
         For Each line In urls
-            Dim timestamp As String = Date.Now.ToString("HH-mm-ss-dd-MM-yyyy")
-            Using importlinks = New WebClient()
-                Try
-                    importlinks.DownloadFile(line, ".\lists\" & timestamp & ".eldr")
-                    importlinks.Dispose()
-                    For Each listfile In Directory.GetFiles(".\lists")
-                        Dim currfile As New FileInfo(listfile)
-                        Dim currentsize As Double = (currfile.Length)
-                        Dim newlist As New FileInfo(".\lists\" & timestamp & ".eldr")
-                        Dim newlistsize As Double = (newlist.Length)
-                        If currentsize = newlistsize And Not currfile.FullName = newlist.FullName Then
-                            MessageBox.Show("You already have this .ELDR indexed.")
-                            index = True
-                            File.Delete(".\lists\" & timestamp & ".eldr")
-                        End If
-                    Next
-                    If index = False Then
-                        If Directory.Exists(".\lists\") Then
-                        Else
-                            My.Computer.FileSystem.CreateDirectory(".\lists\")
-                        End If
-                        Dim imported_list_downloads As New List(Of String)
-                        imported_list_downloads.AddRange(File.ReadAllLines(".\lists\" & timestamp & ".eldr"))
-                        Dim showsource As Boolean = False
-                        Dim metadata As String()
-                        If imported_list_downloads(0).Contains("#") Then
-                            metadata = Split(imported_list_downloads(0), "#")
-                            If metadata(2) = "verify" Then
-                                Process.Start(metadata(3))
+            If line.Contains("archive") Then
+                Process.Start("https://www.reddit.com/r/Emuloader/comments/i4qat9/archiveorg_eldr_builder_scripts/")
+            Else
+
+                Dim timestamp As String = Date.Now.ToString("HH-mm-ss-dd-MM-yyyy")
+                Using importlinks = New WebClient()
+                    Try
+                        importlinks.DownloadFile(line, ".\lists\" & timestamp & ".eldr")
+                        importlinks.Dispose()
+                        For Each listfile In Directory.GetFiles(".\lists")
+                            Dim currfile As New FileInfo(listfile)
+                            Dim currentsize As Double = (currfile.Length)
+                            Dim newlist As New FileInfo(".\lists\" & timestamp & ".eldr")
+                            Dim newlistsize As Double = (newlist.Length)
+                            If currentsize = newlistsize And Not currfile.FullName = newlist.FullName Then
+                                MessageBox.Show("You already have this .ELDR indexed.")
+                                index = True
+                                File.Delete(".\lists\" & timestamp & ".eldr")
                             End If
-                            imported_list_downloads.RemoveAt(0)
-                            showsource = True
-                        End If
-                        For Each entry In imported_list_downloads
-                            Dim entry_split As String() = Split(entry, ",")
-                            Dim file_source As String = entry_split(3)
-                            If file_source.Contains("google") Then
+                        Next
+                        If index = False Then
+                            If Directory.Exists(".\lists\") Then
+                            Else
+                                My.Computer.FileSystem.CreateDirectory(".\lists\")
+                            End If
+                            Dim imported_list_downloads As New List(Of String)
+                            imported_list_downloads.AddRange(File.ReadAllLines(".\lists\" & timestamp & ".eldr"))
+                            Dim showsource As Boolean = False
+                            Dim metadata As String()
+                            If imported_list_downloads(0).Contains("#") Then
+                                metadata = Split(imported_list_downloads(0), "#")
+                                If metadata(2) = "verify" Then
+                                    Process.Start(metadata(3))
+                                End If
+                                imported_list_downloads.RemoveAt(0)
+                                showsource = True
+                            End If
+                            For Each entry In imported_list_downloads
+                                Dim entry_split As String() = Split(entry, ",")
+                                Dim file_source As String = entry_split(3)
+                                If file_source.Contains("google") Then
                                     file_source = "Google Drive"
                                 ElseIf showsource = True Then
                                     file_source = metadata(0)
                                 Else
                                     file_source = "Other"
                                 End If
-                            main.listbox_availableroms.Items.Add(New ListViewItem(New String() {entry_split(0), entry_split(1), entry_split(2), file_source, entry_split(3)}))
-                        Next
-                        main.listbox_availableroms.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent)
-                        main.listbox_availableroms.AutoResizeColumn(2, ColumnHeaderAutoResizeStyle.HeaderSize)
-                        main.listbox_availableroms.Columns.Item(4).Width = 0
-                    End If
-                Catch ex As Exception
-                    MsgBox("Invalid Link or already indexed this before.")
-                    File.Delete(".\lists\" & timestamp & ".eldr")
-                End Try
-            End Using
+                                main.listbox_availableroms.Items.Add(New ListViewItem(New String() {entry_split(0), entry_split(1), entry_split(2), file_source, entry_split(3)}))
+                            Next
+                            main.listbox_availableroms.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent)
+                            main.listbox_availableroms.AutoResizeColumn(2, ColumnHeaderAutoResizeStyle.HeaderSize)
+                            main.listbox_availableroms.Columns.Item(4).Width = 0
+                        End If
+                    Catch ex As Exception
+                        MsgBox("Invalid Link or already indexed this before.")
+                        File.Delete(".\lists\" & timestamp & ".eldr")
+                    End Try
+                End Using
+            End If
         Next
         Me.Close()
     End Sub

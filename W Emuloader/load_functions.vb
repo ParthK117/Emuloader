@@ -40,6 +40,10 @@ Module load_functions
                         main.listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString, "GBC", System.IO.Path.GetFullPath(f.FullName)}))
                     ElseIf f.ToString.Contains(".gb") = True And f.ToString.Contains(".gbc") = False And f.ToString.Contains(".gba") = False Then
                         main.listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString, "GB", System.IO.Path.GetFullPath(f.FullName)}))
+
+                    End If
+                    If main.global_settings(13).Contains("1") And (f.ToString.Contains(".zip") Or f.ToString.Contains(".7z") Or f.ToString.Contains(".rar")) Then
+                        main.listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString, "GBA", System.IO.Path.GetFullPath(f.FullName)}))
                     End If
                 Next
                 Directory.CreateDirectory(".\roms\GBC")
@@ -50,11 +54,17 @@ Module load_functions
                     ElseIf f.ToString.Contains(".gb") = True And f.ToString.Contains(".gbc") = False And f.ToString.Contains(".gba") = False Then
                         main.listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString, "GB", System.IO.Path.GetFullPath(f.FullName)}))
                     End If
+                    If main.global_settings(13).Contains("1") And (f.ToString.Contains(".zip") Or f.ToString.Contains(".7z") Or f.ToString.Contains(".rar")) Then
+                        main.listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString, "GBC", System.IO.Path.GetFullPath(f.FullName)}))
+                    End If
                 Next
                 Directory.CreateDirectory(".\roms\GB")
                 Dim rom_directory_gb As New DirectoryInfo(".\roms\GB\")
                 For Each f In rom_directory_gb.GetFiles
                     If f.ToString.Contains(".gb") Then
+                        main.listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString, "GB", System.IO.Path.GetFullPath(f.FullName)}))
+                    End If
+                    If main.global_settings(13).Contains("1") And (f.ToString.Contains(".zip") Or f.ToString.Contains(".7z") Or f.ToString.Contains(".rar")) Then
                         main.listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString, "GB", System.IO.Path.GetFullPath(f.FullName)}))
                     End If
                 Next
@@ -77,6 +87,9 @@ Module load_functions
                     If f.ToString.Contains(".3ds") Or f.ToString.Contains(".cxi") Or f.ToString.Contains(".cia") Then
                         main.listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString, platform_id, System.IO.Path.GetFullPath(f.FullName)}))
                     End If
+                    If main.global_settings(13).Contains("1") And (f.ToString.Contains(".zip") Or f.ToString.Contains(".7z") Or f.ToString.Contains(".rar")) Then
+                        main.listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString, "3DS", System.IO.Path.GetFullPath(f.FullName)}))
+                    End If
                 Next
                 For Each custom_directory_entry In customromlist
                     Dim custom_directory As New DirectoryInfo(custom_directory_entry)
@@ -93,7 +106,9 @@ Module load_functions
                     If f.ToString.Contains(".nds") Then
                         main.listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString, platform_id, System.IO.Path.GetFullPath(f.FullName)}))
                     End If
-
+                    If main.global_settings(13).Contains("1") And (f.ToString.Contains(".zip") Or f.ToString.Contains(".7z") Or f.ToString.Contains(".rar")) Then
+                        main.listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString, "NDS", System.IO.Path.GetFullPath(f.FullName)}))
+                    End If
                 Next
                 For Each custom_directory_entry In customromlist
                     Dim custom_directory As New DirectoryInfo(custom_directory_entry)
@@ -110,6 +125,9 @@ Module load_functions
                     If f.ToString.Contains(".z64") Or f.ToString.Contains(".v64") Or f.ToString.Contains(".m64") Then
                         main.listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString, platform_id, System.IO.Path.GetFullPath(f.FullName)}))
                     End If
+                    If main.global_settings(13).Contains("1") And (f.ToString.Contains(".zip") Or f.ToString.Contains(".7z") Or f.ToString.Contains(".rar")) Then
+                        main.listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString, "N64", System.IO.Path.GetFullPath(f.FullName)}))
+                    End If
                 Next
                 For Each custom_directory_entry In customromlist
                     Dim custom_directory As New DirectoryInfo(custom_directory_entry)
@@ -124,9 +142,11 @@ Module load_functions
             Case "PSP"
                 platform_id = "PSP"
                 For Each f In rom_directory.GetFiles
-                    If f.ToString.Contains("XT") Then
-                    ElseIf f.ToString.Contains(".iso") Then
+                    If f.ToString.Contains(".iso") Then
                         main.listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString, platform_id, System.IO.Path.GetFullPath(f.FullName)}))
+                    End If
+                    If main.global_settings(13).Contains("1") And (f.ToString.Contains(".zip") Or f.ToString.Contains(".7z") Or f.ToString.Contains(".rar")) Then
+                        main.listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString, "PSP", System.IO.Path.GetFullPath(f.FullName)}))
                     End If
                 Next
                 For Each custom_directory_entry In customromlist
@@ -144,6 +164,9 @@ Module load_functions
                     If f.ToString.Contains(".iso") Then
                         main.listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString, platform_id, System.IO.Path.GetFullPath(f.FullName)}))
                     End If
+                    If main.global_settings(13).Contains("1") And (f.ToString.Contains(".zip") Or f.ToString.Contains(".7z") Or f.ToString.Contains(".rar")) Then
+                        main.listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString, "WII", System.IO.Path.GetFullPath(f.FullName)}))
+                    End If
                 Next
                 For Each custom_directory_entry In customromlist
                     Dim custom_directory As New DirectoryInfo(custom_directory_entry)
@@ -157,6 +180,9 @@ Module load_functions
                 Dim rom_directory_gc As New DirectoryInfo(".\roms\GC\")
                 For Each f In rom_directory_gc.GetFiles
                     If f.ToString.Contains(".iso") Then
+                        main.listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString, "GC", System.IO.Path.GetFullPath(f.FullName)}))
+                    End If
+                    If main.global_settings(13).Contains("1") And (f.ToString.Contains(".zip") Or f.ToString.Contains(".7z") Or f.ToString.Contains(".rar")) Then
                         main.listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString, "GC", System.IO.Path.GetFullPath(f.FullName)}))
                     End If
                 Next
@@ -189,6 +215,9 @@ Module load_functions
                     If f.ToString.Contains(".smc") Or f.ToString.Contains(".sfc") Or f.ToString.Contains(".bin") Then
                         main.listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString, platform_id, System.IO.Path.GetFullPath(f.FullName)}))
                     End If
+                    If main.global_settings(13).Contains("1") And (f.ToString.Contains(".zip") Or f.ToString.Contains(".7z") Or f.ToString.Contains(".rar")) Then
+                        main.listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString, "SNES", System.IO.Path.GetFullPath(f.FullName)}))
+                    End If
                 Next
                 For Each custom_directory_entry In customromlist
                     Dim custom_directory As New DirectoryInfo(custom_directory_entry)
@@ -204,6 +233,9 @@ Module load_functions
                 For Each f In rom_directory.GetFiles
                     If f.ToString.Contains(".nes") Then
                         main.listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString, platform_id, System.IO.Path.GetFullPath(f.FullName)}))
+                    End If
+                    If main.global_settings(13).Contains("1") And (f.ToString.Contains(".zip") Or f.ToString.Contains(".7z") Or f.ToString.Contains(".rar")) Then
+                        main.listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString, "NES", System.IO.Path.GetFullPath(f.FullName)}))
                     End If
                 Next
                 For Each custom_directory_entry In customromlist
@@ -221,6 +253,9 @@ Module load_functions
                     If f.ToString.Contains(".bin") Or f.ToString.Contains(".img") Or f.ToString.Contains(".iso") Then
                         main.listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString, platform_id, System.IO.Path.GetFullPath(f.FullName)}))
                     End If
+                    If main.global_settings(13).Contains("1") And (f.ToString.Contains(".zip") Or f.ToString.Contains(".7z") Or f.ToString.Contains(".rar")) Then
+                        main.listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString, "PSX", System.IO.Path.GetFullPath(f.FullName)}))
+                    End If
                 Next
                 For Each custom_directory_entry In customromlist
                     Dim custom_directory As New DirectoryInfo(custom_directory_entry)
@@ -236,6 +271,9 @@ Module load_functions
                 For Each f In rom_directory.GetFiles
                     If f.ToString.Contains(".md") Or f.ToString.Contains(".gen") Or f.ToString.Contains(".bin") Then
                         main.listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString, platform_id, System.IO.Path.GetFullPath(f.FullName)}))
+                    End If
+                    If main.global_settings(13).Contains("1") And (f.ToString.Contains(".zip") Or f.ToString.Contains(".7z") Or f.ToString.Contains(".rar")) Then
+                        main.listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString, "MGD", System.IO.Path.GetFullPath(f.FullName)}))
                     End If
                 Next
                 For Each custom_directory_entry In customromlist
@@ -253,6 +291,9 @@ Module load_functions
                     If f.ToString.Contains(".gdi") Or f.ToString.Contains(".cdi") Or f.ToString.Contains(".chd") Then
                         main.listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString, platform_id, System.IO.Path.GetFullPath(f.FullName)}))
                     End If
+                    If main.global_settings(13).Contains("1") And (f.ToString.Contains(".zip") Or f.ToString.Contains(".7z") Or f.ToString.Contains(".rar")) Then
+                        main.listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString, "DC", System.IO.Path.GetFullPath(f.FullName)}))
+                    End If
                 Next
                 For Each custom_directory_entry In customromlist
                     Dim custom_directory As New DirectoryInfo(custom_directory_entry)
@@ -269,11 +310,33 @@ Module load_functions
                     If f.ToString.Contains(".iso") Or f.ToString.Contains(".bin") Then
                         main.listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString, platform_id, System.IO.Path.GetFullPath(f.FullName)}))
                     End If
+                    If main.global_settings(13).Contains("1") And (f.ToString.Contains(".zip") Or f.ToString.Contains(".7z") Or f.ToString.Contains(".rar")) Then
+                        main.listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString, "PS2", System.IO.Path.GetFullPath(f.FullName)}))
+                    End If
                 Next
                 For Each custom_directory_entry In customromlist
                     Dim custom_directory As New DirectoryInfo(custom_directory_entry)
                     For Each f In custom_directory.GetFiles
                         If f.ToString.Contains(".iso") Or f.ToString.Contains(".bin") Then
+                            main.listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString, platform_id, System.IO.Path.GetFullPath(f.FullName)}))
+                        End If
+                    Next
+                Next
+
+            Case "SWH"
+                platform_id = "SWH"
+                For Each f In rom_directory.GetFiles
+                    If f.ToString.Contains(".xci") Or f.ToString.Contains(".nsp") Then
+                        main.listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString, platform_id, System.IO.Path.GetFullPath(f.FullName)}))
+                    End If
+                    If main.global_settings(13).Contains("1") And (f.ToString.Contains(".zip") Or f.ToString.Contains(".7z") Or f.ToString.Contains(".rar")) Then
+                        main.listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString, "SWH", System.IO.Path.GetFullPath(f.FullName)}))
+                    End If
+                Next
+                For Each custom_directory_entry In customromlist
+                    Dim custom_directory As New DirectoryInfo(custom_directory_entry)
+                    For Each f In custom_directory.GetFiles
+                        If f.ToString.Contains(".xci") Or f.ToString.Contains(".nsp") Then
                             main.listbox_installedroms.Items.Add(New ListViewItem(New String() {f.ToString, platform_id, System.IO.Path.GetFullPath(f.FullName)}))
                         End If
                     Next
@@ -287,6 +350,13 @@ Module load_functions
         End If
         main.listbox_installedroms.Columns.Item(2).Width = 0
         main.listbox_installedroms.AutoResizeColumn(1, ColumnHeaderAutoResizeStyle.HeaderSize)
+
+        If main.checkbox_extensions.Checked = False Then
+            For Each item In main.listbox_installedroms.Items
+                Dim fullname As String() = (item.subitems(0).text).split(".")
+                item.subitems(0).text = fullname(0)
+            Next
+        End If
     End Sub
 
     Public Sub loadconfig()
@@ -332,22 +402,26 @@ Module load_functions
                     emutabs(index).Text = "Mesen"
                     emutabs(index).Visible = True
                     currentmetadata = File.ReadAllLines(".\" & eldr_entry & "\mesen.eldr")
-                elseIf eldr_entry.Contains("EPSXE") Then
+                ElseIf eldr_entry.Contains("EPSXE") Then
                     emutabs(index).Text = "ePSXe"
                     emutabs(index).Visible = True
                     currentmetadata = File.ReadAllLines(".\" & eldr_entry & "\epsxe.eldr")
-                elseIf eldr_entry.Contains("FUSION") Then
+                ElseIf eldr_entry.Contains("FUSION") Then
                     emutabs(index).Text = "Fusion"
                     emutabs(index).Visible = True
                     currentmetadata = File.ReadAllLines(".\" & eldr_entry & "\fusion.eldr")
-                elseIf eldr_entry.Contains("REDREAM") Then
+                ElseIf eldr_entry.Contains("REDREAM") Then
                     emutabs(index).Text = "Redream"
                     emutabs(index).Visible = True
                     currentmetadata = File.ReadAllLines(".\" & eldr_entry & "\redream.eldr")
-                elseIf eldr_entry.Contains("PCSX2") Then
+                ElseIf eldr_entry.Contains("PCSX2") Then
                     emutabs(index).Text = "PCSX2"
                     emutabs(index).Visible = True
                     currentmetadata = File.ReadAllLines(".\" & eldr_entry & "\pcsx2.eldr")
+                ElseIf eldr_entry.Contains("YUZU") Then
+                    emutabs(index).Text = "yuzu"
+                    emutabs(index).Visible = True
+                    currentmetadata = File.ReadAllLines(".\" & eldr_entry & "\yuzu.eldr")
                 End If
                 emu_tab_metadata_list.emutabs_metadata(index) = currentmetadata
                 index = index + 1

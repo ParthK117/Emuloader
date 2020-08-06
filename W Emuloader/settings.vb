@@ -68,6 +68,12 @@ Public Class settings
         If offline(1) = "1" Then
             checkbox_offline.Checked = True
         End If
+
+        Dim hoarder As String() = (settings(13).Split("="))
+        If hoarder(1) = "1" Then
+            checkbox_hoarder.Checked = True
+        End If
+
         Dim spartanfont14 As New System.Drawing.Font(main.spartan.Families(0), 14)
         load_boxart_on_startup.Font = spartanfont14
         load_skin.Font = spartanfont14
@@ -82,6 +88,7 @@ Public Class settings
         checkbox_affiliate.Font = spartanfont14
         combobox_boxart_method.Font = spartanfont14
         checkbox_offline.Font = spartanfont14
+        checkbox_hoarder.Font = spartanfont14
         Dim spartanfont16 As New System.Drawing.Font(main.spartan.Families(0), 16)
         listbox_settings.Font = spartanfont16
 
@@ -104,6 +111,7 @@ Public Class settings
             lbl_provider.ForeColor = Color.White
             checkbox_affiliate.ForeColor = Color.White
             checkbox_offline.ForeColor = Color.White
+            checkbox_hoarder.ForeColor = Color.White
         ElseIf main.dark = 2 Then
             Me.BackColor = Color.FromArgb(25, 28, 40)
             load_boxart_on_startup.ForeColor = Color.White
@@ -120,6 +128,7 @@ Public Class settings
             lbl_provider.ForeColor = Color.White
             checkbox_affiliate.ForeColor = Color.White
             checkbox_offline.ForeColor = Color.White
+            checkbox_hoarder.ForeColor = Color.White
         ElseIf main.dark = 3 Then
             Me.BackColor = Color.FromArgb(12, 12, 12)
             load_boxart_on_startup.ForeColor = Color.White
@@ -136,6 +145,7 @@ Public Class settings
             lbl_provider.ForeColor = Color.White
             checkbox_affiliate.ForeColor = Color.White
             checkbox_offline.ForeColor = Color.White
+            checkbox_hoarder.ForeColor = Color.White
         End If
         listbox_settings.SelectedItem = listbox_settings.Items(0)
     End Sub
@@ -157,7 +167,7 @@ Public Class settings
         End If
 
         System.IO.File.Create(".\settings.dat").Dispose()
-        Dim new_settings As String = settings(0) & vbNewLine & settings(1) & vbNewLine & "version=" & main.version_number & vbNewLine & settings(3) & vbNewLine & settings(4) & vbNewLine & settings(5) & vbNewLine & "firsttime=0" & vbNewLine & settings(7) & vbNewLine & settings(8) & vbNewLine & settings(9) & vbNewLine & settings(10) & vbNewLine & settings(11) & vbNewLine & settings(12)
+        Dim new_settings As String = settings(0) & vbNewLine & settings(1) & vbNewLine & "version=" & main.version_number & vbNewLine & settings(3) & vbNewLine & settings(4) & vbNewLine & settings(5) & vbNewLine & "firsttime=0" & vbNewLine & settings(7) & vbNewLine & settings(8) & vbNewLine & settings(9) & vbNewLine & settings(10) & vbNewLine & settings(11) & vbNewLine & settings(12) & vbNewLine & settings(13)
         File.WriteAllText(".\settings.dat", new_settings)
         main.global_settings.Clear()
         main.global_settings.AddRange(File.ReadAllLines(".\settings.dat"))
@@ -200,6 +210,7 @@ Public Class settings
             main.FormBorderStyle = FormBorderStyle.None
             main.paneL_menubar.Visible = True
         End If
+        Call load_installed_roms()
         Me.Close()
 
 
@@ -331,6 +342,14 @@ Public Class settings
             settings(12) = "offline=1"
         Else
             settings(12) = "offline=0"
+        End If
+    End Sub
+
+    Private Sub checkbox_hoarder_CheckedChanged(sender As Object, e As EventArgs) Handles checkbox_hoarder.CheckedChanged
+        If checkbox_hoarder.Checked = True Then
+            settings(13) = "datahoarder=1"
+        Else
+            settings(13) = "datahoarder=0"
         End If
     End Sub
 End Class

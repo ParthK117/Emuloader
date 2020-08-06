@@ -32,7 +32,7 @@ Partial Class listlink
         'btn_import
         '
         Me.btn_import.BackgroundImage = CType(resources.GetObject("btn_import.BackgroundImage"), System.Drawing.Image)
-        Me.btn_import.Location = New System.Drawing.Point(402, 171)
+        Me.btn_import.Location = New System.Drawing.Point(402, 174)
         Me.btn_import.Name = "btn_import"
         Me.btn_import.Size = New System.Drawing.Size(100, 36)
         Me.btn_import.TabIndex = 1
@@ -52,17 +52,16 @@ Partial Class listlink
         Me.lbl_disclaimer.AutoSize = True
         Me.lbl_disclaimer.Location = New System.Drawing.Point(12, 164)
         Me.lbl_disclaimer.Name = "lbl_disclaimer"
-        Me.lbl_disclaimer.Size = New System.Drawing.Size(258, 39)
+        Me.lbl_disclaimer.Size = New System.Drawing.Size(259, 52)
         Me.lbl_disclaimer.TabIndex = 3
-        Me.lbl_disclaimer.Text = "Only use backups you've *legally* dumped yourself." & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "You cannot use backups from a" &
-    " friend or the internet." & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "You must dump the backups from your own console."
+        Me.lbl_disclaimer.Text = resources.GetString("lbl_disclaimer.Text")
         '
         'listlink
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.White
-        Me.ClientSize = New System.Drawing.Size(504, 212)
+        Me.ClientSize = New System.Drawing.Size(504, 220)
         Me.Controls.Add(Me.lbl_disclaimer)
         Me.Controls.Add(Me.textbox_url)
         Me.Controls.Add(Me.btn_import)
