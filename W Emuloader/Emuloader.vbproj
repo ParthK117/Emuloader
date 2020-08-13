@@ -110,6 +110,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="downloads.vb" />
+    <Compile Include="dropbox.vb" />
     <Compile Include="firstlaunch.Designer.vb">
       <DependentUpon>firstlaunch.vb</DependentUpon>
     </Compile>

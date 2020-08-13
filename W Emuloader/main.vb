@@ -108,7 +108,7 @@ Public Class main
 
         'Calls jumpin updater from emulator updaters which populates the lastplayed section on the home panel.
         Call jumpin_updater()
-
+        Call dropbox_status_check()
         updates.Hide()
     End Sub
 
@@ -356,14 +356,14 @@ Public Class main
     End Sub
 
     Private Sub btn_play_MouseEnter(sender As Object, e As EventArgs) Handles btn_play.MouseEnter
-        If thread_emulator_update.IsBusy = False And emulator.HasExited Then
+        If (thread_emulator_update.IsBusy = False And emulator IsNot Nothing AndAlso emulator.HasExited) Or (thread_emulator_update.IsBusy = False And emulator Is Nothing) Then
             btn_play.Image = System.Drawing.Image.FromFile(".\resources\playwhite.png")
         End If
 
     End Sub
 
     Private Sub btn_play_MouseLeave(sender As Object, e As EventArgs) Handles btn_play.MouseLeave
-        If thread_emulator_update.IsBusy = False And emulator.HasExited Then
+        If (thread_emulator_update.IsBusy = False And emulator IsNot Nothing AndAlso emulator.HasExited) Or (thread_emulator_update.IsBusy = False And emulator Is Nothing) Then
             btn_play.Image = System.Drawing.Image.FromFile(".\resources\playblack.gif")
         End If
         GC.Collect()
@@ -1505,7 +1505,7 @@ x.SubItems(4).Text, "Queued", timestamp}))
                 End If
             End If
         Catch ex As Exception
-                MessageBox.Show("Error downloading")
+            MessageBox.Show("Error downloading")
         End Try
     End Sub
 
@@ -1522,7 +1522,7 @@ x.SubItems(4).Text, "Queued", timestamp}))
         End Try
         'No need to update percentage once the download is complete.
         timer_updateprogress.Enabled = False
-            lbl_status.Text = "Downloaded " & listbox_queue.Items(0).SubItems(0).Text
+        lbl_status.Text = "Downloaded " & listbox_queue.Items(0).SubItems(0).Text
         lbl_status.Location = New Point((panel_top.Width - lbl_status.Width) \ 2, (panel_top.Height - lbl_status.Height) \ 2)
         Call load_installed_roms()
         Dim index As Double = 0
@@ -2178,6 +2178,7 @@ x.SubItems(4).Text, "Queued", timestamp}))
 
     Private Sub image_logo_Click(sender As Object, e As EventArgs) Handles image_logo.Click
         panel_home.BringToFront()
+        tab_browse.Visible = False
     End Sub
 
     Private Sub btn_play_jumpin_MouseDown(sender As Object, e As MouseEventArgs) Handles btn_play_jumpin.MouseDown
@@ -2278,5 +2279,33 @@ x.SubItems(4).Text, "Queued", timestamp}))
             btn_play_jumpin.Image = System.Drawing.Image.FromFile(".\resources\playblack.gif")
             btn_play.Image = System.Drawing.Image.FromFile(".\resources\playblack.gif")
         End If
+    End Sub
+
+
+    Private Sub btn_connectdropbox_MouseEnter(sender As Object, e As EventArgs) Handles btn_connectdropbox.MouseEnter
+        btn_connectdropbox.Image = System.Drawing.Image.FromFile(".\resources\dropboxwhite.png")
+    End Sub
+
+    Private Sub btn_connectdropbox_MouseLeave(sender As Object, e As EventArgs) Handles btn_connectdropbox.MouseLeave
+        btn_connectdropbox.Image = System.Drawing.Image.FromFile(".\resources\dropboxblack.png")
+    End Sub
+
+    Private Sub btn_connectdropbox_MouseDown(sender As Object, e As MouseEventArgs) Handles btn_connectdropbox.MouseDown
+        connectwithdropbox.Show()
+    End Sub
+
+    Private Sub btn_disconnect_Click(sender As Object, e As EventArgs) Handles btn_disconnect.Click
+        If File.Exists(".\modules\access_token.dat") Then
+            File.Delete(".\modules\access_token.dat")
+            panel_connected.Visible = False
+        End If
+    End Sub
+
+    Private Sub picturebox_reddit_Click(sender As Object, e As EventArgs) Handles picturebox_reddit.Click
+        Process.Start("https://www.reddit.com/r/Emuloader/")
+    End Sub
+
+    Private Sub btn_kofi_Click(sender As Object, e As EventArgs) Handles btn_kofi.Click
+        Process.Start("https://ko-fi.com/tungsten")
     End Sub
 End Class

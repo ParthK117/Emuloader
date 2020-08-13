@@ -55,6 +55,7 @@
         Dim gothamfont12 As New System.Drawing.Font(main.gotham.Families(0), 12)
         main.lbl_status.Font = gothamfont12
         main.lbl_library.Font = gothamfont12
+        main.lbl_connect_status.Font = gothamfont12
 
         Dim gothamfont16 As New System.Drawing.Font(main.gotham.Families(0), 16)
         main.btn_browse.Font = gothamfont16
@@ -86,6 +87,10 @@
         main.lbl_networkusage.Font = spartanfont14
         main.lbl_peak.Font = spartanfont14
         main.lbl_total.Font = spartanfont14
+        main.lbl_disclaimer.Font = spartanfont14
+
+        Dim spartanfont8 As New System.Drawing.Font(main.spartan.Families(0), 9.5)
+        main.lbl_description.Font = spartanfont8
 
         Dim gothamfont18 As New System.Drawing.Font(main.gotham.Families(0), 18)
         main.emu_one.Font = gothamfont18
@@ -106,6 +111,7 @@
         main.btn_search.Font = gothamfont14
         main.btn_all.Font = gothamfont14
         main.btn_region.Font = gothamfont14
+
 
         Dim gothamfont20 As New System.Drawing.Font(main.gotham.Families(0), 20)
         main.lbl_jumpin.Font = gothamfont20

@@ -3,6 +3,7 @@ Imports System.IO
 Public Class connectwithdropbox
     Private Sub connectwithdropbox_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         btn_connect.Left = (Me.ClientSize.Width / 2) - (btn_connect.Width / 2)
+        btn_finish.Left = (Me.ClientSize.Width / 2) - (btn_finish.Width / 2)
         textbox_code.Left = (Me.ClientSize.Width / 2) - (textbox_code.Width / 2)
     End Sub
 
@@ -38,8 +39,7 @@ Public Class connectwithdropbox
             File.Create(".\modules\authcode.dat").Dispose()
             File.WriteAllText(".\modules\authcode.dat", textbox_code.Text)
         End If
-        Me.BackgroundImage = System.Drawing.Image.FromFile(".\resources\dropboxfinishinte.png")
-        Thread.Sleep(3000)
+        main.panel_connected.Visible = True
         Me.Close()
     End Sub
 

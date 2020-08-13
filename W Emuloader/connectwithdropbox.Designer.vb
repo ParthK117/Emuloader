@@ -33,7 +33,7 @@ Partial Class connectwithdropbox
         'btn_connect
         '
         Me.btn_connect.Image = CType(resources.GetObject("btn_connect.Image"), System.Drawing.Image)
-        Me.btn_connect.Location = New System.Drawing.Point(417, 385)
+        Me.btn_connect.Location = New System.Drawing.Point(109, 609)
         Me.btn_connect.Name = "btn_connect"
         Me.btn_connect.Size = New System.Drawing.Size(176, 48)
         Me.btn_connect.TabIndex = 0
@@ -43,17 +43,17 @@ Partial Class connectwithdropbox
         '
         Me.textbox_code.BackColor = System.Drawing.Color.White
         Me.textbox_code.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.textbox_code.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.textbox_code.Location = New System.Drawing.Point(194, 395)
+        Me.textbox_code.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.textbox_code.Location = New System.Drawing.Point(12, 561)
         Me.textbox_code.Name = "textbox_code"
-        Me.textbox_code.Size = New System.Drawing.Size(556, 29)
+        Me.textbox_code.Size = New System.Drawing.Size(376, 24)
         Me.textbox_code.TabIndex = 1
         Me.textbox_code.Visible = False
         '
         'btn_finish
         '
         Me.btn_finish.BackgroundImage = CType(resources.GetObject("btn_finish.BackgroundImage"), System.Drawing.Image)
-        Me.btn_finish.Location = New System.Drawing.Point(417, 470)
+        Me.btn_finish.Location = New System.Drawing.Point(109, 609)
         Me.btn_finish.Name = "btn_finish"
         Me.btn_finish.Size = New System.Drawing.Size(176, 48)
         Me.btn_finish.TabIndex = 2
@@ -66,10 +66,12 @@ Partial Class connectwithdropbox
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.White
         Me.BackgroundImage = CType(resources.GetObject("$this.BackgroundImage"), System.Drawing.Image)
-        Me.ClientSize = New System.Drawing.Size(1008, 537)
+        Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.ClientSize = New System.Drawing.Size(400, 700)
         Me.Controls.Add(Me.btn_finish)
         Me.Controls.Add(Me.textbox_code)
         Me.Controls.Add(Me.btn_connect)
+        Me.DoubleBuffered = True
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
