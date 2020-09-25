@@ -21,7 +21,7 @@ Public Class connectwithdropbox
         Dim connect As Process
         Dim p As New ProcessStartInfo
         p.FileName = "dropbox.exe"
-        MessageBox.Show(System.IO.Path.GetFullPath(p.FileName))
+        '  MessageBox.Show(System.IO.Path.GetFullPath(p.FileName))
         '   p.UseShellExecute = True
         p.WindowStyle = ProcessWindowStyle.Hidden
         p.WorkingDirectory = ".\modules\"

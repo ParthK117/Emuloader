@@ -46,8 +46,7 @@ Partial Class settings
         Me.panel_theme = New System.Windows.Forms.Panel()
         Me.combobox_theme = New System.Windows.Forms.ComboBox()
         Me.load_skin = New System.Windows.Forms.CheckBox()
-        Me.btn_lightmode = New System.Windows.Forms.PictureBox()
-        Me.btn_darkmode = New System.Windows.Forms.PictureBox()
+        Me.picturebox_preview = New System.Windows.Forms.PictureBox()
         CType(Me.btn_save, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panel_general.SuspendLayout()
         Me.panel_appearance.SuspendLayout()
@@ -55,8 +54,7 @@ Partial Class settings
         Me.panel_updates.SuspendLayout()
         Me.panel_delivery.SuspendLayout()
         Me.panel_theme.SuspendLayout()
-        CType(Me.btn_lightmode, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.btn_darkmode, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.picturebox_preview, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'load_boxart_on_startup
@@ -269,8 +267,7 @@ Partial Class settings
         '
         Me.panel_theme.Controls.Add(Me.combobox_theme)
         Me.panel_theme.Controls.Add(Me.load_skin)
-        Me.panel_theme.Controls.Add(Me.btn_lightmode)
-        Me.panel_theme.Controls.Add(Me.btn_darkmode)
+        Me.panel_theme.Controls.Add(Me.picturebox_preview)
         Me.panel_theme.Location = New System.Drawing.Point(220, 60)
         Me.panel_theme.Name = "panel_theme"
         Me.panel_theme.Size = New System.Drawing.Size(689, 372)
@@ -281,7 +278,7 @@ Partial Class settings
         Me.combobox_theme.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.combobox_theme.FormattingEnabled = True
         Me.combobox_theme.Items.AddRange(New Object() {"Light", "Dark Blue", "Darker Purple", "Lights Out"})
-        Me.combobox_theme.Location = New System.Drawing.Point(459, 171)
+        Me.combobox_theme.Location = New System.Drawing.Point(234, 332)
         Me.combobox_theme.Name = "combobox_theme"
         Me.combobox_theme.Size = New System.Drawing.Size(216, 21)
         Me.combobox_theme.TabIndex = 8
@@ -290,32 +287,23 @@ Partial Class settings
         '
         Me.load_skin.AutoSize = True
         Me.load_skin.Font = New System.Drawing.Font("Spartan MB", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.load_skin.Location = New System.Drawing.Point(289, 49)
+        Me.load_skin.Location = New System.Drawing.Point(49, 323)
         Me.load_skin.Name = "load_skin"
         Me.load_skin.Size = New System.Drawing.Size(126, 30)
         Me.load_skin.TabIndex = 5
         Me.load_skin.Text = "Dark mode"
         Me.load_skin.UseVisualStyleBackColor = True
+        Me.load_skin.Visible = False
         '
-        'btn_lightmode
+        'picturebox_preview
         '
-        Me.btn_lightmode.BackgroundImage = CType(resources.GetObject("btn_lightmode.BackgroundImage"), System.Drawing.Image)
-        Me.btn_lightmode.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.btn_lightmode.Location = New System.Drawing.Point(12, 13)
-        Me.btn_lightmode.Name = "btn_lightmode"
-        Me.btn_lightmode.Size = New System.Drawing.Size(271, 152)
-        Me.btn_lightmode.TabIndex = 6
-        Me.btn_lightmode.TabStop = False
-        '
-        'btn_darkmode
-        '
-        Me.btn_darkmode.BackgroundImage = CType(resources.GetObject("btn_darkmode.BackgroundImage"), System.Drawing.Image)
-        Me.btn_darkmode.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.btn_darkmode.Location = New System.Drawing.Point(404, 13)
-        Me.btn_darkmode.Name = "btn_darkmode"
-        Me.btn_darkmode.Size = New System.Drawing.Size(271, 152)
-        Me.btn_darkmode.TabIndex = 7
-        Me.btn_darkmode.TabStop = False
+        Me.picturebox_preview.BackgroundImage = CType(resources.GetObject("picturebox_preview.BackgroundImage"), System.Drawing.Image)
+        Me.picturebox_preview.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.picturebox_preview.Location = New System.Drawing.Point(12, 13)
+        Me.picturebox_preview.Name = "picturebox_preview"
+        Me.picturebox_preview.Size = New System.Drawing.Size(663, 304)
+        Me.picturebox_preview.TabIndex = 6
+        Me.picturebox_preview.TabStop = False
         '
         'settings
         '
@@ -326,11 +314,11 @@ Partial Class settings
         Me.Controls.Add(Me.lbl_settingstitle)
         Me.Controls.Add(Me.listbox_settings)
         Me.Controls.Add(Me.btn_save)
-        Me.Controls.Add(Me.panel_general)
-        Me.Controls.Add(Me.panel_updates)
         Me.Controls.Add(Me.panel_theme)
         Me.Controls.Add(Me.panel_appearance)
         Me.Controls.Add(Me.panel_delivery)
+        Me.Controls.Add(Me.panel_general)
+        Me.Controls.Add(Me.panel_updates)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
@@ -348,8 +336,7 @@ Partial Class settings
         Me.panel_delivery.PerformLayout()
         Me.panel_theme.ResumeLayout(False)
         Me.panel_theme.PerformLayout()
-        CType(Me.btn_lightmode, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.btn_darkmode, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.picturebox_preview, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -372,8 +359,7 @@ Partial Class settings
     Friend WithEvents panel_theme As Panel
     Friend WithEvents combobox_theme As ComboBox
     Friend WithEvents load_skin As CheckBox
-    Friend WithEvents btn_lightmode As PictureBox
-    Friend WithEvents btn_darkmode As PictureBox
+    Friend WithEvents picturebox_preview As PictureBox
     Friend WithEvents checkbox_affiliate As CheckBox
     Friend WithEvents combobox_provider As ComboBox
     Friend WithEvents lbl_provider As Label

@@ -741,7 +741,7 @@ Partial Class main
         Me.lbl_rom_name.Name = "lbl_rom_name"
         Me.lbl_rom_name.Size = New System.Drawing.Size(217, 120)
         Me.lbl_rom_name.TabIndex = 5
-        Me.lbl_rom_name.Text = "Release Build"
+        Me.lbl_rom_name.Text = "Prerelease Build"
         '
         'checkbox_fullscreen
         '

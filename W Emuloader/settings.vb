@@ -112,6 +112,7 @@ Public Class settings
             checkbox_affiliate.ForeColor = Color.White
             checkbox_offline.ForeColor = Color.White
             checkbox_hoarder.ForeColor = Color.White
+            picturebox_preview.BackgroundImage = System.Drawing.Image.FromFile(".\resources\previewdark.png")
         ElseIf main.dark = 2 Then
             Me.BackColor = Color.FromArgb(25, 28, 40)
             load_boxart_on_startup.ForeColor = Color.White
@@ -129,6 +130,7 @@ Public Class settings
             checkbox_affiliate.ForeColor = Color.White
             checkbox_offline.ForeColor = Color.White
             checkbox_hoarder.ForeColor = Color.White
+            picturebox_preview.BackgroundImage = System.Drawing.Image.FromFile(".\resources\previewdarker.png")
         ElseIf main.dark = 3 Then
             Me.BackColor = Color.FromArgb(12, 12, 12)
             load_boxart_on_startup.ForeColor = Color.White
@@ -146,6 +148,7 @@ Public Class settings
             checkbox_affiliate.ForeColor = Color.White
             checkbox_offline.ForeColor = Color.White
             checkbox_hoarder.ForeColor = Color.White
+            picturebox_preview.BackgroundImage = System.Drawing.Image.FromFile(".\resources\previewdarkest.png")
         End If
         listbox_settings.SelectedItem = listbox_settings.Items(0)
     End Sub
@@ -299,12 +302,16 @@ Public Class settings
     Private Sub combobox_theme_SelectedIndexChanged(sender As Object, e As EventArgs) Handles combobox_theme.SelectedIndexChanged
         If combobox_theme.SelectedIndex = 1 Then
             settings(1) = "dark=1"
+            picturebox_preview.BackgroundImage = System.Drawing.Image.FromFile(".\resources\previewdark.png")
         ElseIf combobox_theme.SelectedIndex = 0 Then
             settings(1) = "dark=0"
+            picturebox_preview.BackgroundImage = System.Drawing.Image.FromFile(".\resources\previewlight.png")
         ElseIf combobox_theme.SelectedIndex = 2 Then
             settings(1) = "dark=2"
+            picturebox_preview.BackgroundImage = System.Drawing.Image.FromFile(".\resources\previewdarker.png")
         ElseIf combobox_theme.SelectedIndex = 3 Then
             settings(1) = "dark=3"
+            picturebox_preview.BackgroundImage = System.Drawing.Image.FromFile(".\resources\previewdarkest.png")
         End If
     End Sub
 

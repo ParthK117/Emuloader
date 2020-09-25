@@ -17,7 +17,7 @@ Public Class main
     Public Shared labelgrey As Color
     Public Shared tab_index = 0
     Public Shared dark = 0
-    Public Shared version_number = "1.0.0"
+    Public Shared version_number = "0.14.0"
     Public Shared global_settings As New List(Of String)
     Public Shared boxart_url As String
     Dim emulator As Process
@@ -2307,5 +2307,9 @@ x.SubItems(4).Text, "Queued", timestamp}))
 
     Private Sub btn_kofi_Click(sender As Object, e As EventArgs) Handles btn_kofi.Click
         Process.Start("https://ko-fi.com/tungsten")
+    End Sub
+
+    Private Sub btn_featurepipeline_Click(sender As Object, e As EventArgs) Handles btn_featurepipeline.Click
+        MessageBox.Show("Feature not ready yet, join the discord and reddit for updates.")
     End Sub
 End Class
