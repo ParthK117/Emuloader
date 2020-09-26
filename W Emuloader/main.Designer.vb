@@ -329,10 +329,10 @@ Partial Class main
         'image_logo
         '
         Me.image_logo.BackgroundImage = CType(resources.GetObject("image_logo.BackgroundImage"), System.Drawing.Image)
-        Me.image_logo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.image_logo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
         Me.image_logo.Location = New System.Drawing.Point(26, 17)
         Me.image_logo.Name = "image_logo"
-        Me.image_logo.Size = New System.Drawing.Size(154, 65)
+        Me.image_logo.Size = New System.Drawing.Size(188, 85)
         Me.image_logo.TabIndex = 1
         Me.image_logo.TabStop = False
         '
@@ -385,7 +385,7 @@ Partial Class main
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lbl_version.AutoSize = True
         Me.lbl_version.Font = New System.Drawing.Font("Calibri", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lbl_version.Location = New System.Drawing.Point(144, 85)
+        Me.lbl_version.Location = New System.Drawing.Point(169, 97)
         Me.lbl_version.Name = "lbl_version"
         Me.lbl_version.Size = New System.Drawing.Size(12, 13)
         Me.lbl_version.TabIndex = 20
@@ -2132,7 +2132,7 @@ Partial Class main
         Me.btn_kofi.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.btn_kofi.BackColor = System.Drawing.Color.Transparent
         Me.btn_kofi.BackgroundImage = CType(resources.GetObject("btn_kofi.BackgroundImage"), System.Drawing.Image)
-        Me.btn_kofi.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.btn_kofi.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.btn_kofi.Cursor = System.Windows.Forms.Cursors.Hand
         Me.btn_kofi.Location = New System.Drawing.Point(21, 178)
         Me.btn_kofi.Name = "btn_kofi"
