@@ -60,10 +60,10 @@ Partial Class settings
         'load_boxart_on_startup
         '
         Me.load_boxart_on_startup.AutoSize = True
-        Me.load_boxart_on_startup.Font = New System.Drawing.Font("Spartan MB", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.load_boxart_on_startup.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.load_boxart_on_startup.Location = New System.Drawing.Point(12, 13)
         Me.load_boxart_on_startup.Name = "load_boxart_on_startup"
-        Me.load_boxart_on_startup.Size = New System.Drawing.Size(386, 30)
+        Me.load_boxart_on_startup.Size = New System.Drawing.Size(365, 28)
         Me.load_boxart_on_startup.TabIndex = 0
         Me.load_boxart_on_startup.Text = "Download boxart automatically if missing"
         Me.load_boxart_on_startup.UseVisualStyleBackColor = True
@@ -80,7 +80,7 @@ Partial Class settings
         'listbox_settings
         '
         Me.listbox_settings.FormattingEnabled = True
-        Me.listbox_settings.Items.AddRange(New Object() {"General", "Theme", "Appearance", "Updates", "Instant Delivery"})
+        Me.listbox_settings.Items.AddRange(New Object() {"General", "Theme", "Appearance", "Updates"})
         Me.listbox_settings.Location = New System.Drawing.Point(12, 12)
         Me.listbox_settings.Name = "listbox_settings"
         Me.listbox_settings.Size = New System.Drawing.Size(201, 472)
@@ -167,10 +167,10 @@ Partial Class settings
         'checkbox_topbar
         '
         Me.checkbox_topbar.AutoSize = True
-        Me.checkbox_topbar.Font = New System.Drawing.Font("Spartan MB", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.checkbox_topbar.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.checkbox_topbar.Location = New System.Drawing.Point(12, 147)
         Me.checkbox_topbar.Name = "checkbox_topbar"
-        Me.checkbox_topbar.Size = New System.Drawing.Size(253, 30)
+        Me.checkbox_topbar.Size = New System.Drawing.Size(241, 28)
         Me.checkbox_topbar.TabIndex = 2
         Me.checkbox_topbar.Text = "Use windows style topbar"
         Me.checkbox_topbar.UseVisualStyleBackColor = True
@@ -178,10 +178,10 @@ Partial Class settings
         'checkbox_exit_on_taskbar
         '
         Me.checkbox_exit_on_taskbar.AutoSize = True
-        Me.checkbox_exit_on_taskbar.Font = New System.Drawing.Font("Spartan MB", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.checkbox_exit_on_taskbar.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.checkbox_exit_on_taskbar.Location = New System.Drawing.Point(12, 85)
         Me.checkbox_exit_on_taskbar.Name = "checkbox_exit_on_taskbar"
-        Me.checkbox_exit_on_taskbar.Size = New System.Drawing.Size(386, 56)
+        Me.checkbox_exit_on_taskbar.Size = New System.Drawing.Size(391, 52)
         Me.checkbox_exit_on_taskbar.TabIndex = 1
         Me.checkbox_exit_on_taskbar.Text = "Checked: Pressing 'X' moves to taskbar" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Unchecked: Pressing 'X' closes emuloader"
         Me.checkbox_exit_on_taskbar.UseVisualStyleBackColor = True
@@ -209,7 +209,7 @@ Partial Class settings
         '
         Me.picturebox_wave.BackgroundImage = CType(resources.GetObject("picturebox_wave.BackgroundImage"), System.Drawing.Image)
         Me.picturebox_wave.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.picturebox_wave.Location = New System.Drawing.Point(12, 244)
+        Me.picturebox_wave.Location = New System.Drawing.Point(12, 47)
         Me.picturebox_wave.Name = "picturebox_wave"
         Me.picturebox_wave.Size = New System.Drawing.Size(567, 109)
         Me.picturebox_wave.TabIndex = 6
@@ -218,10 +218,10 @@ Partial Class settings
         'checkbox_fancy
         '
         Me.checkbox_fancy.AutoSize = True
-        Me.checkbox_fancy.Font = New System.Drawing.Font("Spartan MB", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.checkbox_fancy.Location = New System.Drawing.Point(12, 207)
+        Me.checkbox_fancy.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.checkbox_fancy.Location = New System.Drawing.Point(7, 5)
         Me.checkbox_fancy.Name = "checkbox_fancy"
-        Me.checkbox_fancy.Size = New System.Drawing.Size(438, 30)
+        Me.checkbox_fancy.Size = New System.Drawing.Size(417, 28)
         Me.checkbox_fancy.TabIndex = 5
         Me.checkbox_fancy.Text = "Fancy download animations (80MB download)"
         Me.checkbox_fancy.UseVisualStyleBackColor = True
@@ -255,10 +255,10 @@ Partial Class settings
         'checkbox_delivery
         '
         Me.checkbox_delivery.AutoSize = True
-        Me.checkbox_delivery.Font = New System.Drawing.Font("Spartan MB", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.checkbox_delivery.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.checkbox_delivery.Location = New System.Drawing.Point(12, 13)
         Me.checkbox_delivery.Name = "checkbox_delivery"
-        Me.checkbox_delivery.Size = New System.Drawing.Size(226, 30)
+        Me.checkbox_delivery.Size = New System.Drawing.Size(219, 28)
         Me.checkbox_delivery.TabIndex = 1
         Me.checkbox_delivery.Text = "Enable Instant Delivery"
         Me.checkbox_delivery.UseVisualStyleBackColor = True
@@ -286,10 +286,10 @@ Partial Class settings
         'load_skin
         '
         Me.load_skin.AutoSize = True
-        Me.load_skin.Font = New System.Drawing.Font("Spartan MB", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.load_skin.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.load_skin.Location = New System.Drawing.Point(49, 323)
         Me.load_skin.Name = "load_skin"
-        Me.load_skin.Size = New System.Drawing.Size(126, 30)
+        Me.load_skin.Size = New System.Drawing.Size(121, 28)
         Me.load_skin.TabIndex = 5
         Me.load_skin.Text = "Dark mode"
         Me.load_skin.UseVisualStyleBackColor = True

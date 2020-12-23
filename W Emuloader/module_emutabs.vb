@@ -36,6 +36,9 @@
         main.lbl_name.Text = main.currenttab_metadata(0)
         main.lbl_installedon.Text = "Installed on " & main.currenttab_metadata(2)
         main.lbl_platform.Text = "Platform: " & main.currenttab_metadata(1)
+        main.lbl_rom_top_name.Text = "Rom not selected"
+        main.picturebox_boxart_top.BackgroundImage = System.Drawing.Image.FromFile(".\modules\noimage.png")
+        main.lbl_last_played.Text = "Last played never"
         Call load_installed_roms()
     End Sub
 

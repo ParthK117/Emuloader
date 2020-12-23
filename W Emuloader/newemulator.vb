@@ -13,15 +13,15 @@ Public Class newemulator
         ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12
         listbox_emulators.Items.AddRange(list_of_emulators)
 
-        Dim spartanfont10 As New System.Drawing.Font(main.spartan.Families(0), 10)
-        listbox_emulators.Font = spartanfont10
-        textbox_search.Font = spartanfont10
+        Dim opensansfont10 As New System.Drawing.Font(main.opensans.Families(0), 10)
+        listbox_emulators.Font = opensansfont10
+        textbox_search.Font = opensansfont10
 
-        Dim spartanfont12 As New System.Drawing.Font(main.spartan.Families(0), 12)
-        lbl_emulator_name.Font = spartanfont12
-        lbl_source.Font = spartanfont12
-        lbl_version_number.Font = spartanfont12
-        lbl_platform.Font = spartanfont12
+        Dim opensansfont12 As New System.Drawing.Font(main.opensans.Families(0), 12)
+        lbl_emulator_name.Font = opensansfont12
+        lbl_source.Font = opensansfont12
+        lbl_version_number.Font = opensansfont12
+        lbl_platform.Font = opensansfont12
 
         Using currentlinks = New WebClient()
             Try
@@ -90,7 +90,12 @@ Public Class newemulator
         If File.Exists(".\" & arguments(0) & "-" & timestamp & "\" & arguments(2)) Then
             Dim zipfilepath As String = ".\" & arguments(0) & "-" & timestamp & "\" & arguments(2)
             Dim extractto As String = ".\" & arguments(0) & "-" & timestamp & arguments(7)
-            ZipFile.ExtractToDirectory(zipfilepath, extractto)
+            Try
+                ZipFile.ExtractToDirectory(zipfilepath, extractto)
+            Catch ex As Exception
+                main.lbl_status.Text = "Something weird happened when installing, try again if any issues arise"
+                Call center_status_lbl()
+            End Try
         End If
 
         'save to settings

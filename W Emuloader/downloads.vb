@@ -2,7 +2,7 @@
 
 Module downloads
     Public Class downloadqueue
-        Public Shared spartan As New System.Drawing.Text.PrivateFontCollection()
+        Public Shared opensans As New System.Drawing.Text.PrivateFontCollection()
         Public Shared arguments As String()
         Public Shared reportedsize As Double
         Public Shared currentsize As Double

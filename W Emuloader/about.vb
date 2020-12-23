@@ -1,9 +1,10 @@
 ﻿Public Class about
     Private Sub about_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Dim spartanfont14 As New System.Drawing.Font(main.spartan.Families(0), 12)
-        lbl_version.Font = spartanfont14
-        lbl_patreon.Font = spartanfont14
-        lbl_website.Font = spartanfont14
+        Me.Text = "About Emuloader " & main.version_number
+        Dim opensansfont14 As New System.Drawing.Font(main.opensans.Families(0), 12)
+        lbl_version.Font = opensansfont14
+        lbl_patreon.Font = opensansfont14
+        lbl_website.Font = opensansfont14
         lbl_version.Text = "Version " & main.version_number
     End Sub
 
@@ -11,7 +12,7 @@
         Process.Start("https://parthkataria.com")
     End Sub
 
-    Private Sub picturebox_tungsten_Click(sender As Object, e As EventArgs) Handles picturebox_tungsten.Click
+    Private Sub picturebox_tungsten_Click(sender As Object, e As EventArgs)
         Process.Start("https://tungstencore.com")
     End Sub
 End Class

@@ -13,15 +13,17 @@ Public Class main
     Dim total As Long = 0
     Public Shared currenttab_metadata As String() = {"na", "na", "na", "na", "na"}
     Public Shared gotham As New System.Drawing.Text.PrivateFontCollection()
-    Public Shared spartan As New System.Drawing.Text.PrivateFontCollection()
+    Public Shared opensans As New System.Drawing.Text.PrivateFontCollection()
     Public Shared labelgrey As Color
     Public Shared tab_index = 0
     Public Shared dark = 0
-    Public Shared version_number = "0.14.0"
+    Public Shared version_number = "1.0.0"
     Public Shared global_settings As New List(Of String)
     Public Shared boxart_url As String
     Dim emulator As Process
     Dim rom_path As String = ""
+    Dim preferred_platform As String = ""
+    Public Shared preferences As New List(Of String)
 
     Private Sub main_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         updates.Show()
@@ -70,6 +72,12 @@ Public Class main
             Dim new_settings As String = global_settings(0) & vbNewLine & global_settings(1) & vbNewLine & global_settings(2) & vbNewLine & global_settings(3) & vbNewLine & global_settings(4) & vbNewLine & global_settings(5) & vbNewLine & global_settings(6) & vbNewLine & global_settings(7) & vbNewLine & global_settings(8) & vbNewLine & global_settings(9) & vbNewLine & global_settings(10) & vbNewLine & global_settings(11) & vbNewLine & global_settings(12) & vbNewLine & global_settings(13)
             File.WriteAllText(".\settings.dat", new_settings)
         End If
+
+        If Not File.Exists(".\modules\cloud_preferences.dat") Then
+            System.IO.File.Create(".\modules\cloud_preferences.dat").Dispose()
+            File.WriteAllText(".\modules\cloud_preferences.dat", "sync_gba=0" & vbNewLine & "sync_nds=0" & vbNewLine & "sync_snes=0")
+        End If
+        preferences.AddRange(File.ReadAllLines(".\modules\cloud_preferences.dat"))
         'Calls skin function to set a skin
         Dim checkbox_skin As String() = (global_settings(1).Split("="))
         Select Case checkbox_skin(1)
@@ -237,6 +245,8 @@ Public Class main
     Private Sub btn_newemu_MouseDown(sender As Object, e As MouseEventArgs) Handles btn_newemu.MouseDown
         If ((global_settings(12).Split("="))(1)) = "1" Then
             MessageBox.Show("You cannot download new emulators in offline mode.")
+        ElseIf emu_nine.Visible = True Then
+            MessageBox.Show("You can have up to nine installations at a time right now, more slots coming next update!")
         Else
             newemulator.Show()
         End If
@@ -371,9 +381,13 @@ Public Class main
 
     Public Sub btn_play_MouseDown(sender As Object, e As MouseEventArgs) Handles btn_play.MouseDown
         btn_play.Image = System.Drawing.Image.FromFile(".\resources\playclick.png")
-        Call module_emulatorupdater.emulator_updater()
-        Call jumpin_updater()
-        Call lastplayed()
+        If listbox_installedroms.FocusedItem Is Nothing Or listbox_installedroms.SelectedItems Is Nothing Then
+            MessageBox.Show("You must select a game to play first! If you have none, click browse to see those available.")
+        Else
+            Call module_emulatorupdater.emulator_updater()
+            Call jumpin_updater()
+            Call lastplayed()
+        End If
     End Sub
 
     Private Sub btn_play_MouseUp(sender As Object, e As MouseEventArgs) Handles btn_play.MouseUp
@@ -959,7 +973,7 @@ x.SubItems(4).Text, "Queued", timestamp}))
         End If
     End Sub
 
-    Private Sub listbox_installedroms_SelectedIndexChanged(sender As Object, e As EventArgs) Handles listbox_installedroms.SelectedIndexChanged
+    Public Sub listbox_installedroms_SelectedIndexChanged(sender As Object, e As EventArgs) Handles listbox_installedroms.SelectedIndexChanged
         Try
             If File.Exists(".\roms\" & currenttab_metadata(1) & "\metadata\boxartmatches.eldr") Then
                 'Read each entry in format 'name#path' and add it to find_art
@@ -1047,8 +1061,7 @@ x.SubItems(4).Text, "Queued", timestamp}))
                         lbl_status.Location = New Point((panel_top.Width - lbl_status.Width) \ 2, (panel_top.Height - lbl_status.Height) \ 2)
                         picturebox_loading.Visible = True
                         If thread_getboxart.IsBusy = False Then
-                            Dim arguments As String()
-                            arguments = {currenttab_metadata(1), "boxartatonce"}
+                            Dim arguments As String() = {currenttab_metadata(1), "boxartatonce"}
                             thread_getboxart.RunWorkerAsync(arguments)
                         End If
                         Exit For
@@ -1060,8 +1073,7 @@ x.SubItems(4).Text, "Queued", timestamp}))
                 picturebox_loading.Visible = True
                 lbl_status.Location = New Point((panel_top.Width - lbl_status.Width) \ 2, (panel_top.Height - lbl_status.Height) \ 2)
                 If thread_getboxart.IsBusy = False Then
-                    Dim arguments As String()
-                    arguments = {currenttab_metadata(1), "boxartatonce"}
+                    Dim arguments As String() = {currenttab_metadata(1), "boxartatonce"}
                     thread_getboxart.RunWorkerAsync(arguments)
                 End If
             End If
@@ -1077,8 +1089,7 @@ x.SubItems(4).Text, "Queued", timestamp}))
                             lbl_status.Location = New Point((panel_top.Width - lbl_status.Width) \ 2, (panel_top.Height - lbl_status.Height) \ 2)
                             picturebox_loading.Visible = True
                             If thread_getboxart.IsBusy = False Then
-                                Dim arguments As String()
-                                arguments = {currenttab_metadata(1), "boxartod"}
+                                Dim arguments As String() = {currenttab_metadata(1), "boxartod"}
                                 thread_getboxart.RunWorkerAsync(arguments)
                             End If
                             Exit For
@@ -1092,8 +1103,7 @@ x.SubItems(4).Text, "Queued", timestamp}))
                 picturebox_loading.Visible = True
                 lbl_status.Location = New Point((panel_top.Width - lbl_status.Width) \ 2, (panel_top.Height - lbl_status.Height) \ 2)
                 If thread_getboxart.IsBusy = False Then
-                    Dim arguments As String()
-                    arguments = {currenttab_metadata(1), "boxartod"}
+                    Dim arguments As String() = {currenttab_metadata(1), "boxartod"}
                     thread_getboxart.RunWorkerAsync(arguments)
                 End If
             End If
@@ -1108,7 +1118,7 @@ x.SubItems(4).Text, "Queued", timestamp}))
         p.FileName = ".\getboxart.exe"
         p.WindowStyle = ProcessWindowStyle.Hidden
         p.WorkingDirectory = ".\modules\"
-        p.Arguments = (arguments(1) & " " & arguments(0) & " " & Chr(34) & Path.GetFullPath(".\boxart") & Chr(34) & " " & Chr(34) & Path.GetFullPath(".\roms\" & currenttab_metadata(1) & "\metadata\romnamelist.eldr") & Chr(34) & " " & Chr(34) & Path.GetFullPath(".\roms\" & currenttab_metadata(1) & "\metadata") & Chr(34))
+        p.Arguments = (arguments(1) & " " & arguments(0) & " " & Chr(34) & Path.GetFullPath(".\boxart") & Chr(34) & " " & Chr(34) & Path.GetFullPath(".\roms\" & currenttab_metadata(1) & "\metadata\romnamelist.eldr") & Chr(34) & " " & Chr(34) & Path.GetFullPath(".\roms\" & currenttab_metadata(1) & "\metadata") & Chr(34)) & " " & Chr(34) & Path.GetFullPath(".\") & Chr(34)
         getart = Process.Start(p)
         getart.WaitForExit()
     End Sub
@@ -1800,6 +1810,7 @@ x.SubItems(4).Text, "Queued", timestamp}))
         btn_openright.Visible = True
         btn_openright_downloads.Visible = True
         btn_openright_browse.Visible = True
+        btn_openright_home.Visible = True
     End Sub
 
     Private Sub btn_openright_Click(sender As Object, e As EventArgs) Handles btn_openright.Click
@@ -1812,6 +1823,7 @@ x.SubItems(4).Text, "Queued", timestamp}))
         btn_openright_downloads.Visible = False
         btn_openright_browse.Visible = False
         btn_openright.Visible = False
+        btn_openright_home.Visible = False
     End Sub
 
     Private Sub btn_closetop_Click(sender As Object, e As EventArgs) Handles btn_closetop.Click
@@ -1854,6 +1866,7 @@ x.SubItems(4).Text, "Queued", timestamp}))
 
     Private Sub btn_extras_MouseDown(sender As Object, e As MouseEventArgs) Handles btn_extras.MouseDown
         btn_extras.BackgroundImage = System.Drawing.Image.FromFile(".\resources\extrasclick.png")
+        parameters.Show()
     End Sub
 
     Private Sub btn_extras_MouseUp(sender As Object, e As MouseEventArgs) Handles btn_extras.MouseUp
@@ -1898,7 +1911,6 @@ x.SubItems(4).Text, "Queued", timestamp}))
         Else
             btn_openright.BackgroundImage = System.Drawing.Image.FromFile(".\resources\openrightclick.png")
         End If
-
     End Sub
 
     Private Sub btn_openright_MouseLeave(sender As Object, e As EventArgs) Handles btn_openright.MouseLeave
@@ -1908,6 +1920,23 @@ x.SubItems(4).Text, "Queued", timestamp}))
             btn_openright.BackgroundImage = System.Drawing.Image.FromFile(".\resources\openright.png")
         End If
     End Sub
+
+    Private Sub btn_openright_home_MouseEnter(sender As Object, e As EventArgs) Handles btn_openright_home.MouseEnter
+        If dark = 1 Or dark = 2 Or dark = 3 Then
+            btn_openright_home.BackgroundImage = System.Drawing.Image.FromFile(".\resources\openrightclickdark.png")
+        Else
+            btn_openright_home.BackgroundImage = System.Drawing.Image.FromFile(".\resources\openrightclick.png")
+        End If
+    End Sub
+
+    Private Sub btn_openright_home_MouseLeave(sender As Object, e As EventArgs) Handles btn_openright_home.MouseLeave
+        If dark = 1 Or dark = 2 Or dark = 3 Then
+            btn_openright_home.BackgroundImage = System.Drawing.Image.FromFile(".\resources\openrightdark.png")
+        Else
+            btn_openright_home.BackgroundImage = System.Drawing.Image.FromFile(".\resources\openright.png")
+        End If
+    End Sub
+
 
     Private Sub btn_closeright_MouseEnter(sender As Object, e As EventArgs) Handles btn_closeright.MouseEnter
         If dark = 1 Or dark = 2 Or dark = 3 Then
@@ -2006,6 +2035,7 @@ x.SubItems(4).Text, "Queued", timestamp}))
         btn_openright_downloads.Visible = False
         btn_openright.Visible = False
         btn_openright_browse.Visible = False
+        btn_openright_home.Visible = False
     End Sub
 
     Private Sub btn_openright_browse_MouseEnter(sender As Object, e As EventArgs) Handles btn_openright_browse.MouseEnter
@@ -2033,7 +2063,8 @@ x.SubItems(4).Text, "Queued", timestamp}))
         panel_home.Width -= 250
         btn_openright_browse.Visible = False
         btn_openright.Visible = False
-        btn_openright_browse.Visible = False
+        btn_openright_home.Visible = False
+        btn_openright_downloads.Visible = False
     End Sub
 
     Private Sub thread_emulator_update_DoWork(sender As Object, e As DoWorkEventArgs) Handles thread_emulator_update.DoWork
@@ -2088,6 +2119,7 @@ x.SubItems(4).Text, "Queued", timestamp}))
         Dim params As String = File.ReadAllText(".\" & currenttab_metadata(4) & "\cmdlineargs.ini")
         emulator_exe.FileName = (".\" & currenttab_metadata(4) & "\" & currenttab_metadata(3))
         Dim platform_id As String = ""
+        rom_path = System.IO.Path.GetFullPath(listbox_installedroms.FocusedItem.SubItems(2).Text)
         Select Case currenttab_metadata(1)
             Case "GBA"
                 platform_id = "GBA"
@@ -2132,7 +2164,6 @@ x.SubItems(4).Text, "Queued", timestamp}))
                 platform_id = "SWH"
                 emulator_exe.Arguments = ("""" & rom_path & """ " & params)
         End Select
-        rom_path = System.IO.Path.GetFullPath(listbox_installedroms.FocusedItem.SubItems(2).Text)
         If checkbox_fullscreen.Checked = True Then
             emulator_exe.WindowStyle = ProcessWindowStyle.Maximized
         Else
@@ -2166,6 +2197,7 @@ x.SubItems(4).Text, "Queued", timestamp}))
         btn_play.Image = System.Drawing.Image.FromFile(".\resources\currentlyplaying.png")
         btn_play.Enabled = False
         btn_play_jumpin.Enabled = False
+        preferred_platform = currenttab_metadata(1)
         emulator = Process.Start(emulator_exe)
         timer_waitforexit.Enabled = True
         If File.Exists(".\lastplayed.dat") = True Then
@@ -2179,6 +2211,7 @@ x.SubItems(4).Text, "Queued", timestamp}))
     Private Sub image_logo_Click(sender As Object, e As EventArgs) Handles image_logo.Click
         panel_home.BringToFront()
         tab_browse.Visible = False
+        panel_rom_info.Visible = True
     End Sub
 
     Private Sub btn_play_jumpin_MouseDown(sender As Object, e As MouseEventArgs) Handles btn_play_jumpin.MouseDown
@@ -2196,10 +2229,9 @@ x.SubItems(4).Text, "Queued", timestamp}))
     End Sub
 
     Public Sub jumpin_play()
-        panel_banner.Visible = False
         Dim index As Integer = 0
         For Each entry In emu_tab_metadata_list.emutabs_metadata
-            If (entry(0)) = lbl_jumpin_emuname.Text Then
+            If entry IsNot Nothing AndAlso entry(0) = lbl_jumpin_emuname.Text Then
                 Select Case index
                     Case 0
                         emu_one_Click(Nothing, Nothing)
@@ -2224,14 +2256,15 @@ x.SubItems(4).Text, "Queued", timestamp}))
             End If
             index += 1
         Next
-
+        If index = 9 Then
+            MessageBox.Show("The emulator this game requires (" & lbl_jumpin_emuname.Text & ") has been previously uninstalled, please reinstall " & lbl_jumpin_emuname.Text & " to continue playing this game.")
+        End If
         For Each entry In listbox_installedroms.Items
             If entry.subitems(0).text = lbl_jumpin_romname.Text Then
                 entry.Focused = True
                 entry.Selected = True
                 entry.EnsureVisible()
                 btn_play_MouseDown(Nothing, Nothing)
-                panel_banner.Visible = True
                 btn_play_MouseUp(Nothing, Nothing)
             End If
         Next
@@ -2273,11 +2306,18 @@ x.SubItems(4).Text, "Queued", timestamp}))
             btn_play.Image = System.Drawing.Image.FromFile(".\resources\playblack.gif")
             Call load_installed_roms()
             timer_waitforexit.Enabled = False
+            If preferences(0).Contains("1") Or preferences(1).Contains("1") Then
+                Call dropbox_exe()
+            End If
         ElseIf emulator.HasExited Then
-            btn_play.Enabled = True
+                btn_play.Enabled = True
             btn_play_jumpin.Enabled = True
             btn_play_jumpin.Image = System.Drawing.Image.FromFile(".\resources\playblack.gif")
             btn_play.Image = System.Drawing.Image.FromFile(".\resources\playblack.gif")
+            timer_waitforexit.Enabled = False
+            If preferences(0).Contains("1") Or preferences(1).Contains("1") Then
+                Call dropbox_exe()
+            End If
         End If
     End Sub
 
@@ -2310,6 +2350,54 @@ x.SubItems(4).Text, "Queued", timestamp}))
     End Sub
 
     Private Sub btn_featurepipeline_Click(sender As Object, e As EventArgs) Handles btn_featurepipeline.Click
-        MessageBox.Show("Feature not ready yet, join the discord and reddit for updates.")
+        manage_dropbox.Show()
+    End Sub
+
+    Private Sub btn_openright_home_Click(sender As Object, e As EventArgs) Handles btn_openright_home.Click
+        panel_right.Visible = True
+        panel_browse.Width -= 250
+        panel_play.Width -= 250
+        panel_downloads.Width -= 250
+        panel_drag_drop.Width -= 250
+        panel_home.Width -= 250
+        btn_openright_downloads.Visible = False
+        btn_openright_browse.Visible = False
+        btn_openright.Visible = False
+        btn_openright_home.Visible = False
+    End Sub
+
+    Private Sub dropbox_exe()
+        If preferred_platform = "GBA" And preferences(0).Contains("1") Then
+            Dim arguments As String() = {"upload", " " & Chr(34) & System.IO.Path.GetFullPath(".\roms\GBA") & Chr(34) & " ", "/saves/GBA", " " & preferred_platform}
+            thread_dropbox_exe.RunWorkerAsync(arguments)
+        ElseIf preferred_platform = "NDS" And preferences(1).Contains("1") Then
+            Dim arguments As String() = {"upload", " " & Chr(34) & System.IO.Path.GetFullPath(".\roms\NDS") & Chr(34) & " ", "/saves/NDS", " " & preferred_platform}
+            thread_dropbox_exe.RunWorkerAsync(arguments)
+        End If
+
+        lbl_status.Text = "Syncing saves with the Cloud"
+        lbl_status.Location = New Point((panel_top.Width - lbl_status.Width) \ 2, (panel_top.Height - lbl_status.Height) \ 2)
+
+    End Sub
+
+    Private Sub thread_dropbox_exe_DoWork(sender As Object, e As DoWorkEventArgs) Handles thread_dropbox_exe.DoWork
+        Dim arguments As String() = (e.Argument)
+        Dim dropbox_exe_process As Process
+        Dim p As New ProcessStartInfo
+        p.FileName = ".\dropbox.exe"
+        p.WindowStyle = ProcessWindowStyle.Normal
+        p.WorkingDirectory = ".\modules\"
+        p.Arguments = arguments(0) & arguments(1) & arguments(2) & arguments(3)
+        dropbox_exe_process = Process.Start(p)
+        dropbox_exe_process.WaitForExit()
+    End Sub
+
+    Private Sub thread_dropbox_exe_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles thread_dropbox_exe.RunWorkerCompleted
+        lbl_status.Text = "Ready"
+        lbl_status.Location = New Point((panel_top.Width - lbl_status.Width) \ 2, (panel_top.Height - lbl_status.Height) \ 2)
+    End Sub
+
+    Private Sub btn_wiki_Click(sender As Object, e As EventArgs) Handles btn_wiki.Click
+        Process.Start("https://tungstencore.com/docs/")
     End Sub
 End Class

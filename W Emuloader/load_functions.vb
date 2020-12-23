@@ -10,11 +10,11 @@ Module load_functions
         Try
             Dim myFiles As New List(Of String)
             If main.dark = 1 Or main.dark = 2 Or main.dark = 3 Then
-                For Each file As String In My.Computer.FileSystem.GetFiles(".\resources\banners\dark\" & main.currenttab_metadata(1))
+                For Each file As String In My.Computer.FileSystem.GetFiles(".\resources\banners\dark\")
                     myFiles.Add(file)
                 Next
             Else
-                For Each file As String In My.Computer.FileSystem.GetFiles(".\resources\banners\light\" & main.currenttab_metadata(1))
+                For Each file As String In My.Computer.FileSystem.GetFiles(".\resources\banners\light\")
                     myFiles.Add(file)
                 Next
             End If
@@ -356,6 +356,12 @@ Module load_functions
                 Dim fullname As String() = (item.subitems(0).text).split(".")
                 item.subitems(0).text = fullname(0)
             Next
+        End If
+
+        If Not main.listbox_installedroms.Items.Count = 0 Then
+            main.listbox_installedroms.Items(0).Selected = True
+            main.listbox_installedroms.FocusedItem = main.listbox_installedroms.Items(0)
+            Call main.listbox_installedroms_SelectedIndexChanged(Nothing, EventArgs.Empty)
         End If
     End Sub
 

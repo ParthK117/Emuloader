@@ -42,12 +42,12 @@
         lightgrey = Color.FromArgb(238, 238, 238)
         Dim labelgrey As Color = Color.FromArgb(120, 127, 142)
 
-        Dim spartanfont10 As New System.Drawing.Font(main.spartan.Families(0), 10)
+        Dim opensansfont10 As New System.Drawing.Font(main.opensans.Families(0), 10)
 
-        Dim spartanfont12 As New System.Drawing.Font(main.spartan.Families(0), 12)
-        lbl_file_path.Font = spartanfont12
-        lbl_rom_name.Font = spartanfont12
-        lbl_platform.Font = spartanfont12
+        Dim opensansfont12 As New System.Drawing.Font(main.opensans.Families(0), 12)
+        lbl_file_path.Font = opensansfont12
+        lbl_rom_name.Font = opensansfont12
+        lbl_platform.Font = opensansfont12
 
         Dim gothamfont28 As New System.Drawing.Font(main.gotham.Families(0), 28)
         lbl_properties.Font = gothamfont28

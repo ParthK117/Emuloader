@@ -49,48 +49,50 @@
     End Sub
 
     Public Sub main_loadfonts()
-        main.gotham.AddFontFile(".\resources\gotham.otf")
-        main.spartan.AddFontFile(".\resources\spartanmb.otf")
+        main.gotham.AddFontFile(".\resources\gotham.ttf")
+        main.opensans.AddFontFile(".\resources\opensans.ttf")
 
         Dim gothamfont12 As New System.Drawing.Font(main.gotham.Families(0), 12)
         main.lbl_status.Font = gothamfont12
         main.lbl_library.Font = gothamfont12
         main.lbl_connect_status.Font = gothamfont12
+        main.lbl_socialmedia.Font = gothamfont12
+        main.lbl_wiki.Font = gothamfont12
 
         Dim gothamfont16 As New System.Drawing.Font(main.gotham.Families(0), 16)
         main.btn_browse.Font = gothamfont16
 
-        Dim spartanfont16 As New System.Drawing.Font(main.spartan.Families(0), 16)
-        main.listbox_availableroms.Font = spartanfont16
-        main.listbox_installedroms.Font = spartanfont16
-        main.listbox_search.Font = spartanfont16
-        main.lbl_last_played.Font = spartanfont16
-        main.lbl_jumpin_emuname.Font = spartanfont16
-        main.lbl_jumpin_lastplayed.Font = spartanfont16
+        Dim opensansfont16 As New System.Drawing.Font(main.opensans.Families(0), 16)
+        main.listbox_availableroms.Font = opensansfont16
+        main.listbox_installedroms.Font = opensansfont16
+        main.listbox_search.Font = opensansfont16
+        main.lbl_last_played.Font = opensansfont16
+        main.lbl_jumpin_emuname.Font = opensansfont16
+        main.lbl_jumpin_lastplayed.Font = opensansfont16
 
-        Dim spartanfont12 As New System.Drawing.Font(main.spartan.Families(0), 12)
-        main.listbox_queue.Font = spartanfont12
+        Dim opensansfont12 As New System.Drawing.Font(main.opensans.Families(0), 12)
+        main.listbox_queue.Font = opensansfont12
 
-        Dim spartanfont14 As New System.Drawing.Font(main.spartan.Families(0), 14)
-        main.lbl_rom_name.Font = spartanfont14
-        main.lbl_rom_platform.Font = spartanfont14
-        main.lbl_rom_size.Font = spartanfont14
-        main.lbl_installed_name.Font = spartanfont14
-        main.lbl_installed_downloadtime.Font = spartanfont14
-        main.lbl_installed_size.Font = spartanfont14
-        main.lbl_rom_source.Font = spartanfont14
-        main.lbl_name.Font = spartanfont14
-        main.lbl_platform.Font = spartanfont14
-        main.lbl_installedon.Font = spartanfont14
-        main.textbox_search.Font = spartanfont14
-        main.lbl_speed.Font = spartanfont14
-        main.lbl_networkusage.Font = spartanfont14
-        main.lbl_peak.Font = spartanfont14
-        main.lbl_total.Font = spartanfont14
-        main.lbl_disclaimer.Font = spartanfont14
+        Dim opensansfont14 As New System.Drawing.Font(main.opensans.Families(0), 14)
+        main.lbl_rom_name.Font = opensansfont14
+        main.lbl_rom_platform.Font = opensansfont14
+        main.lbl_rom_size.Font = opensansfont14
+        main.lbl_installed_name.Font = opensansfont14
+        main.lbl_installed_downloadtime.Font = opensansfont14
+        main.lbl_installed_size.Font = opensansfont14
+        main.lbl_rom_source.Font = opensansfont14
+        main.lbl_name.Font = opensansfont14
+        main.lbl_platform.Font = opensansfont14
+        main.lbl_installedon.Font = opensansfont14
+        main.textbox_search.Font = opensansfont14
+        main.lbl_speed.Font = opensansfont14
+        main.lbl_networkusage.Font = opensansfont14
+        main.lbl_peak.Font = opensansfont14
+        main.lbl_total.Font = opensansfont14
+        main.lbl_disclaimer.Font = opensansfont14
 
-        Dim spartanfont8 As New System.Drawing.Font(main.spartan.Families(0), 9.5)
-        main.lbl_description.Font = spartanfont8
+        Dim opensansfont8 As New System.Drawing.Font(main.opensans.Families(0), 9)
+        main.lbl_description.Font = opensansfont8
 
         Dim gothamfont18 As New System.Drawing.Font(main.gotham.Families(0), 18)
         main.emu_one.Font = gothamfont18

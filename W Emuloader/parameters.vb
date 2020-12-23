@@ -19,8 +19,8 @@ Public Class parameters
         Dim gothamfont28 As New System.Drawing.Font(main.gotham.Families(0), 28)
         lbl_params_title.Font = gothamfont28
         textbox_parameters.Text = File.ReadAllText(".\" & main.currenttab_metadata(4) & "\cmdlineargs.ini")
-        Dim spartanfont12 As New System.Drawing.Font(main.spartan.Families(0), 12)
-        textbox_parameters.Font = spartanfont12
+        Dim opensansfont12 As New System.Drawing.Font(main.opensans.Families(0), 12)
+        textbox_parameters.Font = opensansfont12
     End Sub
 
     Private Sub btn_save_MouseDown(sender As Object, e As MouseEventArgs) Handles btn_save.MouseDown

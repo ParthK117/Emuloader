@@ -20,10 +20,17 @@ Module module_skins
         main.listbox_search.BackColor = Color.FromArgb(21, 32, 43)
         main.textbox_search.BackColor = Color.FromArgb(21, 32, 43)
         main.textbox_search.ForeColor = Color.White
+        manage_dropbox.BackColor = Color.FromArgb(21, 32, 43)
+        manage_dropbox.listbox_cloud.BackColor = Color.FromArgb(31, 45, 58)
+        manage_dropbox.listbox_cloud.ForeColor = Color.White
+        manage_dropbox.listbox_platforms.BackColor = Color.FromArgb(31, 45, 58)
+        manage_dropbox.lbl_cloud.ForeColor = Color.White
+        manage_dropbox.panel_sync.ForeColor = Color.White
         main.btn_all.ForeColor = Color.FromArgb(23, 191, 99)
         main.lbl_description.ForeColor = Color.White
         main.lbl_connect_status.ForeColor = Color.White
         main.lbl_socialmedia.ForeColor = Color.White
+        main.lbl_wiki.ForeColor = Color.White
         main.listbox_search.ForeColor = Color.White
         main.panel_top.BackColor = Color.FromArgb(37, 51, 64)
         main.paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\exitdark.png")
@@ -31,6 +38,7 @@ Module module_skins
         main.picturebox_loading.Image = System.Drawing.Image.FromFile(".\resources\loadingdark.gif")
         main.panel_dropbox.BackgroundImage = System.Drawing.Image.FromFile(".\resources\boxdark.png")
         main.panel_socialmedia.BackgroundImage = System.Drawing.Image.FromFile(".\resources\boxdark.png")
+        main.panel_wiki.BackgroundImage = System.Drawing.Image.FromFile(".\resources\boxdark.png")
         newemulator.BackColor = Color.FromArgb(21, 32, 43)
         newemulator.listbox_emulators.BackColor = Color.FromArgb(31, 45, 58)
         newemulator.textbox_search.BackColor = Color.FromArgb(31, 45, 58)
@@ -62,6 +70,7 @@ Module module_skins
         parameters.lbl_params_title.ForeColor = Color.FromArgb(23, 191, 99)
         settings.checkbox_fancy.ForeColor = Color.White
         main.lbl_last_played.ForeColor = Color.White
+        manage_dropbox.listbox_platforms.ForeColor = Color.White
         main.lbl_rom_top_name.ForeColor = Color.White
         main.lbl_jumpin.ForeColor = Color.FromArgb(23, 191, 99)
         main.btn_opentop.BackgroundImage = System.Drawing.Image.FromFile(".\resources\opentopdark.png")
@@ -72,6 +81,7 @@ Module module_skins
         main.btn_closeright.BackgroundImage = System.Drawing.Image.FromFile(".\resources\closerightdark.png")
         main.lbl_home.ForeColor = Color.FromArgb(23, 191, 99)
 
+        main.btn_openright_home.BackgroundImage = System.Drawing.Image.FromFile(".\resources\openrightdark.png")
         main.panel_jumpin_middle.BackColor = Color.FromArgb(31, 45, 58)
         main.picturebox_boxart_jumpin.BackColor = Color.FromArgb(31, 45, 58)
         main.lbl_jumpin_lastplayed.BackColor = Color.FromArgb(31, 45, 58)
@@ -109,12 +119,19 @@ Module module_skins
         End If
     End Sub
     Public Sub lightmode()
+        manage_dropbox.listbox_cloud.BackColor = Color.White
+        manage_dropbox.listbox_platforms.BackColor = Color.White
+        manage_dropbox.lbl_cloud.ForeColor = Color.Black
+        manage_dropbox.listbox_platforms.ForeColor = Color.Black
+        manage_dropbox.listbox_cloud.ForeColor = Color.Black
         main.BackColor = Color.White
+        manage_dropbox.BackColor = Color.White
         main.panel_left.BackColor = Color.FromArgb(247, 249, 250)
         main.panel_right.BackColor = Color.FromArgb(247, 249, 250)
         main.listbox_availableroms.BackColor = Color.White
         main.listbox_installedroms.BackColor = Color.White
         main.listbox_installedroms.ForeColor = Color.Black
+        main.lbl_wiki.ForeColor = Color.Black
         main.listbox_availableroms.ForeColor = Color.Black
         main.lbl_play.ForeColor = Color.Black
         main.lbl_browse.ForeColor = Color.Black
@@ -122,6 +139,7 @@ Module module_skins
         main.lbl_disclaimer.ForeColor = Color.Black
         main.checkbox_fullscreen.ForeColor = Color.Black
         main.btn_browse.ForeColor = Color.Black
+        main.panel_wiki.BackgroundImage = System.Drawing.Image.FromFile(".\resources\boxlight.png")
         main.tab_browse.BackColor = Color.Black
         main.tab_search.BackColor = Color.Black
         main.tab_all.BackColor = Color.Black
@@ -144,6 +162,7 @@ Module module_skins
         main.lbl_description.ForeColor = Color.Black
         main.lbl_connect_status.ForeColor = Color.Black
         main.lbl_socialmedia.ForeColor = Color.Black
+        manage_dropbox.panel_sync.ForeColor = Color.Black
         newemulator.listbox_emulators.ForeColor = Color.Black
         newemulator.textbox_search.ForeColor = Color.Black
         newemulator.lbl_emulator_name.ForeColor = Color.Black
@@ -172,7 +191,6 @@ Module module_skins
         main.lbl_last_played.ForeColor = Color.Black
         main.lbl_rom_top_name.ForeColor = Color.Black
         main.lbl_jumpin.ForeColor = Color.White
-
 
         main.panel_jumpin_middle.BackColor = Color.FromArgb(238, 238, 238)
         main.picturebox_boxart_jumpin.BackColor = Color.FromArgb(238, 238, 238)
@@ -230,6 +248,7 @@ Module module_skins
         main.listbox_availableroms.ForeColor = Color.White
         main.lbl_play.ForeColor = Color.White
         main.lbl_browse.ForeColor = Color.White
+        manage_dropbox.panel_sync.ForeColor = Color.White
         main.checkbox_filepath.ForeColor = Color.White
         main.checkbox_fullscreen.ForeColor = Color.White
         main.btn_browse.ForeColor = Color.White
@@ -242,6 +261,8 @@ Module module_skins
         main.btn_all.ForeColor = Color.White
         main.listbox_search.ForeColor = Color.White
         main.panel_top.BackColor = Color.FromArgb(32, 37, 52)
+        main.lbl_wiki.ForeColor = Color.White
+        manage_dropbox.listbox_platforms.ForeColor = Color.White
         main.paneL_menubar.BackgroundImage = System.Drawing.Image.FromFile(".\resources\exitdarker.png")
         main.lbl_status.ForeColor = Color.White
         main.picturebox_loading.Image = System.Drawing.Image.FromFile(".\resources\loadingdarker.gif")
@@ -255,6 +276,7 @@ Module module_skins
         newemulator.lbl_source.ForeColor = Color.White
         newemulator.lbl_version_number.ForeColor = Color.White
         main.lbl_sortby.ForeColor = Color.White
+        main.panel_wiki.BackgroundImage = System.Drawing.Image.FromFile(".\resources\boxdarker.png")
         main.lbl_tags.ForeColor = Color.White
         main.panel_dropbox.BackgroundImage = System.Drawing.Image.FromFile(".\resources\boxdarker.png")
         main.panel_socialmedia.BackgroundImage = System.Drawing.Image.FromFile(".\resources\boxdarker.png")
@@ -280,6 +302,11 @@ Module module_skins
         parameters.BackColor = Color.FromArgb(25, 28, 40)
         parameters.lbl_params_title.ForeColor = Color.White
         settings.checkbox_fancy.ForeColor = Color.White
+        manage_dropbox.BackColor = Color.FromArgb(25, 28, 40)
+        manage_dropbox.listbox_cloud.BackColor = Color.FromArgb(32, 37, 52)
+        manage_dropbox.listbox_cloud.ForeColor = Color.White
+        manage_dropbox.lbl_cloud.ForeColor = Color.White
+        manage_dropbox.listbox_platforms.BackColor = Color.FromArgb(32, 37, 52)
         main.lbl_last_played.ForeColor = Color.White
         main.lbl_rom_top_name.ForeColor = Color.White
         main.panel_connected.BackColor = Color.FromArgb(32, 37, 52)
@@ -291,7 +318,7 @@ Module module_skins
         main.btn_closeright.BackgroundImage = System.Drawing.Image.FromFile(".\resources\closerightdark.png")
         main.lbl_home.ForeColor = Color.White
         main.lbl_jumpin.ForeColor = Color.White
-
+        main.btn_openright_home.BackgroundImage = System.Drawing.Image.FromFile(".\resources\openrightdark.png")
 
         main.panel_jumpin_middle.BackColor = Color.FromArgb(32, 37, 52)
         main.picturebox_boxart_jumpin.BackColor = Color.FromArgb(32, 37, 52)
@@ -363,11 +390,14 @@ Module module_skins
         newemulator.textbox_search.ForeColor = Color.White
         newemulator.lbl_emulator_name.ForeColor = Color.White
         newemulator.lbl_platform.ForeColor = Color.White
+        manage_dropbox.listbox_platforms.ForeColor = Color.White
+        main.lbl_wiki.ForeColor = Color.White
         main.lbl_description.ForeColor = Color.White
         main.lbl_connect_status.ForeColor = Color.White
         main.lbl_socialmedia.ForeColor = Color.White
         newemulator.lbl_source.ForeColor = Color.White
         newemulator.lbl_version_number.ForeColor = Color.White
+        manage_dropbox.panel_sync.ForeColor = Color.White
         main.lbl_sortby.ForeColor = Color.White
         main.lbl_tags.ForeColor = Color.White
         main.lbl_region.ForeColor = Color.White
@@ -384,6 +414,7 @@ Module module_skins
         settings.listbox_settings.BackColor = Color.FromArgb(12, 12, 12)
         settings.listbox_settings.ForeColor = Color.White
         settings.lbl_settingstitle.ForeColor = Color.White
+        main.panel_wiki.BackgroundImage = System.Drawing.Image.FromFile(".\resources\boxdarkest.png")
         settings.checkbox_autoupdate.ForeColor = Color.White
         settings.checkbox_exit_on_taskbar.ForeColor = Color.White
         parameters.BackColor = Color.FromArgb(12, 12, 12)
@@ -391,6 +422,11 @@ Module module_skins
         settings.checkbox_fancy.ForeColor = Color.White
         main.lbl_last_played.ForeColor = Color.White
         main.lbl_rom_top_name.ForeColor = Color.White
+        manage_dropbox.BackColor = Color.FromArgb(12, 12, 12)
+        manage_dropbox.listbox_cloud.BackColor = Color.FromArgb(40, 40, 40)
+        manage_dropbox.listbox_cloud.ForeColor = Color.White
+        manage_dropbox.listbox_platforms.BackColor = Color.FromArgb(40, 40, 40)
+        manage_dropbox.lbl_cloud.ForeColor = Color.White
         main.lbl_home.ForeColor = Color.White
         main.lbl_jumpin.ForeColor = Color.White
         main.panel_connected.BackColor = Color.FromArgb(0, 0, 0)
@@ -400,7 +436,7 @@ Module module_skins
         main.btn_openright_browse.BackgroundImage = System.Drawing.Image.FromFile(".\resources\openrightdark.png")
         main.btn_closetop.BackgroundImage = System.Drawing.Image.FromFile(".\resources\closetopdark.png")
         main.btn_closeright.BackgroundImage = System.Drawing.Image.FromFile(".\resources\closerightdark.png")
-
+        main.btn_openright_home.BackgroundImage = System.Drawing.Image.FromFile(".\resources\openrightdark.png")
         main.panel_jumpin_middle.BackColor = Color.FromArgb(6, 6, 6)
         main.picturebox_boxart_jumpin.BackColor = Color.FromArgb(6, 6, 6)
         main.lbl_jumpin_lastplayed.BackColor = Color.FromArgb(6, 6, 6)

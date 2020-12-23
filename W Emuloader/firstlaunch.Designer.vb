@@ -24,193 +24,191 @@ Partial Class firstlaunch
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(firstlaunch))
         Me.picturebox_logo = New System.Windows.Forms.PictureBox()
-        Me.btn_next = New System.Windows.Forms.PictureBox()
-        Me.panel_colourpicker = New System.Windows.Forms.Panel()
-        Me.btn_light = New System.Windows.Forms.PictureBox()
-        Me.btn_dark = New System.Windows.Forms.PictureBox()
-        Me.picturebox_pickacolour = New System.Windows.Forms.PictureBox()
-        Me.picturebox_dark = New System.Windows.Forms.PictureBox()
-        Me.picturebox_light = New System.Windows.Forms.PictureBox()
-        Me.panel_eldr = New System.Windows.Forms.Panel()
-        Me.btn_finish = New System.Windows.Forms.PictureBox()
-        Me.btn_search = New System.Windows.Forms.PictureBox()
-        Me.picturebox_dragdrop = New System.Windows.Forms.PictureBox()
-        Me.picturebox_add_sources = New System.Windows.Forms.PictureBox()
-        Me.picturebox_example = New System.Windows.Forms.PictureBox()
         Me.picturebox_disclaimer = New System.Windows.Forms.PictureBox()
+        Me.btn_next = New System.Windows.Forms.PictureBox()
+        Me.panel_logo = New System.Windows.Forms.Panel()
+        Me.panel_colourpicker = New System.Windows.Forms.Panel()
+        Me.btn_next_2 = New System.Windows.Forms.PictureBox()
+        Me.combobox_theme = New System.Windows.Forms.ComboBox()
+        Me.picturebox_preview = New System.Windows.Forms.PictureBox()
+        Me.panel_conditions = New System.Windows.Forms.Panel()
+        Me.richtext_conditions = New System.Windows.Forms.RichTextBox()
+        Me.btn_next_3 = New System.Windows.Forms.PictureBox()
+        Me.panel_sources = New System.Windows.Forms.Panel()
+        Me.btn_wiki = New System.Windows.Forms.PictureBox()
+        Me.btn_search = New System.Windows.Forms.PictureBox()
+        Me.btn_finish = New System.Windows.Forms.PictureBox()
         CType(Me.picturebox_logo, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.btn_next, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.panel_colourpicker.SuspendLayout()
-        CType(Me.btn_light, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.btn_dark, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.picturebox_pickacolour, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.picturebox_dark, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.picturebox_light, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.panel_eldr.SuspendLayout()
-        CType(Me.btn_finish, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.btn_search, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.picturebox_dragdrop, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.picturebox_add_sources, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.picturebox_example, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.picturebox_disclaimer, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.btn_next, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.panel_logo.SuspendLayout()
+        Me.panel_colourpicker.SuspendLayout()
+        CType(Me.btn_next_2, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.picturebox_preview, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.panel_conditions.SuspendLayout()
+        CType(Me.btn_next_3, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.panel_sources.SuspendLayout()
+        CType(Me.btn_wiki, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.btn_search, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.btn_finish, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'picturebox_logo
         '
         Me.picturebox_logo.BackgroundImage = CType(resources.GetObject("picturebox_logo.BackgroundImage"), System.Drawing.Image)
         Me.picturebox_logo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.picturebox_logo.Location = New System.Drawing.Point(151, 123)
+        Me.picturebox_logo.Location = New System.Drawing.Point(153, 119)
         Me.picturebox_logo.Name = "picturebox_logo"
         Me.picturebox_logo.Size = New System.Drawing.Size(653, 117)
         Me.picturebox_logo.TabIndex = 0
         Me.picturebox_logo.TabStop = False
         '
+        'picturebox_disclaimer
+        '
+        Me.picturebox_disclaimer.BackgroundImage = CType(resources.GetObject("picturebox_disclaimer.BackgroundImage"), System.Drawing.Image)
+        Me.picturebox_disclaimer.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.picturebox_disclaimer.Location = New System.Drawing.Point(314, 353)
+        Me.picturebox_disclaimer.Name = "picturebox_disclaimer"
+        Me.picturebox_disclaimer.Size = New System.Drawing.Size(300, 60)
+        Me.picturebox_disclaimer.TabIndex = 5
+        Me.picturebox_disclaimer.TabStop = False
+        '
         'btn_next
         '
         Me.btn_next.BackgroundImage = CType(resources.GetObject("btn_next.BackgroundImage"), System.Drawing.Image)
         Me.btn_next.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
-        Me.btn_next.Location = New System.Drawing.Point(374, 291)
+        Me.btn_next.Location = New System.Drawing.Point(376, 287)
         Me.btn_next.Name = "btn_next"
         Me.btn_next.Size = New System.Drawing.Size(176, 48)
         Me.btn_next.TabIndex = 2
         Me.btn_next.TabStop = False
         '
+        'panel_logo
+        '
+        Me.panel_logo.Controls.Add(Me.btn_next)
+        Me.panel_logo.Controls.Add(Me.picturebox_logo)
+        Me.panel_logo.Controls.Add(Me.picturebox_disclaimer)
+        Me.panel_logo.Location = New System.Drawing.Point(0, 0)
+        Me.panel_logo.Name = "panel_logo"
+        Me.panel_logo.Size = New System.Drawing.Size(944, 501)
+        Me.panel_logo.TabIndex = 6
+        '
         'panel_colourpicker
         '
-        Me.panel_colourpicker.Controls.Add(Me.btn_light)
-        Me.panel_colourpicker.Controls.Add(Me.btn_dark)
-        Me.panel_colourpicker.Controls.Add(Me.picturebox_pickacolour)
-        Me.panel_colourpicker.Controls.Add(Me.picturebox_dark)
-        Me.panel_colourpicker.Controls.Add(Me.picturebox_light)
-        Me.panel_colourpicker.Location = New System.Drawing.Point(2, 0)
+        Me.panel_colourpicker.Controls.Add(Me.btn_next_2)
+        Me.panel_colourpicker.Controls.Add(Me.combobox_theme)
+        Me.panel_colourpicker.Controls.Add(Me.picturebox_preview)
+        Me.panel_colourpicker.Location = New System.Drawing.Point(0, 0)
         Me.panel_colourpicker.Name = "panel_colourpicker"
-        Me.panel_colourpicker.Size = New System.Drawing.Size(940, 500)
-        Me.panel_colourpicker.TabIndex = 3
+        Me.panel_colourpicker.Size = New System.Drawing.Size(944, 501)
+        Me.panel_colourpicker.TabIndex = 7
         Me.panel_colourpicker.Visible = False
         '
-        'btn_light
+        'btn_next_2
         '
-        Me.btn_light.BackgroundImage = CType(resources.GetObject("btn_light.BackgroundImage"), System.Drawing.Image)
-        Me.btn_light.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
-        Me.btn_light.Location = New System.Drawing.Point(158, 368)
-        Me.btn_light.Name = "btn_light"
-        Me.btn_light.Size = New System.Drawing.Size(176, 48)
-        Me.btn_light.TabIndex = 4
-        Me.btn_light.TabStop = False
+        Me.btn_next_2.BackgroundImage = CType(resources.GetObject("btn_next_2.BackgroundImage"), System.Drawing.Image)
+        Me.btn_next_2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
+        Me.btn_next_2.Location = New System.Drawing.Point(756, 441)
+        Me.btn_next_2.Name = "btn_next_2"
+        Me.btn_next_2.Size = New System.Drawing.Size(176, 48)
+        Me.btn_next_2.TabIndex = 11
+        Me.btn_next_2.TabStop = False
         '
-        'btn_dark
+        'combobox_theme
         '
-        Me.btn_dark.BackgroundImage = CType(resources.GetObject("btn_dark.BackgroundImage"), System.Drawing.Image)
-        Me.btn_dark.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
-        Me.btn_dark.Location = New System.Drawing.Point(597, 368)
-        Me.btn_dark.Name = "btn_dark"
-        Me.btn_dark.Size = New System.Drawing.Size(176, 48)
-        Me.btn_dark.TabIndex = 3
-        Me.btn_dark.TabStop = False
+        Me.combobox_theme.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.combobox_theme.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.combobox_theme.FormattingEnabled = True
+        Me.combobox_theme.Items.AddRange(New Object() {"Light", "Dark Blue", "Darker Purple", "Lights Out"})
+        Me.combobox_theme.Location = New System.Drawing.Point(364, 452)
+        Me.combobox_theme.Name = "combobox_theme"
+        Me.combobox_theme.Size = New System.Drawing.Size(216, 28)
+        Me.combobox_theme.TabIndex = 10
         '
-        'picturebox_pickacolour
+        'picturebox_preview
         '
-        Me.picturebox_pickacolour.BackColor = System.Drawing.Color.Transparent
-        Me.picturebox_pickacolour.BackgroundImage = CType(resources.GetObject("picturebox_pickacolour.BackgroundImage"), System.Drawing.Image)
-        Me.picturebox_pickacolour.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.picturebox_pickacolour.Location = New System.Drawing.Point(318, 29)
-        Me.picturebox_pickacolour.Name = "picturebox_pickacolour"
-        Me.picturebox_pickacolour.Size = New System.Drawing.Size(315, 88)
-        Me.picturebox_pickacolour.TabIndex = 2
-        Me.picturebox_pickacolour.TabStop = False
+        Me.picturebox_preview.BackgroundImage = CType(resources.GetObject("picturebox_preview.BackgroundImage"), System.Drawing.Image)
+        Me.picturebox_preview.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.picturebox_preview.Location = New System.Drawing.Point(12, 12)
+        Me.picturebox_preview.Name = "picturebox_preview"
+        Me.picturebox_preview.Size = New System.Drawing.Size(920, 418)
+        Me.picturebox_preview.TabIndex = 9
+        Me.picturebox_preview.TabStop = False
         '
-        'picturebox_dark
+        'panel_conditions
         '
-        Me.picturebox_dark.BackgroundImage = CType(resources.GetObject("picturebox_dark.BackgroundImage"), System.Drawing.Image)
-        Me.picturebox_dark.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.picturebox_dark.Location = New System.Drawing.Point(514, 135)
-        Me.picturebox_dark.Name = "picturebox_dark"
-        Me.picturebox_dark.Size = New System.Drawing.Size(351, 227)
-        Me.picturebox_dark.TabIndex = 1
-        Me.picturebox_dark.TabStop = False
+        Me.panel_conditions.Controls.Add(Me.richtext_conditions)
+        Me.panel_conditions.Controls.Add(Me.btn_next_3)
+        Me.panel_conditions.Location = New System.Drawing.Point(0, 0)
+        Me.panel_conditions.Name = "panel_conditions"
+        Me.panel_conditions.Size = New System.Drawing.Size(944, 501)
+        Me.panel_conditions.TabIndex = 12
+        Me.panel_conditions.Visible = False
         '
-        'picturebox_light
+        'richtext_conditions
         '
-        Me.picturebox_light.BackgroundImage = CType(resources.GetObject("picturebox_light.BackgroundImage"), System.Drawing.Image)
-        Me.picturebox_light.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.picturebox_light.Location = New System.Drawing.Point(75, 135)
-        Me.picturebox_light.Name = "picturebox_light"
-        Me.picturebox_light.Size = New System.Drawing.Size(351, 227)
-        Me.picturebox_light.TabIndex = 0
-        Me.picturebox_light.TabStop = False
+        Me.richtext_conditions.BackColor = System.Drawing.Color.White
+        Me.richtext_conditions.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.richtext_conditions.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.richtext_conditions.ForeColor = System.Drawing.Color.Black
+        Me.richtext_conditions.Location = New System.Drawing.Point(12, 12)
+        Me.richtext_conditions.Name = "richtext_conditions"
+        Me.richtext_conditions.ReadOnly = True
+        Me.richtext_conditions.Size = New System.Drawing.Size(920, 418)
+        Me.richtext_conditions.TabIndex = 12
+        Me.richtext_conditions.Text = resources.GetString("richtext_conditions.Text")
         '
-        'panel_eldr
+        'btn_next_3
         '
-        Me.panel_eldr.Controls.Add(Me.btn_finish)
-        Me.panel_eldr.Controls.Add(Me.btn_search)
-        Me.panel_eldr.Controls.Add(Me.picturebox_dragdrop)
-        Me.panel_eldr.Controls.Add(Me.picturebox_add_sources)
-        Me.panel_eldr.Controls.Add(Me.picturebox_example)
-        Me.panel_eldr.Location = New System.Drawing.Point(0, 0)
-        Me.panel_eldr.Name = "panel_eldr"
-        Me.panel_eldr.Size = New System.Drawing.Size(940, 500)
-        Me.panel_eldr.TabIndex = 5
-        Me.panel_eldr.Visible = False
+        Me.btn_next_3.BackgroundImage = CType(resources.GetObject("btn_next_3.BackgroundImage"), System.Drawing.Image)
+        Me.btn_next_3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
+        Me.btn_next_3.Location = New System.Drawing.Point(756, 441)
+        Me.btn_next_3.Name = "btn_next_3"
+        Me.btn_next_3.Size = New System.Drawing.Size(176, 48)
+        Me.btn_next_3.TabIndex = 11
+        Me.btn_next_3.TabStop = False
+        '
+        'panel_sources
+        '
+        Me.panel_sources.BackgroundImage = CType(resources.GetObject("panel_sources.BackgroundImage"), System.Drawing.Image)
+        Me.panel_sources.Controls.Add(Me.btn_wiki)
+        Me.panel_sources.Controls.Add(Me.btn_search)
+        Me.panel_sources.Controls.Add(Me.btn_finish)
+        Me.panel_sources.Location = New System.Drawing.Point(0, 0)
+        Me.panel_sources.Name = "panel_sources"
+        Me.panel_sources.Size = New System.Drawing.Size(944, 501)
+        Me.panel_sources.TabIndex = 13
+        Me.panel_sources.Visible = False
+        '
+        'btn_wiki
+        '
+        Me.btn_wiki.BackColor = System.Drawing.Color.Transparent
+        Me.btn_wiki.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btn_wiki.Location = New System.Drawing.Point(525, 407)
+        Me.btn_wiki.Name = "btn_wiki"
+        Me.btn_wiki.Size = New System.Drawing.Size(282, 27)
+        Me.btn_wiki.TabIndex = 13
+        Me.btn_wiki.TabStop = False
+        '
+        'btn_search
+        '
+        Me.btn_search.BackColor = System.Drawing.Color.Transparent
+        Me.btn_search.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btn_search.Location = New System.Drawing.Point(473, 363)
+        Me.btn_search.Name = "btn_search"
+        Me.btn_search.Size = New System.Drawing.Size(176, 27)
+        Me.btn_search.TabIndex = 12
+        Me.btn_search.TabStop = False
         '
         'btn_finish
         '
         Me.btn_finish.BackgroundImage = CType(resources.GetObject("btn_finish.BackgroundImage"), System.Drawing.Image)
-        Me.btn_finish.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.btn_finish.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
         Me.btn_finish.Location = New System.Drawing.Point(756, 441)
         Me.btn_finish.Name = "btn_finish"
         Me.btn_finish.Size = New System.Drawing.Size(176, 48)
-        Me.btn_finish.TabIndex = 4
+        Me.btn_finish.TabIndex = 11
         Me.btn_finish.TabStop = False
-        '
-        'btn_search
-        '
-        Me.btn_search.BackgroundImage = CType(resources.GetObject("btn_search.BackgroundImage"), System.Drawing.Image)
-        Me.btn_search.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.btn_search.Location = New System.Drawing.Point(321, 406)
-        Me.btn_search.Name = "btn_search"
-        Me.btn_search.Size = New System.Drawing.Size(314, 54)
-        Me.btn_search.TabIndex = 3
-        Me.btn_search.TabStop = False
-        '
-        'picturebox_dragdrop
-        '
-        Me.picturebox_dragdrop.BackgroundImage = CType(resources.GetObject("picturebox_dragdrop.BackgroundImage"), System.Drawing.Image)
-        Me.picturebox_dragdrop.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.picturebox_dragdrop.Location = New System.Drawing.Point(321, 282)
-        Me.picturebox_dragdrop.Name = "picturebox_dragdrop"
-        Me.picturebox_dragdrop.Size = New System.Drawing.Size(314, 54)
-        Me.picturebox_dragdrop.TabIndex = 2
-        Me.picturebox_dragdrop.TabStop = False
-        '
-        'picturebox_add_sources
-        '
-        Me.picturebox_add_sources.BackgroundImage = CType(resources.GetObject("picturebox_add_sources.BackgroundImage"), System.Drawing.Image)
-        Me.picturebox_add_sources.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.picturebox_add_sources.Location = New System.Drawing.Point(127, 211)
-        Me.picturebox_add_sources.Name = "picturebox_add_sources"
-        Me.picturebox_add_sources.Size = New System.Drawing.Size(689, 82)
-        Me.picturebox_add_sources.TabIndex = 1
-        Me.picturebox_add_sources.TabStop = False
-        '
-        'picturebox_example
-        '
-        Me.picturebox_example.BackgroundImage = CType(resources.GetObject("picturebox_example.BackgroundImage"), System.Drawing.Image)
-        Me.picturebox_example.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.picturebox_example.Location = New System.Drawing.Point(282, 29)
-        Me.picturebox_example.Name = "picturebox_example"
-        Me.picturebox_example.Size = New System.Drawing.Size(369, 176)
-        Me.picturebox_example.TabIndex = 0
-        Me.picturebox_example.TabStop = False
-        '
-        'picturebox_disclaimer
-        '
-        Me.picturebox_disclaimer.BackgroundImage = CType(resources.GetObject("picturebox_disclaimer.BackgroundImage"), System.Drawing.Image)
-        Me.picturebox_disclaimer.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.picturebox_disclaimer.Location = New System.Drawing.Point(200, 348)
-        Me.picturebox_disclaimer.Name = "picturebox_disclaimer"
-        Me.picturebox_disclaimer.Size = New System.Drawing.Size(300, 60)
-        Me.picturebox_disclaimer.TabIndex = 5
-        Me.picturebox_disclaimer.TabStop = False
         '
         'firstlaunch
         '
@@ -218,11 +216,10 @@ Partial Class firstlaunch
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.White
         Me.ClientSize = New System.Drawing.Size(944, 501)
-        Me.Controls.Add(Me.panel_eldr)
+        Me.Controls.Add(Me.panel_logo)
+        Me.Controls.Add(Me.panel_sources)
+        Me.Controls.Add(Me.panel_conditions)
         Me.Controls.Add(Me.panel_colourpicker)
-        Me.Controls.Add(Me.btn_next)
-        Me.Controls.Add(Me.picturebox_logo)
-        Me.Controls.Add(Me.picturebox_disclaimer)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
@@ -230,37 +227,35 @@ Partial Class firstlaunch
         Me.ShowIcon = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         CType(Me.picturebox_logo, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.btn_next, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.panel_colourpicker.ResumeLayout(False)
-        CType(Me.btn_light, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.btn_dark, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.picturebox_pickacolour, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.picturebox_dark, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.picturebox_light, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.panel_eldr.ResumeLayout(False)
-        CType(Me.btn_finish, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.btn_search, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.picturebox_dragdrop, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.picturebox_add_sources, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.picturebox_example, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.picturebox_disclaimer, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.btn_next, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.panel_logo.ResumeLayout(False)
+        Me.panel_colourpicker.ResumeLayout(False)
+        CType(Me.btn_next_2, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.picturebox_preview, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.panel_conditions.ResumeLayout(False)
+        CType(Me.btn_next_3, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.panel_sources.ResumeLayout(False)
+        CType(Me.btn_wiki, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.btn_search, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.btn_finish, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
 
     Friend WithEvents picturebox_logo As PictureBox
-    Friend WithEvents btn_next As PictureBox
-    Friend WithEvents panel_colourpicker As Panel
-    Friend WithEvents picturebox_dark As PictureBox
-    Friend WithEvents picturebox_light As PictureBox
-    Friend WithEvents picturebox_pickacolour As PictureBox
-    Friend WithEvents btn_light As PictureBox
-    Friend WithEvents btn_dark As PictureBox
-    Friend WithEvents panel_eldr As Panel
-    Friend WithEvents picturebox_example As PictureBox
-    Friend WithEvents picturebox_add_sources As PictureBox
-    Friend WithEvents picturebox_dragdrop As PictureBox
-    Friend WithEvents btn_search As PictureBox
-    Friend WithEvents btn_finish As PictureBox
     Friend WithEvents picturebox_disclaimer As PictureBox
+    Friend WithEvents btn_next As PictureBox
+    Friend WithEvents panel_logo As Panel
+    Friend WithEvents panel_colourpicker As Panel
+    Friend WithEvents combobox_theme As ComboBox
+    Friend WithEvents picturebox_preview As PictureBox
+    Friend WithEvents btn_next_2 As PictureBox
+    Friend WithEvents panel_conditions As Panel
+    Friend WithEvents richtext_conditions As RichTextBox
+    Friend WithEvents btn_next_3 As PictureBox
+    Friend WithEvents panel_sources As Panel
+    Friend WithEvents btn_finish As PictureBox
+    Friend WithEvents btn_search As PictureBox
+    Friend WithEvents btn_wiki As PictureBox
 End Class

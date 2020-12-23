@@ -74,23 +74,23 @@ Public Class settings
             checkbox_hoarder.Checked = True
         End If
 
-        Dim spartanfont14 As New System.Drawing.Font(main.spartan.Families(0), 14)
-        load_boxart_on_startup.Font = spartanfont14
-        load_skin.Font = spartanfont14
-        checkbox_autoupdate.Font = spartanfont14
-        checkbox_exit_on_taskbar.Font = spartanfont14
-        checkbox_fancy.Font = spartanfont14
-        checkbox_topbar.Font = spartanfont14
-        checkbox_delivery.Font = spartanfont14
-        lbl_provider.Font = spartanfont14
-        combobox_theme.Font = spartanfont14
-        combobox_provider.Font = spartanfont14
-        checkbox_affiliate.Font = spartanfont14
-        combobox_boxart_method.Font = spartanfont14
-        checkbox_offline.Font = spartanfont14
-        checkbox_hoarder.Font = spartanfont14
-        Dim spartanfont16 As New System.Drawing.Font(main.spartan.Families(0), 16)
-        listbox_settings.Font = spartanfont16
+        Dim opensansfont14 As New System.Drawing.Font(main.opensans.Families(0), 14)
+        load_boxart_on_startup.Font = opensansfont14
+        load_skin.Font = opensansfont14
+        checkbox_autoupdate.Font = opensansfont14
+        checkbox_exit_on_taskbar.Font = opensansfont14
+        checkbox_fancy.Font = opensansfont14
+        checkbox_topbar.Font = opensansfont14
+        checkbox_delivery.Font = opensansfont14
+        lbl_provider.Font = opensansfont14
+        combobox_theme.Font = opensansfont14
+        combobox_provider.Font = opensansfont14
+        checkbox_affiliate.Font = opensansfont14
+        combobox_boxart_method.Font = opensansfont14
+        checkbox_offline.Font = opensansfont14
+        checkbox_hoarder.Font = opensansfont14
+        Dim opensansfont16 As New System.Drawing.Font(main.opensans.Families(0), 16)
+        listbox_settings.Font = opensansfont16
 
         Dim gothamfont28 As New System.Drawing.Font(main.gotham.Families(0), 28)
         lbl_settingstitle.Font = gothamfont28
