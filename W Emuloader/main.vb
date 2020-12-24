@@ -17,7 +17,7 @@ Public Class main
     Public Shared labelgrey As Color
     Public Shared tab_index = 0
     Public Shared dark = 0
-    Public Shared version_number = "1.0.0"
+    Public Shared version_number = "1.0.1"
     Public Shared global_settings As New List(Of String)
     Public Shared boxart_url As String
     Dim emulator As Process
@@ -702,13 +702,17 @@ x.SubItems(4).Text, "Queued", timestamp}))
     End Sub
 
     Private Sub btn_rom_delete_Click(sender As Object, e As EventArgs) Handles btn_rom_delete.Click
-        'If a file exists at the installed roms path, first save the path to a string, then remove the entry from the listview and finally remove the file.
-        If File.Exists(listbox_installedroms.FocusedItem.SubItems(2).Text) Then
-            Dim file_to_delete As String = listbox_installedroms.FocusedItem.SubItems(2).Text
-            listbox_installedroms.FocusedItem.Remove()
-            My.Computer.FileSystem.DeleteFile(file_to_delete)
-            'Hide the context menu.
-            panel_rom_rightclick.Visible = False
+
+        Dim result = MessageBox.Show("Are you sure you want to delete the rom located at '" & listbox_installedroms.FocusedItem.SubItems(2).Text & "'? This cannot be undone and this file will be removed from your device.", "Confirm deletion of ROM File " & listbox_installedroms.FocusedItem.SubItems(0).Text, MessageBoxButtons.YesNo)
+        If result = DialogResult.Yes Then
+            'If a file exists at the installed roms path, first save the path to a string, then remove the entry from the listview and finally remove the file.
+            If File.Exists(listbox_installedroms.FocusedItem.SubItems(2).Text) Then
+                Dim file_to_delete As String = listbox_installedroms.FocusedItem.SubItems(2).Text
+                listbox_installedroms.FocusedItem.Remove()
+                My.Computer.FileSystem.DeleteFile(file_to_delete)
+                'Hide the context menu.
+                panel_rom_rightclick.Visible = False
+            End If
         End If
     End Sub
 
@@ -1158,7 +1162,10 @@ x.SubItems(4).Text, "Queued", timestamp}))
     Private Sub btn_prettify_Click(sender As Object, e As EventArgs) Handles btn_prettify.Click
         panel_blue_click.Visible = False
         btn_expand.BackgroundImage = System.Drawing.Image.FromFile(".\resources\blue.png")
-        Call prettify()
+        Dim result = MessageBox.Show("Prettify is an experimental feature that automatically cleans up your rom titles and file names. As a result it may incorrectly format or misname your roms entirely. See the wiki to learn more. Are you sure you want to run Prettify?", "Confirm usage?", MessageBoxButtons.YesNo)
+        If result = DialogResult.Yes Then
+            Call prettify()
+        End If
     End Sub
 
     Private Sub btn_prettify_MouseEnter(sender As Object, e As EventArgs) Handles btn_prettify.MouseEnter
@@ -2399,5 +2406,20 @@ x.SubItems(4).Text, "Queued", timestamp}))
 
     Private Sub btn_wiki_Click(sender As Object, e As EventArgs) Handles btn_wiki.Click
         Process.Start("https://tungstencore.com/docs/")
+    End Sub
+
+    Private Sub btn_help_Click(sender As Object, e As EventArgs) Handles btn_help.Click
+        Process.Start("https://tungstencore.com/docs/")
+    End Sub
+    Private Sub btn_help_MouseEnter(sender As Object, e As EventArgs) Handles btn_help.MouseEnter
+        btn_help.BackgroundImage = System.Drawing.Image.FromFile(".\resources\helpblack.png")
+    End Sub
+
+    Private Sub btn_help_MouseLeave(sender As Object, e As EventArgs) Handles btn_help.MouseLeave
+        btn_help.BackgroundImage = System.Drawing.Image.FromFile(".\resources\helpwhite.png")
+    End Sub
+
+    Private Sub panel_rom_info_Paint(sender As Object, e As PaintEventArgs) Handles panel_rom_info.Paint
+
     End Sub
 End Class

@@ -144,6 +144,7 @@ Partial Class settings
         Me.checkbox_affiliate.TabIndex = 5
         Me.checkbox_affiliate.Text = "Use our affiliate code when possible (help support development!)"
         Me.checkbox_affiliate.UseVisualStyleBackColor = True
+        Me.checkbox_affiliate.Visible = False
         '
         'combobox_provider
         '
@@ -170,9 +171,9 @@ Partial Class settings
         Me.checkbox_topbar.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.checkbox_topbar.Location = New System.Drawing.Point(12, 147)
         Me.checkbox_topbar.Name = "checkbox_topbar"
-        Me.checkbox_topbar.Size = New System.Drawing.Size(241, 28)
+        Me.checkbox_topbar.Size = New System.Drawing.Size(245, 28)
         Me.checkbox_topbar.TabIndex = 2
-        Me.checkbox_topbar.Text = "Use windows style topbar"
+        Me.checkbox_topbar.Text = "Use Windows style topbar"
         Me.checkbox_topbar.UseVisualStyleBackColor = True
         '
         'checkbox_exit_on_taskbar
@@ -314,11 +315,11 @@ Partial Class settings
         Me.Controls.Add(Me.lbl_settingstitle)
         Me.Controls.Add(Me.listbox_settings)
         Me.Controls.Add(Me.btn_save)
+        Me.Controls.Add(Me.panel_general)
+        Me.Controls.Add(Me.panel_updates)
         Me.Controls.Add(Me.panel_theme)
         Me.Controls.Add(Me.panel_appearance)
         Me.Controls.Add(Me.panel_delivery)
-        Me.Controls.Add(Me.panel_general)
-        Me.Controls.Add(Me.panel_updates)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False

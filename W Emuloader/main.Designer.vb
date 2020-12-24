@@ -166,6 +166,7 @@ Partial Class main
         Me.panel_drag_drop = New System.Windows.Forms.Panel()
         Me.picturebox_drag = New System.Windows.Forms.PictureBox()
         Me.panel_blue_click = New System.Windows.Forms.Panel()
+        Me.btn_help = New System.Windows.Forms.PictureBox()
         Me.btn_show_lists = New System.Windows.Forms.PictureBox()
         Me.btn_settings = New System.Windows.Forms.PictureBox()
         Me.btn_prettify = New System.Windows.Forms.PictureBox()
@@ -229,6 +230,7 @@ Partial Class main
         Me.lbl_home = New System.Windows.Forms.Label()
         Me.timer_waitforexit = New System.Windows.Forms.Timer(Me.components)
         Me.thread_dropbox_exe = New System.ComponentModel.BackgroundWorker()
+        Me.picturebox_earlyaccess = New System.Windows.Forms.PictureBox()
         CType(Me.image_logo, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panel_left.SuspendLayout()
         CType(Me.picturebox_patreon, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -303,6 +305,7 @@ Partial Class main
         Me.panel_drag_drop.SuspendLayout()
         CType(Me.picturebox_drag, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panel_blue_click.SuspendLayout()
+        CType(Me.btn_help, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btn_show_lists, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btn_settings, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btn_prettify, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -332,6 +335,7 @@ Partial Class main
         CType(Me.panel_jumpin_middle, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.picturebox_jumpin_right, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.picturebox_jumpin_left, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.picturebox_earlyaccess, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'image_logo
@@ -906,9 +910,9 @@ Partial Class main
         Me.btn_expand.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btn_expand.BackgroundImage = CType(resources.GetObject("btn_expand.BackgroundImage"), System.Drawing.Image)
         Me.btn_expand.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
-        Me.btn_expand.Location = New System.Drawing.Point(1569, 10)
+        Me.btn_expand.Location = New System.Drawing.Point(1569, 7)
         Me.btn_expand.Name = "btn_expand"
-        Me.btn_expand.Size = New System.Drawing.Size(20, 21)
+        Me.btn_expand.Size = New System.Drawing.Size(23, 26)
         Me.btn_expand.TabIndex = 5
         Me.btn_expand.TabStop = False
         '
@@ -1837,15 +1841,25 @@ Partial Class main
         '
         Me.panel_blue_click.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.panel_blue_click.BackColor = System.Drawing.Color.Transparent
+        Me.panel_blue_click.Controls.Add(Me.btn_help)
         Me.panel_blue_click.Controls.Add(Me.btn_show_lists)
         Me.panel_blue_click.Controls.Add(Me.btn_settings)
         Me.panel_blue_click.Controls.Add(Me.btn_prettify)
         Me.panel_blue_click.Controls.Add(Me.btn_show_folders)
         Me.panel_blue_click.Location = New System.Drawing.Point(1460, 30)
         Me.panel_blue_click.Name = "panel_blue_click"
-        Me.panel_blue_click.Size = New System.Drawing.Size(125, 120)
+        Me.panel_blue_click.Size = New System.Drawing.Size(125, 150)
         Me.panel_blue_click.TabIndex = 10
         Me.panel_blue_click.Visible = False
+        '
+        'btn_help
+        '
+        Me.btn_help.BackgroundImage = CType(resources.GetObject("btn_help.BackgroundImage"), System.Drawing.Image)
+        Me.btn_help.Location = New System.Drawing.Point(0, 90)
+        Me.btn_help.Name = "btn_help"
+        Me.btn_help.Size = New System.Drawing.Size(125, 30)
+        Me.btn_help.TabIndex = 4
+        Me.btn_help.TabStop = False
         '
         'btn_show_lists
         '
@@ -1859,7 +1873,7 @@ Partial Class main
         'btn_settings
         '
         Me.btn_settings.BackgroundImage = CType(resources.GetObject("btn_settings.BackgroundImage"), System.Drawing.Image)
-        Me.btn_settings.Location = New System.Drawing.Point(0, 90)
+        Me.btn_settings.Location = New System.Drawing.Point(0, 120)
         Me.btn_settings.Name = "btn_settings"
         Me.btn_settings.Size = New System.Drawing.Size(125, 30)
         Me.btn_settings.TabIndex = 2
@@ -2127,6 +2141,7 @@ Partial Class main
         'panel_wiki
         '
         Me.panel_wiki.BackgroundImage = CType(resources.GetObject("panel_wiki.BackgroundImage"), System.Drawing.Image)
+        Me.panel_wiki.Controls.Add(Me.picturebox_earlyaccess)
         Me.panel_wiki.Controls.Add(Me.btn_wiki)
         Me.panel_wiki.Controls.Add(Me.lbl_wiki)
         Me.panel_wiki.Location = New System.Drawing.Point(765, 400)
@@ -2362,9 +2377,9 @@ Partial Class main
         Me.lbl_jumpin_emuname.ForeColor = System.Drawing.Color.White
         Me.lbl_jumpin_emuname.Location = New System.Drawing.Point(278, 117)
         Me.lbl_jumpin_emuname.Name = "lbl_jumpin_emuname"
-        Me.lbl_jumpin_emuname.Size = New System.Drawing.Size(256, 32)
+        Me.lbl_jumpin_emuname.Size = New System.Drawing.Size(260, 32)
         Me.lbl_jumpin_emuname.TabIndex = 11
-        Me.lbl_jumpin_emuname.Text = "Last played never"
+        Me.lbl_jumpin_emuname.Text = "No emulator used"
         '
         'btn_play_jumpin
         '
@@ -2470,6 +2485,19 @@ Partial Class main
         '
         Me.thread_dropbox_exe.WorkerReportsProgress = True
         Me.thread_dropbox_exe.WorkerSupportsCancellation = True
+        '
+        'picturebox_earlyaccess
+        '
+        Me.picturebox_earlyaccess.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.picturebox_earlyaccess.BackColor = System.Drawing.Color.Transparent
+        Me.picturebox_earlyaccess.BackgroundImage = CType(resources.GetObject("picturebox_earlyaccess.BackgroundImage"), System.Drawing.Image)
+        Me.picturebox_earlyaccess.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.picturebox_earlyaccess.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.picturebox_earlyaccess.Location = New System.Drawing.Point(23, 116)
+        Me.picturebox_earlyaccess.Name = "picturebox_earlyaccess"
+        Me.picturebox_earlyaccess.Size = New System.Drawing.Size(255, 177)
+        Me.picturebox_earlyaccess.TabIndex = 26
+        Me.picturebox_earlyaccess.TabStop = False
         '
         'main
         '
@@ -2578,6 +2606,7 @@ Partial Class main
         Me.panel_drag_drop.ResumeLayout(False)
         CType(Me.picturebox_drag, System.ComponentModel.ISupportInitialize).EndInit()
         Me.panel_blue_click.ResumeLayout(False)
+        CType(Me.btn_help, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btn_show_lists, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btn_settings, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btn_prettify, System.ComponentModel.ISupportInitialize).EndInit()
@@ -2613,6 +2642,7 @@ Partial Class main
         CType(Me.panel_jumpin_middle, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.picturebox_jumpin_right, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.picturebox_jumpin_left, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.picturebox_earlyaccess, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -2821,4 +2851,6 @@ Partial Class main
     Friend WithEvents panel_wiki As Panel
     Friend WithEvents btn_wiki As PictureBox
     Friend WithEvents lbl_wiki As Label
+    Friend WithEvents btn_help As PictureBox
+    Friend WithEvents picturebox_earlyaccess As PictureBox
 End Class
