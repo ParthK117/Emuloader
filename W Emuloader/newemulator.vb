@@ -5,7 +5,7 @@ Imports System.ComponentModel
 
 Public Class newemulator
     Dim arguments As String()
-    Dim list_of_emulators As String() = {"Visual Boy Advance-M (GBA)", "Citra (3DS)", "DeSmuME (NDS)", "Project64 (N64)", "PPSSPP (PSP)", "Dolphin (WII)", "Cemu (WIIU)", "Snes9x (SNES)", "Mesen (NES)", "ePSXe (PSX)", "Fusion (MGD)", "Redream (DC)", "PCSX2 (PS2)", "yuzu (SWH)"}
+    Dim list_of_emulators As String() = {"Visual Boy Advance-M (GBA)", "Citra (3DS)", "DeSmuME (NDS)", "Project64 (N64)", "PPSSPP (PSP)", "Dolphin (WII)", "Cemu (WIIU)", "Snes9x (SNES)", "Mesen (NES)", "ePSXe (PSX)", "Fusion (MGD)", "Redream (DC)", "PCSX2 (PS2)", "yuzu (SWH)", "DuckStation (PSX)"}
     Dim uptodate_list As String()
     Dim vnumber As String
 
@@ -116,6 +116,7 @@ Public Class newemulator
         My.Computer.FileSystem.WriteAllText(".\" & arguments(0) & "-" & timestamp & "\" & arguments(6), metadata, True)
         System.IO.File.Create(".\" & arguments(0) & "-" & timestamp & "\cmdlineargs.ini").Dispose()
         Directory.CreateDirectory(".\roms\" & arguments(3))
+        System.IO.File.Create(".\" & arguments(0) & "-" & timestamp & "\portable.txt").Dispose()
     End Sub
 
     Private Sub emulator_downloader_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles emulator_downloader.RunWorkerCompleted
@@ -168,7 +169,7 @@ Public Class newemulator
                     Dim desmume As String() = uptodate_list(2).Split(",")
                     lbl_emulator_name.Text = "DeSmuME"
                     lbl_platform.Text = "Platform: Nintendo DS"
-                    lbl_source.Text = "Source: Google Drive (Emuloader Repack)"
+                    lbl_source.Text = "Source: GitHub (Emuloader Repack)"
                     lbl_version_number.Text = desmume(4)
                     vnumber = desmume(4)
                     picturebox_emulogo.BackgroundImage = New System.Drawing.Bitmap(".\resources\desmume.png")
@@ -176,7 +177,7 @@ Public Class newemulator
                     Dim project64 As String() = uptodate_list(3).Split(",")
                     lbl_emulator_name.Text = "Project64"
                     lbl_platform.Text = "Platform: Nintendo 64"
-                    lbl_source.Text = "Source: Google Drive (Emuloader Repack)"
+                    lbl_source.Text = "Source: GitHub (Emuloader Repack)"
                     lbl_version_number.Text = project64(4)
                     vnumber = project64(4)
                     picturebox_emulogo.BackgroundImage = New System.Drawing.Bitmap(".\resources\project64.png")
@@ -192,7 +193,7 @@ Public Class newemulator
                     Dim dolphin As String() = uptodate_list(5).Split(",")
                     lbl_emulator_name.Text = "Dolphin"
                     lbl_platform.Text = "Platform: Nintendo Wii (+Gamecube)"
-                    lbl_source.Text = "Source: Google Drive (Emuloader Repack)"
+                    lbl_source.Text = "Source: GitHub (Emuloader Repack)"
                     lbl_version_number.Text = dolphin(4)
                     vnumber = dolphin(4)
                     picturebox_emulogo.BackgroundImage = New System.Drawing.Bitmap(".\resources\dolphin.png")
@@ -248,7 +249,7 @@ Public Class newemulator
                     Dim emulator_meta As String() = uptodate_list(12).Split(",")
                     lbl_emulator_name.Text = "PCSX2"
                     lbl_platform.Text = "Platform: Playstation 2"
-                    lbl_source.Text = "Source: Google Drive (Emuloader Repack)"
+                    lbl_source.Text = "Source: GitHub (Emuloader Repack)"
                     lbl_version_number.Text = emulator_meta(4)
                     vnumber = emulator_meta(4)
                     picturebox_emulogo.BackgroundImage = New System.Drawing.Bitmap(".\resources\pcsx2.png")
@@ -260,7 +261,14 @@ Public Class newemulator
                     lbl_version_number.Text = emulator_meta(4)
                     vnumber = emulator_meta(4)
                     picturebox_emulogo.BackgroundImage = New System.Drawing.Bitmap(".\resources\yuzu.png")
-
+                Case "DuckStation (PSX)"
+                    Dim emulator_meta As String() = uptodate_list(14).Split(",")
+                    lbl_emulator_name.Text = "DuckStation"
+                    lbl_platform.Text = "Platform: Sony Playstation"
+                    lbl_source.Text = "Source: Github"
+                    lbl_version_number.Text = emulator_meta(4)
+                    vnumber = emulator_meta(4)
+                    picturebox_emulogo.BackgroundImage = New System.Drawing.Bitmap(".\resources\duckstation.png")
             End Select
         End If
     End Sub
@@ -355,13 +363,26 @@ Public Class newemulator
                 emulator_downloader.RunWorkerAsync(arguments)
                 main.lbl_status.Text = "Installing PCSX2 (PS2)"
                 Call center_status_lbl()
-                MessageBox.Show("PCSX2 requires a PS2 Bios to function.")
+                Dim result = MessageBox.Show("PCSX2 requires a PS2 Bios to function. Would you like to find out more, or where to get one?", "BIOS Required", MessageBoxButtons.YesNo)
+                If result = DialogResult.Yes Then
+                    Process.Start("https://tungstencore.com/docs/pcsx2-bios/")
+                End If
             Case "yuzu (SWH)"
                 Dim emulator_meta As String() = uptodate_list(13).Split(",")
                 arguments = {"YUZU", emulator_meta(0), emulator_meta(1), "SWH", emulator_meta(2), "yuzu", "yuzu.eldr", emulator_meta(3), vnumber}
                 emulator_downloader.RunWorkerAsync(arguments)
                 main.lbl_status.Text = "Installing yuzu (SWH)"
                 Call center_status_lbl()
+            Case "DuckStation (PSX)"
+                Dim emulator_meta As String() = uptodate_list(14).Split(",")
+                arguments = {"DUCKSTATION", emulator_meta(0), emulator_meta(1), "PSX", emulator_meta(2), "DuckStation", "duckstation.eldr", emulator_meta(3), vnumber}
+                emulator_downloader.RunWorkerAsync(arguments)
+                main.lbl_status.Text = "Installing DuckStation (PSX)"
+                Call center_status_lbl()
+                Dim result = MessageBox.Show("DuckStation requires a PS1 Bios to function. Would you like to find out more, or where to get one?", "BIOS Required", MessageBoxButtons.YesNo)
+                If result = DialogResult.Yes Then
+                    Process.Start("https://tungstencore.com/docs/duckstation-bios/")
+                End If
         End Select
         main.picturebox_loading.Visible = True
         MessageBox.Show(arguments(5) & " will be installed")

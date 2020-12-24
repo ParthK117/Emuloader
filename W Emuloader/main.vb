@@ -17,7 +17,7 @@ Public Class main
     Public Shared labelgrey As Color
     Public Shared tab_index = 0
     Public Shared dark = 0
-    Public Shared version_number = "1.0.1"
+    Public Shared version_number = "1.1.0"
     Public Shared global_settings As New List(Of String)
     Public Shared boxart_url As String
     Dim emulator As Process
@@ -2155,9 +2155,6 @@ x.SubItems(4).Text, "Queued", timestamp}))
             Case "NES"
                 platform_id = "NES"
                 emulator_exe.Arguments = ("Mesen " & """" & rom_path & """ " & params)
-            Case "PSX"
-                platform_id = "PSX"
-                emulator_exe.Arguments = ("-loadbin " & """" & rom_path & """ " & params)
             Case "MGD"
                 platform_id = "MGD"
                 emulator_exe.Arguments = ("""" & rom_path & """ " & params)
@@ -2171,6 +2168,13 @@ x.SubItems(4).Text, "Queued", timestamp}))
                 platform_id = "SWH"
                 emulator_exe.Arguments = ("""" & rom_path & """ " & params)
         End Select
+        If currenttab_metadata(1) = "PSX" And currenttab_metadata(0) = "ePSXe" Then
+            platform_id = "PSX"
+            emulator_exe.Arguments = ("-loadbin " & """" & rom_path & """ " & params)
+        ElseIf currenttab_metadata(1) = "PSX" And currenttab_metadata(0) = "DuckStation" Then
+            platform_id = "PSX"
+            emulator_exe.Arguments = ("""" & rom_path & """ " & params)
+        End If
         If checkbox_fullscreen.Checked = True Then
             emulator_exe.WindowStyle = ProcessWindowStyle.Maximized
         Else
@@ -2419,7 +2423,4 @@ x.SubItems(4).Text, "Queued", timestamp}))
         btn_help.BackgroundImage = System.Drawing.Image.FromFile(".\resources\helpwhite.png")
     End Sub
 
-    Private Sub panel_rom_info_Paint(sender As Object, e As PaintEventArgs) Handles panel_rom_info.Paint
-
-    End Sub
 End Class

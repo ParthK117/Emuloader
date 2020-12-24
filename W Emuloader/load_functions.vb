@@ -428,6 +428,10 @@ Module load_functions
                     emutabs(index).Text = "yuzu"
                     emutabs(index).Visible = True
                     currentmetadata = File.ReadAllLines(".\" & eldr_entry & "\yuzu.eldr")
+                ElseIf eldr_entry.Contains("DUCKSTATION") Then
+                    emutabs(index).Text = "DuckStation"
+                    emutabs(index).Visible = True
+                    currentmetadata = File.ReadAllLines(".\" & eldr_entry & "\duckstation.eldr")
                 End If
                 emu_tab_metadata_list.emutabs_metadata(index) = currentmetadata
                 index = index + 1
