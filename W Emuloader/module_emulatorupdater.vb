@@ -152,6 +152,33 @@ Module module_emulatorupdater
                 Else
                     Call main.launch_emulator()
                 End If
+            Case "melonDS"
+                Dim newversion As String() = uptodate_list(15).Split(",")
+                If Not main.currenttab_metadata(5) = newversion(4) Then
+                    Dim arguments As String()
+                    arguments = {newversion(0)}
+                    main.thread_emulator_update.RunWorkerAsync(arguments)
+                Else
+                    Call main.launch_emulator()
+                End If
+            Case "Kronos"
+                Dim newversion As String() = uptodate_list(16).Split(",")
+                If Not main.currenttab_metadata(5) = newversion(4) Then
+                    Dim arguments As String()
+                    arguments = {newversion(0)}
+                    main.thread_emulator_update.RunWorkerAsync(arguments)
+                Else
+                    Call main.launch_emulator()
+                End If
+            Case "mGBA"
+                Dim newversion As String() = uptodate_list(17).Split(",")
+                If Not main.currenttab_metadata(5) = newversion(4) Then
+                    Dim arguments As String()
+                    arguments = {newversion(0)}
+                    main.thread_emulator_update.RunWorkerAsync(arguments)
+                Else
+                    Call main.launch_emulator()
+                End If
         End Select
 
 

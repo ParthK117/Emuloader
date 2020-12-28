@@ -62,6 +62,9 @@ Module downloads
             Case "SWH"
                 platform_id = ".nsp"
                 Directory.CreateDirectory(".\roms\SWH")
+            Case "STN"
+                platform_id = ".cue"
+                Directory.CreateDirectory(".\roms\STN")
         End Select
 
         main.listbox_queue.Items(0).SubItems(5).Text = "Downloading"

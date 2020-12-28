@@ -24,12 +24,14 @@ Public Class listlink
 
     Private Sub btn_import_MouseDown(sender As Object, e As MouseEventArgs) Handles btn_import.MouseDown
         btn_import.BackgroundImage = System.Drawing.Image.FromFile(".\resources\importclick.png")
-        Dim urls As String() = textbox_url.Lines
-        Dim index As Boolean = False
-        For Each line In urls
-            If line.Contains("archive") Then
-                Process.Start("https://www.reddit.com/r/Emuloader/comments/i4qat9/archiveorg_eldr_builder_scripts/")
-            Else
+        Dim result = MessageBox.Show("Emuloader's ELDR system is a way to turn your existing rom libraries which are stored in the cloud, as well as publicly available romhacks, homebrew and abandonware into a format more easily manipulated. Think of it as a compatibility layer and stopover tool. It is not to be used for piracy under any circumstances, you may not be allowed to download online backups, even if you own a physical copy of the game.
+
+
+Do you confirm that you either own this content, or that this content has been allowed to be shared by the content owner and/or copyright holder?", "Verify ownership of content", MessageBoxButtons.YesNo)
+        If result = DialogResult.Yes Then
+            Dim urls As String() = textbox_url.Lines
+            Dim index As Boolean = False
+            For Each line In urls
 
                 Dim timestamp As String = Date.Now.ToString("HH-mm-ss-dd-MM-yyyy")
                 Using importlinks = New WebClient()
@@ -85,8 +87,11 @@ Public Class listlink
                         File.Delete(".\lists\" & timestamp & ".eldr")
                     End Try
                 End Using
-            End If
-        Next
+            Next
+        Else
+            MessageBox.Show("Your source/eldr has not been imported. Please take a moment to review our stance on piracy and copyrighted content.", "Import failed.")
+            Process.Start("https://tungstencore.com/emuloader/#Disclaimer")
+        End If
         Me.Close()
     End Sub
 
@@ -101,4 +106,5 @@ Public Class listlink
     Private Sub btn_import_MouseUp(sender As Object, e As MouseEventArgs) Handles btn_import.MouseUp
         btn_import.BackgroundImage = System.Drawing.Image.FromFile(".\resources\importwhite.png")
     End Sub
+
 End Class

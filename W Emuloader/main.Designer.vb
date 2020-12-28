@@ -200,6 +200,7 @@ Partial Class main
         Me.thread_emulator_update = New System.ComponentModel.BackgroundWorker()
         Me.panel_home = New System.Windows.Forms.Panel()
         Me.panel_wiki = New System.Windows.Forms.Panel()
+        Me.picturebox_earlyaccess = New System.Windows.Forms.PictureBox()
         Me.btn_wiki = New System.Windows.Forms.PictureBox()
         Me.lbl_wiki = New System.Windows.Forms.Label()
         Me.btn_openright_home = New System.Windows.Forms.PictureBox()
@@ -230,7 +231,6 @@ Partial Class main
         Me.lbl_home = New System.Windows.Forms.Label()
         Me.timer_waitforexit = New System.Windows.Forms.Timer(Me.components)
         Me.thread_dropbox_exe = New System.ComponentModel.BackgroundWorker()
-        Me.picturebox_earlyaccess = New System.Windows.Forms.PictureBox()
         CType(Me.image_logo, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panel_left.SuspendLayout()
         CType(Me.picturebox_patreon, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -317,6 +317,7 @@ Partial Class main
         CType(Me.picturebox_download, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panel_home.SuspendLayout()
         Me.panel_wiki.SuspendLayout()
+        CType(Me.picturebox_earlyaccess, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btn_wiki, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btn_openright_home, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panel_socialmedia.SuspendLayout()
@@ -335,7 +336,6 @@ Partial Class main
         CType(Me.panel_jumpin_middle, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.picturebox_jumpin_right, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.picturebox_jumpin_left, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.picturebox_earlyaccess, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'image_logo
@@ -2149,6 +2149,19 @@ Partial Class main
         Me.panel_wiki.Size = New System.Drawing.Size(300, 300)
         Me.panel_wiki.TabIndex = 28
         '
+        'picturebox_earlyaccess
+        '
+        Me.picturebox_earlyaccess.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.picturebox_earlyaccess.BackColor = System.Drawing.Color.Transparent
+        Me.picturebox_earlyaccess.BackgroundImage = CType(resources.GetObject("picturebox_earlyaccess.BackgroundImage"), System.Drawing.Image)
+        Me.picturebox_earlyaccess.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.picturebox_earlyaccess.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.picturebox_earlyaccess.Location = New System.Drawing.Point(23, 116)
+        Me.picturebox_earlyaccess.Name = "picturebox_earlyaccess"
+        Me.picturebox_earlyaccess.Size = New System.Drawing.Size(255, 177)
+        Me.picturebox_earlyaccess.TabIndex = 26
+        Me.picturebox_earlyaccess.TabStop = False
+        '
         'btn_wiki
         '
         Me.btn_wiki.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
@@ -2486,19 +2499,6 @@ Partial Class main
         Me.thread_dropbox_exe.WorkerReportsProgress = True
         Me.thread_dropbox_exe.WorkerSupportsCancellation = True
         '
-        'picturebox_earlyaccess
-        '
-        Me.picturebox_earlyaccess.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.picturebox_earlyaccess.BackColor = System.Drawing.Color.Transparent
-        Me.picturebox_earlyaccess.BackgroundImage = CType(resources.GetObject("picturebox_earlyaccess.BackgroundImage"), System.Drawing.Image)
-        Me.picturebox_earlyaccess.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.picturebox_earlyaccess.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.picturebox_earlyaccess.Location = New System.Drawing.Point(23, 116)
-        Me.picturebox_earlyaccess.Name = "picturebox_earlyaccess"
-        Me.picturebox_earlyaccess.Size = New System.Drawing.Size(255, 177)
-        Me.picturebox_earlyaccess.TabIndex = 26
-        Me.picturebox_earlyaccess.TabStop = False
-        '
         'main
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -2621,6 +2621,7 @@ Partial Class main
         Me.panel_home.PerformLayout()
         Me.panel_wiki.ResumeLayout(False)
         Me.panel_wiki.PerformLayout()
+        CType(Me.picturebox_earlyaccess, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btn_wiki, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btn_openright_home, System.ComponentModel.ISupportInitialize).EndInit()
         Me.panel_socialmedia.ResumeLayout(False)
@@ -2642,7 +2643,6 @@ Partial Class main
         CType(Me.panel_jumpin_middle, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.picturebox_jumpin_right, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.picturebox_jumpin_left, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.picturebox_earlyaccess, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub

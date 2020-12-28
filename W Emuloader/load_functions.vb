@@ -341,6 +341,27 @@ Module load_functions
                         End If
                     Next
                 Next
+            Case "STN"
+                platform_id = "STN"
+                Dim rom_directory_wiiU = IO.Directory.GetFiles(".\roms\" & main.currenttab_metadata(1), "*.cue", IO.SearchOption.AllDirectories)
+                For Each f In rom_directory_wiiU
+                    Dim fullpath As String = System.IO.Path.GetFullPath(f)
+                    Dim filepath As String = fullpath.Replace(System.IO.Path.GetFullPath(".\roms\" & main.currenttab_metadata(1)), "")
+                    Dim filename As String() = filepath.Split("\")
+                    main.listbox_installedroms.Items.Add(New ListViewItem(New String() {filename(1), platform_id, f}))
+                Next
+                For Each custom_directory_entry In customromlist
+                    Try
+                        Dim rom_directory_wiiU2 = IO.Directory.GetFiles(custom_directory_entry, "*.cue", IO.SearchOption.AllDirectories)
+                        For Each f In rom_directory_wiiU2
+                            Dim fullpath As String = System.IO.Path.GetFullPath(f)
+                            Dim filepath As String = fullpath.Replace(custom_directory_entry, "")
+                            Dim filename As String() = filepath.Split("\")
+                            main.listbox_installedroms.Items.Add(New ListViewItem(New String() {filename(1), platform_id, f}))
+                        Next
+                    Catch ex As Exception
+                    End Try
+                Next
         End Select
         Call main.retrieveboxart()
         If main.listbox_installedroms.Items.Count = 0 Then
@@ -432,6 +453,18 @@ Module load_functions
                     emutabs(index).Text = "DuckStation"
                     emutabs(index).Visible = True
                     currentmetadata = File.ReadAllLines(".\" & eldr_entry & "\duckstation.eldr")
+                ElseIf eldr_entry.Contains("MELONDS") Then
+                    emutabs(index).Text = "melonDS"
+                    emutabs(index).Visible = True
+                    currentmetadata = File.ReadAllLines(".\" & eldr_entry & "\melonds.eldr")
+                ElseIf eldr_entry.Contains("KRONOS") Then
+                    emutabs(index).Text = "Kronos"
+                    emutabs(index).Visible = True
+                    currentmetadata = File.ReadAllLines(".\" & eldr_entry & "\kronos.eldr")
+                ElseIf eldr_entry.Contains("MGBA") Then
+                    emutabs(index).Text = "mGBA"
+                    emutabs(index).Visible = True
+                    currentmetadata = File.ReadAllLines(".\" & eldr_entry & "\mgba.eldr")
                 End If
                 emu_tab_metadata_list.emutabs_metadata(index) = currentmetadata
                 index = index + 1

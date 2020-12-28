@@ -5,7 +5,7 @@ Imports System.ComponentModel
 
 Public Class newemulator
     Dim arguments As String()
-    Dim list_of_emulators As String() = {"Visual Boy Advance-M (GBA)", "Citra (3DS)", "DeSmuME (NDS)", "Project64 (N64)", "PPSSPP (PSP)", "Dolphin (WII)", "Cemu (WIIU)", "Snes9x (SNES)", "Mesen (NES)", "ePSXe (PSX)", "Fusion (MGD)", "Redream (DC)", "PCSX2 (PS2)", "yuzu (SWH)", "DuckStation (PSX)"}
+    Dim list_of_emulators As String() = {"Visual Boy Advance-M (GBA)", "Citra (3DS)", "DeSmuME (NDS)", "Project64 (N64)", "PPSSPP (PSP)", "Dolphin (WII)", "Cemu (WIIU)", "Snes9x (SNES)", "Mesen (NES)", "ePSXe (PSX)", "Fusion (MGD)", "Redream (DC)", "PCSX2 (PS2)", "yuzu (SWH)", "DuckStation (PSX)", "melonDS (NDS)", "Kronos (STN)", "mGBA (GBA)"}
     Dim uptodate_list As String()
     Dim vnumber As String
 
@@ -269,6 +269,30 @@ Public Class newemulator
                     lbl_version_number.Text = emulator_meta(4)
                     vnumber = emulator_meta(4)
                     picturebox_emulogo.BackgroundImage = New System.Drawing.Bitmap(".\resources\duckstation.png")
+                Case "melonDS (NDS)"
+                    Dim emulator_meta As String() = uptodate_list(15).Split(",")
+                    lbl_emulator_name.Text = "melonDS"
+                    lbl_platform.Text = "Platform: Nintendo DS"
+                    lbl_source.Text = "Source: GitHub (Emuloader Repack)"
+                    lbl_version_number.Text = emulator_meta(4)
+                    vnumber = emulator_meta(4)
+                    picturebox_emulogo.BackgroundImage = New System.Drawing.Bitmap(".\resources\melonds.png")
+                Case "Kronos (STN)"
+                    Dim emulator_meta As String() = uptodate_list(16).Split(",")
+                    lbl_emulator_name.Text = "Kronos"
+                    lbl_platform.Text = "Platform: Sega Saturn"
+                    lbl_source.Text = "Source: tradu-france.com"
+                    lbl_version_number.Text = emulator_meta(4)
+                    vnumber = emulator_meta(4)
+                    picturebox_emulogo.BackgroundImage = New System.Drawing.Bitmap(".\resources\kronos.jpg")
+                Case "mGBA (GBA)"
+                    Dim emulator_meta As String() = uptodate_list(17).Split(",")
+                    lbl_emulator_name.Text = "mGBA"
+                    lbl_platform.Text = "Platform: Gameboy Advance"
+                    lbl_source.Text = "Source: GitHub (Emuloader Repack)"
+                    lbl_version_number.Text = emulator_meta(4)
+                    vnumber = emulator_meta(4)
+                    picturebox_emulogo.BackgroundImage = New System.Drawing.Bitmap(".\resources\mgba.png")
             End Select
         End If
     End Sub
@@ -383,6 +407,29 @@ Public Class newemulator
                 If result = DialogResult.Yes Then
                     Process.Start("https://tungstencore.com/docs/duckstation-bios/")
                 End If
+            Case "melonDS (NDS)"
+                Dim emulator_meta As String() = uptodate_list(15).Split(",")
+                arguments = {"MELONDS", emulator_meta(0), emulator_meta(1), "NDS", emulator_meta(2), "melonDS", "melonds.eldr", emulator_meta(3), vnumber}
+                emulator_downloader.RunWorkerAsync(arguments)
+                main.lbl_status.Text = "Installing melonDS (NDS)"
+                Call center_status_lbl()
+                Dim result = MessageBox.Show("melonDS requires a NDS Bios to function. Would you like to find out more, or where to get one?", "BIOS Required", MessageBoxButtons.YesNo)
+                If result = DialogResult.Yes Then
+                    Process.Start("https://tungstencore.com/docs/melonds-bios/")
+                End If
+            Case "Kronos (STN)"
+                Dim emulator_meta As String() = uptodate_list(16).Split(",")
+                arguments = {"KRONOS", emulator_meta(0), emulator_meta(1), "STN", emulator_meta(2), "Kronos", "kronos.eldr", emulator_meta(3), vnumber}
+                emulator_downloader.RunWorkerAsync(arguments)
+                MessageBox.Show("Kronos does not support direct launching of games through Emuloader.")
+                main.lbl_status.Text = "Installing Kronos (STN)"
+                Call center_status_lbl()
+            Case "mGBA (GBA)"
+                Dim emulator_meta As String() = uptodate_list(17).Split(",")
+                arguments = {"MGBA", emulator_meta(0), emulator_meta(1), "GBA", emulator_meta(2), "mGBA", "mgba.eldr", emulator_meta(3), vnumber}
+                emulator_downloader.RunWorkerAsync(arguments)
+                main.lbl_status.Text = "Installing mGBA (GBA)"
+                Call center_status_lbl()
         End Select
         main.picturebox_loading.Visible = True
         MessageBox.Show(arguments(5) & " will be installed")

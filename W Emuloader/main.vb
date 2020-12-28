@@ -17,7 +17,7 @@ Public Class main
     Public Shared labelgrey As Color
     Public Shared tab_index = 0
     Public Shared dark = 0
-    Public Shared version_number = "1.1.0"
+    Public Shared version_number = "1.2.0"
     Public Shared global_settings As New List(Of String)
     Public Shared boxart_url As String
     Dim emulator As Process
@@ -868,75 +868,84 @@ x.SubItems(4).Text, "Queued", timestamp}))
     End Sub
 
     Private Sub main_DragDrop(sender As System.Object, e As System.Windows.Forms.DragEventArgs) Handles Me.DragDrop
-        'files is a list with the data of each item dropped in.
-        Dim files() As String = e.Data.GetData(DataFormats.FileDrop)
-        'For each item (drop_path) in the files list
-        For Each drop_path In files
-            If File.Exists(drop_path.ToString) = True AndAlso drop_path.ToString.Contains(".eldr") Then
-                Dim imported_list_downloads As New List(Of String)
-                imported_list_downloads.AddRange(File.ReadAllLines(drop_path.ToString))
-                Dim showsource As Boolean = False
-                Dim metadata As String()
-                'Check first line in eldr.
-                If imported_list_downloads(0).Contains("#") Then
-                    metadata = Split(imported_list_downloads(0), "#")
-                    If metadata(2) = "verify" Then
-                        'Launch website to whitelist.
-                        Process.Start(metadata(3))
-                    End If
-                    imported_list_downloads.RemoveAt(0)
-                    showsource = True
-                End If
-                For Each entry In imported_list_downloads
-                    Dim entry_split As String() = Split(entry, ",")
-                    '  listbox_availableroms.Items.Add(x_split(0))
-                    Dim file_source As String = entry_split(3)
-                    If file_source.Contains("google") Then
-                        file_source = "Google Drive"
-                    ElseIf showsource = True Then
-                        file_source = metadata(0)
-                    Else
-                        file_source = "Other"
-                    End If
-                    listbox_availableroms.Items.Add(New ListViewItem(New String() {entry_split(0), entry_split(1), entry_split(2), file_source, entry_split(3)}))
-                Next
-                'Resize listview
-                listbox_availableroms.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent)
-                listbox_availableroms.AutoResizeColumn(2, ColumnHeaderAutoResizeStyle.HeaderSize)
-                listbox_availableroms.Columns.Item(4).Width = 0
-                If Directory.Exists(".\lists\") Then
-                Else
-                    My.Computer.FileSystem.CreateDirectory(".\lists\")
-                End If
-                System.IO.File.Copy(drop_path.ToString, ".\lists\" & System.IO.Path.GetFileName(drop_path.ToString))
-                'If the file is a rom and not an eldr
-            ElseIf File.Exists(drop_path.ToString) = True AndAlso Not drop_path.ToString.Contains(".eldr") Then
-                Dim folderPath As String = Path.GetDirectoryName(drop_path.ToString)
-                If File.Exists(".\custom.eldr") And (New FileInfo(".\custom.eldr").Length > 0) Then
-                    Dim check As Boolean = False
-                    Dim check_directory As String() = File.ReadAllLines(".\custom.eldr")
-                    For Each x In check_directory
-                        If x = folderPath Then
-                            MessageBox.Show("You've already imported this rom/directory")
-                            check = True
-                            Exit For
+        Dim result = MessageBox.Show("Emuloader's ELDR system is a way to turn your existing rom libraries which are stored in the cloud, as well as publicly available romhacks, homebrew and abandonware into a format more easily manipulated. Think of it as a compatibility layer and stopover tool. It is not to be used for piracy under any circumstances, you may not be allowed to download online backups, even if you own a physical copy of the game.
+
+
+Do you confirm that you either own this content, or that this content has been allowed to be shared by the content owner and/or copyright holder?", "Verify ownership of content", MessageBoxButtons.YesNo)
+        If result = DialogResult.Yes Then
+            'files is a list with the data of each item dropped in.
+            Dim files() As String = e.Data.GetData(DataFormats.FileDrop)
+            'For each item (drop_path) in the files list
+            For Each drop_path In files
+                If File.Exists(drop_path.ToString) = True AndAlso drop_path.ToString.Contains(".eldr") Then
+                    Dim imported_list_downloads As New List(Of String)
+                    imported_list_downloads.AddRange(File.ReadAllLines(drop_path.ToString))
+                    Dim showsource As Boolean = False
+                    Dim metadata As String()
+                    'Check first line in eldr.
+                    If imported_list_downloads(0).Contains("#") Then
+                        metadata = Split(imported_list_downloads(0), "#")
+                        If metadata(2) = "verify" Then
+                            'Launch website to whitelist.
+                            Process.Start(metadata(3))
                         End If
-                    Next
-                    If check = False Then
-                        My.Computer.FileSystem.WriteAllText(".\custom.eldr", vbNewLine & folderPath, True)
+                        imported_list_downloads.RemoveAt(0)
+                        showsource = True
                     End If
+                    For Each entry In imported_list_downloads
+                        Dim entry_split As String() = Split(entry, ",")
+                        '  listbox_availableroms.Items.Add(x_split(0))
+                        Dim file_source As String = entry_split(3)
+                        If file_source.Contains("google") Then
+                            file_source = "Google Drive"
+                        ElseIf showsource = True Then
+                            file_source = metadata(0)
+                        Else
+                            file_source = "Other"
+                        End If
+                        listbox_availableroms.Items.Add(New ListViewItem(New String() {entry_split(0), entry_split(1), entry_split(2), file_source, entry_split(3)}))
+                    Next
+                    'Resize listview
+                    listbox_availableroms.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent)
+                    listbox_availableroms.AutoResizeColumn(2, ColumnHeaderAutoResizeStyle.HeaderSize)
+                    listbox_availableroms.Columns.Item(4).Width = 0
+                    If Directory.Exists(".\lists\") Then
+                    Else
+                        My.Computer.FileSystem.CreateDirectory(".\lists\")
+                    End If
+                    System.IO.File.Copy(drop_path.ToString, ".\lists\" & System.IO.Path.GetFileName(drop_path.ToString))
+                    'If the file is a rom and not an eldr
+                ElseIf File.Exists(drop_path.ToString) = True AndAlso Not drop_path.ToString.Contains(".eldr") Then
+                    Dim folderPath As String = Path.GetDirectoryName(drop_path.ToString)
+                    If File.Exists(".\custom.eldr") And (New FileInfo(".\custom.eldr").Length > 0) Then
+                        Dim check As Boolean = False
+                        Dim check_directory As String() = File.ReadAllLines(".\custom.eldr")
+                        For Each x In check_directory
+                            If x = folderPath Then
+                                MessageBox.Show("You've already imported this rom/directory")
+                                check = True
+                                Exit For
+                            End If
+                        Next
+                        If check = False Then
+                            My.Computer.FileSystem.WriteAllText(".\custom.eldr", vbNewLine & folderPath, True)
+                        End If
+                    Else
+                        System.IO.File.Create(".\custom.eldr").Dispose()
+                        My.Computer.FileSystem.WriteAllText(".\custom.eldr", folderPath, False)
+                    End If
+                    Call load_installed_roms()
                 Else
-                    System.IO.File.Create(".\custom.eldr").Dispose()
-                    My.Computer.FileSystem.WriteAllText(".\custom.eldr", folderPath, False)
+                    MessageBox.Show("Could not import")
                 End If
-                Call load_installed_roms()
-            Else
-                MessageBox.Show("Could not import")
-            End If
-        Next
+            Next
+        Else
+            MessageBox.Show("Your source/eldr has not been imported. Please take a moment to review our stance on piracy and copyrighted content.", "Import failed.")
+            Process.Start("https://tungstencore.com/emuloader/#Disclaimer")
+        End If
         Me.Opacity = 1
-        panel_drag_drop.Visible = False
-        panel_drag_drop.SendToBack()
+            panel_drag_drop.Visible = False
+            panel_drag_drop.SendToBack()
 
     End Sub
 
@@ -1633,43 +1642,52 @@ x.SubItems(4).Text, "Queued", timestamp}))
         panel_import_click.Visible = False
         import_list.Filter = "Emuloader Files (*.eldr*)|*.eldr"
         'Same system as drag and drop.
-        If import_list.ShowDialog = Windows.Forms.DialogResult.OK AndAlso File.Exists(".\lists\" & System.IO.Path.GetFileName(import_list.FileName)) = False Then
-            Dim imported_list_downloads As New List(Of String)
-            imported_list_downloads.AddRange(File.ReadAllLines(import_list.FileName))
-            Dim showsource As Boolean = False
-            Dim metadata As String()
-            If imported_list_downloads(0).Contains("#") Then
-                metadata = Split(imported_list_downloads(0), "#")
-                If metadata(2) = "verify" Then
-                    Process.Start(metadata(3))
+        Dim result = MessageBox.Show("Emuloader's ELDR system is a way to turn your existing rom libraries which are stored in the cloud, as well as publicly available romhacks, homebrew and abandonware into a format more easily manipulated. Think of it as a compatibility layer and stopover tool. It is not to be used for piracy under any circumstances, you may not be allowed to download online backups, even if you own a physical copy of the game.
+
+
+Do you confirm that you either own this content, or that this content has been allowed to be shared by the content owner and/or copyright holder?", "Verify ownership of content", MessageBoxButtons.YesNo)
+        If result = DialogResult.Yes Then
+            If import_list.ShowDialog = Windows.Forms.DialogResult.OK AndAlso File.Exists(".\lists\" & System.IO.Path.GetFileName(import_list.FileName)) = False Then
+                Dim imported_list_downloads As New List(Of String)
+                imported_list_downloads.AddRange(File.ReadAllLines(import_list.FileName))
+                Dim showsource As Boolean = False
+                Dim metadata As String()
+                If imported_list_downloads(0).Contains("#") Then
+                    metadata = Split(imported_list_downloads(0), "#")
+                    If metadata(2) = "verify" Then
+                        Process.Start(metadata(3))
+                    End If
+                    showsource = True
+                    imported_list_downloads.RemoveAt(0)
                 End If
-                showsource = True
-                imported_list_downloads.RemoveAt(0)
-            End If
-            For Each item In imported_list_downloads
-                Dim item_split As String() = Split(item, ",")
-                '  listbox_availableroms.Items.Add(x_split(0))
-                Dim file_source As String = item_split(3)
-                If file_source.Contains("google") Then
-                    file_source = "Google Drive"
-                ElseIf showsource = True Then
-                    file_source = metadata(0)
+                For Each item In imported_list_downloads
+                    Dim item_split As String() = Split(item, ",")
+                    '  listbox_availableroms.Items.Add(x_split(0))
+                    Dim file_source As String = item_split(3)
+                    If file_source.Contains("google") Then
+                        file_source = "Google Drive"
+                    ElseIf showsource = True Then
+                        file_source = metadata(0)
+                    Else
+                        file_source = "Other"
+                    End If
+                    listbox_availableroms.Items.Add(New ListViewItem(New String() {item_split(0), item_split(1), item_split(2), file_source, item_split(3)}))
+                Next
+                listbox_availableroms.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent)
+                listbox_availableroms.AutoResizeColumn(2, ColumnHeaderAutoResizeStyle.HeaderSize)
+                listbox_availableroms.Columns.Item(4).Width = 0
+                If Directory.Exists(".\lists\") Then
                 Else
-                    file_source = "Other"
+                    My.Computer.FileSystem.CreateDirectory(".\lists\")
                 End If
-                listbox_availableroms.Items.Add(New ListViewItem(New String() {item_split(0), item_split(1), item_split(2), file_source, item_split(3)}))
-            Next
-            listbox_availableroms.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent)
-            listbox_availableroms.AutoResizeColumn(2, ColumnHeaderAutoResizeStyle.HeaderSize)
-            listbox_availableroms.Columns.Item(4).Width = 0
-            If Directory.Exists(".\lists\") Then
+                System.IO.File.Copy(import_list.FileName, ".\lists\" & System.IO.Path.GetFileName(import_list.FileName))
+            ElseIf Windows.Forms.DialogResult.Cancel Then
             Else
-                My.Computer.FileSystem.CreateDirectory(".\lists\")
+                MessageBox.Show("List already imported")
             End If
-            System.IO.File.Copy(import_list.FileName, ".\lists\" & System.IO.Path.GetFileName(import_list.FileName))
-        ElseIf Windows.Forms.DialogResult.Cancel Then
         Else
-            MessageBox.Show("List already imported")
+            MessageBox.Show("Your source/eldr has not been imported. Please take a moment to review our stance on piracy and copyrighted content.", "Import failed.")
+        Process.Start("https://tungstencore.com/emuloader/#Disclaimer")
         End If
     End Sub
 
@@ -2128,9 +2146,6 @@ x.SubItems(4).Text, "Queued", timestamp}))
         Dim platform_id As String = ""
         rom_path = System.IO.Path.GetFullPath(listbox_installedroms.FocusedItem.SubItems(2).Text)
         Select Case currenttab_metadata(1)
-            Case "GBA"
-                platform_id = "GBA"
-                emulator_exe.Arguments = ("""" & rom_path & """ " & params)
             Case "3DS"
                 platform_id = "3DS"
                 emulator_exe.Arguments = ("""" & rom_path & """ " & params)
@@ -2164,6 +2179,9 @@ x.SubItems(4).Text, "Queued", timestamp}))
             Case "PS2"
                 platform_id = "PS2"
                 emulator_exe.Arguments = ("""" & rom_path & """ " & params)
+            Case "STN"
+                platform_id = "STN"
+                emulator_exe.Arguments = ("""" & rom_path & """ " & params)
             Case "SWH"
                 platform_id = "SWH"
                 emulator_exe.Arguments = ("""" & rom_path & """ " & params)
@@ -2175,6 +2193,15 @@ x.SubItems(4).Text, "Queued", timestamp}))
             platform_id = "PSX"
             emulator_exe.Arguments = ("""" & rom_path & """ " & params)
         End If
+
+        If currenttab_metadata(1) = "GBA" And currenttab_metadata(0) = "VBA-M" Then
+            platform_id = "GBA"
+            emulator_exe.Arguments = ("""" & rom_path & """ " & params)
+        ElseIf currenttab_metadata(1) = "GBA" And currenttab_metadata(0) = "mGBA" Then
+            platform_id = "GBA"
+            emulator_exe.Arguments = ("""" & rom_path & """ " & params)
+        End If
+
         If checkbox_fullscreen.Checked = True Then
             emulator_exe.WindowStyle = ProcessWindowStyle.Maximized
         Else
@@ -2422,5 +2449,4 @@ x.SubItems(4).Text, "Queued", timestamp}))
     Private Sub btn_help_MouseLeave(sender As Object, e As EventArgs) Handles btn_help.MouseLeave
         btn_help.BackgroundImage = System.Drawing.Image.FromFile(".\resources\helpwhite.png")
     End Sub
-
 End Class
