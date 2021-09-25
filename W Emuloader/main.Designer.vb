@@ -210,14 +210,6 @@ Partial Class main
         Me.btn_discord = New System.Windows.Forms.PictureBox()
         Me.picturebox_reddit = New System.Windows.Forms.PictureBox()
         Me.lbl_socialmedia = New System.Windows.Forms.Label()
-        Me.panel_dropbox = New System.Windows.Forms.Panel()
-        Me.panel_connected = New System.Windows.Forms.Panel()
-        Me.btn_featurepipeline = New System.Windows.Forms.PictureBox()
-        Me.lbl_disclaimer = New System.Windows.Forms.Label()
-        Me.btn_disconnect = New System.Windows.Forms.PictureBox()
-        Me.lbl_description = New System.Windows.Forms.Label()
-        Me.lbl_connect_status = New System.Windows.Forms.Label()
-        Me.btn_connectdropbox = New System.Windows.Forms.PictureBox()
         Me.panel_jumpin = New System.Windows.Forms.Panel()
         Me.lbl_jumpin_emuname = New System.Windows.Forms.Label()
         Me.btn_play_jumpin = New System.Windows.Forms.PictureBox()
@@ -231,6 +223,7 @@ Partial Class main
         Me.lbl_home = New System.Windows.Forms.Label()
         Me.timer_waitforexit = New System.Windows.Forms.Timer(Me.components)
         Me.thread_dropbox_exe = New System.ComponentModel.BackgroundWorker()
+        Me.panel_e2 = New System.Windows.Forms.Panel()
         CType(Me.image_logo, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panel_left.SuspendLayout()
         CType(Me.picturebox_patreon, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -325,11 +318,6 @@ Partial Class main
         CType(Me.picturebox_twitter, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btn_discord, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.picturebox_reddit, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.panel_dropbox.SuspendLayout()
-        Me.panel_connected.SuspendLayout()
-        CType(Me.btn_featurepipeline, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.btn_disconnect, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.btn_connectdropbox, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panel_jumpin.SuspendLayout()
         CType(Me.btn_play_jumpin, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.picturebox_boxart_jumpin, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -397,7 +385,7 @@ Partial Class main
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lbl_version.AutoSize = True
         Me.lbl_version.Font = New System.Drawing.Font("Calibri", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lbl_version.Location = New System.Drawing.Point(169, 97)
+        Me.lbl_version.Location = New System.Drawing.Point(150, 97)
         Me.lbl_version.Name = "lbl_version"
         Me.lbl_version.Size = New System.Drawing.Size(12, 13)
         Me.lbl_version.TabIndex = 20
@@ -753,7 +741,7 @@ Partial Class main
         Me.lbl_rom_name.Name = "lbl_rom_name"
         Me.lbl_rom_name.Size = New System.Drawing.Size(217, 120)
         Me.lbl_rom_name.TabIndex = 5
-        Me.lbl_rom_name.Text = "Release Build"
+        Me.lbl_rom_name.Text = "Final Revision/EOL Build"
         '
         'checkbox_fullscreen
         '
@@ -2127,10 +2115,10 @@ Partial Class main
         Me.panel_home.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.panel_home.Controls.Add(Me.panel_e2)
         Me.panel_home.Controls.Add(Me.panel_wiki)
         Me.panel_home.Controls.Add(Me.btn_openright_home)
         Me.panel_home.Controls.Add(Me.panel_socialmedia)
-        Me.panel_home.Controls.Add(Me.panel_dropbox)
         Me.panel_home.Controls.Add(Me.panel_jumpin)
         Me.panel_home.Controls.Add(Me.lbl_home)
         Me.panel_home.Location = New System.Drawing.Point(250, 40)
@@ -2275,93 +2263,6 @@ Partial Class main
         Me.lbl_socialmedia.TabIndex = 1
         Me.lbl_socialmedia.Text = "Useful Links"
         '
-        'panel_dropbox
-        '
-        Me.panel_dropbox.BackgroundImage = CType(resources.GetObject("panel_dropbox.BackgroundImage"), System.Drawing.Image)
-        Me.panel_dropbox.Controls.Add(Me.panel_connected)
-        Me.panel_dropbox.Controls.Add(Me.lbl_description)
-        Me.panel_dropbox.Controls.Add(Me.lbl_connect_status)
-        Me.panel_dropbox.Controls.Add(Me.btn_connectdropbox)
-        Me.panel_dropbox.Location = New System.Drawing.Point(37, 400)
-        Me.panel_dropbox.Name = "panel_dropbox"
-        Me.panel_dropbox.Size = New System.Drawing.Size(300, 300)
-        Me.panel_dropbox.TabIndex = 4
-        '
-        'panel_connected
-        '
-        Me.panel_connected.Controls.Add(Me.btn_featurepipeline)
-        Me.panel_connected.Controls.Add(Me.lbl_disclaimer)
-        Me.panel_connected.Controls.Add(Me.btn_disconnect)
-        Me.panel_connected.Location = New System.Drawing.Point(0, 20)
-        Me.panel_connected.Name = "panel_connected"
-        Me.panel_connected.Size = New System.Drawing.Size(300, 266)
-        Me.panel_connected.TabIndex = 3
-        Me.panel_connected.Visible = False
-        '
-        'btn_featurepipeline
-        '
-        Me.btn_featurepipeline.BackColor = System.Drawing.Color.Transparent
-        Me.btn_featurepipeline.BackgroundImage = CType(resources.GetObject("btn_featurepipeline.BackgroundImage"), System.Drawing.Image)
-        Me.btn_featurepipeline.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btn_featurepipeline.Location = New System.Drawing.Point(26, 135)
-        Me.btn_featurepipeline.Name = "btn_featurepipeline"
-        Me.btn_featurepipeline.Size = New System.Drawing.Size(250, 50)
-        Me.btn_featurepipeline.TabIndex = 11
-        Me.btn_featurepipeline.TabStop = False
-        '
-        'lbl_disclaimer
-        '
-        Me.lbl_disclaimer.BackColor = System.Drawing.Color.Transparent
-        Me.lbl_disclaimer.Font = New System.Drawing.Font("Open Sans", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lbl_disclaimer.ForeColor = System.Drawing.Color.White
-        Me.lbl_disclaimer.Location = New System.Drawing.Point(26, 12)
-        Me.lbl_disclaimer.Name = "lbl_disclaimer"
-        Me.lbl_disclaimer.Size = New System.Drawing.Size(250, 117)
-        Me.lbl_disclaimer.TabIndex = 10
-        Me.lbl_disclaimer.Text = "Not all cloud features available yet, coming soon!"
-        '
-        'btn_disconnect
-        '
-        Me.btn_disconnect.BackColor = System.Drawing.Color.Transparent
-        Me.btn_disconnect.BackgroundImage = CType(resources.GetObject("btn_disconnect.BackgroundImage"), System.Drawing.Image)
-        Me.btn_disconnect.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btn_disconnect.Location = New System.Drawing.Point(26, 191)
-        Me.btn_disconnect.Name = "btn_disconnect"
-        Me.btn_disconnect.Size = New System.Drawing.Size(250, 50)
-        Me.btn_disconnect.TabIndex = 1
-        Me.btn_disconnect.TabStop = False
-        '
-        'lbl_description
-        '
-        Me.lbl_description.BackColor = System.Drawing.Color.Transparent
-        Me.lbl_description.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lbl_description.Location = New System.Drawing.Point(7, 48)
-        Me.lbl_description.Name = "lbl_description"
-        Me.lbl_description.Size = New System.Drawing.Size(285, 185)
-        Me.lbl_description.TabIndex = 2
-        Me.lbl_description.Text = resources.GetString("lbl_description.Text")
-        '
-        'lbl_connect_status
-        '
-        Me.lbl_connect_status.AutoSize = True
-        Me.lbl_connect_status.BackColor = System.Drawing.Color.Transparent
-        Me.lbl_connect_status.Font = New System.Drawing.Font("Gotham Bold", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lbl_connect_status.Location = New System.Drawing.Point(28, 20)
-        Me.lbl_connect_status.Name = "lbl_connect_status"
-        Me.lbl_connect_status.Size = New System.Drawing.Size(243, 19)
-        Me.lbl_connect_status.TabIndex = 1
-        Me.lbl_connect_status.Text = "Disconnected from Dropbox"
-        '
-        'btn_connectdropbox
-        '
-        Me.btn_connectdropbox.BackColor = System.Drawing.Color.Transparent
-        Me.btn_connectdropbox.BackgroundImage = CType(resources.GetObject("btn_connectdropbox.BackgroundImage"), System.Drawing.Image)
-        Me.btn_connectdropbox.Location = New System.Drawing.Point(28, 236)
-        Me.btn_connectdropbox.Name = "btn_connectdropbox"
-        Me.btn_connectdropbox.Size = New System.Drawing.Size(250, 50)
-        Me.btn_connectdropbox.TabIndex = 0
-        Me.btn_connectdropbox.TabStop = False
-        '
         'panel_jumpin
         '
         Me.panel_jumpin.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
@@ -2499,6 +2400,14 @@ Partial Class main
         Me.thread_dropbox_exe.WorkerReportsProgress = True
         Me.thread_dropbox_exe.WorkerSupportsCancellation = True
         '
+        'panel_e2
+        '
+        Me.panel_e2.BackgroundImage = CType(resources.GetObject("panel_e2.BackgroundImage"), System.Drawing.Image)
+        Me.panel_e2.Location = New System.Drawing.Point(42, 400)
+        Me.panel_e2.Name = "panel_e2"
+        Me.panel_e2.Size = New System.Drawing.Size(300, 300)
+        Me.panel_e2.TabIndex = 29
+        '
         'main
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -2630,12 +2539,6 @@ Partial Class main
         CType(Me.picturebox_twitter, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btn_discord, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.picturebox_reddit, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.panel_dropbox.ResumeLayout(False)
-        Me.panel_dropbox.PerformLayout()
-        Me.panel_connected.ResumeLayout(False)
-        CType(Me.btn_featurepipeline, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.btn_disconnect, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.btn_connectdropbox, System.ComponentModel.ISupportInitialize).EndInit()
         Me.panel_jumpin.ResumeLayout(False)
         Me.panel_jumpin.PerformLayout()
         CType(Me.btn_play_jumpin, System.ComponentModel.ISupportInitialize).EndInit()
@@ -2832,19 +2735,11 @@ Partial Class main
     Friend WithEvents checkbox_extensions As CheckBox
     Friend WithEvents btn_search_swh As PictureBox
     Friend WithEvents timer_waitforexit As Timer
-    Friend WithEvents panel_dropbox As Panel
-    Friend WithEvents btn_connectdropbox As PictureBox
-    Friend WithEvents lbl_connect_status As Label
-    Friend WithEvents lbl_description As Label
-    Friend WithEvents panel_connected As Panel
-    Friend WithEvents btn_disconnect As PictureBox
     Friend WithEvents panel_socialmedia As Panel
     Friend WithEvents picturebox_twitter As PictureBox
     Friend WithEvents btn_discord As PictureBox
     Friend WithEvents picturebox_reddit As PictureBox
     Friend WithEvents lbl_socialmedia As Label
-    Friend WithEvents btn_featurepipeline As PictureBox
-    Friend WithEvents lbl_disclaimer As Label
     Friend WithEvents btn_kofi As PictureBox
     Friend WithEvents btn_openright_home As PictureBox
     Friend WithEvents thread_dropbox_exe As System.ComponentModel.BackgroundWorker
@@ -2853,4 +2748,5 @@ Partial Class main
     Friend WithEvents lbl_wiki As Label
     Friend WithEvents btn_help As PictureBox
     Friend WithEvents picturebox_earlyaccess As PictureBox
+    Friend WithEvents panel_e2 As Panel
 End Class

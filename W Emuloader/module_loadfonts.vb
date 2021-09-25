@@ -55,7 +55,6 @@
         Dim gothamfont12 As New System.Drawing.Font(main.gotham.Families(0), 12)
         main.lbl_status.Font = gothamfont12
         main.lbl_library.Font = gothamfont12
-        main.lbl_connect_status.Font = gothamfont12
         main.lbl_socialmedia.Font = gothamfont12
         main.lbl_wiki.Font = gothamfont12
 
@@ -89,10 +88,8 @@
         main.lbl_networkusage.Font = opensansfont14
         main.lbl_peak.Font = opensansfont14
         main.lbl_total.Font = opensansfont14
-        main.lbl_disclaimer.Font = opensansfont14
 
         Dim opensansfont8 As New System.Drawing.Font(main.opensans.Families(0), 9)
-        main.lbl_description.Font = opensansfont8
 
         Dim gothamfont18 As New System.Drawing.Font(main.gotham.Families(0), 18)
         main.emu_one.Font = gothamfont18

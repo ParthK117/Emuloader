@@ -39,6 +39,4 @@ C:\Users\Parth\Music\W Emuloader\W Emuloader\obj\Debug\Emuloader_MarkupCompile.c
 C:\Users\Parth\Music\W Emuloader\W Emuloader\obj\Debug\Emuloader_MarkupCompile.lref
 C:\Users\Parth\Music\W Emuloader\W Emuloader\obj\Debug\mainux.baml
 C:\Users\Parth\Music\W Emuloader\W Emuloader\obj\Debug\Emuloader.g.resources
-C:\Users\Parth\Music\W Emuloader\W Emuloader\obj\Debug\Emuloader.connectwithdropbox.resources
 C:\Users\Parth\Music\W Emuloader\W Emuloader\obj\Debug\Emuloader.updates.resources
-C:\Users\Parth\Music\W Emuloader\W Emuloader\obj\Debug\Emuloader.manage_dropbox.resources

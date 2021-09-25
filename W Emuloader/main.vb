@@ -17,7 +17,7 @@ Public Class main
     Public Shared labelgrey As Color
     Public Shared tab_index = 0
     Public Shared dark = 0
-    Public Shared version_number = "1.2.0"
+    Public Shared version_number = "1.3.0"
     Public Shared global_settings As New List(Of String)
     Public Shared boxart_url As String
     Dim emulator As Process
@@ -27,7 +27,7 @@ Public Class main
 
     Private Sub main_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         updates.Show()
-
+        Me.MinimumSize = New Size(1600, 800)
         'Check if windows version is above 7
         If Environment.OSVersion.ToString.Contains("6.1") Then
             MessageBox.Show("Windows 7 and lower are not supported, Sorry.")
@@ -101,7 +101,7 @@ Public Class main
         End If
 
         'Sets version number label using version_number global variable
-        lbl_version.Text = "v" & version_number
+        lbl_version.Text = "Legacy v" & version_number
 
         'sets network usage title forecolor
         lbl_networkusage.ForeColor = labelgrey
@@ -116,7 +116,6 @@ Public Class main
 
         'Calls jumpin updater from emulator updaters which populates the lastplayed section on the home panel.
         Call jumpin_updater()
-        Call dropbox_status_check()
         updates.Hide()
     End Sub
 
@@ -1981,7 +1980,6 @@ Do you confirm that you either own this content, or that this content has been a
     End Sub
 
     Private Sub btn_dropbox_Click(sender As Object, e As EventArgs) Handles btn_dropbox.Click
-        connectwithdropbox.Show()
     End Sub
 
     Private Sub btn_purchase_MouseEnter(sender As Object, e As EventArgs) Handles btn_purchase.MouseEnter
@@ -2360,35 +2358,12 @@ Do you confirm that you either own this content, or that this content has been a
     End Sub
 
 
-    Private Sub btn_connectdropbox_MouseEnter(sender As Object, e As EventArgs) Handles btn_connectdropbox.MouseEnter
-        btn_connectdropbox.Image = System.Drawing.Image.FromFile(".\resources\dropboxwhite.png")
-    End Sub
-
-    Private Sub btn_connectdropbox_MouseLeave(sender As Object, e As EventArgs) Handles btn_connectdropbox.MouseLeave
-        btn_connectdropbox.Image = System.Drawing.Image.FromFile(".\resources\dropboxblack.png")
-    End Sub
-
-    Private Sub btn_connectdropbox_MouseDown(sender As Object, e As MouseEventArgs) Handles btn_connectdropbox.MouseDown
-        connectwithdropbox.Show()
-    End Sub
-
-    Private Sub btn_disconnect_Click(sender As Object, e As EventArgs) Handles btn_disconnect.Click
-        If File.Exists(".\modules\access_token.dat") Then
-            File.Delete(".\modules\access_token.dat")
-            panel_connected.Visible = False
-        End If
-    End Sub
-
     Private Sub picturebox_reddit_Click(sender As Object, e As EventArgs) Handles picturebox_reddit.Click
         Process.Start("https://www.reddit.com/r/Emuloader/")
     End Sub
 
     Private Sub btn_kofi_Click(sender As Object, e As EventArgs) Handles btn_kofi.Click
         Process.Start("https://ko-fi.com/tungsten")
-    End Sub
-
-    Private Sub btn_featurepipeline_Click(sender As Object, e As EventArgs) Handles btn_featurepipeline.Click
-        manage_dropbox.Show()
     End Sub
 
     Private Sub btn_openright_home_Click(sender As Object, e As EventArgs) Handles btn_openright_home.Click
